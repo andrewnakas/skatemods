@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+// Pulled at build time so the page shows the current release without client JS.
+async function latest(repo: string) {
+  try {
+    const headers: Record<string, string> = { 'User-Agent': 'skatemods-build' };
+    if (import.meta.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${import.meta.env.GITHUB_TOKEN}`;
+    const r = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, { headers });
+    if (!r.ok) return null;
+    const j = await r.json();
+    return { tag: j.tag_name as string, date: (j.published_at as string).slice(0, 10), url: j.html_url as string };
+  } catch {
+    return null;
+  }
+}
+
+const builds = [
+  { repo: 'mchughalex/skate3recomp', name: 'skate3recomp', platforms: 'Windows · Linux · macOS', what: 'The upstream native recompilation by Alex McHugh, with a D3D12/Vulkan renderer since v2.0. Start here.' },
+  { repo: 'andrewnakas/SK8-Engine', name: 'SK8-Engine', platforms: 'Windows · Linux · macOS', what: 'The recomp extended toward one cross-platform build with every community feature: multiplayer, map loading, trainer and more.' },
+  { repo: 'andrewnakas/skate3-level-loader', name: 'Level Loader', platforms: 'Windows · Linux · macOS', what: 'Patched engine plus a map library. Pick a map and boot straight into it.' },
+  { repo: 'andrewnakas/skate3-android', name: 'Skate 3 for Android', platforms: 'Android (ARM64)', what: 'The recomp on Android phones, with Vulkan and custom GPU drivers.' },
+  { repo: 'Buku313/Skate3-Mobile', name: 'Skate3-Mobile', platforms: 'Android (ARM64)', what: 'An independent ARM64 Android recompilation. One APK, your own ISO.' },
+  { repo: 'andrewnakas/skate3-ios-setup', name: 'iOS setup', platforms: 'iPhone · iPad', what: 'Build the recompilation for iOS from your own disc image.' },
+];
+const withReleases = await Promise.all(builds.map(async (b) => ({ ...b, release: await latest(b.repo) })));
+---
+<Base title="Skate 3 recomp" description="Native Skate 3 on Windows, Linux, macOS, Android and iOS: every recompilation build and where to get it.">
+  <PageHead eyebrow="Recomp" title="Skate 3, native everywhere" lede="Static recompilation translated the Xbox 360 game's PowerPC code into native code ahead of time. It's not emulation: the retail skating and physics run directly on your machine." />
+  <div class="wrap">
+    <div class="grid">
+      {withReleases.map((b) => (
+        <article class="card build">
+          <p class="plat">{b.platforms}</p>
+          <h3>{b.name}</h3>
+          <p>{b.what}</p>
+          <div class="foot">
+            {b.release
+              ? <a class="btn primary" href={b.release.url}>{b.release.tag} · {b.release.date}</a>
+              : <a class="btn" href={`https://github.com/${b.repo}`}>View on GitHub</a>}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <section class="prose more">
+      <h2>The all-in-one build</h2>
+      <p>SK8-Engine is heading toward one Skate 3 that runs on every platform and includes everything the community has built: native rendering, online multiplayer, the map library with every converted community map, the <a href="https://github.com/andrewnakas/sk8trainer">trainer</a>, and phone and desktop builds from one tree. Progress is tracked on <a href="https://github.com/andrewnakas/SK8-Engine">GitHub</a>.</p>
+      <h2>You bring the game</h2>
+      <p>None of these builds include Skate 3's game files. Every one asks for your own Xbox 360 disc image (and sometimes Title Update 3) on first run. <a href="/guides/play-skate-3-on-pc/">Install guide →</a></p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .build { display: flex; flex-direction: column; }
+  .plat { font-size: 0.8rem !important; font-weight: 600; color: var(--ink-faint) !important; }
+  .foot { margin-top: auto; padding-top: 1rem; }
+  .foot .btn { font-size: 0.88rem; padding: 0.5rem 0.9rem; }
+  .more { margin-top: 3rem; }
+</style>

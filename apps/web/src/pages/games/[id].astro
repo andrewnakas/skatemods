@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Scene from '../../components/Scene.astro';
+import { tools, kinds } from '../../data/tools';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  return games.map((game) => ({ params: { id: game.id }, props: { game } }));
+}
+
+const { game } = Astro.props;
+const { Content } = await render(game);
+const d = game.data;
+const gameTools = tools.filter((t) => t.game === game.id);
+const guides = (await getCollection('guides')).filter((g) => g.data.game === game.id).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title={`Modding ${d.title}`} description={d.short}>
+  <PageHead eyebrow={`${d.year} · ${d.developer}`} title={d.title} lede={d.short}>
+    <div class="facts">
+      <Scene scene={d.scene} />
+      <span class="chip">{d.engine}</span>
+      {d.platforms.map((p) => <span class="chip">{p}</span>)}
+    </div>
+  </PageHead>
+
+  <div class="wrap layout">
+    <article class="prose">
+      <Content />
+    </article>
+
+    <aside>
+      {d.howToMod.length > 0 && (
+        <section class="card">
+          <h3>How to mod it</h3>
+          <ul>{d.howToMod.map((h) => <li>{h}</li>)}</ul>
+        </section>
+      )}
+      {guides.length > 0 && (
+        <section class="card">
+          <h3>Guides</h3>
+          <ul>{guides.map((g) => <li><a href={`/guides/${g.id}/`}>{g.data.title}</a></li>)}</ul>
+        </section>
+      )}
+      {d.links.length > 0 && (
+        <section class="card">
+          <h3>Links</h3>
+          <ul>{d.links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}</ul>
+        </section>
+      )}
+    </aside>
+  </div>
+
+  {gameTools.length > 0 && (
+    <section class="wrap tools">
+      <h2>Tools</h2>
+      <div class="grid">
+        {gameTools.map((t) => (
+          <a class="card" href={t.url}>
+            <span class="chip">{kinds[t.kind]}</span>
+            <h3>{t.name}</h3>
+            <p>{t.what}</p>
+            <p class="by">by {t.by}{t.open && ' · open source'}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .facts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+  .layout { display: grid; gap: 2.5rem; }
+  @media (min-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr) 320px; } }
+  aside { display: grid; gap: 1rem; align-content: start; }
+  aside h3 { margin: 0 0 0.6rem; }
+  aside ul { margin: 0; padding-left: 1.1rem; font-size: 0.93rem; }
+  aside li + li { margin-top: 0.4rem; }
+  @media (min-width: 960px) { aside { position: sticky; top: 84px; } }
+  .tools { margin-top: 3.5rem; }
+  .by { margin-top: 0.6rem !important; font-size: 0.82rem !important; color: var(--ink-faint) !important; }
+</style>

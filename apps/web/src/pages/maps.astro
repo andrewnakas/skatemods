@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import catalog from '../data/catalog.json';
+
+const official = catalog.packs.filter((p) => p.id.startsWith('official-'));
+const community = catalog.packs.filter((p) => !p.id.startsWith('official-'));
+const all = catalog.packs.flatMap((p) => p.maps);
+const count = (s: string) => all.filter((m) => m.status === s).length;
+const tone: Record<string, string> = { boots: 'ok', stalls: 'bad', untested: '' };
+const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untested: 'Untested' };
+---
+<Base title="Skate 3 maps" description="Every known Skate 3 DLC and community map pack, with load-tested status on the native recomp.">
+  <PageHead eyebrow="Skate 3 maps" title="Community map catalog" lede={`${catalog.packs.length} packs and ${all.length} maps known to the Skate 3 Level Loader, with load-tested status on the native recomp.`}>
+    <div class="legend">
+      <span class="chip ok">{count('boots')} boot</span>
+      <span class="chip bad">{count('stalls')} stall</span>
+      <span class="chip">{count('untested')} untested</span>
+    </div>
+  </PageHead>
+
+  <div class="wrap">
+    <div class="callout">
+      <p><strong>Uploads are coming.</strong> Signed-in users will host maps here and get every format: PS3, recomp <code>.big</code> and <code>.skate</code>. For now this is the catalog only. Pack files aren't hosted; get them from their authors, then <a href="/guides/install-community-maps/">import them</a>.</p>
+    </div>
+
+    <label class="search">
+      <span class="visually-hidden">Filter maps</span>
+      <input type="search" placeholder="Filter by pack or map name…" autocomplete="off" />
+    </label>
+
+    <h2>Community packs <span class="n">{community.length}</span></h2>
+    <div class="grid packs">
+      {community.map((p) => (
+        <article class="card pack" data-text={`${p.name} ${p.maps.map((m) => m.name).join(' ')}`.toLowerCase()}>
+          <h3>{p.name}</h3>
+          <ul>
+            {p.maps.map((m) => (
+              <li><span>{m.name}</span><span class={`chip ${tone[m.status] ?? ''}`}>{label[m.status] ?? m.status}</span></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <h2>Official DLC <span class="n">{official.length}</span></h2>
+    <div class="grid packs">
+      {official.map((p) => (
+        <article class="card pack" data-text={`${p.name} ${p.maps.map((m) => m.name).join(' ')}`.toLowerCase()}>
+          <h3>{p.name}</h3>
+          <ul>
+            {p.maps.map((m) => (
+              <li><span>{m.name}</span><span class={`chip ${tone[m.status] ?? ''}`}>{label[m.status] ?? m.status}</span></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <p class="src">Catalog synced {catalog.synced} from <a href={catalog.source}>skate3-level-loader</a>. "Stalls" means the map hung under the loader's automated boot. Some of these load fine when navigated by hand (<code>skate3loader manual</code>).</p>
+  </div>
+</Base>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('.search input');
+  const cards = [...document.querySelectorAll<HTMLElement>('.pack')];
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    for (const c of cards) c.hidden = q !== '' && !c.dataset.text!.includes(q);
+  });
+</script>
+
+<style>
+  .legend { display: flex; gap: 0.4rem; margin-top: 1rem; flex-wrap: wrap; }
+  .search input {
+    width: 100%; max-width: 480px; padding: 0.75rem 1rem; border-radius: 999px; font: inherit;
+    border: 1px solid var(--line); background: var(--bg-raised); color: var(--ink);
+  }
+  h2 { display: flex; align-items: center; gap: 0.6rem; }
+  .n { font: 600 0.9rem var(--font-mono); color: var(--ink-faint); }
+  .pack h3 { margin-top: 0; }
+  .pack ul { list-style: none; padding: 0; margin: 0; font-size: 0.92rem; }
+  .pack li { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.3rem 0; border-top: 1px solid var(--line); }
+  .pack li:first-child { border-top: 0; }
+  .src { margin-top: 2rem; font-size: 0.88rem; color: var(--ink-faint); max-width: 75ch; }
+</style>

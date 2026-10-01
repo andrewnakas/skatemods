@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+const matrix = [
+  { from: 'PS3 (DIST .psf, .big.edat)', recomp: ['ok', 'Yes'], skate: ['ok', 'Yes, via recomp'], ps3: ['', 'Already'] },
+  { from: 'Xbox 360 / recomp (.xsf, .big)', recomp: ['', 'Already'], skate: ['ok', 'Yes'], ps3: ['warn', 'Planned'] },
+  { from: '.skate (Rust engine)', recomp: ['warn', 'Planned'], skate: ['', 'Already'], ps3: ['warn', 'Planned'] },
+];
+---
+<Base title="Map conversion" description="How skatemods converts Skate 3 maps between PS3, the native recomp and the Rust engine's .skate format, for free on GitHub Actions.">
+  <PageHead eyebrow="Map conversion" title="One upload, every platform" lede="Upload a Skate 3 map from any platform and get the others. The pipeline is open source, needs no game files, and runs on free GitHub Actions runners." />
+  <div class="wrap">
+    <h2>What converts today</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>From ↓ / To →</th><th>Recomp <code>.big</code></th><th><code>.skate</code></th><th>PS3</th></tr></thead>
+        <tbody>
+          {matrix.map((r) => (
+            <tr>
+              <th scope="row">{r.from}</th>
+              {[r.recomp, r.skate, r.ps3].map(([tone, text]) => <td><span class={`chip ${tone}`}>{text}</span></td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>How it works</h2>
+      <ol>
+        <li><strong>Unpack.</strong> Archives (<code>.zip</code>, <code>.7z</code>, <code>.rar</code>) and EA big files (including PS3 <code>.big.edat</code>) are unpacked with path-traversal and size checks. Every <code>DIST_*</code> world inside is detected as PS3 (<code>.psf</code>) or Xbox 360 (<code>.xsf</code>).</li>
+        <li><strong>PS3 → recomp.</strong> <a href="https://github.com/andrewnakas/skate3-ps3-to-x360">skate3-ps3-to-x360</a> rebuilds vertex and index buffers, vertex descriptors, mesh islands and textures in Xbox 360 form, then packages a standalone DLC <code>.big</code> with DlcBuilder.</li>
+        <li><strong>Xbox 360 → .skate.</strong> The <a href="https://github.com/SK8-ENGINE/skate-3-rust-engine">Rust engine's</a> asset pipeline decodes the world, builds the retail collision archive and writes a <code>.skate</code> file.</li>
+        <li><strong>Deliver.</strong> Each output is listed with its size, timing and a log. Anything the converter can't handle is refused and explained, never silently emitted wrong.</li>
+      </ol>
+
+      <h2>Proven on free runners</h2>
+      <p>The first end-to-end run on GitHub's free <code>ubuntu-latest</code> runner, with no game data present:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Map</th><th>Path</th><th>Output</th><th>Time</th></tr></thead>
+          <tbody>
+            <tr><td>JumpCity</td><td>Xbox 360 → <code>.skate</code></td><td>95 MB</td><td>7 s</td></tr>
+            <tr><td>Sunbad Art Gallery</td><td>PS3 → recomp <code>.big</code></td><td>94 MB</td><td>4 s</td></tr>
+            <tr><td>Sunbad Art Gallery</td><td>PS3 → <code>.skate</code></td><td>47 MB</td><td>4 s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Peak memory was under 0.5 GB per map. Run it yourself with the <a href="/guides/convert-ps3-maps/">CLI guide</a>.</p>
+
+      <h2>What's next</h2>
+      <ul>
+        <li>Accounts (sign in with GitHub) and uploads to storage with no download fees.</li>
+        <li>A conversion job per upload, with live status and per-platform download buttons.</li>
+        <li>An automatic check that rejects packs carrying stock EA assets, plus a takedown process. See the <a href="/about/">policy</a>.</li>
+        <li>Reverse paths: recomp → PS3 and <code>.skate</code> → recomp.</li>
+      </ul>
+    </div>
+  </div>
+</Base>

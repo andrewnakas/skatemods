@@ -22,6 +22,10 @@ converter/convert.sh <map archive|.big|folder> out/
 
 Requires Python 3.11+, .NET 9 SDK and `bsdtar`.
 
+## Website
+
+The site lives in [`apps/web`](apps/web): an Astro static site with game pages, guides, the Skate 3 modding history, a tools directory and the community map catalog.
+
 ## Status
 
-Phase 0 done: PS3 → recomp → `.skate` and X360 → `.skate` run on a free `ubuntu-latest` runner with no game data (about 10 s and under 0.5 GB of RAM per map; `.github/workflows/convert-spike.yml`). Site, accounts and uploads are next.
+Phase 0 done: PS3 → recomp → `.skate` and X360 → `.skate` run on a free `ubuntu-latest` runner with no game data (about 10 s and under 0.5 GB of RAM per map; `.github/workflows/convert-spike.yml`). The static site (Phase 1) is built. Accounts and uploads come next.

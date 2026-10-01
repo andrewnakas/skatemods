@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+const eras = [
+  {
+    years: '2000–2014', title: 'The Neversoft PC era',
+    body: 'The Tony Hawk\'s PC ports were moddable from day one. GameSpy kept them online until it shut down in 2014, which pushed the community toward fan-run servers.',
+    link: '/games/tony-hawk-classic/',
+  },
+  {
+    years: '2007–2013', title: 'skate. resets the genre',
+    body: 'EA Black Box\'s flick-it trilogy (2007, 2009, 2010) takes over from Tony Hawk\'s. It\'s console-only, so modding it means modded consoles. The studio closes in 2013.',
+    link: '/history/skate-3/',
+  },
+  {
+    years: '2013–2023', title: 'THUG Pro and the long tail',
+    body: 'THUG Pro collects every Neversoft level into THUG2, and OpenSpy and PARTYMOD keep the classics running on modern PCs and online.',
+    link: '/games/tony-hawk-classic/',
+  },
+  {
+    years: '2018–2022', title: 'The sims open up',
+    body: 'Skater XL (early access 2018) and Session put community maps at the center: mod.io, Unity Mod Manager, Session Mod Manager and the Illusory unlocker. Fan multiplayer comes before the official version.',
+    link: '/games/skater-xl/',
+  },
+  {
+    years: '2020–2025', title: 'Remakes and the revival',
+    body: 'Unreal remakes of THPS 1+2 (2020) and 3+4 (2025) get Nexus mods and THPSPro. EA\'s skate. returns in 2025 as a free-to-play Frostbite game, locked down by kernel anti-cheat.',
+    link: '/games/skate-2025/',
+  },
+  {
+    years: '2026–', title: 'Skate 3 goes native',
+    body: 'A static recompilation puts Skate 3 on PC, Android, iOS and the web. The world format gets fully documented, and maps start moving between every platform.',
+    link: '/history/skate-3/',
+  },
+];
+---
+<Base title="History" description="A short history of skate game modding, from Neversoft's PC ports to Skate 3's native recompilation.">
+  <PageHead eyebrow="History" title="A short history of skate game modding" lede="Twenty-six years of fans keeping their skate games alive after the publishers moved on." />
+  <div class="wrap">
+    <a class="card big" href="/history/skate-3/">
+      <span class="chip accent">Deep dive</span>
+      <h3>Sixteen years of Skate 3 modding →</h3>
+      <p>A sourced timeline from the 2010 launch through SPRX menus, RPCS3, the custom Blaze server, the recomp and cross-platform map conversion.</p>
+    </a>
+    <ol class="eras">
+      {eras.map((e) => (
+        <li>
+          <span class="years">{e.years}</span>
+          <h2>{e.title}</h2>
+          <p>{e.body}</p>
+          <a href={e.link}>Read more →</a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>
+
+<style>
+  .big { margin-bottom: 2.5rem; border-color: var(--accent); border-width: 2px; }
+  .big h3 { font-size: 1.4rem; }
+  .eras { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .eras li { border-top: 4px solid var(--accent); padding-top: 0.8rem; }
+  .years { font: 600 0.85rem var(--font-mono); color: var(--ink-faint); }
+  .eras h2 { font-size: 1.35rem; margin: 0.3rem 0 0.5rem; }
+  .eras p { color: var(--ink-soft); margin: 0 0 0.5rem; }
+</style>

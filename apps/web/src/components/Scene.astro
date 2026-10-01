@@ -1,0 +1,11 @@
+---
+interface Props { scene: 'thriving' | 'active' | 'niche' | 'locked' }
+const labels = {
+  thriving: ['ok', 'Thriving scene'],
+  active: ['ok', 'Active scene'],
+  niche: ['warn', 'Niche scene'],
+  locked: ['bad', 'Locked down'],
+} as const;
+const [tone, label] = labels[Astro.props.scene];
+---
+<span class={`chip ${tone}`}>{label}</span>

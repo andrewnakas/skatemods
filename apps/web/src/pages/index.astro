@@ -1,0 +1,166 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Scene from '../components/Scene.astro';
+import catalog from '../data/catalog.json';
+import { tools } from '../data/tools';
+import { timeline, formatDate } from '../data/skate3-timeline';
+
+const games = (await getCollection('games')).sort((a, b) => a.data.order - b.data.order);
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+const mapCount = catalog.packs.reduce((n, p) => n + p.maps.length, 0);
+const recent = [...timeline].reverse().slice(0, 5);
+---
+<Base title="skatemods">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Open source · community run</p>
+        <h1>Mod every skate game.</h1>
+        <p class="lede">Guides, history and tools for every skate game, from Skate 3 and THUG Pro to Skater XL and Session. Skate 3 maps convert automatically between <strong>PS3</strong>, the <strong>native PC recomp</strong> and the <strong>Rust engine</strong>.</p>
+        <div class="cta">
+          <a class="btn primary" href="/guides/play-skate-3-on-pc/">Play Skate 3 on PC</a>
+          <a class="btn" href="/play/">Skate in your browser</a>
+        </div>
+      </div>
+      <figure class="pipeline" aria-label="Map conversion pipeline">
+        <div class="node"><span class="chip">PS3</span><code>DIST_*.psf</code></div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="node accent"><span class="chip accent">skatemods</span><span>convert in the cloud</span></div>
+        <div class="split" aria-hidden="true"><span>↙</span><span>↘</span></div>
+        <div class="pair">
+          <div class="node"><span class="chip">Recomp</span><code>_00000000.big</code></div>
+          <div class="node"><span class="chip">Rust engine</span><code>.skate</code></div>
+        </div>
+        <figcaption>About 10 s per map on a free runner. No game files involved.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section stats">
+    <div class="wrap"><div class="stat-row">
+      <div><strong>{games.length}</strong><span>games covered</span></div>
+      <div><strong>{mapCount}</strong><span>Skate 3 maps tracked</span></div>
+      <div><strong>{tools.length}</strong><span>tools indexed</span></div>
+      <div><strong>{timeline.length}</strong><span>moments in Skate 3 modding history</span></div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="row-head"><h2>Games</h2><a href="/games/">All games →</a></div>
+      <div class="grid">
+        {games.map((g) => (
+          <a class:list={['card', { featured: g.data.featured }]} href={`/games/${g.id}/`}>
+            <div class="meta"><span class="year">{g.data.year}</span><Scene scene={g.data.scene} /></div>
+            <h3>{g.data.title}</h3>
+            <p>{g.data.short}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <div class="row-head"><h2>Start here</h2><a href="/guides/">All guides →</a></div>
+        <ol class="steps">
+          {guides.map((g) => (
+            <li><a href={`/guides/${g.id}/`}><strong>{g.data.title}</strong><span>{g.data.description}</span></a></li>
+          ))}
+        </ol>
+      </div>
+      <div>
+        <div class="row-head"><h2>Lately in Skate 3</h2><a href="/history/skate-3/">Full history →</a></div>
+        <ul class="recent">
+          {recent.map((e) => (
+            <li><time>{formatDate(e.date)}</time><span>{e.title}{e.who && <em> · {e.who}</em>}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="band">
+        <div>
+          <h2>Host your Skate 3 maps here</h2>
+          <p>Upload a map from PS3, the recomp or the Rust engine and get every other format. Accounts and uploads are coming next. The conversion pipeline already runs, and it's open source.</p>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="/convert/">How conversion works</a>
+          <a class="btn" href="https://github.com/andrewnakas/skatemods">Contribute</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 3.5rem 0 1rem; background:
+    radial-gradient(1200px 400px at 85% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%); }
+  .hero-grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.25fr 1fr; } }
+  .hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); margin: 0.6rem 0 1rem; }
+  .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  .pipeline {
+    margin: 0; padding: 1.4rem; border-radius: 16px; border: 1px solid var(--line);
+    background: var(--bg-raised); box-shadow: var(--shadow);
+    display: grid; justify-items: center; gap: 0.4rem;
+  }
+  .node {
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+    padding: 0.7rem 1rem; border: 1px dashed var(--line); border-radius: var(--radius); background: var(--bg);
+    min-width: 0; text-align: center;
+  }
+  .node.accent { border: 2px solid var(--accent); }
+  .node code { font-size: 0.8rem; word-break: break-all; }
+  .arrow, .split { color: var(--ink-faint); font-size: 1.3rem; line-height: 1; }
+  .split { display: flex; gap: 4rem; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; width: 100%; }
+  .pipeline figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--ink-faint); text-align: center; }
+
+  .stats { padding-top: 2rem; }
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .stat-row > div { background: var(--bg-raised); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; }
+  .stat-row strong { font: 400 2rem/1.1 var(--font-display); }
+  .stat-row span { color: var(--ink-soft); font-size: 0.9rem; }
+
+  .row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .row-head h2 { margin: 0 0 1rem; }
+  .meta { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .year { font: 600 0.85rem var(--font-mono); color: var(--ink-faint); }
+  .card.featured { border-color: var(--accent); border-width: 2px; }
+
+  .two { display: grid; gap: 2.5rem; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
+  .steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 0.6rem; }
+  .steps li { counter-increment: s; }
+  .steps a {
+    display: grid; grid-template-columns: 2.2rem 1fr; column-gap: 0.75rem; text-decoration: none; color: inherit;
+    padding: 0.8rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-raised);
+  }
+  .steps a:hover { border-color: var(--accent); }
+  .steps a::before {
+    content: counter(s); grid-row: span 2; display: grid; place-items: center; width: 2.2rem; height: 2.2rem;
+    border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 700;
+  }
+  .steps span { color: var(--ink-soft); font-size: 0.92rem; }
+  .recent { list-style: none; margin: 0; padding: 0; }
+  .recent li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.75rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+  .recent time { font: 0.85rem var(--font-mono); color: var(--ink-faint); padding-top: 0.15rem; }
+  .recent em { color: var(--ink-faint); font-style: normal; }
+
+  .band {
+    display: grid; gap: 1.5rem; align-items: center; padding: 2rem; border-radius: 16px;
+    background: var(--ink); color: var(--bg);
+  }
+  .band h2 { margin-top: 0; }
+  .band p { color: color-mix(in srgb, var(--bg) 80%, transparent); max-width: 60ch; }
+  .band .btn:not(.primary) { color: var(--bg); border-color: var(--bg); }
+  .band .btn:not(.primary):hover { background: color-mix(in srgb, var(--bg) 12%, transparent); }
+  @media (min-width: 900px) { .band { grid-template-columns: 1.6fr 1fr; } .band .cta { justify-content: flex-end; margin: 0; } }
+</style>

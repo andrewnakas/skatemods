@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { tools, kinds, type ToolKind } from '../data/tools';
+
+const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
+const used = (Object.keys(kinds) as ToolKind[]).filter((k) => tools.some((t) => t.kind === k));
+---
+<Base title="Tools" description="Every skate modding tool in one place: ports, map converters, texture tools, servers, trainers and mod managers.">
+  <PageHead eyebrow="Tools" title="The toolbox" lede={`${tools.length} ports, converters, servers, trainers and mod managers across ${new Set(tools.map((t) => t.game)).size} games.`} />
+  <div class="wrap">
+    <div class="filters" role="group" aria-label="Filter by kind">
+      <button type="button" aria-pressed="true" data-kind="">All</button>
+      {used.map((k) => <button type="button" aria-pressed="false" data-kind={k}>{kinds[k]}</button>)}
+    </div>
+    <div class="grid">
+      {tools.map((t) => (
+        <a class="card tool" href={t.url} data-kind={t.kind}>
+          <div class="meta"><span class="game">{games.get(t.game)}</span>{t.open && <span class="chip ok">open source</span>}</div>
+          <h3>{t.name}</h3>
+          <p>{t.what}</p>
+          <p class="by">{kinds[t.kind]} · by {t.by}</p>
+        </a>
+      ))}
+    </div>
+    <p class="add">Missing a tool? <a href="https://github.com/andrewnakas/skatemods/blob/main/apps/web/src/data/tools.ts">Add it on GitHub</a>.</p>
+  </div>
+</Base>
+
+<script>
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('.filters button')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.tool')];
+  for (const b of buttons) b.addEventListener('click', () => {
+    for (const o of buttons) o.setAttribute('aria-pressed', String(o === b));
+    for (const c of cards) c.hidden = !!b.dataset.kind && c.dataset.kind !== b.dataset.kind;
+  });
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .filters button {
+    font: 500 0.9rem var(--font-body); padding: 0.4rem 0.85rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--bg-raised); color: var(--ink-soft);
+  }
+  .filters button[aria-pressed='true'] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: center; }
+  .game { font-size: 0.8rem; color: var(--ink-faint); font-weight: 600; }
+  .by { margin-top: 0.6rem !important; font-size: 0.82rem !important; color: var(--ink-faint) !important; }
+  .add { margin-top: 2rem; color: var(--ink-soft); }
+</style>

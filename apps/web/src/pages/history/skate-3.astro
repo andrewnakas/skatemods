@@ -1,0 +1,86 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { timeline, eras, formatDate, type Era } from '../../data/skate3-timeline';
+
+const order: Era[] = ['retail', 'console', 'emulator', 'native', 'convert'];
+// Sections follow the eras; inside each, events keep chronological order.
+// Partial dates sort after exact ones from the same period: "2010" after "2010-05-11".
+const sortKey = (d: string) => (/^\d{4}s$/.test(d) ? `${d.slice(0, 3)}9-12-99` : d.length === 4 ? `${d}-12-99` : d.length === 7 ? `${d}-99` : d);
+const byEra = order.map((era) => ({
+  era,
+  ...eras[era],
+  events: timeline.filter((e) => e.era === era).sort((a, b) => sortKey(a.date).localeCompare(sortKey(b.date))),
+}));
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
+---
+<Base title="Skate 3 modding history" description="From SPRX menus and RTE tools to a native PC port, cross-platform map conversion and a Rust rewrite: the history of Skate 3 modding, with sources.">
+  <PageHead eyebrow="History" title="Sixteen years of Skate 3 modding" lede="From jailbroken PS3s and RGH Xbox 360s to a native PC port, phone builds, a browser build and maps that move between every platform. Every entry links to its source." />
+
+  <div class="wrap">
+    <nav class="eras" aria-label="Eras">
+      {byEra.map((e, i) => <a href={`#${e.era}`}><span>{i + 1}</span>{e.label}</a>)}
+    </nav>
+
+    {byEra.map((e, i) => (
+      <section class="era" id={e.era}>
+        <header>
+          <p class="eyebrow">Era {i + 1}</p>
+          <h2>{e.label}</h2>
+          <p class="blurb">{e.blurb}</p>
+        </header>
+        <ol class="events">
+          {e.events.map((ev) => (
+            <li>
+              <time>{formatDate(ev.date)}</time>
+              <div class="body">
+                <h3>{ev.title}</h3>
+                <p>{ev.body}</p>
+                <p class="meta">
+                  {ev.who && <span class="chip">{ev.who}</span>}
+                  <a href={ev.source} rel="noopener">Source: {host(ev.source)}</a>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+
+    <div class="callout">
+      <p><strong>Missing something?</strong> This history is open source. Add an event, with a source, in <a href="https://github.com/andrewnakas/skatemods/blob/main/apps/web/src/data/skate3-timeline.ts"><code>skate3-timeline.ts</code></a>. Early console-era work is the least documented, and dates and names from that period are especially welcome.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .eras { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .eras a {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem 0.45rem 0.45rem;
+    border: 1px solid var(--line); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--bg-raised);
+  }
+  .eras a:hover { border-color: var(--accent); }
+  .eras span { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 0.85rem; }
+
+  .era { margin-bottom: 3.5rem; }
+  .era h2 { margin: 0.3rem 0 0.2rem; }
+  .blurb { color: var(--ink-soft); margin: 0 0 1.5rem; }
+
+  .events { list-style: none; margin: 0; padding: 0; position: relative; }
+  .events::before { content: ''; position: absolute; left: 7px; top: 0.5rem; bottom: 0.5rem; width: 2px; background: var(--line); }
+  .events li { position: relative; padding: 0 0 1.6rem 2rem; display: grid; gap: 0.2rem; }
+  .events li::before {
+    content: ''; position: absolute; left: 0; top: 0.35rem; width: 16px; height: 16px; border-radius: 999px;
+    background: var(--bg); border: 3px solid var(--accent);
+  }
+  @media (min-width: 760px) {
+    .events::before { left: 9.5rem; }
+    .events li { grid-template-columns: 8.25rem 1fr; gap: 2.5rem; padding-left: 0; }
+    .events li::before { left: calc(9.5rem - 7px); }
+    .events time { text-align: right; }
+  }
+  .events time { font: 600 0.85rem/1.8 var(--font-mono); color: var(--ink-faint); }
+  .events h3 { margin: 0 0 0.3rem; }
+  .events p { margin: 0; color: var(--ink-soft); max-width: 68ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.5rem !important; font-size: 0.85rem; }
+</style>

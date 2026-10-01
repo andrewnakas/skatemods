@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="About & policy" description="What skatemods is, how it's run, and its content and takedown policy.">
+  <PageHead eyebrow="About" title="About skatemods" lede="An open-source, community-run hub for modding every skate game." />
+  <div class="wrap prose">
+    <h2>What this is</h2>
+    <p>skatemods.com collects what the skate modding community knows in one place: how to mod each game, the history, the tools, and, for Skate 3, a home for community maps that converts every upload to every platform.</p>
+    <p>Everything (the site, the converter, the content) lives in <a href="https://github.com/andrewnakas/skatemods">one public repository</a>. Fix a guide, add a tool, or add a missing date to the history with a pull request.</p>
+
+    <h2>No game files</h2>
+    <p>skatemods doesn't host retail game files, disc images, executables or official DLC. Every port and tool linked here asks you to supply your own legally obtained copy. The browser build uses a clean-room asset pack in which every texture and sound is regenerated.</p>
+
+    <h2 id="uploads">Upload policy</h2>
+    <ul>
+      <li>Upload maps you made, or have the author's permission to share. Credit the original author.</li>
+      <li>Packs that contain stock EA game assets will be rejected automatically once the check is live.</li>
+      <li>No mods for online-only or anti-cheat-protected games (for example skate. 2025).</li>
+      <li>No malware, cheats aimed at other players, or anything illegal.</li>
+    </ul>
+
+    <h2 id="takedowns">Takedowns</h2>
+    <p>If something here infringes your rights, open an issue on <a href="https://github.com/andrewnakas/skatemods/issues">GitHub</a>. Include the URL, what you own, and how to contact you. We remove first and ask questions after.</p>
+
+    <h2>Not affiliated</h2>
+    <p>skatemods isn't affiliated with or endorsed by Electronic Arts, Full Circle, Activision, Iron Galaxy, Easy Day Studios, Crea-ture Studios or any other publisher or developer. Game names are trademarks of their owners.</p>
+
+    <h2>Credits</h2>
+    <p>The tools and research on this site are other people's work, and every page links to its source. Special thanks to the Dumbads &amp; SunJays Skate3 Modding Discord, Alex McHugh (skate3recomp), Dumbads, randyadr, skate6743, Shellywell123, PARTYMANX, the THUG Pro team and every mapper whose work keeps these games alive.</p>
+  </div>
+</Base>

@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({ params: { id: guide.id }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const { Content, headings } = await render(guide);
+const game = (await getCollection('games')).find((g) => g.id === guide.data.game);
+const toc = headings.filter((h) => h.depth === 2);
+const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/guides/${guide.id}.md`;
+---
+<Base title={guide.data.title} description={guide.data.description}>
+  <PageHead eyebrow={game ? `Guide · ${game.data.title}` : 'Guide'} title={guide.data.title} lede={guide.data.description} />
+  <div class="wrap layout">
+    <article class="prose">
+      <Content />
+      <hr />
+      <p class="foot">Updated {guide.data.updated.toISOString().slice(0, 10)} · <a href={edit}>Improve this guide on GitHub</a></p>
+    </article>
+    {toc.length > 1 && (
+      <aside>
+        <p class="h">On this page</p>
+        <ul>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
+        {game && <p class="back"><a href={`/games/${game.id}/`}>← {game.data.title}</a></p>}
+      </aside>
+    )}
+  </div>
+</Base>
+
+<style>
+  .layout { display: grid; gap: 2rem; }
+  @media (min-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr) 240px; } aside { position: sticky; top: 84px; align-self: start; } }
+  aside { font-size: 0.9rem; }
+  aside ul { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+  aside li a { display: block; padding: 0.3rem 0.8rem; color: var(--ink-soft); text-decoration: none; }
+  aside li a:hover { color: var(--ink); border-left: 2px solid var(--accent); margin-left: -2px; }
+  .h { font-weight: 600; margin: 0 0 0.5rem; }
+  .back { margin-top: 1rem; }
+  .foot { font-size: 0.88rem; color: var(--ink-faint); }
+</style>

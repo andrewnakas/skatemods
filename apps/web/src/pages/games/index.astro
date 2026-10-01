@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Scene from '../../components/Scene.astro';
+
+const games = (await getCollection('games')).sort((a, b) => a.data.order - b.data.order);
+const series = [
+  { id: 'skate', label: 'The skate series', blurb: 'EA Black Box\'s trilogy, the Wii spin-off and the 2025 revival.' },
+  { id: 'tony-hawk', label: 'Tony Hawk\'s', blurb: 'Neversoft classics on PC and the Unreal remakes.' },
+  { id: 'sim', label: 'Skate sims', blurb: 'One stick per foot, community maps everywhere.' },
+  { id: 'indie', label: 'Indie and upcoming', blurb: 'New games built with modding in mind.' },
+] as const;
+---
+<Base title="Games" description="How to mod every skate game, from skate. and Skate 3 to THUG Pro, Skater XL and Session.">
+  <PageHead eyebrow="Games" title="Every skate game, and how to mod it" lede="How alive each game's modding scene is, what tools it uses, and where to start." />
+  <div class="wrap">
+    {series.map((s) => {
+      const list = games.filter((g) => g.data.series === s.id);
+      return list.length > 0 && (
+        <section class="series">
+          <h2>{s.label}</h2>
+          <p class="blurb">{s.blurb}</p>
+          <div class="grid">
+            {list.map((g) => (
+              <a class="card" href={`/games/${g.id}/`}>
+                <div class="meta"><span class="year">{g.data.year} · {g.data.engine}</span><Scene scene={g.data.scene} /></div>
+                <h3>{g.data.title}</h3>
+                <p>{g.data.short}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+<style>
+  .series + .series { margin-top: 3rem; }
+  .series h2 { margin: 0; }
+  .blurb { color: var(--ink-soft); margin: 0.3rem 0 1.2rem; }
+  .meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: center; }
+  .year { font-size: 0.8rem; color: var(--ink-faint); }
+</style>
