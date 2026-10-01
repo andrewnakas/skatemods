@@ -26,6 +26,7 @@ export interface MapRow {
   release_tag: string | null;
   owner_login?: string;
   owner_avatar?: string | null;
+  owner_github?: number;
 }
 
 const canSee = (map: MapRow, user: User | null) =>
@@ -36,7 +37,7 @@ const isPrivileged = (map: MapRow, user: User | null) =>
 
 export async function getMap(env: Env, id: string) {
   return env.DB.prepare(
-    `SELECT m.*, u.login AS owner_login, u.avatar_url AS owner_avatar
+    `SELECT m.*, u.login AS owner_login, u.avatar_url AS owner_avatar, (u.github_id > 0) AS owner_github
      FROM maps m JOIN users u ON u.id = m.owner_id WHERE m.id = ?`,
   ).bind(id).first<MapRow>();
 }
@@ -61,7 +62,7 @@ export async function present(env: Env, map: MapRow, user: User | null) {
     status: map.status,
     createdAt: map.created_at,
     approvedAt: map.approved_at,
-    uploader: { login: map.owner_login, avatar: map.owner_avatar },
+    uploader: { login: map.owner_login, avatar: map.owner_avatar, github: !!map.owner_github },
     files: files.filter((f: any) => privileged || f.kind !== 'log'),
     conversion: job ? {
       status: job.status,
@@ -264,7 +265,10 @@ export const me = new Hono<AppEnv>();
 
 me.get('/', (c) => {
   const user = c.get('user');
-  return c.json({ user: user && { login: user.login, name: user.name, avatar: user.avatar_url, role: user.role } });
+  return c.json({ user: user && {
+    login: user.login, name: user.name, avatar: user.avatar_url, role: user.role,
+    account: (user.github_id ?? 0) > 0 ? 'github' : 'site',
+  } });
 });
 
 me.get('/maps', async (c) => {

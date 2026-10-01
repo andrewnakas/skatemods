@@ -146,3 +146,39 @@ test('automatic policy rejection blocks approval', async () => {
   // The uploader can delete their own map.
   assert.equal((await bob.req('DELETE', `/api/maps/${mapId}`)).status, 200);
 });
+
+test('site accounts: sign up, sign in, upload, no moderator powers', async () => {
+  const name = `skater_${Date.now().toString(36)}`;
+  const a = new Client();
+  const bad = async (body, status, re) => {
+    const r = await a.req('POST', '/api/auth/signup', { json: { agree: true, ...body } });
+    assert.equal(r.status, status); assert.match((await r.json()).error, re);
+  };
+  await bad({ username: 'ab', password: 'long enough pass' }, 400, /3 to 24/);
+  await bad({ username: name, password: 'short' }, 400, /10 characters/);
+  await bad({ username: name, password: `${name}123456` }, 400, /guessable/);
+  await bad({ username: 'admin', password: 'correct horse battery' }, 400, /reserved/);
+  // Names that exist on GitHub belong to their owners.
+  await bad({ username: 'torvalds', password: 'correct horse battery' }, 409, /GitHub account/);
+  await bad({ username: name, password: 'correct horse battery', agree: false }, 400, /policy/);
+
+  assert.equal((await a.req('POST', '/api/auth/signup', { json: { username: name, password: 'correct horse battery', agree: true } })).status, 201);
+  const me = (await (await a.req('GET', '/api/me')).json()).user;
+  assert.equal(me.login, name); assert.equal(me.account, 'site'); assert.equal(me.role, 'user');
+  assert.equal((await a.req('POST', '/api/auth/signup', { json: { username: name.toUpperCase(), password: 'correct horse battery', agree: true } })).status, 409, 'case-insensitive');
+
+  // Sign out and back in.
+  await a.req('POST', '/api/auth/logout');
+  assert.equal((await (await a.req('GET', '/api/me')).json()).user, null);
+  const b = new Client();
+  assert.equal((await b.req('POST', '/api/auth/password', { json: { username: name, password: 'wrong password!!' } })).status, 401);
+  assert.equal((await b.req('POST', '/api/auth/password', { json: { username: 'nobody_here_x', password: 'whatever pass' } })).status, 401);
+  assert.equal((await b.req('POST', '/api/auth/password', { json: { username: name, password: 'correct horse battery' } })).status, 200);
+
+  // Can upload; cannot moderate.
+  const mapId = await upload(b, randomBytes(2000), { title: 'Site account map' });
+  assert.equal((await b.req('GET', `/api/maps/${mapId}`)).status, 200);
+  assert.equal((await b.req('GET', '/api/admin/queue')).status, 403);
+  await runJob();
+  assert.equal((await b.req('DELETE', `/api/maps/${mapId}`)).status, 200);
+});

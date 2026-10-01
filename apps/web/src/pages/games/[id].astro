@@ -17,11 +17,10 @@ const gameTools = tools.filter((t) => t.game === game.id);
 const guides = (await getCollection('guides')).filter((g) => g.data.game === game.id).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title={`Modding ${d.title}`} description={d.short}>
-  <PageHead eyebrow={`${d.year} · ${d.developer}`} title={d.title} lede={d.short}>
+  <PageHead parent={{ href: '/games/', label: 'Games' }} eyebrow={`${d.year} · ${d.developer}`} title={d.title} lede={d.short}>
     <div class="facts">
       <Scene scene={d.scene} />
-      <span class="chip">{d.engine}</span>
-      {d.platforms.map((p) => <span class="chip">{p}</span>)}
+      <span class="meta">{d.engine} · {d.platforms.join(' · ')}</span>
     </div>
   </PageHead>
 

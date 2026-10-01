@@ -1,6 +1,6 @@
 /** Browser-side client for /api (same origin; the session cookie rides along). */
 
-export interface Me { login: string; name: string | null; avatar: string | null; role: 'user' | 'admin' }
+export interface Me { login: string; name: string | null; avatar: string | null; role: 'user' | 'admin'; account: 'github' | 'site' }
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message); }
@@ -27,7 +27,7 @@ export function getMe(): Promise<Me | null> {
 }
 
 export const signInUrl = (next = location.pathname + location.search) =>
-  `/api/auth/login?next=${encodeURIComponent(next)}`;
+  `/signin/?next=${encodeURIComponent(next)}`;
 
 export function formatBytes(n: number): string {
   if (n < 1024) return `${n} B`;

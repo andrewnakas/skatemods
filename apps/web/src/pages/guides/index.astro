@@ -5,22 +5,33 @@ import PageHead from '../../components/PageHead.astro';
 
 const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
 const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
-const levelTone = { beginner: 'ok', intermediate: 'warn', advanced: 'bad' } as const;
 ---
 <Base title="Guides" description="Step-by-step guides for modding Skate 3, the classic Tony Hawk's games, Skater XL and Session.">
-  <PageHead eyebrow="Guides" title="Guides" lede="Step by step, from your first native Skate 3 launch to converting maps between platforms." />
-  <div class="wrap grid">
-    {guides.map((g) => (
-      <a class="card" href={`/guides/${g.id}/`}>
-        <div class="meta"><span class="game">{games.get(g.data.game) ?? g.data.game}</span><span class={`chip ${levelTone[g.data.level]}`}>{g.data.level}</span></div>
-        <h3>{g.data.title}</h3>
-        <p>{g.data.description}</p>
-      </a>
-    ))}
+  <PageHead title="Guides" lede="Step by step, from your first native Skate 3 launch to converting maps between platforms." />
+  <div class="wrap">
+    <ol class="guides">
+      {guides.map((g, i) => (
+        <li>
+          <span class="meta n">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <a href={`/guides/${g.id}/`}>{g.data.title}</a>
+            <p>{g.data.description}</p>
+          </div>
+          <span class="meta side">{games.get(g.data.game) ?? g.data.game}<br />{g.data.level}</span>
+        </li>
+      ))}
+    </ol>
   </div>
 </Base>
 
 <style>
-  .meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: center; }
-  .game { font-size: 0.8rem; color: var(--ink-faint); font-weight: 600; }
+  .guides { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .guides li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 720px) { .guides li { grid-template-columns: 2.5rem 1fr 11rem; } }
+  .guides a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  .guides a:hover { text-decoration: underline; color: var(--accent); }
+  .guides p { margin: 0.25rem 0 0; color: var(--ink-soft); }
+  .n { color: var(--accent); padding-top: 0.2rem; }
+  .side { grid-column: 2; }
+  @media (min-width: 720px) { .side { grid-column: auto; text-align: right; } }
 </style>

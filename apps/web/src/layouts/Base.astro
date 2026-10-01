@@ -12,9 +12,9 @@ const path = Astro.url.pathname;
 
 const nav = [
   { href: '/games/', label: 'Games' },
-  { href: '/history/', label: 'History' },
-  { href: '/guides/', label: 'Guides' },
   { href: '/maps/', label: 'Maps' },
+  { href: '/guides/', label: 'Guides' },
+  { href: '/history/', label: 'History' },
   { href: '/tools/', label: 'Tools' },
   { href: '/recomp/', label: 'Recomp' },
   { href: '/play/', label: 'Play' },
@@ -36,7 +36,7 @@ const active = (href: string) => path.startsWith(href);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
     <script is:inline>
       try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
     </script>
@@ -45,24 +45,16 @@ const active = (href: string) => path.startsWith(href);
     <a class="skip visually-hidden" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap bar">
-        <a class="logo" href="/" aria-label="skatemods home">
-          <svg viewBox="0 0 48 20" width="44" height="18" aria-hidden="true"><rect x="2" y="4" width="44" height="8" rx="4" fill="currentColor"/><circle cx="12" cy="16" r="3" fill="var(--accent)"/><circle cx="36" cy="16" r="3" fill="var(--accent)"/></svg>
-          <span>skatemods</span>
-        </a>
+        <a class="logo" href="/" aria-label="skatemods home">skate<span>mods</span></a>
         <nav aria-label="Main">
-          <ul>
-            {nav.map((n) => <li><a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
-          </ul>
+          {nav.map((n) => <a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a>)}
         </nav>
         <div class="actions">
-          <a class="btn upload-btn" href="/upload/">Upload</a>
-          <a class="account" id="account" href="/me/" hidden aria-label="My maps"></a>
+          <a class="upload" href="/upload/">Upload</a>
+          <a class="account" id="account" href="/signin/">Sign in</a>
           <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+            <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5v11a5.5 5.5 0 0 1 0-11z"/></svg>
           </button>
-          <a class="gh" href="https://github.com/andrewnakas/skatemods" aria-label="Source on GitHub">
-            <svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          </a>
         </div>
       </div>
     </header>
@@ -72,41 +64,40 @@ const active = (href: string) => path.startsWith(href);
     </main>
 
     <footer class="site-footer">
-      <div class="wrap cols">
-        <div>
-          <p class="logo-small">skatemods</p>
-          <p>Open source, community run, not affiliated with EA, Activision, Easy Day Studios, Crea-ture Studios or any publisher. No game files are hosted here; bring your own copy.</p>
-        </div>
-        <div>
-          <p class="h">Learn</p>
-          <a href="/games/">Games</a><a href="/history/skate-3/">Skate 3 modding history</a><a href="/guides/">Guides</a>
-        </div>
-        <div>
-          <p class="h">Skate 3</p>
-          <a href="/maps/">Community maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Map conversion</a><a href="/recomp/">Recomp</a><a href="/play/">Play in browser</a>
-        </div>
-        <div>
-          <p class="h">Project</p>
-          <a href="https://github.com/andrewnakas/skatemods">GitHub</a><a href="/about/">About</a><a href="/policy/">Upload policy</a><a href="/policy/#takedowns">Takedowns</a>
+      <div class="wrap">
+        <div class="cols">
+          <div class="about">
+            <p class="logo">skate<span>mods</span></p>
+            <p>A community reference for modding skate games. Open source, run by players, not affiliated with EA, Activision, Easy Day Studios, Crea-ture Studios or any publisher. No game files are hosted here.</p>
+          </div>
+          <nav aria-label="Learn">
+            <p class="h">Learn</p>
+            <a href="/games/">Games</a><a href="/guides/">Guides</a><a href="/history/skate-3/">Skate 3 history</a><a href="/tools/">Tools</a>
+          </nav>
+          <nav aria-label="Skate 3">
+            <p class="h">Skate 3</p>
+            <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a><a href="/play/">Play in browser</a>
+          </nav>
+          <nav aria-label="Project">
+            <p class="h">Project</p>
+            <a href="https://github.com/andrewnakas/skatemods">Source code</a><a href="/about/">About</a><a href="/policy/">Upload policy</a><a href="/policy/#takedowns">Takedowns</a>
+          </nav>
         </div>
       </div>
     </footer>
 
     <script>
-      import { getMe, esc } from '../lib/api';
+      import { getMe } from '../lib/api';
       getMe().then((me) => {
         if (!me) return;
         const a = document.getElementById('account') as HTMLAnchorElement;
-        a.innerHTML = me.avatar ? `<img src="${esc(me.avatar)}&s=56" alt="" width="28" height="28">` : esc(me.login[0]);
-        a.title = `${me.login}: my maps`;
-        a.hidden = false;
+        a.textContent = me.login;
+        a.href = '/me/';
+        a.title = 'My maps';
       });
-      const btn = document.querySelector<HTMLButtonElement>('.theme');
-      btn?.addEventListener('click', () => {
+      document.querySelector('.theme')?.addEventListener('click', () => {
         const root = document.documentElement;
-        const dark = root.dataset.theme
-          ? root.dataset.theme === 'dark'
-          : matchMedia('(prefers-color-scheme: dark)').matches;
+        const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
         root.dataset.theme = dark ? 'light' : 'dark';
         try { localStorage.setItem('theme', root.dataset.theme); } catch {}
       });
@@ -115,48 +106,38 @@ const active = (href: string) => path.startsWith(href);
 </html>
 
 <style>
-  .site-header {
-    position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .bar { display: flex; align-items: center; gap: 1rem; min-height: 60px; flex-wrap: wrap; }
+  .site-header { background: var(--bg); border-bottom: 2px solid var(--ink); position: sticky; top: 0; z-index: 10; }
+  .bar { display: flex; align-items: center; gap: 0.5rem 1.75rem; min-height: 56px; flex-wrap: wrap; }
   .logo {
-    display: flex; align-items: center; gap: 0.5rem;
-    font: 400 1.25rem/1 var(--font-display); color: var(--ink); text-decoration: none;
+    font: 900 1.55rem/1 var(--font-display); font-stretch: 70%; text-transform: uppercase; letter-spacing: -0.01em;
+    color: var(--ink); text-decoration: none; padding: 0.25rem 0;
   }
-  nav { flex: 1 1 100%; order: 3; min-width: 0; overflow-x: auto; }
-  nav ul { display: flex; gap: 0.2rem; list-style: none; margin: 0; padding: 0 0 0.5rem; }
-  nav a {
-    display: block; padding: 0.4rem 0.7rem; border-radius: 999px;
-    color: var(--ink-soft); text-decoration: none; font-weight: 500; white-space: nowrap;
+  .logo span { color: var(--accent); }
+  nav[aria-label='Main'] { display: flex; gap: 1.25rem; order: 3; width: 100%; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; }
+  nav[aria-label='Main'] a { color: var(--ink-soft); text-decoration: none; font-weight: 500; font-size: 0.95rem; white-space: nowrap; padding: 0.15rem 0; border-bottom: 2px solid transparent; }
+  nav[aria-label='Main'] a:hover { color: var(--ink); }
+  nav[aria-label='Main'] a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--accent); }
+  .actions { margin-left: auto; display: flex; align-items: center; gap: 1rem; font-size: 0.92rem; }
+  .actions a { color: var(--ink); text-decoration: none; font-weight: 500; }
+  .actions a:hover { color: var(--accent); }
+  .upload { border: 1.5px solid var(--ink); padding: 0.3rem 0.65rem; border-radius: var(--radius); }
+  .upload:hover { background: var(--ink); color: var(--bg) !important; }
+  .account { font-family: var(--font-mono); font-size: 0.85rem; max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .theme { display: grid; place-items: center; width: 30px; height: 30px; border: 0; background: none; color: var(--ink-soft); cursor: pointer; padding: 0; }
+  .theme:hover { color: var(--ink); }
+  @media (min-width: 900px) {
+    nav[aria-label='Main'] { order: 0; width: auto; padding: 0; }
   }
-  nav a:hover { color: var(--ink); background: var(--bg-sunk); }
-  nav a[aria-current='page'] { color: var(--accent-ink); background: var(--accent); }
-  .actions { margin-left: auto; display: flex; gap: 0.25rem; align-items: center; }
-  .theme, .gh {
-    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px;
-    border: 0; background: transparent; color: var(--ink-soft); cursor: pointer;
-  }
-  .theme:hover, .gh:hover { background: var(--bg-sunk); color: var(--ink); }
-  .upload-btn { padding: 0.35rem 0.9rem; font-size: 0.9rem; border-width: 2px; margin-right: 0.25rem; }
-  .account { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 999px; overflow: hidden; background: var(--accent); color: var(--accent-ink); font-weight: 700; text-decoration: none; text-transform: uppercase; }
-  .account :global(img) { width: 100%; height: 100%; }
-  @media (max-width: 480px) { .gh { display: none; } .bar { gap: 0.5rem; } .logo span { font-size: 1.1rem; } }
-  @media (min-width: 820px) {
-    nav { order: 0; flex: 1 1 auto; }
-    nav ul { padding: 0; }
-  }
-  .skip:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; clip: auto; z-index: 99; background: var(--accent); color: var(--accent-ink); padding: 0.5rem 1rem; }
+  .skip:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; clip: auto; z-index: 99; background: var(--ink); color: var(--bg); padding: 0.5rem 1rem; }
 
-  .site-footer { border-top: 1px solid var(--line); margin-top: 4rem; padding: 2.5rem 0 3rem; background: var(--bg-sunk); font-size: 0.92rem; }
-  .cols { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-  .cols > div:first-child { grid-column: 1 / -1; max-width: 52ch; }
-  @media (min-width: 820px) { .cols { grid-template-columns: 2fr 1fr 1fr 1fr; } .cols > div:first-child { grid-column: auto; } }
-  .cols p { margin: 0 0 0.5rem; color: var(--ink-soft); }
-  .cols a { display: block; color: var(--ink-soft); text-decoration: none; padding: 0.15rem 0; }
-  .cols a:hover { color: var(--ink); text-decoration: underline; }
-  .h { font-weight: 600; color: var(--ink) !important; }
-  .logo-small { font: 400 1.1rem var(--font-display); color: var(--ink) !important; }
+  .site-footer { border-top: 2px solid var(--ink); margin-top: 5rem; padding: 2rem 0 3rem; font-size: 0.9rem; }
+  .cols { display: grid; gap: 1.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .about { grid-column: 1 / -1; max-width: 56ch; }
+  @media (min-width: 860px) { .cols { grid-template-columns: 2.2fr 1fr 1fr 1fr; } .about { grid-column: auto; } }
+  .about p { color: var(--ink-soft); margin: 0.5rem 0 0; }
+  .about .logo { font-size: 1.25rem; margin: 0; }
+  .cols nav { display: flex; flex-direction: column; gap: 0.3rem; }
+  .cols nav a { color: var(--ink-soft); text-decoration: none; }
+  .cols nav a:hover { color: var(--accent); }
+  .h { font: 500 0.75rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin: 0 0 0.3rem; }
 </style>

@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 ---
 <Base title="Moderation" description="skatemods moderation queue.">
-  <PageHead eyebrow="Moderators" title="Moderation queue" lede="Approve only maps the uploader has the right to share. When in doubt, ask for proof or reject with a reason." />
+  <PageHead title="Moderation queue" lede="Approve only maps the uploader has the right to share. When in doubt, ask for proof or reject with a reason." />
   <div class="wrap">
     <p id="denied" hidden>Moderators only.</p>
     <section id="q" hidden>
@@ -89,7 +89,7 @@ import PageHead from '../components/PageHead.astro';
   :global(.checks) { margin: 0.6rem 0 0; font-size: 0.9rem; color: var(--ink-soft); }
   :global(.files) { font-size: 0.85rem; word-break: break-all; }
   :global(.acts) { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-  :global(.acts .note) { flex: 1 1 240px; font: inherit; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  :global(.acts .note) { flex: 1 1 240px; font: inherit; padding: 0.55rem 0.7rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
   :global(.acts .btn) { padding: 0.5rem 0.9rem; font-size: 0.88rem; }
   :global(.btn.danger) { border-color: var(--bad); color: var(--bad); }
   :global(.empty) { color: var(--ink-faint); }

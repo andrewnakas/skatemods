@@ -15,7 +15,7 @@ const toc = headings.filter((h) => h.depth === 2);
 const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/guides/${guide.id}.md`;
 ---
 <Base title={guide.data.title} description={guide.data.description}>
-  <PageHead eyebrow={game ? `Guide · ${game.data.title}` : 'Guide'} title={guide.data.title} lede={guide.data.description} />
+  <PageHead parent={{ href: '/guides/', label: 'Guides' }} eyebrow={game?.data.title} title={guide.data.title} lede={guide.data.description} />
   <div class="wrap layout">
     <article class="prose">
       <Content />

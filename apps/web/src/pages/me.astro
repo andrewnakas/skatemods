@@ -3,13 +3,13 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 ---
 <Base title="My maps" description="Your uploads on skatemods.com.">
-  <PageHead eyebrow="Account" title="My maps">
+  <PageHead title="My maps">
     <div class="who" id="who"></div>
   </PageHead>
   <div class="wrap">
     <div id="gate" class="card" hidden>
       <h3>Sign in to see your maps</h3>
-      <a class="btn primary" id="signin" href="/api/auth/login">Sign in with GitHub</a>
+      <a class="btn primary" id="signin" href="/signin/">Sign in</a>
     </div>
     <div id="body" hidden>
       <div class="bar"><a class="btn primary" href="/upload/">Upload a map</a><span id="adminLink"></span></div>

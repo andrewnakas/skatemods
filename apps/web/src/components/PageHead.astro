@@ -1,10 +1,16 @@
 ---
-interface Props { eyebrow?: string; title: string; lede?: string }
-const { eyebrow, title, lede } = Astro.props;
+/** Page title block. `eyebrow` renders as a breadcrumb trail ("Games / Skate 3"). */
+interface Props { eyebrow?: string; title: string; lede?: string; parent?: { href: string; label: string } }
+const { eyebrow, title, lede, parent } = Astro.props;
 ---
 <header class="page-head">
   <div class="wrap">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {(parent || eyebrow) && (
+      <p class="crumbs">
+        {parent && <><a href={parent.href}>{parent.label}</a> / </>}
+        {eyebrow}
+      </p>
+    )}
     <h1>{title}</h1>
     {lede && <p class="lede">{lede}</p>}
     <slot />
@@ -12,7 +18,8 @@ const { eyebrow, title, lede } = Astro.props;
 </header>
 
 <style>
-  .page-head { padding: 3rem 0 2rem; border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; }
-  .page-head h1 { margin: 0.4rem 0 0.6rem; }
+  .page-head { padding: 2.75rem 0 1.75rem; margin-bottom: 2.25rem; border-bottom: 1px solid var(--line); }
+  .crumbs { margin: 0 0 0.9rem; }
+  .page-head h1 { margin: 0 0 0.9rem; }
   .page-head .lede { margin: 0; }
 </style>

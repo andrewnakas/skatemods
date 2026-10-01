@@ -58,7 +58,7 @@ import Base from '../../layouts/Base.astro';
     const policy = m.policy;
     el.innerHTML = `
       ${params.get('uploaded') ? `<div class="callout"><strong>Uploaded.</strong> Conversion is queued: this page updates by itself. Your map stays private until a moderator approves it.</div>` : ''}
-      <p class="eyebrow">Skate 3 map · ${esc(platformLabel[m.sourcePlatform] ?? m.sourcePlatform)}</p>
+      <p class="crumbs"><a href="/maps/">Maps</a> / Skate 3 · ${esc(platformLabel[m.sourcePlatform] ?? m.sourcePlatform)}</p>
       <h1>${esc(m.title)}</h1>
       <p class="byline">by <strong>${esc(m.authorCredit)}</strong>${m.rights === 'permission' ? ' · shared with permission' : ''} · uploaded by ${esc(m.uploader.login)}${m.approvedAt ? ` · ${formatDate(m.approvedAt)}` : ''}</p>
       <div class="chips">
@@ -86,7 +86,7 @@ import Base from '../../layouts/Base.astro';
         <ul class="checks">${[...(policy.reasons ?? []), ...(policy.notes ?? [])].map((r: string) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
       ${m.permissionNote ? `<p class="perm"><strong>Permission (private):</strong> ${esc(m.permissionNote)}</p>` : ''}
       ${conv?.results?.length ? `<div class="table-wrap"><table><thead><tr><th>World</th><th>Conversion</th><th>Result</th><th>Size</th><th>Time</th></tr></thead><tbody>${
-        conv.results.map((r: any) => `<tr><td>${esc(r.map)}</td><td>${esc(r.source)} → ${esc(r.target)}</td><td>${r.ok ? '✅' : '❌'}</td><td>${r.bytes ? formatBytes(r.bytes) : ''}</td><td>${r.seconds ?? ''}${r.seconds !== undefined ? ' s' : ''}</td></tr>`).join('')
+        conv.results.map((r: any) => `<tr><td>${esc(r.map)}</td><td>${esc(r.source)} → ${esc(r.target)}</td><td>${r.ok ? 'ok' : 'failed'}</td><td>${r.bytes ? formatBytes(r.bytes) : ''}</td><td>${r.seconds ?? ''}${r.seconds !== undefined ? ' s' : ''}</td></tr>`).join('')
       }</tbody></table></div>` : ''}
       ${logs.length || conv?.runUrl ? `<p class="small">${logs.map((f: any) => `<a href="/api/maps/${m.id}/files/${f.id}">Conversion log</a>`).join(' · ')}${conv?.runUrl ? ` · <a href="${esc(conv.runUrl)}">Runner</a>` : ''}</p>` : ''}
 
@@ -139,12 +139,12 @@ import Base from '../../layouts/Base.astro';
   .view :global(.checks) { color: var(--ink-soft); font-size: 0.92rem; }
   .view :global(.perm) { font-size: 0.92rem; color: var(--ink-soft); }
   .view :global(.foot) { display: flex; gap: 0.75rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
-  dialog { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--bg-raised); color: var(--ink); max-width: min(520px, calc(100vw - 32px)); width: 100%; }
+  dialog { border: 2px solid var(--ink); border-radius: var(--radius); padding: 1.4rem; background: var(--bg-raised); color: var(--ink); max-width: min(520px, calc(100vw - 32px)); width: 100%; }
   dialog::backdrop { background: rgb(0 0 0 / 50%); }
   dialog h2 { margin-top: 0; }
   dialog form { display: grid; gap: 0.9rem; }
   dialog label { display: grid; gap: 0.35rem; font-weight: 600; }
-  dialog select, dialog textarea, dialog input { font: inherit; font-weight: 400; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  dialog select, dialog textarea, dialog input { font: inherit; font-weight: 400; padding: 0.55rem 0.7rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
   dialog .row { display: flex; gap: 0.6rem; }
   .error { color: var(--bad); margin: 0; }
 </style>

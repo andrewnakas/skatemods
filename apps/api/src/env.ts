@@ -12,13 +12,15 @@ export interface Env {
   /** Fine-grained PAT: Actions RW on GITHUB_REPO (dispatch), Contents RW on MAPS_REPO (releases). */
   GITHUB_TOKEN?: string;
   MAPS_REPO: string;
+  /** New site accounts allowed per client per hour (default 3). */
+  SIGNUPS_PER_HOUR?: string;
   /** Local development only: enables /api/auth/dev-login. Never set in production. */
   DEV_LOGIN?: string;
 }
 
 export interface User {
   id: number;
-  github_id: number;
+  github_id: number | null;
   login: string;
   name: string | null;
   avatar_url: string | null;

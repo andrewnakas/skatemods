@@ -13,7 +13,7 @@ const series = [
 ] as const;
 ---
 <Base title="Games" description="How to mod every skate game, from skate. and Skate 3 to THUG Pro, Skater XL and Session.">
-  <PageHead eyebrow="Games" title="Every skate game, and how to mod it" lede="How alive each game's modding scene is, what tools it uses, and where to start." />
+  <PageHead title="Every skate game, and how to mod it" lede="How alive each game's modding scene is, what tools it uses, and where to start." />
   <div class="wrap">
     {series.map((s) => {
       const list = games.filter((g) => g.data.series === s.id);
@@ -21,14 +21,20 @@ const series = [
         <section class="series">
           <h2>{s.label}</h2>
           <p class="blurb">{s.blurb}</p>
-          <div class="grid">
-            {list.map((g) => (
-              <a class="card" href={`/games/${g.id}/`}>
-                <div class="meta"><span class="year">{g.data.year} · {g.data.engine}</span><Scene scene={g.data.scene} /></div>
-                <h3>{g.data.title}</h3>
-                <p>{g.data.short}</p>
-              </a>
-            ))}
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Year</th><th>Game</th><th class="hide-sm">What modding looks like</th><th>Scene</th></tr></thead>
+              <tbody>
+                {list.map((g) => (
+                  <tr>
+                    <td class="meta">{g.data.year}</td>
+                    <td class="name"><a href={`/games/${g.id}/`}>{g.data.title}</a><span class="sub">{g.data.engine}</span></td>
+                    <td class="hide-sm short">{g.data.short}</td>
+                    <td><Scene scene={g.data.scene} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
       );
@@ -38,8 +44,13 @@ const series = [
 
 <style>
   .series + .series { margin-top: 3rem; }
-  .series h2 { margin: 0; }
-  .blurb { color: var(--ink-soft); margin: 0.3rem 0 1.2rem; }
-  .meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: center; }
-  .year { font-size: 0.8rem; color: var(--ink-faint); }
+  .series h2 { margin: 0; border-top: 2px solid var(--ink); padding-top: 0.6rem; }
+  .blurb { color: var(--ink-soft); margin: 0.4rem 0 0.5rem; }
+  td.meta { width: 4rem; }
+  .name { width: 15rem; }
+  .name a { font-weight: 600; text-decoration: none; }
+  .name a:hover { text-decoration: underline; }
+  .sub { display: block; font: 0.78rem var(--font-mono); color: var(--ink-faint); margin-top: 0.15rem; }
+  .short { color: var(--ink-soft); font-size: 0.92rem; }
+  @media (max-width: 640px) { .hide-sm { display: none; } .name { width: auto; } }
 </style>

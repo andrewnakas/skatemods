@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Sign in" description="Sign in to skatemods.com with GitHub or a skatemods account.">
+  <div class="wrap auth">
+    <div class="intro">
+      <h1>Sign in</h1>
+      <p>You need an account to upload maps. Browsing and downloading don't.</p>
+    </div>
+
+    <div class="panes">
+      <section class="pane">
+        <h2 id="mode-title">With a skatemods account</h2>
+        <form id="pw" novalidate>
+          <label>Username<input name="username" autocomplete="username" required minlength="3" maxlength="24" /></label>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="10" /></label>
+          <div class="signup-only" hidden>
+            <label>Email <span class="opt">optional, for account recovery later</span><input name="email" type="email" autocomplete="email" maxlength="200" /></label>
+            <label class="check"><input type="checkbox" name="agree" /> I've read the <a href="/policy/" target="_blank">upload policy</a>.</label>
+          </div>
+          <p class="error" id="error" role="alert" hidden></p>
+          <button class="btn primary" type="submit" id="submit">Sign in</button>
+          <p class="switch"><span id="switch-text">New here?</span> <button type="button" class="link" id="switch">Create an account</button></p>
+        </form>
+      </section>
+
+      <section class="pane alt">
+        <h2>With GitHub</h2>
+        <p>One click if you already have GitHub. We only read your public profile.</p>
+        <a class="btn" id="github" href="/api/auth/login">Continue with GitHub</a>
+        <p class="note">Usernames that exist on GitHub are kept for their owners, so nobody can pose as a known modder.</p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { api, getMe } from '../lib/api';
+
+  const next = (() => {
+    const n = new URLSearchParams(location.search).get('next') ?? '/me/';
+    return n.startsWith('/') && !n.startsWith('//') ? n : '/me/';
+  })();
+  if (await getMe()) location.replace(next);
+  (document.getElementById('github') as HTMLAnchorElement).href = `/api/auth/login?next=${encodeURIComponent(next)}`;
+
+  const form = document.getElementById('pw') as HTMLFormElement;
+  const err = document.getElementById('error')!;
+  let signup = new URLSearchParams(location.search).has('new');
+
+  function setMode() {
+    form.querySelector<HTMLElement>('.signup-only')!.hidden = !signup;
+    document.getElementById('mode-title')!.textContent = signup ? 'Create a skatemods account' : 'With a skatemods account';
+    document.getElementById('submit')!.textContent = signup ? 'Create account' : 'Sign in';
+    document.getElementById('switch-text')!.textContent = signup ? 'Already have one?' : 'New here?';
+    document.getElementById('switch')!.textContent = signup ? 'Sign in instead' : 'Create an account';
+    (form.elements.namedItem('password') as HTMLInputElement).autocomplete = signup ? 'new-password' : 'current-password';
+    err.hidden = true;
+  }
+  setMode();
+  document.getElementById('switch')!.addEventListener('click', () => { signup = !signup; setMode(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    const f = new FormData(form);
+    const body = { username: f.get('username'), password: f.get('password'), email: f.get('email') ?? '', agree: !!f.get('agree') };
+    const button = document.getElementById('submit') as HTMLButtonElement;
+    button.disabled = true;
+    try {
+      await api(signup ? '/auth/signup' : '/auth/password', { method: 'POST', json: body });
+      location.href = next;
+    } catch (ex) {
+      err.textContent = (ex as Error).message;
+      err.hidden = false;
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .auth { padding-top: 3rem; max-width: 880px; }
+  .intro p { color: var(--ink-soft); }
+  .panes { display: grid; gap: 0; margin-top: 2rem; border-top: 2px solid var(--ink); }
+  @media (min-width: 760px) { .panes { grid-template-columns: 1.2fr 1fr; } .alt { border-left: 1px solid var(--line); } }
+  .pane { padding: 1.5rem 0; }
+  @media (min-width: 760px) { .pane { padding: 1.5rem 2rem 1.5rem 0; } .alt { padding-left: 2rem; } }
+  .pane h2 { font-size: 1.3rem; margin: 0 0 1rem; }
+  form { display: grid; gap: 1rem; }
+  .signup-only { display: grid; gap: 1rem; }
+  label { display: grid; gap: 0.3rem; font-weight: 600; font-size: 0.92rem; }
+  label.check { display: flex; gap: 0.5rem; font-weight: 400; align-items: flex-start; }
+  input:not([type='checkbox']) { font: inherit; font-weight: 400; padding: 0.6rem 0.7rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-raised); color: var(--ink); }
+  .opt { font-weight: 400; color: var(--ink-faint); }
+  .error { margin: 0; color: var(--bad); }
+  .switch { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
+  .link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; cursor: pointer; }
+  .alt p { color: var(--ink-soft); }
+  .note { font-size: 0.85rem; color: var(--ink-faint) !important; margin-top: 1.5rem; }
+  button[disabled] { opacity: 0.6; }
+</style>

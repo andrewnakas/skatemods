@@ -3,12 +3,12 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 ---
 <Base title="Upload a map" description="Upload a Skate 3 map you made (or have permission to share) and get it converted to every platform.">
-  <PageHead eyebrow="Upload" title="Upload a Skate 3 map" lede="Share a map you made, or one you have the author's permission to share. It converts automatically and goes public after a moderator reviews it." />
+  <PageHead title="Upload a Skate 3 map" lede="Share a map you made, or one you have the author's permission to share. It converts automatically and goes public after a moderator reviews it." />
   <div class="wrap">
     <div id="gate" class="card gate" hidden>
       <h3>Sign in to upload</h3>
-      <p>We use GitHub for accounts. We only read your public profile.</p>
-      <a class="btn primary" id="signin" href="/api/auth/login">Sign in with GitHub</a>
+      <p>Use a skatemods account or GitHub.</p>
+      <a class="btn primary" id="signin" href="/signin/">Sign in</a>
     </div>
 
     <form id="form" class="upload" hidden novalidate>
@@ -140,12 +140,12 @@ import PageHead from '../components/PageHead.astro';
 <style>
   .gate { max-width: 460px; }
   .upload { max-width: 680px; display: grid; gap: 1.5rem; }
-  fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem 1.2rem; margin: 0; display: grid; gap: 1rem; background: var(--bg-raised); }
-  legend { font: 400 1.1rem var(--font-display); padding: 0 0.4rem; }
+  fieldset { border: 0; border-top: 2px solid var(--ink); padding: 0.8rem 0 0.4rem; margin: 0; display: grid; gap: 1rem; }
+  legend { font: 800 1.35rem/1 var(--font-display); font-stretch: 75%; text-transform: uppercase; padding: 0 0 0.6rem; float: left; width: 100%; }
   label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.95rem; }
   input:not([type='radio']):not([type='checkbox']), textarea, select {
-    font: inherit; font-weight: 400; padding: 0.6rem 0.75rem; border-radius: 8px;
-    border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%;
+    font: inherit; font-weight: 400; padding: 0.6rem 0.75rem; border-radius: var(--radius-sm);
+    border: 1px solid var(--line-strong); background: var(--bg-raised); color: var(--ink); width: 100%;
   }
   input[type='file'] { padding: 0.5rem; }
   .opt, .hint { font-weight: 400; color: var(--ink-faint); font-size: 0.85rem; }
@@ -153,8 +153,8 @@ import PageHead from '../components/PageHead.astro';
   .radio label, .attest label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; }
   .radio input, .attest input { margin-top: 0.3rem; accent-color: var(--accent-strong); flex: none; }
   .actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-  .error { color: var(--bad); border: 1px solid var(--bad); border-radius: 8px; padding: 0.6rem 0.8rem; margin: 0; }
-  .progress .bar { height: 10px; border-radius: 999px; background: var(--bg-sunk); overflow: hidden; }
+  .error { color: var(--bad); border: 1px solid var(--bad); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin: 0; }
+  .progress .bar { height: 6px; border-radius: 0; background: var(--bg-sunk); overflow: hidden; }
   .progress .bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
   .progress p { color: var(--ink-soft); font-size: 0.9rem; }
   button[disabled] { opacity: 0.6; cursor: progress; }

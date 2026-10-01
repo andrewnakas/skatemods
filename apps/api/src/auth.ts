@@ -2,6 +2,7 @@ import { Hono, type MiddlewareHandler } from 'hono';
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie';
 import type { AppEnv, Env, User } from './env';
 import { fail, now, randomToken, sha256Hex } from './util';
+import { hashPassword, passwordProblem, verifyPassword } from './passwords';
 
 const SESSION_COOKIE = 'skm_session';
 const STATE_COOKIE = 'skm_oauth';
@@ -64,16 +65,66 @@ async function startSession(c: any, userId: number) {
   });
 }
 
+/** A login not already used by another account; GitHub names win new conflicts with "-gh". */
+async function freeLogin(env: Env, wanted: string, exceptId: number | null): Promise<string> {
+  for (let n = 0; n < 50; n++) {
+    const candidate = n === 0 ? wanted : `${wanted}-gh${n > 1 ? n : ''}`;
+    const taken = await env.DB.prepare('SELECT id FROM users WHERE login = ? COLLATE NOCASE').bind(candidate).first<{ id: number }>();
+    if (!taken || taken.id === exceptId) return candidate;
+  }
+  fail(409, 'Could not pick a username');
+}
+
 async function upsertUser(env: Env, gh: { id: number; login: string; name: string | null; avatar_url: string | null }) {
+  // Moderators come from GitHub identities only, never from site usernames.
   const admins = env.ADMINS.split(',').map((s) => s.trim().toLowerCase());
   const role = admins.includes(gh.login.toLowerCase()) ? 'admin' : 'user';
-  // Never downgrade a ban on login; promote listed admins.
+  const existing = await env.DB.prepare('SELECT * FROM users WHERE github_id = ?').bind(gh.id).first<User>();
+  const login = await freeLogin(env, gh.login, existing?.id ?? null);
+  if (existing) {
+    // Never lift a ban on sign-in; promote listed admins.
+    return env.DB.prepare(
+      `UPDATE users SET login = ?, name = ?, avatar_url = ?,
+         role = CASE WHEN role = 'banned' THEN 'banned' WHEN ? = 'admin' THEN 'admin' ELSE role END
+       WHERE id = ? RETURNING *`,
+    ).bind(login, gh.name, gh.avatar_url, role, existing.id).first<User>();
+  }
   return env.DB.prepare(
-    `INSERT INTO users (github_id, login, name, avatar_url, role, created_at) VALUES (?, ?, ?, ?, ?, ?)
-     ON CONFLICT(github_id) DO UPDATE SET login = excluded.login, name = excluded.name, avatar_url = excluded.avatar_url,
-       role = CASE WHEN users.role = 'banned' THEN 'banned' WHEN excluded.role = 'admin' THEN 'admin' ELSE users.role END
-     RETURNING *`,
-  ).bind(gh.id, gh.login, gh.name, gh.avatar_url, role, now()).first<User>();
+    `INSERT INTO users (github_id, login, name, avatar_url, role, created_at) VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
+  ).bind(gh.id, login, gh.name, gh.avatar_url, role, now()).first<User>();
+}
+
+const USERNAME = /^[a-z0-9][a-z0-9_-]{2,23}$/i;
+const RESERVED = new Set(['admin', 'administrator', 'moderator', 'mod', 'skatemods', 'support', 'root', 'system', 'ea', 'official', 'staff']);
+
+async function clientKey(c: any) {
+  return sha256Hex(`${c.req.header('CF-Connecting-IP') ?? 'local'}|${c.env.SITE}`);
+}
+
+/** Too many attempts of this kind from this client recently? Records this one either way. */
+async function throttled(c: any, kind: 'signup' | 'login', max: number, windowSeconds: number) {
+  const key = await clientKey(c);
+  const t = now();
+  const row = await c.env.DB.prepare('SELECT count(*) AS n FROM auth_attempts WHERE ip_hash = ? AND kind = ? AND at > ?')
+    .bind(key, kind, t - windowSeconds).first();
+  await c.env.DB.batch([
+    c.env.DB.prepare('INSERT INTO auth_attempts (ip_hash, kind, at) VALUES (?, ?, ?)').bind(key, kind, t),
+    c.env.DB.prepare('DELETE FROM auth_attempts WHERE at < ?').bind(t - 86400),
+  ]);
+  return (row?.n ?? 0) >= max;
+}
+
+/** Usernames that exist on GitHub are kept for their owners (they sign in with GitHub). */
+async function isGithubLogin(env: Env, login: string): Promise<boolean> {
+  const res = await fetch(`https://api.github.com/users/${encodeURIComponent(login)}`, {
+    headers: {
+      'User-Agent': 'skatemods', Accept: 'application/vnd.github+json',
+      ...(env.GITHUB_TOKEN ? { Authorization: `Bearer ${env.GITHUB_TOKEN}` } : {}),
+    },
+  });
+  if (res.status === 404) return false;
+  if (res.ok) return true;
+  fail(503, 'Could not check that username right now, try again in a minute');
 }
 
 export const auth = new Hono<AppEnv>();
@@ -119,6 +170,43 @@ auth.get('/callback', async (c) => {
   if (!user || user.role === 'banned') fail(403, 'This account cannot sign in');
   await startSession(c, user.id);
   return c.redirect(safeNext(c.env, next));
+});
+
+auth.post('/signup', async (c) => {
+  const body = await c.req.json().catch(() => ({})) as { username?: string; password?: string; email?: string; agree?: boolean };
+  const username = String(body.username ?? '').trim();
+  const password = String(body.password ?? '');
+  const email = String(body.email ?? '').trim().slice(0, 200);
+  if (!USERNAME.test(username)) fail(400, 'Usernames are 3 to 24 letters, numbers, - or _, starting with a letter or number');
+  if (RESERVED.has(username.toLowerCase())) fail(400, 'That username is reserved');
+  const problem = passwordProblem(password, username);
+  if (problem) fail(400, problem);
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) fail(400, 'That email address does not look right');
+  if (body.agree !== true) fail(400, 'Accept the upload policy to create an account');
+  if (await throttled(c, 'signup', Number(c.env.SIGNUPS_PER_HOUR ?? 3), 3600)) fail(429, 'Too many new accounts from your network. Try again in an hour.');
+  if (await c.env.DB.prepare('SELECT 1 FROM users WHERE login = ? COLLATE NOCASE').bind(username).first()) fail(409, 'That username is taken');
+  if (await isGithubLogin(c.env, username)) {
+    fail(409, 'That name belongs to a GitHub account. If it is yours, use "Continue with GitHub" instead.');
+  }
+  const user = await c.env.DB.prepare(
+    // Site accounts carry a negative github_id (see migration 0003).
+    `INSERT INTO users (github_id, login, name, password_hash, email, role, created_at)
+     VALUES (-1 - abs(random() % 9007199254740000), ?, ?, ?, ?, 'user', ?) RETURNING id`,
+  ).bind(username, username, await hashPassword(password), email || null, now()).first<{ id: number }>();
+  await startSession(c, user!.id);
+  return c.json({ ok: true }, 201);
+});
+
+auth.post('/password', async (c) => {
+  const body = await c.req.json().catch(() => ({})) as { username?: string; password?: string };
+  if (await throttled(c, 'login', 10, 900)) fail(429, 'Too many sign-in attempts. Wait 15 minutes.');
+  const user = await c.env.DB.prepare('SELECT id, role, password_hash FROM users WHERE login = ? COLLATE NOCASE')
+    .bind(String(body.username ?? '').trim()).first<{ id: number; role: string; password_hash: string | null }>();
+  const ok = await verifyPassword(String(body.password ?? ''), user?.password_hash ?? null);
+  if (!user || !ok) fail(401, 'Wrong username or password');
+  if (user.role === 'banned') fail(403, 'This account cannot sign in');
+  await startSession(c, user.id);
+  return c.json({ ok: true });
 });
 
 auth.post('/logout', async (c) => {
