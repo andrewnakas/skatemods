@@ -1,0 +1,78 @@
+# Phase 0 spike: prove the converters run on a free hosted runner with no game data.
+# Test inputs live as encrypted assets on the `spike-inputs` release; outputs are
+# re-encrypted before upload, so nothing readable is published from this public repo.
+name: convert-spike
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Tools
+        run: |
+          sudo apt-get install -y -q libarchive-tools time
+          pip install -q -r converter/requirements.txt
+          converter/fetch_tools.sh "$RUNNER_TEMP/tools"
+          dotnet build "$RUNNER_TEMP/tools/ps3x360/src/Sk3.Cli" -c Release -v q
+
+      - name: Inputs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SPIKE_KEY: ${{ secrets.SPIKE_KEY }}
+        run: |
+          mkdir -p inputs
+          gh release download spike-inputs --dir inputs --pattern '*.enc'
+          for f in inputs/*.enc; do
+            openssl enc -d -aes-256-cbc -pbkdf2 -pass env:SPIKE_KEY -in "$f" -out "${f%.enc}"
+            rm "$f"
+          done
+          ls -la inputs
+
+      - name: Convert
+        env:
+          TOOLS_DIR: ${{ runner.temp }}/tools
+        run: |
+          echo '| map | source → target | ok | MB | seconds |' >> "$GITHUB_STEP_SUMMARY"
+          echo '|---|---|---|---|---|' >> "$GITHUB_STEP_SUMMARY"
+          for f in inputs/*; do
+            name=$(basename "$f")
+            /usr/bin/time -v converter/convert.sh "$f" "out/${name%%.*}" 2> "out-${name%%.*}.time" || true
+            grep -E 'Maximum resident|Elapsed' "out-${name%%.*}.time" || true
+            python3 - "out/${name%%.*}/manifest.jsonl" >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json, sys
+          for line in open(sys.argv[1]):
+              r = json.loads(line)
+              mb = f"{r['bytes'] / 1e6:.1f}" if r.get('bytes') else ''
+              print(f"| {r['map']} | {r['source']} → {r['target']} | {'✅' if r['ok'] else '❌'} | {mb} | {r.get('seconds', '')} |")
+          EOF
+          done
+          df -h . | tail -1
+
+      - name: Encrypt outputs
+        if: always()
+        env:
+          SPIKE_KEY: ${{ secrets.SPIKE_KEY }}
+        run: |
+          tar czf - out | openssl enc -aes-256-cbc -pbkdf2 -pass env:SPIKE_KEY -out outputs.tgz.enc
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: outputs-encrypted
+          path: outputs.tgz.enc
+          retention-days: 3
