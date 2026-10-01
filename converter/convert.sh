@@ -30,10 +30,10 @@ python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" | while read -r lin
     big="$out/recomp/$(slug "$label")_00000000.big"
     mkdir -p "$out/recomp"
     start=$SECONDS
-    if "$sk3" build-dlc "$dist" "$big" --name="$label" --rebuild-vertices > "$out/$label.recomp.log" 2>&1; then
+    if "$sk3" build-dlc "$dist" "$big" --name="$label" --rebuild-vertices < /dev/null > "$out/$label.recomp.log" 2>&1; then
       record "{\"map\":\"$label\",\"source\":\"ps3\",\"target\":\"recomp\",\"ok\":true,\"file\":\"recomp/$(basename "$big")\",\"bytes\":$(size "$big"),\"seconds\":$((SECONDS-start))}"
       # The recomp pack is an X360 DIST in disguise: feed it to the .skate path.
-      python3 "$here/unpack.py" "$engine" "$big" "$out/from-recomp/$label" > /dev/null
+      python3 "$here/unpack.py" "$engine" "$big" "$out/from-recomp/$label" < /dev/null > /dev/null
       dist="$out/from-recomp/$label/x360/$name"
     else
       record "{\"map\":\"$label\",\"source\":\"ps3\",\"target\":\"recomp\",\"ok\":false,\"log\":\"$label.recomp.log\"}"
@@ -43,7 +43,7 @@ python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" | while read -r lin
   fi
   start=$SECONDS
   mkdir -p "$out/skate"
-  if python3 "$here/to_skate.py" "$engine" "$dist" "$out/skate" > "$out/$label.skate.log" 2>&1; then
+  if python3 "$here/to_skate.py" "$engine" "$dist" "$out/skate" < /dev/null > "$out/$label.skate.log" 2>&1; then
     record "{\"map\":\"$label\",\"source\":\"$kind\",\"target\":\"skate\",\"ok\":true,\"file\":\"skate/$label.skate\",\"bytes\":$(size "$out/skate/$label.skate"),\"seconds\":$((SECONDS-start))}"
   else
     record "{\"map\":\"$label\",\"source\":\"$kind\",\"target\":\"skate\",\"ok\":false,\"log\":\"$label.skate.log\"}"

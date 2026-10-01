@@ -51,7 +51,7 @@ jobs:
           echo '|---|---|---|---|---|' >> "$GITHUB_STEP_SUMMARY"
           for f in inputs/*; do
             name=$(basename "$f")
-            /usr/bin/time -v converter/convert.sh "$f" "out/${name%%.*}" 2> "out-${name%%.*}.time" || true
+            /usr/bin/time -v -o "out-${name%%.*}.time" converter/convert.sh "$f" "out/${name%%.*}" || echo "::error::convert.sh failed for $name"
             grep -E 'Maximum resident|Elapsed' "out-${name%%.*}.time" || true
             python3 - "out/${name%%.*}/manifest.jsonl" >> "$GITHUB_STEP_SUMMARY" <<'EOF'
           import json, sys
