@@ -6,3 +6,4 @@ inputs/
 *.enc
 dist/
 .astro/
+.wrangler/
