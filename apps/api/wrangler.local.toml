@@ -1,0 +1,30 @@
+# Local full-stack dev: the API plus the built site on one origin, like production.
+#   (cd ../web && npm run build) && npx wrangler dev -c wrangler.local.toml
+name = "skatemods-api"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../web/dist"
+run_worker_first = ["/api/*"]
+not_found_handling = "404-page"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "skatemods"
+database_id = "a68b0fb5-6f2e-4bb1-83c7-eb4a3d595a73"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MAPS"
+bucket_name = "skatemods-maps"
+
+[vars]
+SITE = "http://localhost:8787"
+GITHUB_REPO = "andrewnakas/skatemods"
+OIDC_AUDIENCE = "https://skatemods.com/api/runner"
+ADMINS = "andrewnakas"
+MAX_UPLOAD_BYTES = "2147483648"
+MAX_PENDING_PER_USER = "5"
+DEV_LOGIN = "1"

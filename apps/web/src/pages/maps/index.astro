@@ -1,7 +1,7 @@
 ---
-import Base from '../layouts/Base.astro';
-import PageHead from '../components/PageHead.astro';
-import catalog from '../data/catalog.json';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import catalog from '../../data/catalog.json';
 
 const official = catalog.packs.filter((p) => p.id.startsWith('official-'));
 const community = catalog.packs.filter((p) => !p.id.startsWith('official-'));
@@ -11,7 +11,7 @@ const tone: Record<string, string> = { boots: 'ok', stalls: 'bad', untested: '' 
 const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untested: 'Untested' };
 ---
 <Base title="Skate 3 maps" description="Every known Skate 3 DLC and community map pack, with load-tested status on the native recomp.">
-  <PageHead eyebrow="Skate 3 maps" title="Community map catalog" lede={`${catalog.packs.length} packs and ${all.length} maps known to the Skate 3 Level Loader, with load-tested status on the native recomp.`}>
+  <PageHead eyebrow="Skate 3 maps" title="Skate 3 maps" lede={`Community uploads converted for every platform, plus ${catalog.packs.length} known packs (${all.length} maps) with load-tested status on the native recomp.`}>
     <div class="legend">
       <span class="chip ok">{count('boots')} boot</span>
       <span class="chip bad">{count('stalls')} stall</span>
@@ -20,16 +20,24 @@ const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untest
   </PageHead>
 
   <div class="wrap">
-    <div class="callout">
-      <p><strong>Uploads are coming.</strong> Signed-in users will host maps here and get every format: PS3, recomp <code>.big</code> and <code>.skate</code>. For now this is the catalog only. Pack files aren't hosted; get them from their authors, then <a href="/guides/install-community-maps/">import them</a>.</p>
-    </div>
+    <section class="uploads">
+      <div class="uhead">
+        <h2>Community uploads <span class="n" id="ucount"></span></h2>
+        <a class="btn primary" href="/upload/">Upload your map</a>
+      </div>
+      <p class="sub">Hosted here and converted to every platform. Each one was uploaded by its author or with the author's permission, and reviewed before going public. <a href="/policy/">Upload policy</a></p>
+      <div class="grid" id="uploads"><p class="muted">Loading…</p></div>
+    </section>
+
+    <h2 class="cat">Known map packs</h2>
+    <p class="sub">Packs the Skate 3 Level Loader knows by name, with load-tested status on the recomp. These files aren't hosted here; get them from their authors, then <a href="/guides/install-community-maps/">import them</a>.</p>
 
     <label class="search">
       <span class="visually-hidden">Filter maps</span>
       <input type="search" placeholder="Filter by pack or map name…" autocomplete="off" />
     </label>
 
-    <h2>Community packs <span class="n">{community.length}</span></h2>
+    <h3 class="sec">Community packs <span class="n">{community.length}</span></h3>
     <div class="grid packs">
       {community.map((p) => (
         <article class="card pack" data-text={`${p.name} ${p.maps.map((m) => m.name).join(' ')}`.toLowerCase()}>
@@ -43,7 +51,7 @@ const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untest
       ))}
     </div>
 
-    <h2>Official DLC <span class="n">{official.length}</span></h2>
+    <h3 class="sec">Official DLC <span class="n">{official.length}</span></h3>
     <div class="grid packs">
       {official.map((p) => (
         <article class="card pack" data-text={`${p.name} ${p.maps.map((m) => m.name).join(' ')}`.toLowerCase()}>
@@ -62,6 +70,22 @@ const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untest
 </Base>
 
 <script>
+  import { api, esc, formatDate } from '../../lib/api';
+  const kindLabel: Record<string, string> = { original: 'Original', recomp: 'Recomp .big', skate: '.skate' };
+  const platform: Record<string, string> = { ps3: 'PS3', x360: 'Xbox 360', skate: '.skate', unknown: '' };
+  api('/maps').then(({ maps }) => {
+    document.getElementById('ucount')!.textContent = String(maps.length);
+    document.getElementById('uploads')!.innerHTML = maps.length ? maps.map((m: any) => `
+      <a class="card" href="/maps/view/?id=${m.id}">
+        <div class="meta"><span class="muted">${esc(platform[m.source_platform] ?? '')} · ${formatDate(m.approved_at)}</span></div>
+        <h3>${esc(m.title)}</h3>
+        <p>by ${esc(m.author_credit)}</p>
+        <div class="kinds">${m.kinds.map((k: string) => `<span class="chip ${k === 'original' ? '' : 'accent'}">${esc(kindLabel[k] ?? k)}</span>`).join('')}</div>
+      </a>`).join('') : '<p class="muted">No maps published yet. <a href="/upload/">Be the first.</a></p>';
+  }).catch(() => {
+    document.getElementById('uploads')!.innerHTML = '<p class="muted">Community uploads are unavailable right now.</p>';
+  });
+
   const input = document.querySelector<HTMLInputElement>('.search input');
   const cards = [...document.querySelectorAll<HTMLElement>('.pack')];
   input?.addEventListener('input', () => {
@@ -82,5 +106,13 @@ const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untest
   .pack ul { list-style: none; padding: 0; margin: 0; font-size: 0.92rem; }
   .pack li { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.3rem 0; border-top: 1px solid var(--line); }
   .pack li:first-child { border-top: 0; }
+  .uploads { margin-bottom: 3rem; }
+  .uhead { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .uhead h2 { margin: 0; }
+  .sub { color: var(--ink-soft); max-width: 75ch; }
+  .muted { color: var(--ink-faint); font-size: 0.85rem; }
+  .cat { margin-bottom: 0.3rem; }
+  .sec { display: flex; align-items: center; gap: 0.6rem; margin-top: 2rem; }
+  .kinds { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.7rem; }
   .src { margin-top: 2rem; font-size: 0.88rem; color: var(--ink-faint); max-width: 75ch; }
 </style>

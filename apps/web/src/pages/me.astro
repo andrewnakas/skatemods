@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="My maps" description="Your uploads on skatemods.com.">
+  <PageHead eyebrow="Account" title="My maps">
+    <div class="who" id="who"></div>
+  </PageHead>
+  <div class="wrap">
+    <div id="gate" class="card" hidden>
+      <h3>Sign in to see your maps</h3>
+      <a class="btn primary" id="signin" href="/api/auth/login">Sign in with GitHub</a>
+    </div>
+    <div id="body" hidden>
+      <div class="bar"><a class="btn primary" href="/upload/">Upload a map</a><span id="adminLink"></span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Map</th><th>Status</th><th>Conversion</th><th>Uploaded</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p id="empty" hidden>No uploads yet.</p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { api, getMe, signInUrl, esc, formatDate, STATUS } from '../lib/api';
+  const me = await getMe();
+  if (!me) {
+    (document.getElementById('signin') as HTMLAnchorElement).href = signInUrl('/me/');
+    document.getElementById('gate')!.hidden = false;
+  } else {
+    document.getElementById('who')!.innerHTML =
+      `${me.avatar ? `<img src="${esc(me.avatar)}&s=64" alt="" width="32" height="32">` : ''}<span>Signed in as <strong>${esc(me.login)}</strong></span>
+       <button class="btn small" id="logout" type="button">Sign out</button>`;
+    document.getElementById('logout')!.addEventListener('click', async () => { await api('/auth/logout', { method: 'POST' }); location.href = '/'; });
+    if (me.role === 'admin') document.getElementById('adminLink')!.innerHTML = '<a class="btn" href="/admin/">Moderation queue</a>';
+    const { maps } = await api('/me/maps');
+    document.getElementById('rows')!.innerHTML = maps.map((m: any) => {
+      const [tone, label] = STATUS[m.status] ?? ['', m.status];
+      return `<tr>
+        <td><a href="/maps/view/?id=${m.id}">${esc(m.title)}</a>${m.review_note ? `<div class="note">${esc(m.review_note)}</div>` : ''}</td>
+        <td><span class="chip ${tone}">${label}</span></td>
+        <td>${esc(m.conversion ?? '—')}</td>
+        <td>${formatDate(m.created_at)}</td></tr>`;
+    }).join('');
+    document.getElementById('empty')!.hidden = maps.length > 0;
+    document.getElementById('body')!.hidden = false;
+  }
+</script>
+
+<style>
+  .who { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
+  .who :global(img) { border-radius: 999px; }
+  .who :global(.small) { padding: 0.35rem 0.8rem; font-size: 0.85rem; }
+  .bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  :global(.note) { font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.25rem; }
+</style>

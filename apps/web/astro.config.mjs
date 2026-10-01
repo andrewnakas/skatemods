@@ -4,4 +4,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://skatemods.com',
   trailingSlash: 'always',
+  vite: {
+    build: { target: 'es2022' },
+  },
 });

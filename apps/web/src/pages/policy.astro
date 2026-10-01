@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Upload policy" description="What you can upload to skatemods.com, how maps are checked and reviewed, and how takedowns work.">
+  <PageHead eyebrow="Policy" title="Upload policy" lede="Only maps you have the right to share. Every upload is checked automatically and reviewed by a person before anyone else can see it." />
+  <div class="wrap prose">
+    <h2>You can upload</h2>
+    <ul>
+      <li><strong>Maps you made.</strong> Your own geometry, layout and textures, built with community tools.</li>
+      <li><strong>Maps someone else made, with their permission.</strong> Say who granted it and where: a link to their post, a message, or a license that allows redistribution. Moderators may ask for proof.</li>
+      <li><strong>Conversions of either of the above.</strong> Credit the original author in the "Original author" field.</li>
+    </ul>
+
+    <h2>You can't upload</h2>
+    <ul>
+      <li><strong>Retail game content.</strong> Stock districts (University, Downtown, Industrial and the rest), official DLC, or packs that are mostly unmodified retail files. That includes "modified" retail districts: an edited University is still EA's University.</li>
+      <li><strong>Maps you don't have permission for</strong>, even with credit. "I found it on YouTube" is not permission.</li>
+      <li><strong>Executables or scripts</strong> of any kind inside an upload.</li>
+      <li>Anything for online-only or anti-cheat-protected games, malware, or illegal content.</li>
+    </ul>
+
+    <h2>What happens after you upload</h2>
+    <ol>
+      <li><strong>Private by default.</strong> Only you and the moderators can see your map.</li>
+      <li><strong>Automatic checks.</strong> The converter unpacks your upload in an isolated GitHub Actions runner. It rejects executables and retail districts. Once the retail hash list is built, it will also compare every stream file against it, using hashes only: no game files are stored or compared directly. The check results go to the moderator.</li>
+      <li><strong>Conversion.</strong> PS3 maps become recomp <code>.big</code> and <code>.skate</code>; Xbox 360 maps become <code>.skate</code>. You can download your outputs straight away.</li>
+      <li><strong>Review.</strong> A moderator reads your rights declaration and the check results, then approves or rejects with a reason.</li>
+      <li><strong>Public.</strong> Approved maps appear on the <a href="/maps/">maps page</a> with your credit and license.</li>
+    </ol>
+
+    <h2>Licenses</h2>
+    <p>You choose how others may use your map: CC BY 4.0, CC BY-NC 4.0, CC BY-ND 4.0, CC0, or "free to share unmodified with credit". The license covers your own work only. Skate 3 itself, its formats and its trademarks belong to EA.</p>
+
+    <h2 id="takedowns">Takedowns</h2>
+    <p>Every map has a <strong>Report</strong> button, and you don't need an account to use it. Rights holders: choose "This is my work" or "Copyright", say what you own and where the original is, and leave a contact. We act on credible claims quickly and remove first. You can also open an issue on <a href="https://github.com/andrewnakas/skatemods/issues">GitHub</a>.</p>
+    <p>Uploaders can delete their own maps at any time from <a href="/me/">My maps</a>. Repeated violations get an account banned.</p>
+
+    <h2>Your data</h2>
+    <p>Signing in with GitHub gives us your public profile only: login, name and avatar. No email and no repository access. Uploads, outputs and an audit log of moderation actions are kept in Cloudflare R2 and D1 until deleted.</p>
+  </div>
+</Base>

@@ -4,6 +4,9 @@
 #   PS3 DIST  -> recomp .big (sk3 build-dlc) -> .skate
 #   X360 DIST -> .skate
 #
+# Writes <out>/policy.json (see policy.py) before converting anything; a
+# rejected upload is not converted.
+#
 # usage: convert.sh <input file or folder> <out dir>
 # env:   TOOLS_DIR  where the pinned converter checkouts live (default: ./work/tools)
 set -euo pipefail
@@ -21,7 +24,24 @@ size() { stat -c %s "$1" 2>/dev/null || stat -f %z "$1"; }
 
 slug() { tr '[:upper:]' '[:lower:]' <<<"$1" | tr -cd 'a-z0-9'; }
 
-python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" | while read -r line; do
+if [[ $input == *.skate ]]; then
+  # Already in the Rust engine's format; nothing to convert to yet, only check it.
+  mkdir -p "$out/unpacked/raw" && cp "$input" "$out/unpacked/raw/"
+  : > "$out/worlds.jsonl"
+else
+  python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" > "$out/worlds.jsonl" \
+    || echo "unpack: no convertible world in this upload" >&2
+fi
+
+# Content policy runs on everything that was in the upload, before any conversion.
+python3 "$here/policy.py" "$out/unpacked/raw" > "$out/policy.json"
+if grep -q '"verdict": "reject"' "$out/policy.json"; then
+  echo "policy rejected this upload:"; cat "$out/policy.json"
+  rm -rf "$out/unpacked"
+  exit 0
+fi
+
+while read -r line; do
   kind=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["platform"])' "$line")
   dist=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["dist"])' "$line")
   name=$(basename "$dist"); label=${name#DIST_}
@@ -52,7 +72,7 @@ python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" | while read -r lin
   fi
   rm -rf "$out/skate/work"
   echo "::endgroup::"
-done
+done < "$out/worlds.jsonl"
 # Keep only deliverables and logs.
 rm -rf "$out/unpacked" "$out/from-recomp"
 cat "$results"

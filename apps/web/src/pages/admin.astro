@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Moderation" description="skatemods moderation queue.">
+  <PageHead eyebrow="Moderators" title="Moderation queue" lede="Approve only maps the uploader has the right to share. When in doubt, ask for proof or reject with a reason." />
+  <div class="wrap">
+    <p id="denied" hidden>Moderators only.</p>
+    <section id="q" hidden>
+      <h2>Waiting for review <span class="n" id="nmaps"></span></h2>
+      <div id="maps" class="list"></div>
+      <h2>Open reports <span class="n" id="nreports"></span></h2>
+      <div id="reports" class="list"></div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { api, getMe, esc, formatBytes, formatDate } from '../lib/api';
+
+  async function load() {
+    const { maps, reports } = await api('/admin/queue');
+    document.getElementById('nmaps')!.textContent = String(maps.length);
+    document.getElementById('nreports')!.textContent = String(reports.length);
+    document.getElementById('maps')!.innerHTML = maps.map((m: any) => {
+      const p = m.policy;
+      const tone = !p ? '' : p.verdict === 'ok' ? 'ok' : p.verdict === 'flag' ? 'warn' : 'bad';
+      return `<article class="card item" data-id="${m.id}">
+        <div class="head"><h3><a href="/maps/view/?id=${m.id}">${esc(m.title)}</a></h3>
+          <span class="chip ${tone}">checks: ${esc(p?.verdict ?? 'pending')}</span>
+          <span class="chip">conversion: ${esc(m.conversion?.status ?? 'none')}</span></div>
+        <p>by <strong>${esc(m.authorCredit)}</strong> · uploader <a href="https://github.com/${esc(m.uploader.login)}">${esc(m.uploader.login)}</a> · ${esc(m.rights === 'author' ? 'claims authorship' : 'claims permission')} · ${esc(m.licenseLabel)} · ${formatDate(m.createdAt)}</p>
+        ${m.permissionNote ? `<p class="perm"><strong>Permission:</strong> ${esc(m.permissionNote)}</p>` : ''}
+        ${p ? `<ul class="checks">${[...p.reasons, ...(p.notes ?? [])].map((r: string) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+        <p class="files">${m.files.map((f: any) => `<a href="/api/maps/${m.id}/files/${f.id}">${esc(f.kind)}: ${esc(f.name)} (${formatBytes(f.bytes)})</a>`).join(' · ')}</p>
+        <div class="acts">
+          <input class="note" placeholder="Note to uploader (required to reject)" />
+          <button class="btn primary" data-act="approve">Approve</button>
+          <button class="btn" data-act="reject">Reject</button>
+          <button class="btn" data-act="reconvert">Reconvert</button>
+          <button class="btn danger" data-act="remove">Delete files</button>
+        </div>
+      </article>`;
+    }).join('') || '<p class="empty">Nothing waiting.</p>';
+    document.getElementById('reports')!.innerHTML = reports.map((r: any) => `
+      <article class="card item" data-report="${r.id}" data-map="${r.map_id}">
+        <div class="head"><h3><a href="/maps/view/?id=${r.map_id}">${esc(r.title)}</a></h3><span class="chip bad">${esc(r.reason)}</span><span class="chip">map ${esc(r.map_status)}</span></div>
+        <p>${esc(r.details) || '<em>No details</em>'}</p>
+        <p class="small">From ${esc(r.reporter ?? 'anonymous')}${r.contact ? ` · ${esc(r.contact)}` : ''} · ${formatDate(r.created_at)}</p>
+        <div class="acts">
+          <input class="note" placeholder="Resolution (required)" />
+          <button class="btn" data-ract="dismiss">Resolve, keep map</button>
+          <button class="btn" data-ract="unpublish">Resolve, unpublish</button>
+          <button class="btn danger" data-ract="remove">Resolve, delete map</button>
+        </div>
+      </article>`).join('') || '<p class="empty">No open reports.</p>';
+  }
+
+  document.addEventListener('click', async (e) => {
+    const btn = (e.target as HTMLElement).closest('button');
+    if (!btn) return;
+    const item = btn.closest('.item') as HTMLElement;
+    const note = (item?.querySelector('.note') as HTMLInputElement)?.value ?? '';
+    try {
+      if (btn.dataset.act) {
+        if (btn.dataset.act === 'remove' && !confirm('Delete all files for this map?')) return;
+        await api(`/admin/maps/${item.dataset.id}`, { method: 'POST', json: { action: btn.dataset.act, note } });
+      } else if (btn.dataset.ract) {
+        if (!note.trim()) return alert('Write a resolution first.');
+        const act = btn.dataset.ract;
+        if (act !== 'dismiss') await api(`/admin/maps/${item.dataset.map}`, { method: 'POST', json: { action: act, note } });
+        await api(`/admin/reports/${item.dataset.report}`, { method: 'POST', json: { resolution: `${act}: ${note}` } });
+      } else return;
+      await load();
+    } catch (err) { alert((err as Error).message); }
+  });
+
+  const me = await getMe();
+  if (me?.role !== 'admin') document.getElementById('denied')!.hidden = false;
+  else { document.getElementById('q')!.hidden = false; await load(); }
+</script>
+
+<style>
+  .n { font: 600 0.9rem var(--font-mono); color: var(--ink-faint); }
+  .list { display: grid; gap: 1rem; }
+  .item .head { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .item h3 { margin: 0 0.5rem 0 0; }
+  .item p { margin: 0.5rem 0 0 !important; }
+  :global(.checks) { margin: 0.6rem 0 0; font-size: 0.9rem; color: var(--ink-soft); }
+  :global(.files) { font-size: 0.85rem; word-break: break-all; }
+  :global(.acts) { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  :global(.acts .note) { flex: 1 1 240px; font: inherit; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  :global(.acts .btn) { padding: 0.5rem 0.9rem; font-size: 0.88rem; }
+  :global(.btn.danger) { border-color: var(--bad); color: var(--bad); }
+  :global(.empty) { color: var(--ink-faint); }
+  :global(.small) { font-size: 0.85rem; color: var(--ink-faint); }
+</style>

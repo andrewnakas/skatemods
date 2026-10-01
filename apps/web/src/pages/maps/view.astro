@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Map" description="A community Skate 3 map on skatemods.com.">
+  <div class="wrap view">
+    <p id="loading">Loading…</p>
+    <div id="notfound" hidden>
+      <h1>Map not found</h1>
+      <p>It may be private, waiting for review, or removed.</p>
+      <a class="btn" href="/maps/">All maps</a>
+    </div>
+    <article id="map" hidden></article>
+
+    <dialog id="report">
+      <form method="dialog" id="rform">
+        <h2>Report this map</h2>
+        <label>Reason
+          <select name="reason" required>
+            <option value="stolen">This is my work, shared without permission</option>
+            <option value="copyright">Copyright / DMCA</option>
+            <option value="retail_assets">It contains retail game content</option>
+            <option value="malware">Malware or harmful files</option>
+            <option value="broken">It doesn't work</option>
+            <option value="other">Something else</option>
+          </select>
+        </label>
+        <label>Details<textarea name="details" rows="4" maxlength="4000" placeholder="For ownership claims: what you made and where the original is."></textarea></label>
+        <label id="contactWrap">How to reach you<input name="contact" maxlength="200" placeholder="Email, Discord or similar" /></label>
+        <p class="error" id="rerror" hidden></p>
+        <div class="row"><button class="btn primary" value="send">Send report</button><button class="btn" value="cancel" formnovalidate>Cancel</button></div>
+      </form>
+    </dialog>
+  </div>
+</Base>
+
+<script>
+  import { api, getMe, esc, formatBytes, formatDate, STATUS, KIND_LABEL } from '../../lib/api';
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id') ?? '';
+  const el = document.getElementById('map')!;
+  const me = await getMe();
+
+  const platformLabel: Record<string, string> = { ps3: 'PS3', x360: 'Xbox 360 / recomp', skate: 'Rust engine', unknown: 'Unknown' };
+
+  async function render() {
+    let m: any;
+    try { m = await api(`/maps/${encodeURIComponent(id)}`); } catch {
+      document.getElementById('loading')!.hidden = true;
+      document.getElementById('notfound')!.hidden = false;
+      return;
+    }
+    document.title = `${m.title} · skatemods`;
+    const [tone, label] = STATUS[m.status] ?? ['', m.status];
+    const conv = m.conversion;
+    const downloads = m.files.filter((f: any) => f.kind !== 'log');
+    const logs = m.files.filter((f: any) => f.kind === 'log');
+    const policy = m.policy;
+    el.innerHTML = `
+      ${params.get('uploaded') ? `<div class="callout"><strong>Uploaded.</strong> Conversion is queued: this page updates by itself. Your map stays private until a moderator approves it.</div>` : ''}
+      <p class="eyebrow">Skate 3 map · ${esc(platformLabel[m.sourcePlatform] ?? m.sourcePlatform)}</p>
+      <h1>${esc(m.title)}</h1>
+      <p class="byline">by <strong>${esc(m.authorCredit)}</strong>${m.rights === 'permission' ? ' · shared with permission' : ''} · uploaded by ${esc(m.uploader.login)}${m.approvedAt ? ` · ${formatDate(m.approvedAt)}` : ''}</p>
+      <div class="chips">
+        ${m.status !== 'approved' ? `<span class="chip ${tone}">${label}</span>` : ''}
+        <span class="chip">${esc(m.licenseLabel)}</span>
+        ${conv ? `<span class="chip ${conv.status === 'done' ? 'ok' : conv.status === 'failed' ? 'bad' : 'warn'}">Conversion ${esc(conv.status)}</span>` : ''}
+      </div>
+      ${m.reviewNote ? `<div class="callout"><strong>Moderator note:</strong> ${esc(m.reviewNote)}</div>` : ''}
+      ${m.description ? `<div class="desc">${esc(m.description).replace(/\n/g, '<br>')}</div>` : ''}
+
+      <h2>Downloads</h2>
+      <div class="dl">
+        ${downloads.map((f: any) => `
+          <a class="card file" href="/api/maps/${m.id}/files/${f.id}">
+            <span class="chip ${f.kind === 'original' ? '' : 'accent'}">${esc(KIND_LABEL[f.kind] ?? f.kind)}</span>
+            <h3>${esc(f.name)}</h3>
+            <p>${formatBytes(f.bytes)}${f.downloads ? ` · ${f.downloads} downloads` : ''}</p>
+          </a>`).join('')}
+        ${conv && ['queued', 'running'].includes(conv.status) ? `<div class="card file pending"><span class="chip warn">${conv.status === 'queued' ? 'Queued' : 'Converting'}</span><h3>Converting to other platforms…</h3><p>Usually a few minutes.</p></div>` : ''}
+      </div>
+      <p class="how">PS3 maps convert to a recomp <code>.big</code> and a <code>.skate</code>; Xbox 360 maps to <code>.skate</code>. <a href="/guides/install-community-maps/">How to install a .big</a> · <a href="/guides/skate-maps-rust-engine/">How to load a .skate</a></p>
+
+      ${policy ? `
+        <h2>Checks <span class="chip ${policy.verdict === 'ok' ? 'ok' : policy.verdict === 'flag' ? 'warn' : 'bad'}">${esc(policy.verdict)}</span></h2>
+        <ul class="checks">${[...(policy.reasons ?? []), ...(policy.notes ?? [])].map((r: string) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+      ${m.permissionNote ? `<p class="perm"><strong>Permission (private):</strong> ${esc(m.permissionNote)}</p>` : ''}
+      ${conv?.results?.length ? `<div class="table-wrap"><table><thead><tr><th>World</th><th>Conversion</th><th>Result</th><th>Size</th><th>Time</th></tr></thead><tbody>${
+        conv.results.map((r: any) => `<tr><td>${esc(r.map)}</td><td>${esc(r.source)} → ${esc(r.target)}</td><td>${r.ok ? '✅' : '❌'}</td><td>${r.bytes ? formatBytes(r.bytes) : ''}</td><td>${r.seconds ?? ''}${r.seconds !== undefined ? ' s' : ''}</td></tr>`).join('')
+      }</tbody></table></div>` : ''}
+      ${logs.length || conv?.runUrl ? `<p class="small">${logs.map((f: any) => `<a href="/api/maps/${m.id}/files/${f.id}">Conversion log</a>`).join(' · ')}${conv?.runUrl ? ` · <a href="${esc(conv.runUrl)}">Runner</a>` : ''}</p>` : ''}
+
+      <div class="foot">
+        ${m.canEdit ? `<button class="btn" id="delete" type="button">Delete my map</button>` : ''}
+        <button class="btn" id="reportBtn" type="button">Report</button>
+      </div>`;
+
+    document.getElementById('loading')!.hidden = true;
+    el.hidden = false;
+    document.getElementById('reportBtn')?.addEventListener('click', () => (document.getElementById('report') as HTMLDialogElement).showModal());
+    document.getElementById('delete')?.addEventListener('click', async () => {
+      if (!confirm('Delete this map and all its files? This cannot be undone.')) return;
+      await api(`/maps/${m.id}`, { method: 'DELETE' });
+      location.href = '/me/';
+    });
+    if (conv && ['queued', 'running'].includes(conv.status)) setTimeout(render, 10000);
+  }
+
+  // Reports
+  const dialog = document.getElementById('report') as HTMLDialogElement;
+  const rform = document.getElementById('rform') as HTMLFormElement;
+  if (me) document.getElementById('contactWrap')!.hidden = true;
+  rform.addEventListener('submit', async (e) => {
+    const submitter = (e as SubmitEvent).submitter as HTMLButtonElement;
+    if (submitter?.value !== 'send') return;
+    e.preventDefault();
+    const f = new FormData(rform);
+    const err = document.getElementById('rerror')!;
+    try {
+      await api(`/maps/${encodeURIComponent(id)}/report`, { method: 'POST', json: Object.fromEntries(f) });
+      dialog.close();
+      alert('Thanks. A moderator will look at it.');
+    } catch (ex) { err.textContent = (ex as Error).message; err.hidden = false; }
+  });
+
+  render();
+</script>
+
+<style>
+  .view { padding-top: 2.5rem; }
+  .view :global(h1) { margin: 0.4rem 0 0.4rem; }
+  .view :global(.byline) { color: var(--ink-soft); margin: 0 0 1rem; }
+  .view :global(.chips) { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .view :global(.desc) { max-width: 70ch; margin-top: 1.5rem; color: var(--ink-soft); }
+  .view :global(.dl) { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+  .view :global(.file h3) { word-break: break-all; font-size: 1rem; }
+  .view :global(.file.pending) { border-style: dashed; }
+  .view :global(.how), .view :global(.small) { color: var(--ink-faint); font-size: 0.9rem; }
+  .view :global(.checks) { color: var(--ink-soft); font-size: 0.92rem; }
+  .view :global(.perm) { font-size: 0.92rem; color: var(--ink-soft); }
+  .view :global(.foot) { display: flex; gap: 0.75rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  dialog { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--bg-raised); color: var(--ink); max-width: min(520px, calc(100vw - 32px)); width: 100%; }
+  dialog::backdrop { background: rgb(0 0 0 / 50%); }
+  dialog h2 { margin-top: 0; }
+  dialog form { display: grid; gap: 0.9rem; }
+  dialog label { display: grid; gap: 0.35rem; font-weight: 600; }
+  dialog select, dialog textarea, dialog input { font: inherit; font-weight: 400; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  dialog .row { display: flex; gap: 0.6rem; }
+  .error { color: var(--bad); margin: 0; }
+</style>

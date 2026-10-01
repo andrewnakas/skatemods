@@ -1,0 +1,33 @@
+name = "skatemods-api"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Same origin as the site, so the session cookie never leaves skatemods.com.
+routes = [{ pattern = "skatemods.com/api/*", zone_name = "skatemods.com" }]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "skatemods"
+database_id = "a68b0fb5-6f2e-4bb1-83c7-eb4a3d595a73"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MAPS"
+bucket_name = "skatemods-maps"
+
+[vars]
+SITE = "https://skatemods.com"
+GITHUB_REPO = "andrewnakas/skatemods"
+# Audience the convert workflow requests for its OIDC token.
+OIDC_AUDIENCE = "https://skatemods.com/api/runner"
+# GitHub logins that moderate (comma separated).
+ADMINS = "andrewnakas"
+MAX_UPLOAD_BYTES = "2147483648"
+# Per user: maps that are uploading or waiting for review at once.
+MAX_PENDING_PER_USER = "5"
+
+# Secrets (wrangler secret put):
+#   GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET   OAuth app for "Sign in with GitHub"
+#   GITHUB_DISPATCH_TOKEN (optional)         fine-grained PAT, Actions: write on the repo.
+#                                            Without it, convert.yml's schedule picks jobs up.

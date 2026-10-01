@@ -1,0 +1,64 @@
+# Converts maps uploaded to skatemods.com. Started by the site (workflow_dispatch)
+# when a dispatch token is configured, and by the schedule otherwise.
+#
+# Authentication is the job's own GitHub OIDC token: the API accepts only this
+# workflow file on main of this repository. No secrets are involved, so logs are
+# safe to keep public; uploaded maps and outputs never appear in them as URLs.
+name: convert
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: convert
+  cancel-in-progress: false
+
+env:
+  AUDIENCE: https://skatemods.com/api/runner
+  API: https://skatemods.com/api
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      pending: ${{ steps.pending.outputs.pending }}
+    steps:
+      - id: pending
+        run: |
+          token=$(curl -sf -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE" | jq -r .value)
+          n=$(curl -sf -H "Authorization: Bearer $token" "$API/runner/pending" | jq -r .pending)
+          echo "pending=${n:-0}" >> "$GITHUB_OUTPUT"
+          echo "$n job(s) waiting"
+
+  convert:
+    needs: check
+    if: needs.check.outputs.pending != '0' && needs.check.outputs.pending != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Tools
+        run: |
+          sudo apt-get install -y -q libarchive-tools
+          pip install -q -r converter/requirements.txt
+          converter/fetch_tools.sh "$RUNNER_TEMP/tools"
+          dotnet build "$RUNNER_TEMP/tools/ps3x360/src/Sk3.Cli" -c Release -v q
+      - name: Convert queued maps
+        env:
+          TOOLS_DIR: ${{ runner.temp }}/tools
+          SKATEMODS_API: ${{ env.API }}
+        run: python3 converter/run_jobs.py --max 10

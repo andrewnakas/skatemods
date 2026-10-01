@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Upload a map" description="Upload a Skate 3 map you made (or have permission to share) and get it converted to every platform.">
+  <PageHead eyebrow="Upload" title="Upload a Skate 3 map" lede="Share a map you made, or one you have the author's permission to share. It converts automatically and goes public after a moderator reviews it." />
+  <div class="wrap">
+    <div id="gate" class="card gate" hidden>
+      <h3>Sign in to upload</h3>
+      <p>We use GitHub for accounts. We only read your public profile.</p>
+      <a class="btn primary" id="signin" href="/api/auth/login">Sign in with GitHub</a>
+    </div>
+
+    <form id="form" class="upload" hidden novalidate>
+      <fieldset>
+        <legend>The map</legend>
+        <label>Title<input name="title" required minlength="3" maxlength="80" placeholder="e.g. Sunbad Art Gallery" /></label>
+        <label>Description <span class="opt">(optional)</span><textarea name="description" maxlength="4000" rows="4" placeholder="What's in it, where to spawn, anything players should know."></textarea></label>
+        <label>Platform it was made for
+          <select name="sourcePlatform">
+            <option value="ps3">PS3 (DIST with .psf, or .big.edat)</option>
+            <option value="x360">Xbox 360 / recomp (.xsf, .big)</option>
+            <option value="skate">Rust engine (.skate)</option>
+            <option value="unknown">Not sure</option>
+          </select>
+        </label>
+        <label>File
+          <input type="file" name="file" required accept=".zip,.7z,.rar,.big,.edat,.skate" />
+          <span class="hint">.zip, .7z, .rar, .big, .big.edat or .skate, up to 2 GB.</span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Rights</legend>
+        <label>Original author<input name="authorCredit" required minlength="2" maxlength="120" placeholder="Who made the map. Your name if it's yours." /></label>
+        <div class="radio">
+          <label><input type="radio" name="rights" value="author" checked /> I made this map</label>
+          <label><input type="radio" name="rights" value="permission" /> Someone else made it and gave me permission to share it</label>
+        </div>
+        <label id="perm" hidden>How you got permission
+          <textarea name="permissionNote" maxlength="1000" rows="3" placeholder="Who granted it, when, and a link to the message or post. Moderators may verify this."></textarea>
+        </label>
+        <label>License
+          <select name="license" id="license"></select>
+          <span class="hint">How others may use the map. It covers the map's author's work only.</span>
+        </label>
+      </fieldset>
+
+      <fieldset class="attest">
+        <legend>Confirm</legend>
+        <label><input type="checkbox" name="a_rights" required /> I made this map, or the author gave me permission to share it here.</label>
+        <label><input type="checkbox" name="a_noRetail" required /> It isn't a retail district or official DLC, and doesn't repackage retail game files.</label>
+        <label><input type="checkbox" name="a_terms" required /> I've read the <a href="/policy/" target="_blank">upload policy</a>. I understand the map stays private until a moderator approves it, and may be removed if it breaks the policy.</label>
+      </fieldset>
+
+      <p class="error" id="error" role="alert" hidden></p>
+      <div class="actions">
+        <button class="btn primary" type="submit" id="submit">Upload and convert</button>
+        <a href="/policy/">Upload policy</a>
+      </div>
+      <div class="progress" id="progress" hidden>
+        <div class="bar"><span id="bar"></span></div>
+        <p id="ptext">Starting…</p>
+      </div>
+    </form>
+  </div>
+</Base>
+
+<script>
+  import { api, getMe, signInUrl, formatBytes, ApiError } from '../lib/api';
+
+  const form = document.getElementById('form') as HTMLFormElement;
+  const errorEl = document.getElementById('error')!;
+  const showError = (msg: string) => { errorEl.textContent = msg; errorEl.hidden = false; errorEl.scrollIntoView({ block: 'center', behavior: 'smooth' }); };
+
+  const [me, config] = await Promise.all([getMe(), api('/config').catch(() => null)]);
+  if (!me) {
+    (document.getElementById('signin') as HTMLAnchorElement).href = signInUrl('/upload/');
+    document.getElementById('gate')!.hidden = false;
+  } else {
+    form.hidden = false;
+    const sel = document.getElementById('license') as HTMLSelectElement;
+    for (const [value, label] of Object.entries(config?.licenses ?? {})) sel.add(new Option(label as string, value));
+    (form.elements.namedItem('authorCredit') as HTMLInputElement).value = me.name || me.login;
+  }
+
+  form.addEventListener('change', () => {
+    const perm = (form.elements.namedItem('rights') as RadioNodeList).value === 'permission';
+    document.getElementById('perm')!.hidden = !perm;
+    (form.elements.namedItem('permissionNote') as HTMLTextAreaElement).required = perm;
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.hidden = true;
+    if (!form.reportValidity()) return;
+    const f = new FormData(form);
+    const file = f.get('file') as File;
+    if (!file || !file.size) return showError('Choose a map file.');
+
+    const submit = document.getElementById('submit') as HTMLButtonElement;
+    const bar = document.getElementById('bar')!;
+    const ptext = document.getElementById('ptext')!;
+    submit.disabled = true;
+    document.getElementById('progress')!.hidden = false;
+
+    try {
+      const start = await api('/maps', { method: 'POST', json: {
+        title: f.get('title'), description: f.get('description'), sourcePlatform: f.get('sourcePlatform'),
+        authorCredit: f.get('authorCredit'), rights: f.get('rights'), permissionNote: f.get('permissionNote') ?? '',
+        license: f.get('license'), fileName: file.name, fileBytes: file.size,
+        attest: { rights: !!f.get('a_rights'), noRetail: !!f.get('a_noRetail'), terms: !!f.get('a_terms') },
+      } });
+      let sent = 0;
+      for (let p = 1; p <= start.parts; p++) {
+        const chunk = file.slice((p - 1) * start.partSize, p * start.partSize);
+        for (let attempt = 0; ; attempt++) {
+          try {
+            await api(`/maps/${start.mapId}/files/${start.fileId}/parts/${p}`, { method: 'PUT', body: chunk });
+            break;
+          } catch (err) {
+            if (attempt >= 3 || (err instanceof ApiError && err.status < 500)) throw err;
+            await new Promise((r) => setTimeout(r, 1500 * 2 ** attempt));
+          }
+        }
+        sent += chunk.size;
+        bar.style.width = `${(sent / file.size) * 100}%`;
+        ptext.textContent = `Uploaded ${formatBytes(sent)} of ${formatBytes(file.size)}`;
+      }
+      ptext.textContent = 'Finishing…';
+      await api(`/maps/${start.mapId}/files/${start.fileId}/complete`, { method: 'POST' });
+      location.href = `/maps/view/?id=${start.mapId}&uploaded=1`;
+    } catch (err) {
+      submit.disabled = false;
+      showError(err instanceof Error ? err.message : String(err));
+    }
+  });
+</script>
+
+<style>
+  .gate { max-width: 460px; }
+  .upload { max-width: 680px; display: grid; gap: 1.5rem; }
+  fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem 1.2rem; margin: 0; display: grid; gap: 1rem; background: var(--bg-raised); }
+  legend { font: 400 1.1rem var(--font-display); padding: 0 0.4rem; }
+  label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.95rem; }
+  input:not([type='radio']):not([type='checkbox']), textarea, select {
+    font: inherit; font-weight: 400; padding: 0.6rem 0.75rem; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%;
+  }
+  input[type='file'] { padding: 0.5rem; }
+  .opt, .hint { font-weight: 400; color: var(--ink-faint); font-size: 0.85rem; }
+  .radio, .attest { display: grid; gap: 0.6rem; }
+  .radio label, .attest label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; }
+  .radio input, .attest input { margin-top: 0.3rem; accent-color: var(--accent-strong); flex: none; }
+  .actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .error { color: var(--bad); border: 1px solid var(--bad); border-radius: 8px; padding: 0.6rem 0.8rem; margin: 0; }
+  .progress .bar { height: 10px; border-radius: 999px; background: var(--bg-sunk); overflow: hidden; }
+  .progress .bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+  .progress p { color: var(--ink-soft); font-size: 0.9rem; }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+</style>
