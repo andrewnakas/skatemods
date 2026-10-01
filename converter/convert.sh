@@ -32,9 +32,10 @@ python3 "$here/unpack.py" "$engine" "$input" "$out/unpacked" | while read -r lin
     start=$SECONDS
     if "$sk3" build-dlc "$dist" "$big" --name="$label" --rebuild-vertices < /dev/null > "$out/$label.recomp.log" 2>&1; then
       record "{\"map\":\"$label\",\"source\":\"ps3\",\"target\":\"recomp\",\"ok\":true,\"file\":\"recomp/$(basename "$big")\",\"bytes\":$(size "$big"),\"seconds\":$((SECONDS-start))}"
-      # The recomp pack is an X360 DIST in disguise: feed it to the .skate path.
-      python3 "$here/unpack.py" "$engine" "$big" "$out/from-recomp/$label" < /dev/null > /dev/null
-      dist="$out/from-recomp/$label/x360/$name"
+      # The rust engine's big reader rejects sk3's compressed chunks, so the
+      # .skate path takes an uncompressed X360 DIST straight from the transcoder.
+      "$sk3" convert-dist "$dist" "$out/from-recomp/$name" --no-compress --rebuild-vertices < /dev/null >> "$out/$label.recomp.log" 2>&1
+      dist="$out/from-recomp/$name"
     else
       record "{\"map\":\"$label\",\"source\":\"ps3\",\"target\":\"recomp\",\"ok\":false,\"log\":\"$label.recomp.log\"}"
       tail -40 "$out/$label.recomp.log"
