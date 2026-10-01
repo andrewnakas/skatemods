@@ -17,6 +17,9 @@ export interface FileRow {
   bytes: number;
   upload_id: string | null;
   complete: number;
+  storage: 'r2' | 'github';
+  external_url: string | null;
+  gh_asset_id: number | null;
 }
 
 export async function beginFile(env: Env, mapId: string, kind: FileRow['kind'], name: string, bytes: number) {
@@ -83,7 +86,7 @@ export async function putSmallFile(env: Env, mapId: string, kind: FileRow['kind'
 }
 
 export async function deleteMapObjects(env: Env, mapId: string) {
-  const { results } = await env.DB.prepare('SELECT r2_key, upload_id FROM files WHERE map_id = ?')
+  const { results } = await env.DB.prepare(`SELECT r2_key, upload_id FROM files WHERE map_id = ? AND storage = 'r2'`)
     .bind(mapId).all<{ r2_key: string; upload_id: string | null }>();
   for (const f of results) {
     if (f.upload_id) await env.MAPS.resumeMultipartUpload(f.r2_key, f.upload_id).abort().catch(() => {});

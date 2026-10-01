@@ -7,9 +7,10 @@ usage: run_jobs.py [--max N]
 env:   SKATEMODS_API (default https://skatemods.com/api)
        ACTIONS_ID_TOKEN_REQUEST_URL / _TOKEN (set by GitHub when id-token: write)
        SKATEMODS_RUNNER_TOKEN  local testing only (e.g. "dev-runner" against wrangler dev)
+       GH_TOKEN               for publish jobs: Contents write on the maps repo
 """
 from pathlib import Path
-import argparse, json, os, shutil, subprocess, sys, tempfile, time, urllib.error, urllib.parse, urllib.request
+import argparse, json, os, re, shutil, subprocess, sys, tempfile, time, urllib.error, urllib.parse, urllib.request
 
 API = os.environ.get('SKATEMODS_API', 'https://skatemods.com/api').rstrip('/')
 AUDIENCE = 'https://skatemods.com/api/runner'
@@ -103,6 +104,59 @@ def run_one(claim: dict, work: Path) -> None:
     print(f'::endgroup::\njob {job}: {"ok" if ok else "FAILED"}, policy {policy["verdict"]}', flush=True)
 
 
+def asset_name(name: str, taken: set) -> str:
+    clean = re.sub(r'[^A-Za-z0-9._-]+', '.', name).strip('.') or 'file'
+    while clean in taken:
+        clean = 'x-' + clean
+    taken.add(clean)
+    return clean
+
+
+def gh(*args, check=True) -> str:
+    proc = subprocess.run(['gh', *args], capture_output=True, text=True, stdin=subprocess.DEVNULL)
+    if check and proc.returncode:
+        raise RuntimeError(f'gh {args[0]} {args[1]}: {proc.stderr.strip()[:500]}')
+    return proc.stdout
+
+
+def run_publish(claim: dict, work: Path) -> None:
+    """Attach every stored file to a public release on the maps repo (needs GH_TOKEN)."""
+    job, m, repo = claim['job'], claim['map'], claim['repo']
+    tag = f'map-{m["id"]}'
+    print(f'::group::publish {job}: {m["title"]} -> {repo}@{tag}', flush=True)
+    jobdir = work / job
+    shutil.rmtree(jobdir, ignore_errors=True)
+    jobdir.mkdir(parents=True)
+    taken, paths = set(), {}
+    for f in claim['files']:
+        path = jobdir / asset_name(f['name'], taken)
+        call('GET', f'/runner/jobs/{job}/files/{f["id"]}/download', stream_to=path)
+        if path.stat().st_size != f['bytes']:
+            raise RuntimeError(f'{f["name"]}: got {path.stat().st_size} bytes, expected {f["bytes"]}')
+        paths[f['id']] = path
+
+    rights = 'made by the uploader' if m['rights'] == 'author' else "shared with the author's permission"
+    notes = jobdir / 'NOTES.md'
+    notes.write_text(
+        f'**{m["title"]}** by **{m["author_credit"]}** ({rights}), uploaded by @{m["uploader"]}.\n\n'
+        f'License: {m["licenseLabel"]}\n\n'
+        f'Map page, install guides and reports: {m["url"]}\n\n'
+        + (f'> {m["description"].strip()[:2000]}\n\n' if m.get('description') else '')
+        + 'Reviewed by a skatemods moderator before release. Takedowns: https://skatemods.com/policy/#takedowns\n')
+    gh('release', 'delete', tag, '--repo', repo, '--cleanup-tag', '--yes', check=False)  # retry after a partial run
+    gh('release', 'create', tag, *map(str, paths.values()), '--repo', repo,
+       '--title', f'{m["title"]} by {m["author_credit"]}'[:120], '--notes-file', str(notes))
+    info = json.loads(gh('api', f'repos/{repo}/releases/tags/{tag}'))
+    by_name = {a['name']: a for a in info['assets']}
+    assets = []
+    for fid, path in paths.items():
+        a = by_name[path.name]
+        assets.append({'fileId': fid, 'assetId': a['id'], 'url': a['browser_download_url'], 'size': a['size']})
+    call('POST', f'/runner/jobs/{job}/published', json_body={'releaseId': info['id'], 'tag': tag, 'assets': assets})
+    shutil.rmtree(jobdir, ignore_errors=True)
+    print(f'::endgroup::\npublished {tag} with {len(assets)} file(s)', flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--max', type=int, default=10, help='jobs to run before exiting')
@@ -114,7 +168,7 @@ def main():
         if status == 204:
             break
         try:
-            run_one(claim, work)
+            (run_publish if claim.get('kind') == 'publish' else run_one)(claim, work)
         except Exception as e:  # report and move on; the job stays visible as failed
             print(f'::error::job {claim["job"]}: {e}', flush=True)
             try:

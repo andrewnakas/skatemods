@@ -19,6 +19,8 @@ bucket_name = "skatemods-maps"
 [vars]
 SITE = "https://skatemods.com"
 GITHUB_REPO = "andrewnakas/skatemods"
+# Published maps are GitHub Releases here (free storage and bandwidth).
+MAPS_REPO = "andrewnakas/skatemods-maps"
 # Audience the convert workflow requests for its OIDC token.
 OIDC_AUDIENCE = "https://skatemods.com/api/runner"
 # GitHub logins that moderate (comma separated).
@@ -29,5 +31,7 @@ MAX_PENDING_PER_USER = "5"
 
 # Secrets (wrangler secret put):
 #   GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET   OAuth app for "Sign in with GitHub"
-#   GITHUB_DISPATCH_TOKEN (optional)         fine-grained PAT, Actions: write on the repo.
-#                                            Without it, convert.yml's schedule picks jobs up.
+#   GITHUB_TOKEN (optional)                  fine-grained PAT: Actions RW on GITHUB_REPO (start
+#                                            conversions at once) + Contents RW on MAPS_REPO
+#                                            (unpublish/delete releases). Without it, convert.yml's
+#                                            schedule picks jobs up and published files stay in R2.

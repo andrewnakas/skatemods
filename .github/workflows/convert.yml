@@ -61,4 +61,6 @@ jobs:
         env:
           TOOLS_DIR: ${{ runner.temp }}/tools
           SKATEMODS_API: ${{ env.API }}
+          # Publishing approved maps to Releases on andrewnakas/skatemods-maps.
+          GH_TOKEN: ${{ secrets.MAPS_TOKEN }}
         run: python3 converter/run_jobs.py --max 10

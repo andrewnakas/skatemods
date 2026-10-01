@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import type { AppEnv } from './env';
 import { requireAdmin } from './auth';
-import { audit, getMap, present, queueJob } from './maps';
-import { deleteMapObjects } from './storage';
+import { audit, getMap, present, queueJob, removeStorage } from './maps';
+import { releasesEnabled, setReleaseDraft } from './releases';
 import { fail, now } from './util';
 
 export const admin = new Hono<AppEnv>();
@@ -39,6 +39,12 @@ admin.post('/maps/:id', async (c) => {
       if (policy?.verdict === 'reject') fail(409, 'Automated checks rejected this map. Reconvert after fixing the policy, or reject it.');
       await c.env.DB.prepare(`UPDATE maps SET status = 'approved', review_note = ?, approved_at = ?, updated_at = ? WHERE id = ?`)
         .bind(note, t, t, map.id).run();
+      if (map.release_id) {
+        if (releasesEnabled(c.env)) await setReleaseDraft(c.env, map.release_id, false);
+      } else {
+        // Move the files from R2 to a public GitHub release.
+        await queueJob(c.env, map.id, 'publish');
+      }
       break;
     }
     case 'reject':
@@ -47,17 +53,22 @@ admin.post('/maps/:id', async (c) => {
         .bind(note, t, map.id).run();
       break;
     case 'unpublish':
+      if (map.release_id) {
+        if (!releasesEnabled(c.env)) fail(503, 'Cannot hide the published release: GITHUB_TOKEN is not configured');
+        await setReleaseDraft(c.env, map.release_id, true);
+      }
       await c.env.DB.prepare(`UPDATE maps SET status = 'pending_review', review_note = ?, updated_at = ? WHERE id = ?`)
         .bind(note, t, map.id).run();
       break;
     case 'remove':
-      await deleteMapObjects(c.env, map.id);
+      await removeStorage(c.env, map);
       await c.env.DB.batch([
         c.env.DB.prepare(`UPDATE maps SET status = 'removed', review_note = ?, updated_at = ? WHERE id = ?`).bind(note, t, map.id),
         c.env.DB.prepare('DELETE FROM files WHERE map_id = ?').bind(map.id),
       ]);
       break;
     case 'reconvert':
+      if (map.release_id) fail(409, 'Published maps are reconverted by deleting and re-uploading');
       await queueJob(c.env, map.id);
       break;
     default:

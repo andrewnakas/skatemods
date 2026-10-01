@@ -23,6 +23,7 @@ bucket_name = "skatemods-maps"
 [vars]
 SITE = "http://localhost:8787"
 GITHUB_REPO = "andrewnakas/skatemods"
+MAPS_REPO = "andrewnakas/skatemods-maps"
 OIDC_AUDIENCE = "https://skatemods.com/api/runner"
 ADMINS = "andrewnakas"
 MAX_UPLOAD_BYTES = "2147483648"

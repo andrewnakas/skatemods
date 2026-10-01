@@ -3,6 +3,7 @@ import { Hono } from 'hono';
 import type { AppEnv } from './env';
 import { requireRunner, type RunnerClaims } from './oidc';
 import { audit } from './maps';
+import { LICENSES, type License } from './policy';
 import { beginFile, completeFile, putPart, putSmallFile, type FileRow } from './storage';
 import { fail, now, safeName } from './util';
 
@@ -36,12 +37,26 @@ runner.post('/claim', async (c) => {
   const job = await c.env.DB.prepare(
     `UPDATE jobs SET status = 'running', claimed_at = ?, attempts = attempts + 1, run_url = ?
      WHERE id = (SELECT j.id FROM jobs j JOIN maps m ON m.id = j.map_id
-                 WHERE j.status = 'queued' AND m.status IN ('pending_review', 'approved')
+                 WHERE j.status = 'queued' AND (m.status = 'approved' OR (j.kind = 'convert' AND m.status = 'pending_review'))
                  ORDER BY j.created_at LIMIT 1)
        AND status = 'queued'
-     RETURNING id, map_id`,
-  ).bind(t, runUrl).first<{ id: string; map_id: string }>();
+     RETURNING id, map_id, kind`,
+  ).bind(t, runUrl).first<{ id: string; map_id: string; kind: 'convert' | 'publish' }>();
   if (!job) return c.body(null, 204);
+
+  if (job.kind === 'publish') {
+    const map = await c.env.DB.prepare(
+      `SELECT m.id, m.title, m.description, m.author_credit, m.rights, m.license, m.source_platform, u.login AS uploader
+       FROM maps m JOIN users u ON u.id = m.owner_id WHERE m.id = ?`,
+    ).bind(job.map_id).first<any>();
+    const files = (await c.env.DB.prepare(
+      `SELECT id, kind, name, bytes FROM files WHERE map_id = ? AND complete = 1 AND storage = 'r2' AND kind != 'log' ORDER BY kind`,
+    ).bind(job.map_id).all()).results;
+    return c.json({
+      job: job.id, kind: 'publish', files, repo: c.env.MAPS_REPO,
+      map: { ...map, licenseLabel: LICENSES[map.license as License] ?? map.license, url: `${c.env.SITE}/maps/view/?id=${map.id}` },
+    });
+  }
 
   // A re-run replaces the previous outputs.
   const old = (await c.env.DB.prepare(`SELECT r2_key FROM files WHERE map_id = ? AND kind != 'original'`)
@@ -52,7 +67,7 @@ runner.post('/claim', async (c) => {
   const input = await c.env.DB.prepare(`SELECT id, name, bytes FROM files WHERE map_id = ? AND kind = 'original' AND complete = 1`)
     .bind(job.map_id).first();
   const map = await c.env.DB.prepare('SELECT id, title, source_platform FROM maps WHERE id = ?').bind(job.map_id).first();
-  return c.json({ job: job.id, map, input });
+  return c.json({ job: job.id, kind: 'convert', map, input });
 });
 
 async function runningJob(c: any) {
@@ -69,6 +84,45 @@ runner.get('/jobs/:jobId/input', async (c) => {
   const object = file && await c.env.MAPS.get(file.r2_key);
   if (!object) fail(404, 'Input missing');
   return new Response(object.body, { headers: { 'Content-Length': String(object.size) } });
+});
+
+// Publish jobs fetch each stored file to attach it to the release.
+runner.get('/jobs/:jobId/files/:fileId/download', async (c) => {
+  const job = await runningJob(c);
+  const file = await c.env.DB.prepare(`SELECT r2_key FROM files WHERE id = ? AND map_id = ? AND complete = 1 AND storage = 'r2'`)
+    .bind(c.req.param('fileId'), job.map_id).first<{ r2_key: string }>();
+  const object = file && await c.env.MAPS.get(file.r2_key);
+  if (!object) fail(404, 'File missing');
+  return new Response(object.body, { headers: { 'Content-Length': String(object.size) } });
+});
+
+// The release exists and holds every asset: point downloads at GitHub, free the R2 copies.
+runner.post('/jobs/:jobId/published', async (c) => {
+  const job = await runningJob(c);
+  const body = await c.req.json<{ releaseId: number; tag: string; assets: { fileId: string; assetId: number; url: string; size: number }[] }>();
+  if (!Number.isInteger(body.releaseId) || !body.tag || !Array.isArray(body.assets)) fail(400, 'releaseId, tag and assets are required');
+  const files = (await c.env.DB.prepare(`SELECT id, r2_key, bytes FROM files WHERE map_id = ? AND storage = 'r2' AND complete = 1 AND kind != 'log'`)
+    .bind(job.map_id).all<{ id: string; r2_key: string; bytes: number }>()).results;
+  const byId = new Map(body.assets.map((a) => [a.fileId, a]));
+  for (const f of files) {
+    const a = byId.get(f.id);
+    if (!a || a.size !== f.bytes || !a.url.startsWith(`https://github.com/${c.env.MAPS_REPO}/releases/download/`)) {
+      fail(400, `asset for file ${f.id} missing or wrong size`);
+    }
+  }
+  const t = now();
+  await c.env.DB.batch([
+    ...files.map((f) => {
+      const a = byId.get(f.id)!;
+      return c.env.DB.prepare(`UPDATE files SET storage = 'github', external_url = ?, gh_asset_id = ? WHERE id = ?`).bind(a.url, a.assetId, f.id);
+    }),
+    c.env.DB.prepare('UPDATE maps SET release_id = ?, release_tag = ?, updated_at = ? WHERE id = ?').bind(body.releaseId, body.tag, t, job.map_id),
+    c.env.DB.prepare(`UPDATE jobs SET status = 'done', finished_at = ?, result_json = ? WHERE id = ?`)
+      .bind(t, JSON.stringify({ releaseId: body.releaseId, tag: body.tag, assets: body.assets.length }), job.id),
+  ]);
+  if (files.length) await c.env.MAPS.delete(files.map((f) => f.r2_key));
+  await audit(c.env, null, 'publish.done', job.map_id, body.tag);
+  return c.json({ ok: true });
 });
 
 runner.post('/jobs/:jobId/files', async (c) => {
@@ -104,9 +158,16 @@ interface Completion {
 }
 
 runner.post('/jobs/:jobId/complete', async (c) => {
-  const job = await runningJob(c);
+  const job = await runningJob(c) as { id: string; map_id: string; kind: string };
   const body = await c.req.json<Completion>();
   const t = now();
+  if (job.kind === 'publish') {
+    // Publishing failed: files stay in R2 and keep serving; the map's checks are untouched.
+    await c.env.DB.prepare(`UPDATE jobs SET status = 'failed', finished_at = ?, log_tail = ? WHERE id = ?`)
+      .bind(t, String(body.log ?? '').slice(-4000), job.id).run();
+    await audit(c.env, null, 'publish.failed', job.map_id);
+    return c.json({ ok: true });
+  }
   const log = String(body.log ?? '').slice(-200_000);
   if (log) await putSmallFile(c.env, job.map_id, 'log', 'conversion.log', log);
   const verdict = body.policy?.verdict ?? 'flag';

@@ -4,6 +4,7 @@ import { requireUser } from './auth';
 import { LICENSES, PLATFORMS, REPORT_REASONS, parseNewMap, type License } from './policy';
 import { beginFile, completeFile, deleteMapObjects, putPart, type FileRow } from './storage';
 import { fail, newId, now, safeName } from './util';
+import { deleteRelease, fetchAsset, releasesEnabled } from './releases';
 
 export interface MapRow {
   id: string;
@@ -21,6 +22,8 @@ export interface MapRow {
   created_at: number;
   updated_at: number;
   approved_at: number | null;
+  release_id: number | null;
+  release_tag: string | null;
   owner_login?: string;
   owner_avatar?: string | null;
 }
@@ -43,7 +46,7 @@ export async function present(env: Env, map: MapRow, user: User | null) {
     `SELECT id, kind, name, bytes, downloads FROM files WHERE map_id = ? AND complete = 1 ORDER BY created_at`,
   ).bind(map.id).all()).results;
   const job = await env.DB.prepare(
-    `SELECT status, attempts, finished_at, result_json, log_tail, run_url FROM jobs WHERE map_id = ? ORDER BY created_at DESC LIMIT 1`,
+    `SELECT status, attempts, finished_at, result_json, log_tail, run_url FROM jobs WHERE map_id = ? AND kind = 'convert' ORDER BY created_at DESC LIMIT 1`,
   ).bind(map.id).first<any>();
   const privileged = isPrivileged(map, user);
   return {
@@ -77,11 +80,11 @@ export async function present(env: Env, map: MapRow, user: User | null) {
 
 /** Ask GitHub to start convert.yml now. Without a token the workflow's schedule picks the job up. */
 export async function dispatchConversion(env: Env) {
-  if (!env.GITHUB_DISPATCH_TOKEN) return false;
+  if (!env.GITHUB_TOKEN) return false;
   const res = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/actions/workflows/convert.yml/dispatches`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${env.GITHUB_DISPATCH_TOKEN}`,
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
       Accept: 'application/vnd.github+json',
       'User-Agent': 'skatemods',
     },
@@ -90,15 +93,25 @@ export async function dispatchConversion(env: Env) {
   return res.ok;
 }
 
-export async function queueJob(env: Env, mapId: string) {
-  await env.DB.prepare(`INSERT INTO jobs (id, map_id, status, created_at) VALUES (?, ?, 'queued', ?)`)
-    .bind(newId(), mapId, now()).run();
+export async function queueJob(env: Env, mapId: string, kind: 'convert' | 'publish' = 'convert') {
+  await env.DB.prepare(`INSERT INTO jobs (id, map_id, kind, status, created_at) VALUES (?, ?, ?, 'queued', ?)`)
+    .bind(newId(), mapId, kind, now()).run();
   return dispatchConversion(env);
 }
 
 export async function audit(env: Env, actor: number | null, action: string, mapId: string | null, note = '') {
   await env.DB.prepare('INSERT INTO audit (actor_id, action, map_id, note, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(actor, action, mapId, note.slice(0, 2000), now()).run();
+}
+
+/** Delete every stored copy of a map: R2 objects and its GitHub release. */
+export async function removeStorage(env: Env, map: MapRow) {
+  await deleteMapObjects(env, map.id);
+  if (map.release_id) {
+    if (!releasesEnabled(env)) fail(503, 'Cannot delete the published release: GITHUB_TOKEN is not configured');
+    await deleteRelease(env, map.release_id, map.release_tag);
+    await env.DB.prepare('UPDATE maps SET release_id = NULL, release_tag = NULL WHERE id = ?').bind(map.id).run();
+  }
 }
 
 export const maps = new Hono<AppEnv>();
@@ -137,11 +150,23 @@ maps.get('/:id/files/:fileId', async (c) => {
   const file = await c.env.DB.prepare('SELECT * FROM files WHERE id = ? AND map_id = ? AND complete = 1')
     .bind(c.req.param('fileId'), map.id).first() as FileRow | null;
   if (!file || (file.kind === 'log' && !isPrivileged(map, c.get('user')))) fail(404, 'File not found');
-  const object = await c.env.MAPS.get(file.r2_key);
-  if (!object) fail(404, 'File missing from storage');
   if (map.status === 'approved') {
     c.executionCtx.waitUntil(c.env.DB.prepare('UPDATE files SET downloads = downloads + 1 WHERE id = ?').bind(file.id).run());
   }
+  if (file.storage === 'github') {
+    // Public: straight to GitHub's CDN. Private (draft release): stream it with our token.
+    if (map.status === 'approved' && file.external_url) return c.redirect(file.external_url, 302);
+    if (!releasesEnabled(c.env) || !file.gh_asset_id) fail(404, 'File is in an unpublished release');
+    const asset = await fetchAsset(c.env, file.gh_asset_id);
+    if (!asset.ok) fail(404, 'File missing from storage');
+    return new Response(asset.body, { headers: {
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': `attachment; filename="${file.name}"`,
+      'Cache-Control': 'private, no-store',
+    } });
+  }
+  const object = await c.env.MAPS.get(file.r2_key);
+  if (!object) fail(404, 'File missing from storage');
   return new Response(object.body, {
     headers: {
       'Content-Type': file.kind === 'log' ? 'text/plain; charset=utf-8' : 'application/octet-stream',
@@ -206,7 +231,7 @@ maps.delete('/:id', async (c) => {
   const user = requireUser(c);
   const map = await getMap(c.env, c.req.param('id'));
   if (!map || (map.owner_id !== user.id && user.role !== 'admin')) fail(404, 'Map not found');
-  await deleteMapObjects(c.env, map.id);
+  await removeStorage(c.env, map);
   await c.env.DB.batch([
     c.env.DB.prepare(`UPDATE maps SET status = 'removed', updated_at = ? WHERE id = ?`).bind(now(), map.id),
     c.env.DB.prepare('DELETE FROM files WHERE map_id = ?').bind(map.id),

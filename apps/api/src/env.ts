@@ -9,7 +9,9 @@ export interface Env {
   MAX_PENDING_PER_USER: string;
   GITHUB_CLIENT_ID?: string;
   GITHUB_CLIENT_SECRET?: string;
-  GITHUB_DISPATCH_TOKEN?: string;
+  /** Fine-grained PAT: Actions RW on GITHUB_REPO (dispatch), Contents RW on MAPS_REPO (releases). */
+  GITHUB_TOKEN?: string;
+  MAPS_REPO: string;
   /** Local development only: enables /api/auth/dev-login. Never set in production. */
   DEV_LOGIN?: string;
 }
