@@ -5,19 +5,19 @@ games: [tony-hawk-classic]
 years: 2013–present
 scene: active
 order: 2
-updated: 2026-10-01
+updated: 2026-10-02
 people:
-  - name: Morten
-    role: Co-creator and developer. Vice spells his surname Larsen, Wikipedia spells it Larson.
-    source: https://www.vice.com/en/article/tony-hawk-pro-skater-fans-are-keeping-the-series-alive-with-mods/
+  - name: morten
+    role: Co-creator, and a primary developer since the start, focused on fixing bugs and importing levels from the other games.
+    source: https://thpsx.com/episode-16-morten/
   - name: Quazz
-    role: One of the three developers named on THPSX's THUG Pro page.
-    source: https://thpsx.com/thugpro-info/
+    role: One of the primary developers, with a strong focus on scripting.
+    source: https://thpsx.com/episode-14-quazz/
   - name: "%.Gone"
     role: One of the three developers, written "Gone" on THPSX and "%gone" in Kotaku's 2014 story.
     source: https://thpsx.com/thugpro-info/
   - name: Chase Sechrist
-    role: Contributor the team thanked in the 0.6 release for helping "re-ignite others interest in THPS modding". Wikipedia's infobox lists him as a designer.
+    role: Contributor the team thanked in the 0.6 release for helping "re-ignite others interest in THPS modding". Wikipedia's infobox lists Chase as a designer.
     source: http://thugpro.com/post/175316723159
   - name: chc, krad, demo and frost
     role: The early helpers Kotaku thanked alongside the developers in 2014.
@@ -38,14 +38,24 @@ people:
   - name: letmynutzgo, Splinks, GoFundYourself and Biz
     role: Made the new skater models for 0.6.
     source: http://thugpro.com/post/175316723159
+  - name: Krad
+    role: A founder of THPSX, the community site that hosts THUG Pro, and a long-time helper on OpenSpy, the server THUG Pro players go online through.
+    source: https://thpsx.com/episode-50-krad/
+  - name: Sattan
+    role: One of the few custom level makers who builds THUG Pro levels entirely from scratch, and wrote a Blender tutorial so anyone can.
+    source: https://thpsx.com/episode-22-sattan/
   - name: sk8ace
     role: Wrote the THPSX update announcements, including the THPS3 levels in 2015 and the 0.6 release in 2018.
     source: https://thpsx.com/thugpro-update-dec-13th/
 milestones:
+  - date: 2012-08-31
+    title: THUG2 LEVELMOD
+    body: A very early version of the mod ships with THUG1's Venice and School 2 levels, named in tribute to a similar mod for THPS3.
+    source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
   - date: "2012"
     title: A scene that was falling apart
-    body: According to co-creator Morten, most official servers were gone and players were scattered across games and platforms. THUG Pro started as the fix.
-    who: Morten
+    body: According to co-creator morten, most official servers were gone and players were scattered across games and platforms. THUG Pro started as the fix.
+    who: morten
     source: https://www.vice.com/en/article/tony-hawk-pro-skater-fans-are-keeping-the-series-alive-with-mods/
   - date: 2013-08-10
     title: First release
@@ -55,6 +65,18 @@ milestones:
     title: Kotaku calls it the ultimate Tony Hawk's game
     body: Kotaku covered the mod's 1080p support, improved online play and its plans for levels from every game, a level editor and a story mode.
     source: https://kotaku.com/fans-are-making-the-ultimate-tony-hawks-game-1499842025
+  - date: 2014-02-02
+    title: THPS4 levels and a new launcher
+    body: The first big update brings in THPS4's levels, a new launcher and updater, and server options.
+    source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
+  - date: 2014-12-08
+    title: PS2 controls, AutoServer and more
+    body: A huge update adds the full PS2 control layout, THUG1-style drift, airshuffle, AutoServer hosting, new game modes and a new launcher.
+    source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
+  - date: 2015-04-26
+    title: Project 8 levels
+    body: City Center and Fun Park from Project 8 arrive. Warehouse, Kyoto, Burnside and Roswell follow later that year.
+    source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
   - date: 2015-12-13
     title: THPS3 arrives
     body: Foundry, Rio, Suburbia, Skater Island, Tokyo, Cruise Ship and Oil Rig were added in one update.
@@ -99,9 +121,9 @@ links:
 
 ## Why it exists
 
-By around 2012 the classic Tony Hawk's online scene was in trouble. Co-creator Morten told [Vice](https://www.vice.com/en/article/tony-hawk-pro-skater-fans-are-keeping-the-series-alive-with-mods/) that online services for most of the games were gone, and "players were spread between different games and platforms." His team's answer was a single game that contained all the others. In [THPSX's words](https://thpsx.com/thugpro-info/), the mod's purpose is "to unify the community by adding levels and features from other THPS games to one central place."
+By around 2012 the classic Tony Hawk's online scene was in trouble. Co-creator morten told [Vice](https://www.vice.com/en/article/tony-hawk-pro-skater-fans-are-keeping-the-series-alive-with-mods/) that online services for most of the games were gone, and "players were spread between different games and platforms." The team's answer was a single game that contained all the others. In [THPSX's words](https://thpsx.com/thugpro-info/), the mod's purpose is "to unify the community by adding levels and features from other THPS games to one central place."
 
-They built it on the PC version of *Tony Hawk's Underground 2*. The [first release](https://thpsx.com/thugpro-info/) came on August 10, 2013, from three developers: Morten, Quazz and Gone. Online play has been the main mode [from the start](https://en.wikipedia.org/wiki/THUG_Pro). The other long-running job, Morten says, was getting the controls to feel right, "a never ending nightmare."
+They built it on the PC version of *Tony Hawk's Underground 2*. A very early version, [THUG2 LEVELMOD](https://tonyhawkgames.fandom.com/wiki/THUG_Pro), appeared in August 2012 with two THUG1 levels. The [first THUG Pro release](https://thpsx.com/thugpro-info/) came on August 10, 2013, from three developers: morten, who focuses on bugs and level importing ([podcast](https://thpsx.com/episode-16-morten/)), Quazz, who focuses on scripting ([podcast](https://thpsx.com/episode-14-quazz/)), and Gone. Online play has been the main mode [from the start](https://en.wikipedia.org/wiki/THUG_Pro). The other long-running job, according to morten, was getting the controls to feel right, "a never ending nightmare."
 
 ## Every level in one game
 
@@ -115,4 +137,4 @@ Version 0.6 in [June 2018](https://thpsx.com/thugpro-update-0-6-0-0/) changed th
 
 ## Today
 
-THUG Pro is still described as "an independent, non-profit modification for Tony Hawk's Underground 2, developed and maintained by a dedicated community" ([changelog](https://thugpro.com/post/thugpro-v0-7-0-0-changelog/)). It got a [new site](https://thugpro.com/) in 2024, and [THPSX](https://thpsx.com/) hosts the vault of user levels and skaters. To set it up next to PARTYMOD, see the [THUG Pro and PARTYMOD guide](/guides/thug-pro-and-partymod/).
+THUG Pro is still described as "an independent, non-profit modification for Tony Hawk's Underground 2, developed and maintained by a dedicated community" ([changelog](https://thugpro.com/post/thugpro-v0-7-0-0-changelog/)). It got a [new site](https://thugpro.com/) in 2024, and [THPSX](https://thpsx.com/) hosts the vault of user levels and skaters. THUG Pro has no Discord of its own. Its [community page](https://thugpro.com/community/) points to the THPSX Discord, which has almost 30,000 members, and THPSX's podcast has interviewed many of the people on this page. To set it up next to PARTYMOD, see the [THUG Pro and PARTYMOD guide](/guides/thug-pro-and-partymod/).

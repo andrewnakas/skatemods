@@ -2,10 +2,10 @@
 title: PARTYMOD, ClownJob'd and OpenSpy
 short: How the original Tony Hawk's PC ports got modern controllers, widescreen, fixes for modern Windows and online play again, years after GameSpy shut down.
 games: [tony-hawk-classic]
-years: 2014–present
+years: 2013–present
 scene: active
 order: 3
-updated: 2026-10-01
+updated: 2026-10-02
 people:
   - name: PARTYMANX
     role: Writes every PARTYMOD patch, for THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and Mat Hoffman's Pro BMX, including a Vulkan renderer for THPS2.
@@ -20,18 +20,32 @@ people:
   - name: Ace, adelyn, sawwl and slime generator
     role: Tested the first PARTYMOD release, for THPS3.
     source: https://github.com/PARTYMANX/partymod-thps3/releases/tag/1.0
-  - name: chc
-    role: By far the largest committer to openspy-core, the open-source GameSpy replacement that the patches connect to.
+  - name: CHC
+    role: The original creator of OpenSpy and its backend developer. By far the largest committer to openspy-core, the open-source GameSpy replacement the patches connect to.
     url: https://github.com/openspy/openspy-core
-    source: https://github.com/openspy/openspy-core/graphs/contributors
+    source: http://web.archive.org/web/20130614052915id_/http://openspy.net/
+  - name: Krad and Freddy
+    role: Co-owners of OpenSpy when THPSX took it over in 2013, funding it as a non-commercial service.
+    source: http://web.archive.org/web/20130614052915id_/http://openspy.net/
+  - name: Frost and Kirillgta
+    role: OpenSpy administrators, handling web services and PR, and Russian support.
+    source: http://web.archive.org/web/20130614052915id_/http://openspy.net/
+  - name: Spanky
+    role: Ran an earlier version of the OpenSpy service at Lrnit.org before shutting it down.
+    source: http://web.archive.org/web/20130614052915id_/http://openspy.net/
 milestones:
+  - date: 2013-06
+    title: OpenSpy relaunches under THPSX
+    body: After an earlier operator shut it down, OpenSpy comes back as a non-commercial, donation-funded service owned by Krad and Freddy of THPSX, with CHC on the backend.
+    who: CHC, Krad, Freddy
+    source: http://web.archive.org/web/20130614052915id_/http://openspy.net/
   - date: 2014-05-31
     title: GameSpy goes dark
     body: All remaining GameSpy services shut down for non-EA games, taking online play for the Tony Hawk's PC ports with them.
     source: https://www.pcgamingwiki.com/wiki/GameSpy
   - date: 2018-03-02
     title: openspy-core
-    body: OpenSpy starts a full rewrite of its GameSpy-compatible server, which is open source on GitHub.
+    body: OpenSpy starts a full open-source rewrite of its server. It has since grown to cover games from Saints Row 2 to Red Alert 3.
     who: chc
     source: https://github.com/openspy/openspy-core
   - date: 2020-07-09
@@ -92,7 +106,7 @@ links:
 
 ## When the servers went away
 
-The Tony Hawk's PC ports ran their online play through GameSpy. When it [shut down for non-EA games on May 31, 2014](https://www.pcgamingwiki.com/wiki/GameSpy), they went offline overnight. The community's answer was OpenSpy, which PCGamingWiki describes as "an open-source clone of GameSpy servers". Its current server, [openspy-core](https://github.com/openspy/openspy-core), is a full rewrite that went public in 2018. Fan patches can point the old games at OpenSpy instead of GameSpy.
+The Tony Hawk's PC ports ran their online play through GameSpy. When it [shut down for non-EA games on May 31, 2014](https://www.pcgamingwiki.com/wiki/GameSpy), they went offline overnight. The Tony Hawk's community was ready. OpenSpy, created by CHC, [already hosted](https://tonyhawkgames.fandom.com/wiki/OpenSpy) the games' message of the day, and by [2013](http://web.archive.org/web/20130614052915id_/http://openspy.net/) THPSX's Krad and Freddy had taken it over as a non-commercial service funded by donations. Running it cost about $240 a year at the time ([2014 snapshot](http://web.archive.org/web/20141222174235id_/http://www.openspy.net/)). PCGamingWiki now describes OpenSpy as "an open-source clone of GameSpy servers". Its current server, [openspy-core](https://github.com/openspy/openspy-core), is a full rewrite that went public in 2018 and has grown to cover games far beyond Tony Hawk's. Fan patches can point the old games at OpenSpy instead of GameSpy.
 
 ## ClownJob'd
 

@@ -5,10 +5,10 @@ games: [thps-1-2, thps-3-4]
 years: 2022–present
 scene: active
 order: 6
-updated: 2026-10-01
+updated: 2026-10-02
 people:
   - name: bAstimc
-    role: Author of THPSPro for THPS 1+2 and 3+4. It ports levels from later games and restores classic tech, along with goals, a free-roam camera and a LAN mode.
+    role: Author of THPSPro for THPS 1+2 and 3+4. Started learning UE4 in February 2022 with guidance from GHFear, after years modding THAW and Project 8 builds. THPSPro ports levels from later games and restores classic tech, along with goals, a free-roam camera and a LAN mode.
     url: https://ko-fi.com/bastimc
     source: https://wccftech.com/tony-hawks-pro-skater-12-thpspro-mod-introduces-some-tony-hawks-pro-skater-3-maps-in-the-remaster/
   - name: morten, GHFear, spiritovod, Maru, demzy, jensTHPS, nacho, Sattan and Simonschreibt
@@ -39,7 +39,7 @@ milestones:
     source: https://www.youtube.com/watch?v=3NxNrzaWPKY
   - date: 2025-07-11
     title: THPS 3+4 is released
-    body: Iron Galaxy's remake of the next two games ships. THPSPro for 3+4 is on Nexus within days.
+    body: Iron Galaxy's remake of the next two games ships, and THPSPro already has a 3+4 page on Nexus.
     source: https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_3_%2B_4
   - date: 2025-08-17
     title: THPSPro 3+4 1.0
@@ -57,7 +57,7 @@ links:
 
 ## The remake that wasn't coming
 
-When Vicarious Visions was folded into Blizzard, a remake of THPS3 and 4 looked off the table. A [ResetEra thread](https://www.resetera.com/threads/thps1-2-mod-thpspro-by-bastimc-brings-thps-3-maps-to-the-game.664117/) from 2022 says "THPS3+4 will probably never happen anymore". So bAstimc started bringing THPS3 to *1+2* instead. By [late 2022](https://wccftech.com/tony-hawks-pro-skater-12-thpspro-mod-introduces-some-tony-hawks-pro-skater-3-maps-in-the-remaster/), THPSPro had THPS3 maps playable in the remake.
+When Vicarious Visions was folded into Blizzard, a remake of THPS3 and 4 looked off the table. A [ResetEra thread](https://www.resetera.com/threads/thps1-2-mod-thpspro-by-bastimc-brings-thps-3-maps-to-the-game.664117/) from 2022 says "THPS3+4 will probably never happen anymore". So bAstimc, who had started learning UE4 that February with guidance from GHFear ([THPS Podcast](https://thpsx.com/episode-53-bastimc/)), began bringing THPS3 to *1+2* instead, starting with Los Angeles. By [late 2022](https://wccftech.com/tony-hawks-pro-skater-12-thpspro-mod-introduces-some-tony-hawks-pro-skater-3-maps-in-the-remaster/), THPSPro had THPS3 maps playable in the remake.
 
 ## More levels with every update
 
@@ -65,4 +65,4 @@ Update videos on YouTube track the growth, and each one thanks a long list of he
 
 ## Then 3+4 shipped
 
-Iron Galaxy's [THPS 3+4](https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_3_%2B_4) came out in July 2025, and THPSPro moved with it. The [1.0 release for 3+4](https://www.youtube.com/watch?v=EYQx_2aP3LI) brought back custom restarts, the free-roam camera, lost levels and goals, and recreated old-school tech like boostplants. Both versions install as Unreal `.pak` files in the game's `~mods` folder. The rest of the remakes' Nexus scene is mostly character swaps and quality-of-life tweaks.
+Iron Galaxy's [THPS 3+4](https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_3_%2B_4) came out in July 2025, and THPSPro moved with it. The [1.0 release for 3+4](https://www.youtube.com/watch?v=EYQx_2aP3LI) brought back custom restarts, the free-roam camera, lost levels and goals, and recreated old-school tech like boostplants. Both versions install as Unreal `.pak` files in the game's `~mods` folder. The rest of the remakes' Nexus scene is mostly character swaps and quality-of-life tweaks. THPSPro's own Discord is linked from [discord.thpspro.com](https://discord.thpspro.com).

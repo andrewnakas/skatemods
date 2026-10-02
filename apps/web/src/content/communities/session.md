@@ -5,7 +5,7 @@ games: [session]
 years: 2019–present
 scene: active
 order: 5
-updated: 2026-10-01
+updated: 2026-10-02
 people:
   - name: rodriada000
     role: Wrote Session Map Switcher, which became Session Mod Manager. It's open source, with 79 releases over five years, an asset store and Linux support.
@@ -18,9 +18,16 @@ people:
     role: Helped build the mod manager's free Asset Store and its app updater.
     source: https://github.com/rodriada000/SessionMapSwitcher/releases/tag/v2.3.0
   - name: Illusory
-    role: Makes the Unreal Mod Unlocker. Session Mod Manager has used it to patch the game since 2020.
+    role: Makes the Unreal Mod Unlocker, which Session Mod Manager has used to patch the game since 2020, and runs a Discord of over 40,000 Unreal modders.
     url: https://illusory.dev/
     source: https://illusory.dev/
+  - name: GHFear
+    role: The largest contributor to the public Unreal Mod Unlocker. Also built early Session maps, including Skate 3's Black Box Distribution park and THPS2's School II.
+    url: https://github.com/GHFear
+    source: https://github.com/IllusorySoftware/UnrealModUnlocker-Public
+  - name: Roober, Khelldon and MaTSix
+    role: Made early community maps, including Community Park, LowLife Parking Garage and the SLS 2013 Super Crown course.
+    source: https://www.pcgamer.com/session-mods-custom-maps/
   - name: Redgouf
     role: Made the in-depth tutorial video credited in the mod manager's README.
     source: https://github.com/rodriada000/SessionMapSwitcher
@@ -43,6 +50,10 @@ milestones:
     body: Map Switcher 2.0 uses dga711's EzPz patch instead of an unpacked game. The same day, PC Gamer reports THPS2 and Skate 3 levels running in Session.
     who: rodriada000, dga711
     source: https://www.pcgamer.com/session-mods-custom-maps/
+  - date: 2020-02-19
+    title: The developer talks to modders
+    body: crea-ture's patch notes warn that mods made before the update will crash, and tell modders to unpatch the EZPZ patch first. It's an acknowledgement of the scene, but not official support.
+    source: https://steamcommunity.com/games/861650/announcements/detail/2578811485588754826
   - date: 2019-11-07
     title: Session Mod Manager
     body: After a community vote, the tool gets a new name.
@@ -79,7 +90,7 @@ links:
 
 Before Session opened to early access, crea-ture Studios [told players](https://steamcommunity.com/app/861650/discussions/0/2763442118821365907/) that modding had been a goal "ever since day one", but that official tools would come "eventually". The community didn't wait. Session is an Unreal Engine 4 game, so map makers could build levels in the regular UE4 editor. What they needed was a way to make the game load those levels.
 
-Eight days into [early access](https://en.wikipedia.org/wiki/Session:_Skate_Sim), rodriada000 released [Session Map Switcher](https://github.com/rodriada000/SessionMapSwitcher/releases/tag/v1.0.0), which switched maps while the game was running. By October, [PC Gamer](https://www.pcgamer.com/session-mods-custom-maps/) was writing about THPS2 and Skate 3 levels rebuilt in Session, "where the modding community is just getting started".
+Eight days into [early access](https://en.wikipedia.org/wiki/Session:_Skate_Sim), rodriada000 released [Session Map Switcher](https://github.com/rodriada000/SessionMapSwitcher/releases/tag/v1.0.0), which switched maps while the game was running. By October, [PC Gamer](https://www.pcgamer.com/session-mods-custom-maps/) was writing about THPS2 and Skate 3 levels rebuilt in Session, "where the modding community is just getting started". Several of those levels, Skate 3's Black Box Distribution park and THPS2's School II, were by GHFear, who also became the largest contributor to Illusory's [Unreal Mod Unlocker](https://github.com/IllusorySoftware/UnrealModUnlocker-Public). The same person shows up in the Skate 3 and THPSPro stories.
 
 ## A tool that kept up with the game
 

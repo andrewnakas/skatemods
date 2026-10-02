@@ -5,7 +5,7 @@ games: [skater-xl]
 years: 2018–present
 scene: thriving
 order: 4
-updated: 2026-10-01
+updated: 2026-10-02
 people:
   - name: DanielKIWI
     role: One of the first Skater XL modders. Their repo, created three days after early access, has a replay editor, a session marker manager, grind-to-grind and audio pitch mods.
@@ -20,13 +20,25 @@ people:
     url: https://github.com/silentbaws/XLMultiplayer
     source: https://github.com/silentbaws/XLMultiplayer
   - name: Theo
-    role: A map maker hired by Easy Day. His map debuted in Skater XL 1.0.
+    role: A map maker who joined Easy Day in 2019 and helped build maps. Theo's map debuted in Skater XL 1.0.
     source: https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/3444639924512737225
   - name: Kiwi
-    role: Programmer and creator of the replay editor, hired by Easy Day as an official team member.
-    source: https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/3444639924512737225
+    role: Made the widely used replay editor mod, then joined Easy Day in 2019, where the official replay editor was built on that mod.
+    source: https://steamcommunity.com/games/962730/announcements/detail/2422298078080480149
+  - name: newman55
+    role: Wrote Unity Mod Manager, which Skater XL's script mods have used from the start.
+    url: https://github.com/newman55/unity-mod-manager
+    source: https://github.com/newman55/unity-mod-manager
+  - name: DawgVinci
+    role: Made XXLMod, one of the community mods Easy Day tested against its own updates.
+    url: https://github.com/DawgVinciSXL/XXLMod3
+    source: https://steamcommunity.com/games/962730/announcements/detail/3112496281291930334
+  - name: GuruXL
+    role: Made XLWeather, with a day/night cycle, skyboxes and weather effects.
+    url: https://github.com/DillonCordiner/SkaterXL-XLWeather
+    source: https://github.com/DillonCordiner/SkaterXL-XLWeather
   - name: Jean-Olive
-    role: A prolific map maker. His "Streets" shipped in Skater XL 1.0, and he made an optimized Industrial Zone in 2021.
+    role: A prolific map maker. "Streets" shipped in Skater XL 1.0, followed by an optimized Industrial Zone in 2021.
     source: https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/3444639924512737225
   - name: Pactole
     role: Made "Hudland", the private training facility map that shipped in 1.0.
@@ -64,14 +76,27 @@ milestones:
     body: Twelve days into early access, a mod collection on Unity Mod Manager is already shipping releases.
     who: blendermf
     source: https://github.com/blendermf/XLShredLoader
+  - date: 2019-02
+    title: The studio documents mod support
+    body: Easy Day's own patch notes explain how to reactivate Unity Mod Manager mods after an update, and note that the replay mod and map importer are safe to use.
+    source: https://steamcommunity.com/games/962730/announcements/detail/3702426087253544768
   - date: 2019-07-17
     title: Fan multiplayer
     body: The first XLMultiplayer release puts players in the same session, two years before an official mode.
     who: silentbaws
     source: https://github.com/silentbaws/XLMultiplayer/releases
+  - date: 2019-09-25
+    title: Modders join Easy Day
+    body: Map maker Theo and replay-editor author Kiwi join the studio, and update 0.1 ships an official replay editor built on Kiwi's mod.
+    who: Theo, Kiwi
+    source: https://steamcommunity.com/games/962730/announcements/detail/2422298078080480149
+  - date: 2020-05-21
+    title: Tested against community mods
+    body: Easy Day's patch notes list community mods that still work after the update, including XXLMod and silentbaws's multiplayer mod.
+    source: https://steamcommunity.com/games/962730/announcements/detail/3112496281291930334
   - date: 2020-06-30
     title: Community maps go official
-    body: Easy Day announces that three of the most popular community maps will ship with 1.0, along with mod.io support. It also says it has hired modders Theo and Kiwi.
+    body: Easy Day announces that three of the most popular community maps will ship with 1.0, along with mod.io support.
     who: Jean-Olive, Pactole, Theo
     source: https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/3444639924512737225
   - date: 2020-07-21
