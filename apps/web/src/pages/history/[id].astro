@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Scene from '../../components/Scene.astro';
+import Timeline, { type TimelineGroup } from '../../components/Timeline.astro';
+import { timeline, eras, type Era } from '../../data/skate3-timeline';
+
+export async function getStaticPaths() {
+  const communities = await getCollection('communities');
+  return communities.map((c) => ({ params: { id: c.id }, props: { community: c } }));
+}
+
+const { community } = Astro.props;
+const { Content, headings } = await render(community);
+const d = community.data;
+const games = (await getCollection('games')).filter((g) => d.games.includes(g.id));
+if (games.length !== d.games.length) throw new Error(`communities/${community.id}: unknown game id in ${d.games.join(', ')}`);
+
+// Skate 3 keeps its long, era-grouped timeline in a data file; other scenes list milestones in frontmatter.
+const skate3Eras: Era[] = ['retail', 'console', 'emulator', 'native', 'convert'];
+const groups: TimelineGroup[] = community.id === 'skate-3'
+  ? skate3Eras.map((era) => ({ id: era, ...eras[era], events: timeline.filter((e) => e.era === era) }))
+  : [{ id: 'milestones', label: 'Milestones', events: d.milestones }];
+const hasEvents = groups.some((g) => g.events.length > 0);
+const source = community.id === 'skate-3'
+  ? 'https://github.com/andrewnakas/skatemods/blob/main/apps/web/src/data/skate3-timeline.ts'
+  : `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/communities/${community.id}.md`;
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
+const toc = [
+  ...headings.filter((h) => h.depth === 2).map((h) => ({ href: `#${h.slug}`, text: h.text })),
+  ...(d.people.length ? [{ href: '#people', text: 'The people' }] : []),
+  ...(hasEvents ? [{ href: '#timeline', text: 'Timeline' }] : []),
+];
+---
+<Base title={`${d.title} history`} description={d.short}>
+  <PageHead parent={{ href: '/history/', label: 'History' }} eyebrow={d.years} title={d.title} lede={d.short}>
+    <div class="facts">
+      <Scene scene={d.scene} />
+      {games.length > 0 && <span class="meta">{games.map((g, i) => <>{i > 0 && ' · '}<a href={`/games/${g.id}/`}>{g.data.title}</a></>)}</span>}
+    </div>
+  </PageHead>
+
+  <div class="wrap layout">
+    <div class="main">
+      <article class="prose">
+        <Content />
+      </article>
+
+      {d.people.length > 0 && (
+        <section id="people" class="people">
+          <div class="rule-head"><h2>The people</h2><a href="/history/people/">Everyone, every scene</a></div>
+          <p class="intro">The scene exists because these people gave their time, usually for free. If you're missing from this list, or we got your work wrong, <a href={source}>fix it on GitHub</a>.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Who</th><th>What they built</th><th>Source</th></tr></thead>
+              <tbody>
+                {d.people.map((p) => (
+                  <tr>
+                    <td class="who">{p.url ? <a href={p.url}>{p.name}</a> : p.name}</td>
+                    <td>{p.role}</td>
+                    <td class="src"><a href={p.source} rel="noopener">{host(p.source)}</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {hasEvents && (
+        <section id="timeline" class="timeline">
+          <div class="rule-head"><h2>Timeline</h2></div>
+          <Timeline groups={groups} />
+        </section>
+      )}
+
+      <div class="callout">
+        <p><strong>Missing something?</strong> This history is open source. Add an event, a person or a correction, with a source, in <a href={source}>the source file</a>. Early work is always the least documented, so dates, names and archived links are especially welcome.</p>
+      </div>
+    </div>
+
+    <aside>
+      {toc.length > 1 && (
+        <section>
+          <p class="h">On this page</p>
+          <ul class="toc">{toc.map((t) => <li><a href={t.href}>{t.text}</a></li>)}</ul>
+        </section>
+      )}
+      {d.links.length > 0 && (
+        <section class="card">
+          <h3>Links</h3>
+          <ul>{d.links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}</ul>
+        </section>
+      )}
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: center; margin-top: 1.2rem; }
+  .layout { display: grid; gap: 2.5rem; }
+  @media (min-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr) 260px; } aside { position: sticky; top: 84px; align-self: start; } }
+  .main { min-width: 0; }
+  aside { display: grid; gap: 1.5rem; align-content: start; font-size: 0.9rem; }
+  aside h3 { margin: 0 0 0.6rem; }
+  aside .card ul { margin: 0; padding-left: 1.1rem; }
+  aside .card li + li { margin-top: 0.4rem; }
+  .h { font-weight: 600; margin: 0 0 0.5rem; }
+  .toc { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+  .toc a { display: block; padding: 0.3rem 0.8rem; color: var(--ink-soft); text-decoration: none; }
+  .toc a:hover { color: var(--ink); border-left: 2px solid var(--accent); margin-left: -2px; }
+
+  .people, .timeline { margin-top: 3.5rem; }
+  .intro { color: var(--ink-soft); max-width: 70ch; margin: 0 0 1rem; }
+  .people table { width: 100%; }
+  .who { font-weight: 600; min-width: 9rem; }
+  .src { font: 0.8rem var(--font-mono); white-space: nowrap; }
+  .timeline :global(.era) { margin-bottom: 2rem; }
+</style>

@@ -24,7 +24,7 @@ The classic Tony Hawk's games have the deepest PC modding history of any skate s
 
 ## THUG Pro
 
-**THUG Pro** is a total conversion of *Tony Hawk's Underground 2*. Morten Larson, Quazz, %.Gone and Chase started it in 2012, when the community was split across dying servers and platforms. The first beta came out on **August 10, 2013**, with every THUG and THUG2 level plus park themes from THPS4 and American Wasteland. Later updates brought in most levels from the Neversoft era, including the rest of THPS3 in December 2015. Version 0.6 in June 2018 added mod support. The last update was in **October 2023**.
+**THUG Pro** is a total conversion of *Tony Hawk's Underground 2*. Its developers, Morten, Quazz and %.Gone, started it around 2012, when the community was split across dying servers and platforms ([history](/history/thug-pro/)). The first beta came out on **August 10, 2013**, with every THUG and THUG2 level plus park themes from THPS4 and American Wasteland. Later updates brought in most levels from the Neversoft era, including the rest of THPS3 in December 2015. Version 0.6 in June 2018 added mod support. The last update was in **October 2023**.
 
 Custom levels and soundtracks come from the **THPSX** community, using a Blender plugin (2017, updated 2018) that imports and exports THUG Pro levels. Reviewers have called it a better Tony Hawk game than the official *THPS5*.
 

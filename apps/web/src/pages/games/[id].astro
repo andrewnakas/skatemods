@@ -14,6 +14,8 @@ const { game } = Astro.props;
 const { Content } = await render(game);
 const d = game.data;
 const gameTools = tools.filter((t) => t.game === game.id);
+const faq = (await getCollection('faq')).filter((f) => f.data.games.includes(game.id)).sort((a, b) => a.data.order - b.data.order);
+const scenes = (await getCollection('communities')).filter((c) => c.data.games.includes(game.id)).sort((a, b) => a.data.order - b.data.order);
 const guides = (await getCollection('guides')).filter((g) => g.data.game === game.id).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title={`Modding ${d.title}`} description={d.short}>
@@ -40,6 +42,18 @@ const guides = (await getCollection('guides')).filter((g) => g.data.game === gam
         <section class="card">
           <h3>Guides</h3>
           <ul>{guides.map((g) => <li><a href={`/guides/${g.id}/`}>{g.data.title}</a></li>)}</ul>
+        </section>
+      )}
+      {scenes.length > 0 && (
+        <section class="card">
+          <h3>Community history</h3>
+          <ul>{scenes.map((c) => <li><a href={`/history/${c.id}/`}>{c.data.title}</a></li>)}</ul>
+        </section>
+      )}
+      {faq.length > 0 && (
+        <section class="card">
+          <h3>Questions</h3>
+          <ul>{faq.map((f) => <li><a href={`/faq/${f.id}/`}>{f.data.question}</a></li>)}</ul>
         </section>
       )}
       {d.links.length > 0 && (

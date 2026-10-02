@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+const categories = [
+  { id: 'basics', label: 'The basics' },
+  { id: 'skate-3', label: 'Skate 3' },
+  { id: 'legal', label: 'Rules and rights' },
+  { id: 'other-games', label: 'Other games' },
+] as const;
+const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
+---
+<Base title="FAQ" description="Straight answers to common skate modding questions: recomp vs emulator, which Skate 3 version to mod, map formats, RPCS3, Xenia, online play and what's allowed.">
+  <PageHead title="Questions people ask" lede="Short answers first, with the long version one click away. Every claim links to where it comes from." />
+  <div class="wrap">
+    <nav class="jump" aria-label="Sections">
+      {categories.map((c) => <a href={`#${c.id}`}>{c.label}</a>)}
+    </nav>
+    {categories.map((c) => {
+      const items = faq.filter((f) => f.data.category === c.id);
+      return items.length > 0 && (
+        <section id={c.id} class="cat">
+          <div class="rule-head"><h2>{c.label}</h2></div>
+          <ol class="qs">
+            {items.map((f) => (
+              <li>
+                <a href={`/faq/${f.id}/`}>{f.data.question}</a>
+                <p>{f.data.answer}</p>
+                {f.data.games.length > 0 && <p class="meta">{f.data.games.map((g) => games.get(g) ?? g).join(' · ')}</p>}
+              </li>
+            ))}
+          </ol>
+        </section>
+      );
+    })}
+    <div class="callout">
+      <p><strong>Question not here?</strong> Ask in the community Discords, or <a href="https://github.com/andrewnakas/skatemods/tree/main/apps/web/src/content/faq">add an answer on GitHub</a>. Each question is one markdown file.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-bottom: 2.5rem; font: 0.85rem var(--font-mono); }
+  .cat { margin-bottom: 2.75rem; }
+  .qs { list-style: none; margin: 0; padding: 0; }
+  .qs li { padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  .qs li:first-child { padding-top: 0.2rem; }
+  .qs a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  .qs a:hover { text-decoration: underline; color: var(--accent); }
+  .qs p { margin: 0.25rem 0 0; color: var(--ink-soft); max-width: 75ch; }
+  .qs .meta { margin-top: 0.4rem; }
+</style>

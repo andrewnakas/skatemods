@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+export async function getStaticPaths() {
+  const faq = await getCollection('faq');
+  return faq.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const d = entry.data;
+const toc = headings.filter((h) => h.depth === 2);
+const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/faq/${entry.id}.md`;
+
+const [guides, faq, communities, games] = await Promise.all([
+  getCollection('guides'), getCollection('faq'), getCollection('communities'), getCollection('games'),
+]);
+// `related` refs look like 'guides/convert-ps3-maps', 'faq/map-formats' or 'history/thug-pro'. A bad ref fails the build.
+const related = d.related.map((ref) => {
+  const [kind, id] = ref.split('/');
+  const hit =
+    kind === 'guides' ? guides.find((x) => x.id === id)?.data.title :
+    kind === 'faq' ? faq.find((x) => x.id === id)?.data.question :
+    kind === 'history' ? communities.find((x) => x.id === id)?.data.title : undefined;
+  if (!hit) throw new Error(`faq/${entry.id}: related ref "${ref}" doesn't exist`);
+  return { href: `/${kind}/${id}/`, label: hit, kind: { guides: 'Guide', faq: 'FAQ', history: 'History' }[kind] };
+});
+const gameLinks = games.filter((g) => d.games.includes(g.id));
+if (gameLinks.length !== d.games.length) throw new Error(`faq/${entry.id}: unknown game id in ${d.games.join(', ')}`);
+---
+<Base title={d.question} description={d.answer}>
+  <PageHead parent={{ href: '/faq/', label: 'FAQ' }} title={d.question} lede={d.answer} />
+  <div class="wrap layout">
+    <article class="prose">
+      <Content />
+      <hr />
+      <p class="foot">Updated {d.updated.toISOString().slice(0, 10)} · <a href={edit}>Improve this answer on GitHub</a></p>
+    </article>
+    <aside>
+      {toc.length > 1 && (
+        <section>
+          <p class="h">On this page</p>
+          <ul class="toc">{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
+        </section>
+      )}
+      {(related.length > 0 || gameLinks.length > 0) && (
+        <section class="card">
+          <h3>Read next</h3>
+          <ul>
+            {related.map((r) => <li><span class="meta">{r.kind}</span><a href={r.href}>{r.label}</a></li>)}
+            {gameLinks.map((g) => <li><span class="meta">Game</span><a href={`/games/${g.id}/`}>{g.data.title}</a></li>)}
+          </ul>
+        </section>
+      )}
+      <p class="back"><a href="/faq/">← All questions</a></p>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .layout { display: grid; gap: 2rem; }
+  @media (min-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr) 260px; } aside { position: sticky; top: 84px; align-self: start; } }
+  aside { display: grid; gap: 1.5rem; align-content: start; font-size: 0.9rem; }
+  aside h3 { margin: 0 0 0.6rem; }
+  .card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .card li { display: grid; }
+  .h { font-weight: 600; margin: 0 0 0.5rem; }
+  .toc { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+  .toc a { display: block; padding: 0.3rem 0.8rem; color: var(--ink-soft); text-decoration: none; }
+  .toc a:hover { color: var(--ink); border-left: 2px solid var(--accent); margin-left: -2px; }
+  .back { margin: 0; }
+  .foot { font-size: 0.88rem; color: var(--ink-faint); }
+</style>

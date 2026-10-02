@@ -1,0 +1,80 @@
+---
+import { formatDate } from '../data/skate3-timeline';
+
+export interface TimelineEvent { date: string; title: string; body: string; who?: string; source: string }
+export interface TimelineGroup { id: string; label: string; blurb?: string; events: TimelineEvent[] }
+
+interface Props { groups: TimelineGroup[] }
+const { groups } = Astro.props;
+
+// Inside each group, events keep chronological order.
+// Partial dates sort after exact ones from the same period: "2010" after "2010-05-11".
+const sortKey = (d: string) => (/^\d{4}s$/.test(d) ? `${d.slice(0, 3)}9-12-99` : d.length === 4 ? `${d}-12-99` : d.length === 7 ? `${d}-99` : d);
+const sorted = groups.map((g) => ({ ...g, events: [...g.events].sort((a, b) => sortKey(a.date).localeCompare(sortKey(b.date))) }));
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
+const many = sorted.length > 1;
+---
+{many && (
+  <nav class="eras" aria-label="Eras">
+    {sorted.map((g, i) => <a href={`#${g.id}`}><span>{i + 1}</span>{g.label}</a>)}
+  </nav>
+)}
+
+{sorted.map((g, i) => (
+  <section class="era" id={g.id}>
+    {many && (
+      <header>
+        <p class="meta">Era {i + 1} of {sorted.length}</p>
+        <h2>{g.label}</h2>
+        {g.blurb && <p class="blurb">{g.blurb}</p>}
+      </header>
+    )}
+    <ol class="events">
+      {g.events.map((ev) => (
+        <li>
+          <time>{formatDate(ev.date)}</time>
+          <div class="body">
+            <h3>{ev.title}</h3>
+            <p>{ev.body}</p>
+            <p class="meta">
+              {ev.who && <span class="chip">{ev.who}</span>}
+              <a href={ev.source} rel="noopener">Source: {host(ev.source)}</a>
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+))}
+
+<style>
+  .eras { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .eras a {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+    border: 1px solid var(--line-strong); border-radius: var(--radius); text-decoration: none; color: var(--ink); background: var(--bg-raised);
+  }
+  .eras a:hover { border-color: var(--accent); }
+  .eras span { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius-sm); background: var(--ink); color: var(--bg); font: 600 0.8rem var(--font-mono); }
+
+  .era { margin-bottom: 3.5rem; }
+  .era h2 { margin: 0.3rem 0 0.2rem; }
+  .blurb { color: var(--ink-soft); margin: 0 0 1.5rem; }
+
+  .events { list-style: none; margin: 0; padding: 0; position: relative; }
+  .events::before { content: ''; position: absolute; left: 7px; top: 0.5rem; bottom: 0.5rem; width: 2px; background: var(--line); }
+  .events li { position: relative; padding: 0 0 1.6rem 2rem; display: grid; gap: 0.2rem; }
+  .events li::before {
+    content: ''; position: absolute; left: 0; top: 0.35rem; width: 16px; height: 16px; border-radius: 999px;
+    background: var(--bg); border: 3px solid var(--accent);
+  }
+  @media (min-width: 760px) {
+    .events::before { left: 9.5rem; }
+    .events li { grid-template-columns: 8.25rem 1fr; gap: 2.5rem; padding-left: 0; }
+    .events li::before { left: calc(9.5rem - 7px); }
+    .events time { text-align: right; }
+  }
+  .events time { font: 600 0.85rem/1.8 var(--font-mono); color: var(--ink-faint); }
+  .events h3 { margin: 0 0 0.3rem; }
+  .events p { margin: 0; color: var(--ink-soft); max-width: 68ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.5rem !important; font-size: 0.85rem; }
+</style>

@@ -12,7 +12,7 @@ howToMod:
   - Install Session Mod Manager, then press "Patch With Illusory Mod Unlocker" so custom maps and textures load.
   - Get maps, decks, wheels and shirts from the Mod Manager's Asset Store, or from the Illusory Discord.
   - Switch maps in-game without restarting.
-  - Build maps in Unreal Engine 4. UE4 Project Watcher re-imports a map automatically after cooking.
+  - Build maps in Unreal Engine 4. Session Mod Manager's settings tab includes a project watcher for map makers.
 links:
   - { label: Session Mod Manager, url: 'https://rodriada000.github.io/SessionMapSwitcher/' }
   - { label: Mod Manager source, url: 'https://github.com/rodriada000/SessionMapSwitcher' }

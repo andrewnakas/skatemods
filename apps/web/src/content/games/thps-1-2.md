@@ -11,7 +11,7 @@ order: 7
 howToMod:
   - Install mods from Nexus Mods (117+ for this game). They're mostly Unreal .pak files.
   - THPSPro adds levels from THPS3, THPS4, THUG, THUG2, American Wasteland and Project 8, plus a free-roam camera, unlocked cheats and classic skins.
-  - Learn the Unreal Engine modding workflow from community tutorials, such as Muhcrew's.
+  - Install mods by copying their Unreal .pak files into the game's Paks/~mods folder, as the THPSPro readme describes.
 links:
   - { label: THPSPro on Nexus, url: 'https://www.nexusmods.com/tonyhawksproskater1and2/mods/121' }
   - { label: Nexus Mods (THPS 1+2), url: 'https://www.nexusmods.com/games/tonyhawksproskater1and2/mods' }
@@ -21,6 +21,6 @@ The 2020 remake rebuilt the first two games in **Unreal Engine 4**. Unreal games
 
 ## THPSPro
 
-The best-known mod is **THPSPro**. It brings in levels from across the series, rebuilt for the remake: THPS3 and THPS4, THUG 1 and 2, the Project 8 world with Downhill Rio, and some American Wasteland levels. It also adds custom restarts, a free-roam camera, unlocked hidden cheats, classic skins, and board and griptape graphics. Planned features include custom goals, online multiplayer and better park creation.
+The best-known mod is **THPSPro**. It brings in levels from across the series, rebuilt for the remake: THPS3 and THPS4, THUG 1 and 2, the Project 8 world with Downhill Rio, and some American Wasteland levels. It also adds custom restarts, a free-roam camera, unlocked hidden cheats, classic skins, and board and griptape graphics. It even has a limited online mode: free skate over LAN or a VPN, on the Epic version only ([Nexus](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121)).
 
-The same team also brought THPSPro to [THPS 3 + 4](/games/thps-3-4/).
+Its author, bAstimc, also brought THPSPro to [THPS 3 + 4](/games/thps-3-4/). The full story is in the [THPSPro history](/history/thps-pro/).

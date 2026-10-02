@@ -5,7 +5,8 @@ import Scene from '../components/Scene.astro';
 import { timeline, formatDate } from '../data/skate3-timeline';
 
 const games = (await getCollection('games')).sort((a, b) => a.data.order - b.data.order);
-const recent = [...timeline].reverse().slice(0, 6);
+// Newest first. Exact dates only, so a bare year like "2010s" never jumps the queue.
+const recent = timeline.filter((e) => e.date.length === 10).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
 const doors = [
   { n: '01', href: '/guides/play-skate-3-on-pc/', title: 'Play Skate 3 on PC', body: 'The native recompilation for Windows, Linux and macOS, from your own disc.' },
   { n: '02', href: '/maps/', title: 'Get community maps', body: 'Download maps that convert to every platform, or upload your own.' },

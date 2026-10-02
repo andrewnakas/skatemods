@@ -35,4 +35,49 @@ const guides = defineCollection({
   }),
 });
 
-export const collections = { games, guides };
+const source = z.string().url();
+
+const faq = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/faq' }),
+  schema: z.object({
+    question: z.string(),
+    /** One or two sentences; shown on the index and as the page lede. */
+    answer: z.string(),
+    category: z.enum(['basics', 'skate-3', 'legal', 'other-games']),
+    games: z.array(z.string()).default([]),
+    /** Ids of guides or other FAQ entries, e.g. 'guides/convert-ps3-maps' or 'faq/map-formats'. */
+    related: z.array(z.string()).default([]),
+    order: z.number(),
+    updated: z.coerce.date(),
+  }),
+});
+
+const communities = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/communities' }),
+  schema: z.object({
+    title: z.string(),
+    short: z.string(),
+    games: z.array(z.string()),
+    years: z.string(),
+    scene,
+    order: z.number(),
+    updated: z.coerce.date(),
+    people: z.array(z.object({
+      name: z.string(),
+      role: z.string(),
+      url: z.string().url().optional(),
+      source,
+    })).default([]),
+    milestones: z.array(z.object({
+      // YAML reads 2013-08-10 as a Date; keep it as the string the timeline expects.
+      date: z.preprocess((v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v), z.string().regex(/^\d{4}(s|-\d{2}(-\d{2})?)?$/)),
+      title: z.string(),
+      body: z.string(),
+      who: z.string().optional(),
+      source,
+    })).default([]),
+    links: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
+  }),
+});
+
+export const collections = { games, guides, faq, communities };

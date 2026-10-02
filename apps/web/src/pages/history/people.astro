@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+const communities = (await getCollection('communities')).sort((a, b) => a.data.order - b.data.order);
+
+// One row per person; someone active in several scenes gets every credit under one name.
+const people = new Map<string, { name: string; url?: string; credits: { scene: string; title: string; role: string; source: string }[] }>();
+for (const c of communities) {
+  for (const p of c.data.people) {
+    const key = p.name.toLowerCase();
+    const row = people.get(key) ?? { name: p.name, url: p.url, credits: [] };
+    row.url ??= p.url;
+    row.credits.push({ scene: c.id, title: c.data.title, role: p.role, source: p.source });
+    people.set(key, row);
+  }
+}
+const rows = [...people.values()].sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+---
+<Base title="The people" description="The modders, reverse engineers, server runners and map makers who built the skate game modding scenes.">
+  <PageHead parent={{ href: '/history/', label: 'History' }} title="The people" lede="Every scene on this site was built by volunteers: reverse engineers, tool authors, server runners, map makers and the people who kept the Discords going. This is the credits roll." />
+  <div class="wrap">
+    <p class="meta count">{rows.length} people across {communities.length} scenes · every credit links to its source</p>
+    <ol class="roll">
+      {rows.map((p) => (
+        <li>
+          <h2>{p.url ? <a href={p.url}>{p.name}</a> : p.name}</h2>
+          <ul>
+            {p.credits.map((c) => (
+              <li>
+                <a class="scene" href={`/history/${c.scene}/#people`}>{c.title}</a>
+                <span>{c.role} <a class="src" href={c.source} rel="noopener">source</a></span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+    <div class="callout">
+      <p><strong>Not on the list?</strong> Credits come from each scene's page in <a href="https://github.com/andrewnakas/skatemods/tree/main/apps/web/src/content/communities"><code>src/content/communities</code></a>. Add yourself or someone you know, with a link that shows their work.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .count { margin: 0 0 1rem; }
+  .roll { list-style: none; margin: 0 0 2rem; padding: 0; border-top: 2px solid var(--ink); }
+  .roll > li { display: grid; gap: 0.3rem 2rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) { .roll > li { grid-template-columns: 15rem 1fr; } }
+  .roll h2 { font-size: 1.15rem; margin: 0; text-transform: none; letter-spacing: 0; overflow-wrap: anywhere; }
+  .roll h2 a { text-decoration: none; }
+  .roll h2 a:hover { text-decoration: underline; }
+  .roll ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+  .roll ul li { display: grid; gap: 0 1rem; color: var(--ink-soft); }
+  @media (min-width: 760px) { .roll ul li { grid-template-columns: 9rem 1fr; } }
+  .scene { font: 500 0.8rem/1.9 var(--font-mono); color: var(--ink-faint); }
+  .src { font: 0.75rem var(--font-mono); color: var(--ink-faint); margin-left: 0.3rem; }
+</style>

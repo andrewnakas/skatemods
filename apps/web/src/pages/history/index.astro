@@ -1,12 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
+import { getCollection } from 'astro:content';
+
+const scenes = (await getCollection('communities')).sort((a, b) => a.data.order - b.data.order);
 
 const eras = [
   {
     years: '2000–2014', title: 'The Neversoft PC era',
     body: 'The Tony Hawk\'s PC ports were moddable from day one. GameSpy kept them online until it shut down in 2014, which pushed the community toward fan-run servers.',
-    link: '/games/tony-hawk-classic/',
+    link: '/history/partymod/',
   },
   {
     years: '2007–2013', title: 'skate. resets the genre',
@@ -16,17 +19,17 @@ const eras = [
   {
     years: '2013–2023', title: 'THUG Pro and the long tail',
     body: 'THUG Pro collects every Neversoft level into THUG2, and OpenSpy and PARTYMOD keep the classics running on modern PCs and online.',
-    link: '/games/tony-hawk-classic/',
+    link: '/history/thug-pro/',
   },
   {
     years: '2018–2022', title: 'The sims open up',
     body: 'Skater XL (early access 2018) and Session put community maps at the center: mod.io, Unity Mod Manager, Session Mod Manager and the Illusory unlocker. Fan multiplayer comes before the official version.',
-    link: '/games/skater-xl/',
+    link: '/history/skater-xl/',
   },
   {
     years: '2020–2025', title: 'Remakes and the revival',
     body: 'Unreal remakes of THPS 1+2 (2020) and 3+4 (2025) get Nexus mods and THPSPro. EA\'s skate. returns in 2025 as a free-to-play Frostbite game, locked down by kernel anti-cheat.',
-    link: '/games/skate-2025/',
+    link: '/history/thps-pro/',
   },
   {
     years: '2026–', title: 'Skate 3 goes native',
@@ -38,11 +41,22 @@ const eras = [
 <Base title="History" description="A short history of skate game modding, from Neversoft's PC ports to Skate 3's native recompilation.">
   <PageHead title="A short history of skate game modding" lede="Twenty-six years of fans keeping their skate games alive after the publishers moved on." />
   <div class="wrap">
-    <a class="card big" href="/history/skate-3/">
-      <span class="chip accent">Deep dive</span>
-      <h3>Sixteen years of Skate 3 modding →</h3>
-      <p>A sourced timeline from the 2010 launch through SPRX menus, RPCS3, the custom Blaze server, the recomp and cross-platform map conversion.</p>
-    </a>
+    <section class="scenes">
+      <div class="rule-head"><h2>The scenes, in depth</h2><a href="/history/people/">The people →</a></div>
+      <ol>
+        {scenes.map((c) => (
+          <li>
+            <span class="meta">{c.data.years}</span>
+            <div>
+              <a href={`/history/${c.id}/`}>{c.data.title}</a>
+              <p>{c.data.short}</p>
+            </div>
+            <span class="meta side">{c.data.people.length} credited</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+    <div class="rule-head"><h2>Twenty-six years in six eras</h2></div>
     <ol class="eras">
       {eras.map((e) => (
         <li>
@@ -57,8 +71,14 @@ const eras = [
 </Base>
 
 <style>
-  .big { margin-bottom: 2.5rem; border-color: var(--accent); border-width: 2px; }
-  .big h3 { font-size: 1.4rem; }
+  .scenes { margin-bottom: 3.5rem; }
+  .scenes ol { list-style: none; margin: 0; padding: 0; }
+  .scenes li { display: grid; grid-template-columns: 1fr; gap: 0.2rem 1.25rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 720px) { .scenes li { grid-template-columns: 8rem 1fr 7rem; } .scenes .side { text-align: right; } }
+  .scenes li > .meta { padding-top: 0.3rem; }
+  .scenes a { font-weight: 600; font-size: 1.15rem; text-decoration: none; }
+  .scenes a:hover { text-decoration: underline; color: var(--accent); }
+  .scenes p { margin: 0.2rem 0 0; color: var(--ink-soft); }
   .eras { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
   .eras li { border-top: 4px solid var(--accent); padding-top: 0.8rem; }
   .years { font: 600 0.85rem var(--font-mono); color: var(--ink-faint); }
