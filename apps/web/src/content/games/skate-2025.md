@@ -1,6 +1,6 @@
 ---
 title: skate. (2025)
-short: Full Circle's free-to-play Frostbite revival. It's online-only with kernel anti-cheat, so it can't be modded, but its maps can be studied and recreated elsewhere.
+short: Full Circle's free-to-play Frostbite revival. The live game is online-only with kernel anti-cheat, but ReSkate, a community project, is building a modding platform on a pinned older build.
 year: 2025
 developer: Full Circle (EA)
 engine: Frostbite
@@ -9,13 +9,14 @@ series: skate
 scene: locked
 order: 5
 howToMod:
-  - Not moddable. The game is online-only and protected by EA's Javelin anti-cheat.
+  - The live game isn't moddable. It's online-only and protected by EA's Javelin anti-cheat.
+  - ReSkate (in development) runs a pinned older build with a community runtime for custom maps, mods and servers.
   - The Frostbite Modding Tool lists skate. as unsupported ("online only").
-  - Map geometry can be recreated in other engines. One community pipeline converts skate. maps into Skate 3.
+  - Spots and parks can be recreated by hand as maps for moddable games.
 links:
   - { label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Skate_(2025_video_game)' }
   - { label: PCGamingWiki, url: 'https://www.pcgamingwiki.com/wiki/Skate' }
-  - { label: skate. → Skate 3 pipeline, url: 'https://github.com/andrewnakas/skate4mapsconversionpipeline' }
+  - { label: ReSkate (Dingo Shenanigans), url: 'https://github.com/Dingo-Shenanigans' }
 ---
 
 EA announced a new skate in 2020 and set up **Full Circle**, a studio in Burnaby, British Columbia, staffed partly by people who made the original games. **skate.** launched in early access on **September 16, 2025**. It's free-to-play, set in **San Vansterdam**, and has cross-platform multiplayer. It's also the first skate game on PC.
@@ -26,6 +27,10 @@ EA announced a new skate in 2020 and set up **Full Circle**, a studio in Burnaby
 - **Online-only Frostbite.** The community [Frostbite Modding Tool](https://github.com/FMTDev/FMT.Releases) lists skate. as unsupported and online-only. There's no offline mode to load mods into.
 - **Live-service terms.** Changing the client puts your account at risk. skatemods won't host mods that touch the live game.
 
+## ReSkate
+
+A community project called [ReSkate](/history/reskate/) takes a different route. It pins one older Steam build of skate. and loads its own runtime on top, adding community servers, custom world layers and parks, and a Mods folder, without touching the live service. It's early, with no public release as of October 2026, and EA's terms still apply because it runs EA's client.
+
 ## What you can do
 
-Recreate, don't inject. Spot and park layouts from San Vansterdam are fair inspiration for maps in moddable games. One community pipeline brings skate. map geometry into **Skate 3** (Isle of Grom). Those maps go through the same [conversion](/convert/) as any other Skate 3 map.
+Recreate, don't inject. Spot and park layouts from San Vansterdam are fair inspiration for maps in moddable games.

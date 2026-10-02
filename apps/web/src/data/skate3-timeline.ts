@@ -189,13 +189,6 @@ export const timeline: Event[] = [
     source: 'https://github.com/andrewnakas/skate3-audio',
   },
   {
-    date: '2026-09-15', era: 'convert',
-    title: 'skate. (2025) maps → Skate 3',
-    body: 'A pipeline that brings map geometry from the new Frostbite game into Skate 3, starting with the Isle of Grom.',
-    who: 'Nakas',
-    source: 'https://github.com/andrewnakas/skate4mapsconversionpipeline',
-  },
-  {
     date: '2026-09-27', era: 'convert',
     title: 'New San Van converts whole',
     body: 'Importer v1.17 converts the full skate 2 city mod: 41,893 arenas, none refused, with all 45 original freeskate spots as Locations.',

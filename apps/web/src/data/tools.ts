@@ -37,7 +37,6 @@ export const tools: Tool[] = [
   { name: 'PS3 Map Importer', by: 'randyadr, Nakas, Dumbads', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/andrewnakas/skate3-ps3-map-importer', what: 'Windows GUI: drop a PS3 map archive, get an installable recomp .big.' },
   { name: 'DumbadsSkate3ModdingTools', by: 'Dumbads (Ethanw05)', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/Ethanw05/DumbadsSkate3ModdingTools', what: 'ArenaBuilder, DlcBuilder and ChallengeEditor: read and write arenas, build DLC.' },
   { name: 'd2s3 studio', by: 'Nakas', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/andrewnakas/d2s3-studio', what: 'Convert Descenders (Unity) maps into Skate 3 packs.' },
-  { name: 'skate. → Skate 3 pipeline', by: 'Nakas', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/andrewnakas/skate4mapsconversionpipeline', what: 'Bring skate. (2025) Frostbite map geometry into Skate 3.' },
   { name: 'skatemods converter', by: 'skatemods', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/andrewnakas/skatemods/tree/main/converter', what: 'Headless PS3 → recomp → .skate pipeline that powers this site\'s conversions.' },
   // Skate 3: other
   { name: 'Skate 3 Texture Tools', by: 'Shellywell123', game: 'skate-3', kind: 'textures', open: true, url: 'https://github.com/Shellywell123/Skate-3-Texture-Tools', what: 'Extract, convert and install texture mods on RPCS3 and Xenia.' },

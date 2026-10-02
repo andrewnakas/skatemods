@@ -24,4 +24,4 @@ According to the [EFF](https://www.eff.org/issues/coders/reverse-engineering-faq
 
 ## Online games are different
 
-Modern live-service games forbid mods outright. EA's [user agreement](https://www.ea.com/legal/user-agreement) treats any "add-on", "mod", "hack", "trainer", or "cheat" that changes the game in ways EA hasn't authorized as an Unauthorized Third-Party Program. That's why skatemods doesn't cover modding [skate. (2025)](/faq/skate-2025/).
+Modern live-service games forbid mods outright. EA's [user agreement](https://www.ea.com/legal/user-agreement) treats any "add-on", "mod", "hack", "trainer", or "cheat" that changes the game in ways EA hasn't authorized as an Unauthorized Third-Party Program. That's why mods for the live [skate. (2025)](/faq/skate-2025/) service are off-limits. Community projects like ReSkate work on a separate, pinned build instead, though EA's terms still apply.
