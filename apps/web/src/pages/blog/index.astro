@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { formatDate } from '../../data/skate3-timeline';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="Blog" description="News from the skate modding scenes: releases, launches and the people behind them.">
+  <PageHead title="Blog" lede="Releases, launches and the people behind them, from every skate modding scene.">
+    <p class="meta feed"><a href="/blog/rss.xml">RSS feed</a></p>
+  </PageHead>
+  <div class="wrap">
+    <ol class="posts">
+      {posts.map((p) => (
+        <li>
+          <time class="meta" datetime={p.data.date.toISOString().slice(0, 10)}>{formatDate(p.data.date.toISOString().slice(0, 10))}</time>
+          <div>
+            <a href={`/blog/${p.id}/`}>{p.data.title}</a>
+            <p>{p.data.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>
+
+<style>
+  .feed { margin: 1rem 0 0; }
+  .posts { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .posts li { display: grid; grid-template-columns: 1fr; gap: 0.3rem 1.25rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 720px) { .posts li { grid-template-columns: 8.5rem 1fr; } }
+  .posts time { padding-top: 0.3rem; }
+  .posts a { font-weight: 600; font-size: 1.2rem; text-decoration: none; }
+  .posts a:hover { text-decoration: underline; color: var(--accent); }
+  .posts p { margin: 0.25rem 0 0; color: var(--ink-soft); max-width: 70ch; }
+</style>

@@ -80,4 +80,18 @@ const communities = defineCollection({
   }),
 });
 
-export const collections = { games, guides, faq, communities };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    /** One or two sentences; shown on the index, the home page and as the page lede. */
+    description: z.string(),
+    date: z.coerce.date(),
+    author: z.string().default('skatemods'),
+    games: z.array(z.string()).default([]),
+    /** Same refs as FAQ entries: 'guides/<id>', 'faq/<id>' or 'history/<id>'. */
+    related: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { games, guides, faq, communities, blog };

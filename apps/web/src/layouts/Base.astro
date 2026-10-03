@@ -16,6 +16,7 @@ const nav = [
   { href: '/guides/', label: 'Guides' },
   { href: '/faq/', label: 'FAQ' },
   { href: '/history/', label: 'History' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/tools/', label: 'Tools' },
   { href: '/recomp/', label: 'Recomp' },
   { href: '/play/', label: 'Play' },
@@ -33,6 +34,7 @@ const active = (href: string) => path.startsWith(href);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={new URL(path, 'https://skatemods.com')} />
+    <link rel="alternate" type="application/rss+xml" title="skatemods blog" href="/blog/rss.xml" />
     <link rel="canonical" href={new URL(path, 'https://skatemods.com')} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,7 +75,7 @@ const active = (href: string) => path.startsWith(href);
           </div>
           <nav aria-label="Learn">
             <p class="h">Learn</p>
-            <a href="/games/">Games</a><a href="/guides/">Guides</a><a href="/faq/">FAQ</a><a href="/history/">History</a><a href="/history/people/">The people</a><a href="/tools/">Tools</a>
+            <a href="/games/">Games</a><a href="/guides/">Guides</a><a href="/faq/">FAQ</a><a href="/history/">History</a><a href="/history/people/">The people</a><a href="/blog/">Blog</a><a href="/tools/">Tools</a>
           </nav>
           <nav aria-label="Skate 3">
             <p class="h">Skate 3</p>

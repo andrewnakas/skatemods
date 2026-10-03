@@ -6,8 +6,8 @@ import PageHead from '../../components/PageHead.astro';
 const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
 const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
 ---
-<Base title="Guides" description="Step-by-step guides for modding Skate 3, the classic Tony Hawk's games, Skater XL and Session.">
-  <PageHead title="Guides" lede="Step by step, from your first native Skate 3 launch to converting maps between platforms." />
+<Base title="Guides" description="Step-by-step guides for modding Skate 3, skate. (2025) with ReSkate, the classic Tony Hawk's games, Skater XL and Session.">
+  <PageHead title="Guides" lede="Step by step, from your first native Skate 3 launch to converting maps between platforms and modding the new skate. with ReSkate." />
   <div class="wrap">
     <ol class="guides">
       {guides.map((g, i) => (

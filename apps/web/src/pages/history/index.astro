@@ -28,7 +28,7 @@ const eras = [
   },
   {
     years: '2020–2025', title: 'Remakes and the revival',
-    body: 'Unreal remakes of THPS 1+2 (2020) and 3+4 (2025) get Nexus mods and THPSPro. EA\'s skate. returns in 2025 as a free-to-play Frostbite game, locked down by kernel anti-cheat.',
+    body: 'Unreal remakes of THPS 1+2 (2020) and 3+4 (2025) get Nexus mods and THPSPro. EA\'s skate. returns in 2025 as a free-to-play Frostbite game, locked down by kernel anti-cheat until ReSkate.',
     link: '/history/thps-pro/',
   },
   {
@@ -36,9 +36,14 @@ const eras = [
     body: 'A static recompilation puts Skate 3 on PC, Android, iOS and the web. The world format gets fully documented, and maps start moving between every platform.',
     link: '/history/skate-3/',
   },
+  {
+    years: '2026–', title: 'skate. opens up',
+    body: 'ReSkate 1.0 runs a pinned build of EA\'s 2025 skate. offline with a community runtime. On launch day its Thunderstore fills with Skate 3, skate 2 and Skater XL maps, and fans host their own servers.',
+    link: '/history/reskate/',
+  },
 ];
 ---
-<Base title="History" description="A short history of skate game modding, from Neversoft's PC ports to Skate 3's native recompilation.">
+<Base title="History" description="A short history of skate game modding, from Neversoft's PC ports to Skate 3's native recompilation and ReSkate.">
   <PageHead title="A short history of skate game modding" lede="Twenty-six years of fans keeping their skate games alive after the publishers moved on." />
   <div class="wrap">
     <section class="scenes">
@@ -56,7 +61,7 @@ const eras = [
         ))}
       </ol>
     </section>
-    <div class="rule-head"><h2>Twenty-six years in six eras</h2></div>
+    <div class="rule-head"><h2>Twenty-six years in seven eras</h2></div>
     <ol class="eras">
       {eras.map((e) => (
         <li>

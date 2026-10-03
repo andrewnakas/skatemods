@@ -1,11 +1,11 @@
 ---
 question: Can skate. (2025) be modded?
-answer: Not the live game, which is online-only, protected by EA's Javelin anti-cheat and covered by a user agreement that bans mods. A community project, ReSkate, takes a different route. It runs a pinned older build with its own runtime for custom maps, mods and community servers. It's early and unreleased.
+answer: Not the live game, which is online-only, protected by EA's Javelin anti-cheat and covered by a user agreement that bans mods. But since October 2, 2026 there's ReSkate, a community platform that runs one pinned Steam build offline with its own runtime. It adds custom maps, mods from Thunderstore, a park editor, Steam lobbies and dedicated servers.
 category: other-games
 games: [skate-2025]
-related: [history/reskate, faq/is-modding-legal]
+related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/is-modding-legal]
 order: 30
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 ## What skate. is
@@ -19,8 +19,16 @@ EA describes skate. as "a free-to-play online, massive-multiplayer skateboarding
 
 ## ReSkate: a pinned build instead of the live game
 
-[ReSkate](/history/reskate/) calls itself "the modding platform for skate." Rather than touching the live service, its [launcher](https://github.com/Dingo-Shenanigans/LauncherConfig) downloads one specific Steam build of the game and loads a community runtime on top. That adds community multiplayer servers, custom world layers and parks, and a Mods folder. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). As of October 2026 it has no public release, and because it still runs EA's client, EA's terms still apply.
+[ReSkate](/history/reskate/) came out on **October 2, 2026** ([v1.0.0](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.0)). Rather than touching the live service, its launcher checks your Steam copy against one specific build of the game (Steam build `25414733`), downloads exactly that build if it has to, and loads a community runtime on top. You play offline, with no EA servers involved, and your progress is saved on your PC.
+
+On top of the game it adds:
+
+- **Mods.** A `Mods` folder for custom maps, cosmetics, loading screens and scripts, and a [Thunderstore community](https://thunderstore.io/c/reskate/) the launcher browses directly. The full Skate 3 city, skate 2's New San Vanelona and Skater XL's Losal Streets were all up on the first day.
+- **Multiplayer.** 32-player Steam lobbies, dedicated servers in an in-game browser, proximity voice, throwdowns and co-op challenges.
+- **Tools.** A park editor, time-of-day and world controls, fast travel, noclip and a console.
+
+It's open source (GPL-3.0) and Windows-only, and you need your own copy of skate. on Steam. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
 
 ## So where does that leave fans?
 
-For now, the 2010 game is where the open scene is. Skate 3 itself runs natively, takes custom maps, and has a [community online server](/faq/skate-3-online/).
+skate. finally has an open scene of its own, alongside Skate 3, which runs natively, takes custom maps, and has a [community online server](/faq/skate-3-online/).

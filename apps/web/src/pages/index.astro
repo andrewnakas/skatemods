@@ -5,12 +5,15 @@ import Scene from '../components/Scene.astro';
 import { timeline, formatDate } from '../data/skate3-timeline';
 
 const games = (await getCollection('games')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const lead = posts[0];
 // Newest first. Exact dates only, so a bare year like "2010s" never jumps the queue.
 const recent = timeline.filter((e) => e.date.length === 10).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
 const doors = [
   { n: '01', href: '/guides/play-skate-3-on-pc/', title: 'Play Skate 3 on PC', body: 'The native recompilation for Windows, Linux and macOS, from your own disc.' },
   { n: '02', href: '/maps/', title: 'Get community maps', body: 'Download maps that convert to every platform, or upload your own.' },
-  { n: '03', href: '/games/', title: 'Mod another game', body: 'THUG Pro, Skater XL, Session and the rest: what works, where to start.' },
+  { n: '03', href: '/guides/play-skate-with-reskate/', title: 'Mod the new skate.', body: 'ReSkate 1.0: custom maps, a park editor and community servers.' },
+  { n: '04', href: '/games/', title: 'Mod another game', body: 'THUG Pro, Skater XL, Session and the rest: what works, where to start.' },
 ];
 ---
 <Base title="skatemods">
@@ -18,7 +21,7 @@ const doors = [
     <div class="wrap mast-grid">
       <div>
         <h1>Mod every<br />skate game.</h1>
-        <p class="lede">A reference for modding skate games, written by players. Guides and history for every game, and a home for Skate 3 maps that converts each upload between PS3, the PC recomp and the Rust engine.</p>
+        <p class="lede">A reference for modding skate games, written by players. Guides and history for every game, from Skate 3 to the new skate., and a home for Skate 3 maps that converts each upload between PS3, the PC recomp and the Rust engine.</p>
       </div>
       <ol class="doors">
         {doors.map((d) => (
@@ -27,6 +30,26 @@ const doors = [
       </ol>
     </div>
   </section>
+
+  {lead && (
+    <section class="feature">
+      <div class="wrap feature-grid">
+        <div>
+          <p class="meta kicker"><a href="/blog/">Blog</a> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{formatDate(lead.data.date.toISOString().slice(0, 10))}</time></p>
+          <h2><a href={`/blog/${lead.id}/`}>{lead.data.title}</a></h2>
+          <p class="lede">{lead.data.description}</p>
+          <p><a class="btn primary" href={`/blog/${lead.id}/`}>Read the post</a> <a class="btn" href="/guides/play-skate-with-reskate/">Install ReSkate</a></p>
+        </div>
+        <ul class="facts">
+          <li><span class="meta">Game</span><span><a href="/games/skate-2025/">skate. (2025), pinned Steam build 25414733</a></span></li>
+          <li><span class="meta">Get</span><span><a href="https://github.com/Dingo-Shenanigans/ReSkate/releases/latest">ReSkate on GitHub</a>, GPL-3.0, Windows</span></li>
+          <li><span class="meta">Mods</span><span><a href="https://thunderstore.io/c/reskate/">Thunderstore</a>: Skate 3, skate 2 and Skater XL maps on day one</span></li>
+          <li><span class="meta">Host</span><span><a href="/guides/host-a-reskate-server/">Run a dedicated server</a>, no ports to open</span></li>
+          <li><span class="meta">History</span><span><a href="/history/reskate/">The ReSkate timeline and people</a></span></li>
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="wrap two">
@@ -97,6 +120,20 @@ const doors = [
   .doors .n { font: 500 0.85rem/1.6 var(--font-mono); color: var(--accent); }
   .doors strong { display: block; font-size: 1.05rem; }
   .doors a > span > span { color: var(--ink-soft); font-size: 0.93rem; }
+
+  .feature { padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+  .feature-grid { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 940px) { .feature-grid { grid-template-columns: 1.35fr 1fr; gap: 3rem; } }
+  .feature .kicker { margin: 0 0 0.75rem; color: var(--accent); }
+  .feature .kicker a { color: inherit; }
+  .feature h2 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem; }
+  .feature h2 a { color: inherit; text-decoration: none; }
+  .feature h2 a:hover { color: var(--accent); }
+  .feature .lede { margin-bottom: 1.25rem; }
+  .feature .btn + .btn { margin-left: 0.5rem; }
+  .facts { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .facts li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+  .facts .meta { padding-top: 0.1rem; }
 
   .two { display: grid; gap: 3rem; }
   @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }

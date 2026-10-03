@@ -5,7 +5,7 @@ games: [skate-3]
 years: 2010–present
 scene: thriving
 order: 1
-updated: 2026-10-02
+updated: 2026-10-03
 people:
   - name: GHFear
     role: Spent months reverse engineering EA's texture and model formats, published the first texture modding walkthrough, and wrote RW4ArchiveTool for the skate games' RenderWare 4 archives.
@@ -165,5 +165,9 @@ In 2026, Alex McHugh released [skate3recomp](https://github.com/mchughalex/skate
 - a [jailbroken PS4 port](https://github.com/OnlyMoisties/skate3-ps4)
 - iOS and web builds
 - chasmlol's [SK8 Engine](https://github.com/SK8-ENGINE/SK8-Engine) and [Rust engine](https://github.com/SK8-ENGINE/skate-3-rust-engine), which brought a portable `.skate` map format and an [in-game maps browser](https://github.com/chasmlol/skate3-custom-maps-backend)
+
+## Port Carverton in the new game
+
+On October 2, 2026, the day [ReSkate](/history/reskate/) opened EA's 2025 skate. to mods, zeex64 put [the full Skate 3 map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) on its Thunderstore. Port Carverton became the platform's most downloaded mod on day one, ahead of brassy's port of skate 2's [New San Vanelona](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/). SunJay, who co-runs the Skate 3 modding Discord, shipped ReSkate mods that same day. The 2010 game's scene had become the newest one's starting point.
 
 skatemods.com exists to tie these together. A map uploaded once converts to every platform, and every tool above is credited to the people who built it.
