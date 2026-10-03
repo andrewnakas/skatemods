@@ -40,7 +40,7 @@ You can rebind the menu and console keys in the launcher's Settings.
 
 ## Add mods
 
-The easiest way is the launcher's **MODS** page. Browse the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) and click install, or drag a mod `.zip` or folder onto the window.
+Browse everything that's out on [skate. mods](/reskate/), which lists the ReSkate Thunderstore live. To install, the easiest way is the launcher's **MODS** page. Browse the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) and click install, or drag a mod `.zip` or folder onto the window.
 
 You can also install by hand. Every mod is a folder in `Mods\` beside `Skate.exe`, and `Mods\mods.json` sets the load order. In game, the **MODS** tab of the ReSkate menu turns mods on and off, and most changes apply without a restart.
 

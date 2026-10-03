@@ -57,6 +57,7 @@ What's different this time is the target: a live game that EA is still developin
 - **Play:** [Play skate. with ReSkate](/guides/play-skate-with-reskate/) covers install, controls, mods and fixes.
 - **Host:** [Host a ReSkate server](/guides/host-a-reskate-server/) walks through the config, custom maps and fair-play checks.
 - **History:** the [ReSkate scene page](/history/reskate/) has the timeline and the people behind it.
+- **Mods:** [browse every skate. mod](/reskate/), updated live from Thunderstore.
 - **Talk:** the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) for help, bug reports and mod releases.
 - **Download:** [github.com/Dingo-Shenanigans/ReSkate](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get it there, not from a mirror.
 

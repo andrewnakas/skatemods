@@ -77,6 +77,8 @@ milestones:
 links:
   - label: ReSkate on GitHub (download and source)
     url: https://github.com/Dingo-Shenanigans/ReSkate
+  - label: Browse skate. mods on skatemods
+    url: https://skatemods.com/reskate/
   - label: ReSkate mods on Thunderstore
     url: https://thunderstore.io/c/reskate/
   - label: Dedicated server manual

@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+// ReSkate mods live on Thunderstore. The build bakes in a snapshot so the page works without
+// JavaScript; the browser then refreshes it from the same API (it sends CORS headers).
+const API = 'https://thunderstore.io/c/reskate/api/v1/package/';
+
+interface Mod { name: string; owner: string; url: string; icon: string; description: string; downloads: number; created: string; updated: string; version: string; size: number }
+
+function toMods(packages: any[]): Mod[] {
+  return packages
+    .filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
+    .map((p) => ({
+      name: p.name.replace(/_/g, ' '),
+      owner: p.owner,
+      url: p.package_url,
+      icon: p.versions[0].icon,
+      description: p.versions[0].description,
+      downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0),
+      created: p.date_created,
+      updated: p.date_updated,
+      version: p.versions[0].version_number,
+      size: p.versions[0].file_size,
+    }));
+}
+
+let mods: Mod[] = [];
+try {
+  mods = toMods(await (await fetch(API)).json()).sort((a, b) => b.created.localeCompare(a.created));
+} catch {
+  // Offline build: the client fetch fills the list.
+}
+const day = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
+---
+<Base title="skate. mods" description="Every ReSkate mod for skate. (2025): custom maps, boards, cosmetics and scripts from the ReSkate Thunderstore, updated live.">
+  <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="skate. mods" lede="Every mod on the ReSkate Thunderstore: custom maps, boards, cosmetics and scripts for EA's skate. Updated live. Install them from the ReSkate launcher's MODS page.">
+    <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">Set up ReSkate</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
+  </PageHead>
+  <div class="wrap">
+    <div class="controls">
+      <label class="search">
+        <span class="visually-hidden">Search mods</span>
+        <input id="q" type="search" placeholder="Search maps, boards, authors…" autocomplete="off" />
+      </label>
+      <div class="sort" role="group" aria-label="Sort">
+        <button type="button" data-sort="created" aria-pressed="true">Newest</button>
+        <button type="button" data-sort="downloads" aria-pressed="false">Most downloaded</button>
+        <button type="button" data-sort="updated" aria-pressed="false">Recently updated</button>
+      </div>
+    </div>
+    <p class="meta count" id="count">{mods.length} mods</p>
+
+    <ol class="mods" id="mods">
+      {mods.map((m) => (
+        <li>
+          <img src={m.icon} alt="" width="56" height="56" loading="lazy" />
+          <div class="body">
+            <a class="title" href={m.url}>{m.name}</a> <span class="by">by {m.owner}</span>
+            <p>{m.description}</p>
+          </div>
+          <div class="meta side">
+            <span>{m.downloads.toLocaleString('en-US')} downloads</span>
+            <span>{day(m.created)}</span>
+            <span>v{m.version} · {mb(m.size)}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+    {mods.length === 0 && <p class="empty" id="empty">Loading mods from Thunderstore…</p>}
+
+    <div class="callout note">
+      <p><strong>Install:</strong> open <code>ReSkateLauncher.exe</code> → <strong>MODS</strong> and search for the mod, or drop its <code>.zip</code> on the launcher window. Players on a server need the same map mods as the server. <strong>Only install mods you trust:</strong> scripts can run code. skatemods doesn't host or review these mods. They come straight from <a href="https://thunderstore.io/c/reskate/">Thunderstore</a>.</p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const API = 'https://thunderstore.io/c/reskate/api/v1/package/';
+  type Mod = { name: string; owner: string; url: string; icon: string; description: string; downloads: number; created: string; updated: string; version: string; size: number };
+  const list = document.getElementById('mods')!;
+  const count = document.getElementById('count')!;
+  const q = document.getElementById('q') as HTMLInputElement;
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('.sort button')];
+  let mods: Mod[] = [];
+  let sort: keyof Mod = 'created';
+
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+  const day = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
+
+  function render() {
+    const term = q.value.trim().toLowerCase();
+    const shown = mods
+      .filter((m) => !term || `${m.name} ${m.owner} ${m.description}`.toLowerCase().includes(term))
+      .sort((a, b) => (sort === 'downloads' ? b.downloads - a.downloads : String(b[sort]).localeCompare(String(a[sort]))));
+    count.textContent = term ? `${shown.length} of ${mods.length} mods` : `${mods.length} mods`;
+    list.innerHTML = shown.length
+      ? shown.map((m) => `<li><img src="${esc(m.icon)}" alt="" width="56" height="56" loading="lazy" /><div class="body"><a class="title" href="${esc(m.url)}">${esc(m.name)}</a> <span class="by">by ${esc(m.owner)}</span><p>${esc(m.description)}</p></div><div class="meta side"><span>${m.downloads.toLocaleString('en-US')} downloads</span><span>${day(m.created)}</span><span>v${esc(m.version)} · ${mb(m.size)}</span></div></li>`).join('')
+      : '<li class="none">No mods match that search.</li>';
+  }
+
+  for (const b of buttons) b.addEventListener('click', () => {
+    sort = b.dataset.sort as keyof Mod;
+    for (const o of buttons) o.setAttribute('aria-pressed', String(o === b));
+    render();
+  });
+  q.addEventListener('input', render);
+
+  fetch(API).then((r) => r.json()).then((packages: any[]) => {
+    mods = packages
+      .filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
+      .map((p) => ({
+        name: p.name.replace(/_/g, ' '), owner: p.owner, url: p.package_url, icon: p.versions[0].icon,
+        description: p.versions[0].description,
+        downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0),
+        created: p.date_created, updated: p.date_updated, version: p.versions[0].version_number, size: p.versions[0].file_size,
+      }));
+    document.getElementById('empty')?.remove();
+    render();
+  }).catch(() => {
+    if (!list.children.length) document.getElementById('empty')!.textContent = 'Thunderstore is unavailable right now. Browse the mods at thunderstore.io/c/reskate.';
+  });
+</script>
+
+<style>
+  .head-links { margin: 1rem 0 0; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-bottom: 0.75rem; }
+  .search { flex: 1 1 18rem; max-width: 28rem; }
+  .search input {
+    width: 100%; font: 1rem var(--font-body); padding: 0.55rem 0.75rem; color: var(--ink);
+    background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius);
+  }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .sort { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+  .sort button {
+    font: 500 0.9rem var(--font-body); padding: 0.2rem 0; cursor: pointer;
+    border: 0; border-bottom: 2px solid transparent; background: none; color: var(--ink-soft);
+  }
+  .sort button:hover { color: var(--ink); }
+  .sort button[aria-pressed='true'] { color: var(--ink); border-bottom-color: var(--accent); }
+  .count { margin: 0 0 0.5rem; }
+  .mods { list-style: none; margin: 0 0 2.5rem; padding: 0; border-top: 2px solid var(--ink); }
+  .mods :global(li) { display: grid; grid-template-columns: 56px 1fr; gap: 0.5rem 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) { .mods :global(li) { grid-template-columns: 56px 1fr 11rem; } }
+  .mods :global(img) { width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius); background: var(--line); }
+  .mods :global(.title) { font-weight: 600; font-size: 1.08rem; text-decoration: none; }
+  .mods :global(.title:hover) { text-decoration: underline; color: var(--accent); }
+  .mods :global(.by) { color: var(--ink-faint); font-size: 0.9rem; }
+  .mods :global(.body p) { margin: 0.2rem 0 0; color: var(--ink-soft); font-size: 0.95rem; overflow-wrap: anywhere; }
+  .mods :global(.side) { display: flex; flex-direction: column; gap: 0.1rem; grid-column: 2; }
+  @media (min-width: 760px) { .mods :global(.side) { grid-column: auto; text-align: right; } }
+  .mods :global(.none) { display: block; color: var(--ink-soft); }
+  .empty { color: var(--ink-soft); }
+  .note { max-width: 70ch; }
+</style>

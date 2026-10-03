@@ -38,12 +38,12 @@ const doors = [
           <p class="meta kicker"><a href="/blog/">Blog</a> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{formatDate(lead.data.date.toISOString().slice(0, 10))}</time></p>
           <h2><a href={`/blog/${lead.id}/`}>{lead.data.title}</a></h2>
           <p class="lede">{lead.data.description}</p>
-          <p><a class="btn primary" href={`/blog/${lead.id}/`}>Read the post</a> <a class="btn" href="/guides/play-skate-with-reskate/">Install ReSkate</a></p>
+          <p><a class="btn primary" href={`/blog/${lead.id}/`}>Read the post</a> <a class="btn" href="/guides/play-skate-with-reskate/">Install ReSkate</a> <a class="btn" href="/reskate/">Browse mods</a></p>
         </div>
         <ul class="facts">
           <li><span class="meta">Game</span><span><a href="/games/skate-2025/">skate. (2025), pinned Steam build 25414733</a></span></li>
           <li><span class="meta">Get</span><span><a href="https://github.com/Dingo-Shenanigans/ReSkate/releases/latest">ReSkate on GitHub</a>, GPL-3.0, Windows</span></li>
-          <li><span class="meta">Mods</span><span><a href="https://thunderstore.io/c/reskate/">Thunderstore</a>: Skate 3, skate 2 and Skater XL maps on day one</span></li>
+          <li><span class="meta">Mods</span><span><a href="/reskate/">Browse every skate. mod</a>: Skate 3, skate 2, Skater XL and Session ports</span></li>
           <li><span class="meta">Host</span><span><a href="/guides/host-a-reskate-server/">Run a dedicated server</a>, no ports to open</span></li>
           <li><span class="meta">History</span><span><a href="/history/reskate/">The ReSkate timeline and people</a></span></li>
         </ul>

@@ -10,7 +10,7 @@ scene: active
 order: 5
 howToMod:
   - Install ReSkate. It runs a pinned Steam build offline with a community runtime, on Windows, with your own copy of the game.
-  - Get maps, cosmetics and scripts from ReSkate's Thunderstore, straight from the launcher, or drop them in the Mods folder.
+  - Browse every mod at skatemods.com/reskate, then install it from the launcher's MODS page or drop it in the Mods folder.
   - Build parks in ReSkate's Park Editor, and host a dedicated server with ReSkateServer.exe.
   - Leave the live game alone. It's online-only and protected by EA's Javelin anti-cheat.
 links:
@@ -40,6 +40,7 @@ On day one the Thunderstore already had the full Skate 3 city, skate 2's New San
 
 Start here:
 
+- [Browse skate. mods](/reskate/): every ReSkate mod on Thunderstore, updated live.
 - [Play skate. with ReSkate](/guides/play-skate-with-reskate/): install, controls and mods.
 - [Host a ReSkate server](/guides/host-a-reskate-server/): a dedicated server for your crew.
 - [The ReSkate launch](/blog/reskate-launch/): what shipped and who made it.
