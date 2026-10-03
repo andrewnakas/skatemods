@@ -9,7 +9,7 @@ related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/
 
 For a year, the answer to "can you mod the new skate.?" was no. EA's free-to-play revival is online-only, sits behind Javelin kernel anti-cheat, and changes with every live-service patch. Its user agreement calls mods unauthorized third-party programs. While the 2010 game got a native PC port and a fully writable world format, the newest game in the series stayed closed.
 
-That changed on **Friday, October 2, 2026**. [ReSkate](https://github.com/Dingo-Shenanigans/ReSkate), from the Dingo Shenanigans team led by **zeex64**, published its source in the morning and shipped **v1.0.0** that afternoon. "Welcome to ReSkate!" the announcement in its Discord began. It called the project "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins."
+That changed on **Friday, October 2, 2026**. [ReSkate](https://github.com/Dingo-Shenanigans/ReSkate), from the Dingo Shenanigans team led by **zeex64**, published its source in the morning and shipped **v1.0.0** that afternoon. "Welcome to ReSkate!" the announcement in [its Discord](https://discord.gg/Tkd5D2Y6EX) began. It called the project "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins."
 
 ## The trick: freeze the game
 
@@ -44,7 +44,7 @@ The maps are built with ReSkate Studio, the project's map tool. Each one ships a
 
 Launches break things, and ReSkate's fixes came fast. **1.0.1** made the launcher warn when Steam isn't running or signed in. Without Steam, PLAY quietly starts offline as "Unknown Player" with no multiplayer. That evening, **[1.0.2](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.2)** fixed a loading crash on older graphics cards like the RX 580 by sizing map streaming memory to each card's VRAM, and made busy servers smoother by updating off-screen players less often. Dedicated servers update themselves once they're empty, so hosts didn't have to do anything.
 
-By the end of the day, over a thousand people had downloaded the release from GitHub, the full Skate 3 map had passed 750 downloads on Thunderstore, and the ReSkate Discord was near **2,900 members**.
+By the end of the day, over a thousand people had downloaded the release from GitHub, the full Skate 3 map had passed 750 downloads on Thunderstore, and the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) was near **2,900 members**. By the next morning it had passed 3,400. The launch announcement had already answered the question everyone asked first, whether you can get banned: the project's FAQ says you can't. zeex64 also promised a Linux fix for the next day.
 
 ## Where it fits
 
@@ -57,6 +57,7 @@ What's different this time is the target: a live game that EA is still developin
 - **Play:** [Play skate. with ReSkate](/guides/play-skate-with-reskate/) covers install, controls, mods and fixes.
 - **Host:** [Host a ReSkate server](/guides/host-a-reskate-server/) walks through the config, custom maps and fair-play checks.
 - **History:** the [ReSkate scene page](/history/reskate/) has the timeline and the people behind it.
+- **Talk:** the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) for help, bug reports and mod releases.
 - **Download:** [github.com/Dingo-Shenanigans/ReSkate](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get it there, not from a mirror.
 
 skate. took a year to open up, and it was worth the wait.

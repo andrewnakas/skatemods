@@ -82,7 +82,7 @@ links:
   - label: Dedicated server manual
     url: https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt
   - label: ReSkate Discord
-    url: https://discord.com/channels/1512899126474571886/1555672926404091924
+    url: https://discord.gg/Tkd5D2Y6EX
   - label: 'Guide: play skate. with ReSkate'
     url: https://skatemods.com/guides/play-skate-with-reskate/
   - label: 'Launch writeup on the skatemods blog'
@@ -103,7 +103,7 @@ ReSkate went public on **October 2, 2026**. The [source](https://github.com/Ding
 - **`ReSkate.dll`** is the runtime the launcher loads into the game.
 - **`ReSkateServer.exe`** is a headless dedicated server that needs neither the game nor Steam installed.
 
-The [launch announcement](https://discord.com/channels/1512899126474571886/1555672926404091924) on the ReSkate Discord called it "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins." By that night the server had nearly 2,900 members.
+The launch announcement on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) called it "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins." By that night the server had nearly 2,900 members, and by the next morning more than 3,400. The announcement also answered the most-asked question: can you get banned? The project's FAQ says you can't. A Linux fix was promised for the following day.
 
 ## What's in it
 
@@ -147,7 +147,7 @@ The first fixes came within hours. **1.0.1** made the launcher warn when Steam i
 
 ## Where it came from
 
-The groundwork happened around the **Dumbads & SunJays Skate3 Modding Discord** ([invite](https://discord.com/invite/AgDEQFR2Jj)), the server where Skate 3's world format became writable. Footage of [custom maps and time-of-day changes](https://www.youtube.com/watch?v=ubEv_Pkk4OU) circulated there and on YouTube in September 2026. ReSkate now has its own Discord, with channels for bug reports, mod help and Thunderstore releases.
+The groundwork happened around the **Dumbads & SunJays Skate3 Modding Discord** ([invite](https://discord.com/invite/AgDEQFR2Jj)), the server where Skate 3's world format became writable. Footage of [custom maps and time-of-day changes](https://www.youtube.com/watch?v=ubEv_Pkk4OU) circulated there and on YouTube in September 2026. ReSkate now has [its own Discord](https://discord.gg/Tkd5D2Y6EX), with channels for bug reports, mod help and Thunderstore releases.
 
 ## The lines it draws
 

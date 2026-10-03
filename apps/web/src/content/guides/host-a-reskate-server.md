@@ -92,3 +92,5 @@ Throwdowns and co-op challenges only mean something if nobody's cheating, so the
 ## Updates
 
 The server keeps itself on the latest ReSkate release. It checks at startup and every half hour, and installs a new version as soon as the server is empty, keeping your config, mods and logs. Players and the server must run the **same ReSkate version**, so leave `auto_update` on unless you have a reason not to.
+
+Server hosts trade tips in the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX).

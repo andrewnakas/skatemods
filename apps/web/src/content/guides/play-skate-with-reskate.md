@@ -11,7 +11,7 @@ updated: 2026-10-03
 
 ## What you need
 
-- **Windows 10 or 11**, 64-bit. ReSkate is Windows-only.
+- **Windows 10 or 11**, 64-bit. At launch ReSkate was Windows-only. A Linux fix was promised soon after, so check the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) for the current state.
 - **Your own copy of skate. on Steam.** The game is free-to-play, so adding it to your library is enough.
 - About **14 GB** free if the launcher has to download the game build for you.
 
@@ -69,11 +69,11 @@ To join a server running a custom map, you need the same map mod installed, and 
 
 ## When something breaks
 
-- The log is `logs\ReSkate.log` beside `Skate.exe`. Attach it when you ask for help in the ReSkate Discord's bug-reports forum or open a [GitHub issue](https://github.com/Dingo-Shenanigans/ReSkate/issues).
+- The log is `logs\ReSkate.log` beside `Skate.exe`. Attach it when you ask for help in the bug-reports forum on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) or open a [GitHub issue](https://github.com/Dingo-Shenanigans/ReSkate/issues).
 - **Crash while loading on an older GPU** (an RX 580, for example): update to 1.0.2 or later, which sizes map streaming memory to your card's VRAM.
 - **"Unknown Player" or no multiplayer**: Steam wasn't running or signed in when you pressed PLAY.
 - The launcher sends crash reports (a minidump and that session's log, never your Steam login). Untick **Send crash reports** under Settings → Advanced to turn this off.
 
 ## Stay on the right side
 
-ReSkate is a fan project, not affiliated with EA or Full Circle. Don't use it to get paid cosmetics or share leaks; the project rules both out. It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.
+ReSkate is a fan project, not affiliated with EA or Full Circle. Its FAQ says you can't be banned for using it. Don't use it to get paid cosmetics or share leaks; the project rules both out. It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.
