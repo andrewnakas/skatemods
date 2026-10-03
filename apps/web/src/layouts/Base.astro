@@ -4,22 +4,28 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Social card under /og/, e.g. '/og/blog-reskate-launch.png'. */
+  image?: string;
+  type?: 'website' | 'article';
+  /** Extra JSON-LD for the page (an Article, for example). */
+  schema?: Record<string, unknown>;
 }
 
-const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.' } = Astro.props;
+const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema } = Astro.props;
+const imageUrl = new URL(image, 'https://skatemods.com');
 const fullTitle = title === 'skatemods' ? 'skatemods: modding every skate game' : `${title} · skatemods`;
 const path = Astro.url.pathname;
 
 const nav = [
   { href: '/games/', label: 'Games' },
   { href: '/maps/', label: 'Maps' },
+  { href: '/reskate/', label: 'Mods' },
   { href: '/guides/', label: 'Guides' },
   { href: '/faq/', label: 'FAQ' },
   { href: '/history/', label: 'History' },
   { href: '/blog/', label: 'Blog' },
+  { href: '/community/', label: 'Community' },
   { href: '/tools/', label: 'Tools' },
-  { href: '/recomp/', label: 'Recomp' },
-  { href: '/play/', label: 'Play' },
 ];
 const active = (href: string) => path.startsWith(href);
 ---
@@ -32,7 +38,15 @@ const active = (href: string) => path.startsWith(href);
     <meta name="description" content={description} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="skatemods" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="theme-color" content="#d63a1f" />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...schema })} />}
     <meta property="og:url" content={new URL(path, 'https://skatemods.com')} />
     <link rel="alternate" type="application/rss+xml" title="skatemods blog" href="/blog/rss.xml" />
     <link rel="canonical" href={new URL(path, 'https://skatemods.com')} />
@@ -75,11 +89,15 @@ const active = (href: string) => path.startsWith(href);
           </div>
           <nav aria-label="Learn">
             <p class="h">Learn</p>
-            <a href="/games/">Games</a><a href="/guides/">Guides</a><a href="/faq/">FAQ</a><a href="/history/">History</a><a href="/history/people/">The people</a><a href="/blog/">Blog</a><a href="/tools/">Tools</a>
+            <a href="/games/">Games</a><a href="/guides/">Guides</a><a href="/faq/">FAQ</a><a href="/history/">History</a><a href="/history/people/">The people</a><a href="/blog/">Blog</a><a href="/community/">Community</a><a href="/tools/">Tools</a>
           </nav>
           <nav aria-label="Skate 3">
             <p class="h">Skate 3</p>
             <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a><a href="/play/">Play in browser</a>
+          </nav>
+          <nav aria-label="skate. (2025)">
+            <p class="h">skate. (2025)</p>
+            <a href="/reskate/">Mods</a><a href="/guides/play-skate-with-reskate/">Play with ReSkate</a><a href="/guides/host-a-reskate-server/">Host a server</a><a href="/history/reskate/">ReSkate history</a>
           </nav>
           <nav aria-label="Project">
             <p class="h">Project</p>
@@ -128,7 +146,16 @@ const active = (href: string) => path.startsWith(href);
   .account { font-family: var(--font-mono); font-size: 0.85rem; max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .theme { display: grid; place-items: center; width: 30px; height: 30px; border: 0; background: none; color: var(--ink-soft); cursor: pointer; padding: 0; }
   .theme:hover { color: var(--ink); }
-  @media (min-width: 900px) {
+  @media (max-width: 1079px) {
+    /* The nav scrolls sideways on small screens; fade the edge so it reads as more. */
+    nav[aria-label='Main'] { mask-image: linear-gradient(to right, #000 85%, transparent); padding-right: 2rem; }
+  }
+  @media (max-width: 520px) {
+    .bar { column-gap: 0.75rem; }
+    .actions { gap: 0.6rem; }
+    .logo { font-size: 1.35rem; }
+  }
+  @media (min-width: 1080px) {
     nav[aria-label='Main'] { order: 0; width: auto; padding: 0; }
   }
   .skip:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; clip: auto; z-index: 99; background: var(--ink); color: var(--bg); padding: 0.5rem 1rem; }
@@ -136,7 +163,7 @@ const active = (href: string) => path.startsWith(href);
   .site-footer { border-top: 2px solid var(--ink); margin-top: 5rem; padding: 2rem 0 3rem; font-size: 0.9rem; }
   .cols { display: grid; gap: 1.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
   .about { grid-column: 1 / -1; max-width: 56ch; }
-  @media (min-width: 860px) { .cols { grid-template-columns: 2.2fr 1fr 1fr 1fr; } .about { grid-column: auto; } }
+  @media (min-width: 960px) { .cols { grid-template-columns: 2fr repeat(4, 1fr); } .about { grid-column: auto; } }
   .about p { color: var(--ink-soft); margin: 0.5rem 0 0; }
   .about .logo { font-size: 1.25rem; margin: 0; }
   .cols nav { display: flex; flex-direction: column; gap: 0.3rem; }

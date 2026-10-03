@@ -33,6 +33,10 @@ people:
     role: Ported Losal Streets from Skater XL to ReSkate.
     url: https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/
     source: https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/
+  - name: Nakas
+    role: Made the ReSkate Trainer, a physics-tuning and practice menu for ReSkate, and the Gravy Train and DM Jumpline downhill maps.
+    url: https://github.com/andrewnakas
+    source: https://github.com/andrewnakas/reskate-trainer
   - name: memori
     role: Ported Yaky's Desert Springs from BMX Streets to ReSkate.
     url: https://thunderstore.io/c/reskate/p/memori/Desert_Springs/
@@ -69,6 +73,11 @@ milestones:
     title: The ReSkate Thunderstore opens
     body: A Thunderstore community for ReSkate goes live, and the launcher can browse and install from it. Thirteen mods go up in the first day, among them the full Skate 3 map, skate 2's New San Vanelona, Losal Streets from Skater XL and three Yaky maps.
     source: https://thunderstore.io/c/reskate/
+  - date: 2026-10-03
+    title: The first trainer
+    body: The ReSkate Trainer adds a TRAINER page to the ReSkate menu with super high ollie, fast flips and spins, never bail, a live editor for the game's physics tuning, presets, practice markers, slow motion and a jump read-out HUD. It's a GPL fork of ReSkate built for the same game build.
+    who: Nakas
+    source: https://github.com/andrewnakas/reskate-trainer/releases
   - date: 2026-10-02
     title: Hotfixes 1.0.1 and 1.0.2
     body: Within hours the launcher warns when Steam isn't signed in (otherwise PLAY starts offline as "Unknown Player"), and a loading crash on older GPUs like the RX 580 is fixed by sizing map streaming memory to each card's VRAM.
@@ -139,13 +148,17 @@ Mods are distributed through a [Thunderstore community](https://thunderstore.io/
 
 The list says a lot about who showed up. Skate 3, skate 2, Skater XL and BMX Streets maps all landed in skate. on day one, made by people from the [Skate 3](/history/skate-3/) and [Skater XL](/history/skater-xl/) scenes.
 
+## Trainers and tools
+
+The day after launch, Nakas released the [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer), a fork of ReSkate with a **TRAINER** page in the Insert menu. It has one-click presets (super high ollie, fast flips, fast spins, never bail, and stackable ones like Mega Pop and Sticky Grinds), a searchable editor for every value in the game's physics tuning, five practice marker slots per map with return-after-bail, slow motion, and a read-out after every jump. A pass over the game's code found which tuning values skate. actually reads (about six in ten), and the editor hides the rest by default. It replaces ReSkate's own DLL and launcher, so it's installed by hand, and it follows ReSkate's session rules online. Read more in [our post](/blog/reskate-trainer/).
+
 ## Dedicated servers
 
 `ReSkateServer.exe` signs in to Steam anonymously and connects players through Steam's relay network, so no ports need opening. It handles up to 249 players, custom maps, player votes (map, kick, time of day), parties, admins and bans, and keeps itself on the latest release. It also polices fair play: a speed check catches speedhacks, a score check flags mods that change trick scoring or physics and takes those players out of throwdowns, and `enforce_tuning` keeps everyone on the game's own physics. The [server manual](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt) covers every setting, and [our guide](/guides/host-a-reskate-server/) walks through setting one up.
 
 ## The first day
 
-The first fixes came within hours. **1.0.1** made the launcher warn when Steam isn't open or signed in, because PLAY then starts offline as "Unknown Player" with no multiplayer. **1.0.2** fixed a crash while loading on older graphics cards such as the RX 580 by sizing map streaming memory to each card's VRAM, and trimmed per-frame work so busy servers run smoother ([v1.0.2](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.2)). The dedicated server updates itself, so servers picked the fixes up on their own.
+The first fixes came within hours. **1.0.1** made the launcher warn when Steam isn't open or signed in, because PLAY then starts offline as "Unknown Player" with no multiplayer. **1.0.2** fixed a crash while loading on older graphics cards such as the RX 580 by sizing map streaming memory to each card's VRAM, and trimmed per-frame work so busy servers run smoother ([v1.0.2](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.2)). **[1.0.3](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.3)** followed after midnight with a crash fix and a new launch argument from ReGlitched. The dedicated server updates itself, so servers picked the fixes up on their own.
 
 ## Where it came from
 

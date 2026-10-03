@@ -54,6 +54,7 @@ export const tools: Tool[] = [
   { name: 'Session Mod Manager', by: 'rodriada000', game: 'session', kind: 'manager', open: true, url: 'https://github.com/rodriada000/SessionMapSwitcher', what: 'Install maps and textures, patch with the Illusory unlocker, switch maps in-game.' },
   // skate. (2025)
   { name: 'ReSkate', by: 'Dingo Shenanigans (zeex64)', game: 'skate-2025', kind: 'manager', open: true, url: 'https://github.com/Dingo-Shenanigans/ReSkate', what: 'Launcher, runtime and dedicated server: offline play on a pinned build, mods, a park editor, Steam lobbies.' },
+  { name: 'ReSkate Trainer', by: 'Nakas', game: 'skate-2025', kind: 'cheats', open: true, url: 'https://github.com/andrewnakas/reskate-trainer', what: 'A TRAINER page in the ReSkate menu: super ollie, fast flips and spins, never bail, live physics tuning, presets, markers, slow-mo and a jump HUD.' },
   { name: 'ReSkate Thunderstore', by: 'ReSkate community', game: 'skate-2025', kind: 'maps', open: false, url: 'https://thunderstore.io/c/reskate/', what: 'Custom maps, cosmetics and scripts for ReSkate. The launcher browses it directly.' },
   { name: 'Unity Mod Manager', by: 'newman55', game: 'skater-xl', kind: 'manager', open: true, url: 'https://www.nexusmods.com/site/mods/21', what: 'The loader behind Skater XL script mods. Use the latest version.' },
   { name: 'XLMultiplayer (archived)', by: 'silentbaws', game: 'skater-xl', kind: 'online', open: true, url: 'https://github.com/silentbaws/XLMultiplayer', what: 'Community multiplayer before the official version. Retired May 2021.' },

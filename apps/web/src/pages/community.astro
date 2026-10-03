@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { hubs, hubStats } from '../data/hubs';
+
+const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
+const stats = await Promise.all(hubs.map((h) => (h.invite ? hubStats(h.invite) : Promise.resolve({}))));
+const rows = hubs.map((h, i) => ({ ...h, ...stats[i], href: h.invite ? `https://discord.gg/${h.invite}` : h.url! }));
+const discords = rows.filter((r) => r.kind === 'discord');
+const elsewhere = rows.filter((r) => r.kind !== 'discord');
+const total = discords.reduce((n, r) => n + (r.members ?? 0), 0);
+const asOf = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const n = (x?: number) => (x ? x.toLocaleString('en-US') : '');
+
+const ways = [
+  { title: 'Share a Skate 3 map', body: 'Upload it once and it converts for PS3, the PC recomp and the Rust engine. A person reviews every upload.', href: '/upload/', cta: 'Upload a map' },
+  { title: 'Publish a skate. mod', body: 'Package it for the ReSkate Thunderstore and it shows up in the launcher and on skate. mods automatically.', href: '/reskate/', cta: 'See skate. mods' },
+  { title: 'Fix or write a page', body: 'Every guide, FAQ answer and history page is a Markdown file on GitHub. Spot a mistake or a missing credit? Open a pull request.', href: 'https://github.com/andrewnakas/skatemods', cta: 'Edit on GitHub' },
+  { title: 'Get credited', body: 'Built a tool, ran a server or made a map that mattered? The credits roll lists the people behind every scene, each with a source.', href: '/history/people/', cta: 'The people' },
+];
+---
+<Base title="Community" image="/og/community.png" description="Where every skate modding scene talks: Discord servers for ReSkate, Skate 3, Session, THPS and THUG Pro, mod portals, and how to contribute.">
+  <PageHead title="Community" lede="Every scene on this site lives in a Discord somewhere. Here's where to find each one, and how to add your own work to the hub.">
+    {total > 0 && <p class="meta stat">{total.toLocaleString('en-US')} members across {discords.length} servers · counts as of {asOf}</p>}
+  </PageHead>
+
+  <div class="wrap">
+    <section class="section first">
+      <div class="rule-head"><h2>Discord servers</h2></div>
+      <ol class="hubs">
+        {discords.map((h) => (
+          <li>
+            {h.icon ? <img src={h.icon} alt="" width="48" height="48" loading="lazy" /> : <span class="ph" aria-hidden="true">{h.name[0]}</span>}
+            <div class="body">
+              <a class="name" href={h.href} rel="noopener">{h.name}</a>
+              <p>{h.what}</p>
+              <p class="meta tags">
+                <a href={`/games/${h.game}/`}>{games.get(h.game)}</a>
+                {h.scene && <> · <a href={`/history/${h.scene}/`}>History</a></>}
+              </p>
+            </div>
+            <div class="side">
+              {h.members && <span class="count">{n(h.members)}</span>}
+              {h.members && <span class="meta">members{h.online ? `, ${n(h.online)} online` : ''}</span>}
+              <a class="btn small" href={h.href} rel="noopener">Join</a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section">
+      <div class="rule-head"><h2>Mods and forums</h2></div>
+      <ol class="hubs plain">
+        {elsewhere.map((h) => (
+          <li>
+            <span class="ph" aria-hidden="true">{h.kind === 'mods' ? 'M' : 'F'}</span>
+            <div class="body">
+              <a class="name" href={h.href}>{h.name}</a>
+              <p>{h.what}</p>
+              <p class="meta tags"><a href={`/games/${h.game}/`}>{games.get(h.game)}</a></p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section">
+      <div class="rule-head"><h2>Add to the hub</h2></div>
+      <div class="ways">
+        {ways.map((w) => (
+          <div class="way">
+            <h3>{w.title}</h3>
+            <p>{w.body}</p>
+            <a href={w.href}>{w.cta} →</a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <div class="callout">
+      <p><strong>Run a server that should be here?</strong> It needs a permanent public invite and a focus on modding a skate game. <a href="https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/data/hubs.ts">Add it on GitHub</a>. skatemods isn't affiliated with any of these servers. Each one has its own rules.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .stat { margin: 1rem 0 0; }
+  .first { padding-top: 0; }
+  .hubs { list-style: none; margin: 0; padding: 0; }
+  .hubs li { display: grid; grid-template-columns: 48px 1fr; gap: 0.5rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); align-items: start; }
+  @media (min-width: 760px) { .hubs:not(.plain) li { grid-template-columns: 48px 1fr 10rem; } }
+  .hubs img, .ph { width: 48px; height: 48px; border-radius: var(--radius); }
+  .ph { display: grid; place-items: center; background: var(--ink); color: var(--bg); font: 800 1.3rem var(--font-display); font-stretch: 75%; }
+  .name { font-weight: 600; font-size: 1.12rem; text-decoration: none; }
+  .name:hover { text-decoration: underline; color: var(--accent); }
+  .body p { margin: 0.2rem 0 0; color: var(--ink-soft); }
+  .body .tags { color: var(--ink-faint); margin-top: 0.35rem; }
+  .tags a { color: inherit; }
+  .side { grid-column: 2; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
+  @media (min-width: 760px) { .side { grid-column: auto; flex-direction: column; align-items: flex-end; text-align: right; } }
+  .count { font: 800 1.7rem/1 var(--font-display); font-stretch: 75%; }
+  .side .btn { margin-top: 0.4rem; }
+  .ways { display: grid; gap: 1.5rem 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .way { border-top: 2px solid var(--ink); padding-top: 0.75rem; }
+  .way h3 { margin: 0 0 0.4rem; font-size: 1.1rem; }
+  .way p { margin: 0 0 0.6rem; color: var(--ink-soft); font-size: 0.95rem; }
+  .callout { margin-bottom: 3rem; }
+</style>

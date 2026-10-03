@@ -32,7 +32,11 @@ const related = d.related.map((ref) => {
 const gameLinks = games.filter((g) => d.games.includes(g.id));
 if (gameLinks.length !== d.games.length) throw new Error(`blog/${post.id}: unknown game id in ${d.games.join(', ')}`);
 ---
-<Base title={d.title} description={d.description}>
+<Base title={d.title} description={d.description} type="article" image={`/og/blog-${post.id}.png`} schema={{
+  '@type': 'BlogPosting', headline: d.title, description: d.description, datePublished: date,
+  author: { '@type': 'Organization', name: d.author }, publisher: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' },
+  image: `https://skatemods.com/og/blog-${post.id}.png`, mainEntityOfPage: `https://skatemods.com/blog/${post.id}/`,
+}}>
   <PageHead parent={{ href: '/blog/', label: 'Blog' }} title={d.title} lede={d.description}>
     <p class="meta byline"><time datetime={date}>{formatDate(date)}</time> · {d.author}</p>
   </PageHead>

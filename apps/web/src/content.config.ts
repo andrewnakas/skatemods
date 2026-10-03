@@ -88,6 +88,8 @@ const blog = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     author: z.string().default('skatemods'),
+    /** Lead the home page with this post (and its ReSkate fact list). */
+    featured: z.boolean().default(false),
     games: z.array(z.string()).default([]),
     /** Same refs as FAQ entries: 'guides/<id>', 'faq/<id>' or 'history/<id>'. */
     related: z.array(z.string()).default([]),

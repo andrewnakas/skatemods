@@ -3,10 +3,27 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Scene from '../components/Scene.astro';
 import { timeline, formatDate } from '../data/skate3-timeline';
+import { hubs, hubStats } from '../data/hubs';
+import catalog from '../data/catalog.json';
 
 const games = (await getCollection('games')).sort((a, b) => a.data.order - b.data.order);
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const lead = posts[0];
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || b.id.localeCompare(a.id));
+// The home feature is the post marked `featured`, or the newest one.
+const lead = posts.find((p) => p.data.featured) ?? posts[0];
+
+// Newest skate. mods, baked in at build time and refreshed in the browser.
+let fresh: { name: string; owner: string; url: string; icon: string; downloads: number }[] = [];
+try {
+  const packages = await (await fetch('https://thunderstore.io/c/reskate/api/v1/package/', { signal: AbortSignal.timeout(10000) })).json();
+  fresh = packages
+    .filter((p: any) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
+    .sort((a: any, b: any) => b.date_created.localeCompare(a.date_created))
+    .slice(0, 6)
+    .map((p: any) => ({ name: p.name.replace(/_/g, ' '), owner: p.owner, url: p.package_url, icon: p.versions[0].icon, downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0) }));
+} catch {}
+
+const servers = hubs.filter((h) => h.kind === 'discord').slice(0, 4);
+const serverStats = await Promise.all(servers.map((h) => hubStats(h.invite!)));
 // Newest first. Exact dates only, so a bare year like "2010s" never jumps the queue.
 const recent = timeline.filter((e) => e.date.length === 10).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
 const doors = [
@@ -38,7 +55,7 @@ const doors = [
           <p class="meta kicker"><a href="/blog/">Blog</a> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{formatDate(lead.data.date.toISOString().slice(0, 10))}</time></p>
           <h2><a href={`/blog/${lead.id}/`}>{lead.data.title}</a></h2>
           <p class="lede">{lead.data.description}</p>
-          <p><a class="btn primary" href={`/blog/${lead.id}/`}>Read the post</a> <a class="btn" href="/guides/play-skate-with-reskate/">Install ReSkate</a> <a class="btn" href="/reskate/">Browse mods</a></p>
+          <p class="btns"><a class="btn primary" href={`/blog/${lead.id}/`}>Read the post</a> <a class="btn" href="/guides/play-skate-with-reskate/">Install ReSkate</a> <a class="btn" href="/reskate/">Browse mods</a></p>
         </div>
         <ul class="facts">
           <li><span class="meta">Game</span><span><a href="/games/skate-2025/">skate. (2025), pinned Steam build 25414733</a></span></li>
@@ -54,8 +71,29 @@ const doors = [
   <section class="section">
     <div class="wrap two">
       <div>
-        <div class="rule-head"><h2>New maps</h2><a href="/maps/">All maps</a></div>
-        <ul class="list" id="latest"><li class="meta">Loading…</li></ul>
+        <div class="rule-head"><h2>New skate. mods</h2><a href="/reskate/">All mods</a></div>
+        <ul class="list mods" id="fresh">
+          {fresh.length ? fresh.map((m) => (
+            <li><img src={m.icon} alt="" width="40" height="40" loading="lazy" /><span><a href={m.url}>{m.name}</a> <span class="who">by {m.owner}</span></span></li>
+          )) : <li class="empty">Mods load from <a href="https://thunderstore.io/c/reskate/">Thunderstore</a>.</li>}
+        </ul>
+      </div>
+      <div>
+        <div class="rule-head"><h2>From the blog</h2><a href="/blog/">All posts</a></div>
+        <ul class="list posts">
+          {posts.slice(0, 4).map((p) => (
+            <li><time class="meta">{formatDate(p.data.date.toISOString().slice(0, 10))}</time><span><a href={`/blog/${p.id}/`}>{p.data.title}</a></span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <div class="rule-head"><h2>New Skate 3 maps</h2><a href="/maps/">All maps</a></div>
+        <ul class="list" id="latest" data-packs={catalog.packs.length} data-maps={catalog.packs.flatMap((p) => p.maps).length}><li class="meta">Loading…</li></ul>
       </div>
       <div>
         <div class="rule-head"><h2>Skate 3 log</h2><a href="/history/skate-3/">Full history</a></div>
@@ -90,11 +128,27 @@ const doors = [
   </section>
 
   <section class="section">
+    <div class="wrap">
+      <div class="rule-head"><h2>Join the scene</h2><a href="/community/">Every community</a></div>
+      <ul class="servers">
+        {servers.map((h, i) => (
+          <li>
+            <a href={`https://discord.gg/${h.invite}`} rel="noopener">
+              {serverStats[i].icon ? <img src={serverStats[i].icon} alt="" width="40" height="40" loading="lazy" /> : <span class="ph" aria-hidden="true">{h.name[0]}</span>}
+              <span><strong>{h.name}</strong><span class="meta">{serverStats[i].members ? `${serverStats[i].members!.toLocaleString('en-US')} members` : 'Discord'}</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap convert">
       <div class="rule-head"><h2>One upload, every platform</h2><a href="/convert/">How it works</a></div>
       <p class="flow"><span>PS3 <code>DIST_*.psf</code></span><b aria-hidden="true">→</b><span>recomp <code>.big</code></span><b aria-hidden="true">→</b><span>Rust engine <code>.skate</code></span></p>
       <p class="muted">Skate 3 maps you upload are converted on free GitHub runners with no game files involved, checked against the upload policy, and published after a person reviews them.</p>
-      <p><a class="btn primary" href="/upload/">Upload a map</a> <a class="btn" href="/policy/">Upload policy</a></p>
+      <p class="btns"><a class="btn primary" href="/upload/">Upload a map</a> <a class="btn" href="/policy/">Upload policy</a></p>
     </div>
   </section>
 </Base>
@@ -105,7 +159,7 @@ const doors = [
   api('/maps').then(({ maps }) => {
     ul.innerHTML = maps.length
       ? maps.slice(0, 6).map((m: any) => `<li><time class="meta">${formatDate(m.approved_at)}</time><span><a href="/maps/view/?id=${m.id}">${esc(m.title)}</a> <span class="who">by ${esc(m.author_credit)}</span></span></li>`).join('')
-      : '<li class="empty">No maps published yet. <a href="/upload/">Upload the first one.</a></li>';
+      : `<li class="empty"><strong>No uploads yet. Yours could be first.</strong> Upload a Skate 3 map once and it's converted for PS3, the PC recomp and the Rust engine, then published after review. <a href="/upload/">Upload a map</a> or browse <a href="/maps/">${ul.dataset.packs} known packs (${ul.dataset.maps} maps)</a>.</li>`;
   }).catch(() => { ul.innerHTML = '<li class="empty">Maps are unavailable right now.</li>'; });
 </script>
 
@@ -130,10 +184,20 @@ const doors = [
   .feature h2 a { color: inherit; text-decoration: none; }
   .feature h2 a:hover { color: var(--accent); }
   .feature .lede { margin-bottom: 1.25rem; }
-  .feature .btn + .btn { margin-left: 0.5rem; }
   .facts { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
   .facts li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
   .facts .meta { padding-top: 0.1rem; }
+
+  .list.mods :global(li) { grid-template-columns: 40px 1fr; align-items: center; }
+  .mods img { width: 40px; height: 40px; object-fit: cover; border-radius: var(--radius); background: var(--line); }
+  .mods a, .posts a { font-weight: 600; text-decoration: none; }
+  .mods a:hover, .posts a:hover { text-decoration: underline; color: var(--accent); }
+  .servers { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+  .servers a { display: grid; grid-template-columns: 40px 1fr; gap: 0.85rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  .servers a:hover strong { color: var(--accent); }
+  .servers img, .servers .ph { width: 40px; height: 40px; border-radius: var(--radius); }
+  .servers .ph { display: grid; place-items: center; background: var(--ink); color: var(--bg); font-weight: 800; }
+  .servers strong { display: block; line-height: 1.25; }
 
   .two { display: grid; gap: 3rem; }
   @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
@@ -151,5 +215,4 @@ const doors = [
   .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; font-size: 1.15rem; margin: 1.5rem 0; }
   .flow b { color: var(--accent); font-weight: 400; }
   .convert .muted { max-width: 64ch; }
-  .convert .btn + .btn { margin-left: 0.5rem; }
 </style>

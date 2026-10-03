@@ -34,7 +34,7 @@ try {
 const day = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
 ---
-<Base title="skate. mods" description="Every ReSkate mod for skate. (2025): custom maps, boards, cosmetics and scripts from the ReSkate Thunderstore, updated live.">
+<Base title="skate. mods" image="/og/reskate.png" description="Every ReSkate mod for skate. (2025): custom maps, boards, cosmetics and scripts from the ReSkate Thunderstore, updated live.">
   <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="skate. mods" lede="Every mod on the ReSkate Thunderstore: custom maps, boards, cosmetics and scripts for EA's skate. Updated live. Install them from the ReSkate launcher's MODS page.">
     <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">Set up ReSkate</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
   </PageHead>

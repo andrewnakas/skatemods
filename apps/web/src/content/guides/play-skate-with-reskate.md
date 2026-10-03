@@ -7,7 +7,7 @@ order: 6
 updated: 2026-10-03
 ---
 
-[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.0.2** (October 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
+[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.0.3** (October 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
 
 ## What you need
 
@@ -58,6 +58,17 @@ Custom maps show up in the ReSkate menu's level list. Mods are checked against t
 ## Build a park
 
 Open the ReSkate menu and pick the **Park Editor**. You place, move and save objects with a free camera, snapping and undo. Saved parks become mods, so you can share them like any other.
+
+## Practice with the trainer
+
+The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) adds a **TRAINER** page to the Insert menu: super high ollie, fast flips and spins, never bail, live physics tuning, presets, marker slots and slow motion. It's a build of ReSkate with the trainer included, so it replaces two files instead of going in `Mods\`:
+
+1. Run normal ReSkate once, then close the game and launcher.
+2. Back up `ReSkate.dll` and `ReSkateLauncher.exe` beside `Skate.exe`.
+3. Copy the two files from the [trainer release](https://github.com/andrewnakas/reskate-trainer/releases/latest) over them.
+4. Start the launcher, press **Insert** in game and open **TRAINER**.
+
+To go back to stock ReSkate, restore your two backed-up files. Online, it follows ReSkate's session rules: a guest under host tuning can't edit, and dedicated servers can enforce the game's stock physics. It's meant for practice and freeskate.
 
 ## Skate with friends
 

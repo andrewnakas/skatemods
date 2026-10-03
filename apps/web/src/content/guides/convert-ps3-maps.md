@@ -43,7 +43,7 @@ No game files are needed for either step. A typical park converts in about 10 se
 
 ## Option 3: upload it here
 
-Once accounts open, upload any map on [skatemods.com](/convert/) and download every format.
+[Sign in](/signin/) and [upload](/upload/) the map on skatemods. After review, anyone can download every format from its map page. [How conversion works](/convert/).
 
 ## Credit the author
 

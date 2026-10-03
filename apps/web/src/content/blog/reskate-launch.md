@@ -3,6 +3,7 @@ title: ReSkate 1.0 is out, and skate. finally has mods
 description: On October 2, 2026, ReSkate shipped an open-source launcher, runtime and dedicated server for EA's skate. Within a day there were custom maps from Skate 3, skate 2 and Skater XL, community servers, two hotfixes and nearly 2,900 people in its Discord.
 date: 2026-10-03
 author: skatemods
+featured: true
 games: [skate-2025, skate-3, skate-2, skater-xl]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/skate-2025]
 ---
