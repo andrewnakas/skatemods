@@ -48,6 +48,7 @@ const active = (href: string) => path.startsWith(href);
     <meta name="twitter:card" content={card === 'large' ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:image" content={imageUrl} />
     <meta name="theme-color" content="#d63a1f" />
+    <meta name="msvalidate.01" content="0FB507E950AF018426384B7E762A85A2" />
     {schema && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...schema })} />}
     <meta property="og:url" content={new URL(path, 'https://skatemods.com')} />
     <link rel="alternate" type="application/rss+xml" title="skatemods blog" href="/blog/rss.xml" />
