@@ -1,13 +1,13 @@
 ---
 title: Host a ReSkate server
-description: Run ReSkateServer.exe, the dedicated server for skate. (2025) mods. It covers the config file, custom maps, admins, votes and the fair-play checks. It needs no game install and no open ports.
+description: Run ReSkate's dedicated server for skate. (2025) on Windows or Linux. It covers the config file, custom maps, admins, votes, global bans and the fair-play checks. It needs no game install and no open ports.
 game: skate-2025
 level: intermediate
 order: 7
-updated: 2026-10-03
+updated: 2026-10-05
 ---
 
-ReSkate ships a headless dedicated server, `ReSkateServer.exe`, that shows up in every player's in-game browser (**Multiplayer → Servers**). It needs **neither the game nor Steam installed**, and players connect through Steam's relay network, so you don't have to open any ports. This guide follows the official [server manual](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt) for ReSkate 1.0.3.
+ReSkate ships a headless dedicated server, `ReSkateServer.exe`, that shows up in every player's in-game browser (**Multiplayer → Servers**). It needs **neither the game nor Steam installed**, and players connect through Steam's relay network, so you don't have to open any ports. This guide follows the official [server manual](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt) for ReSkate 1.1.1. There's a native [Linux build](#on-linux) too.
 
 ## Set it up
 
@@ -54,7 +54,9 @@ Any key you leave out keeps its default, and changes made from the console or by
 | `tps` | Network updates per second: 20, 30, 60 or 120 |
 | `voice_chat`, `voice_range` | Proximity voice, 50–1000 m |
 | `parties`, `party_size` | Player parties, 2–8 per party |
-| `auto_update` | Install new ReSkate releases when nobody's on (default true) |
+| `auto_update` | Install new ReSkate releases when nobody's on (default true, Windows only) |
+| `global_bans` | Turn away players on the ReSkate team's ban list (default true, see below) |
+| `port`, `query_port` | 1–65535; default 27015 and 27016. Since 1.1.0 an out-of-range port is refused instead of silently wrapped |
 
 ## Custom maps
 
@@ -89,8 +91,37 @@ Throwdowns and co-op challenges only mean something if nobody's cheating, so the
 
 `warn` (the default) takes flagged players out of throwdowns and co-op until they're clean and tells the admins, `kick` removes them, and `off` disables the check. Running a server built around a scoring mod everyone installs? Add its fingerprint with `score-allow`.
 
+### Global bans
+
+Since **1.1.1**, servers also read the ReSkate team's own multiplayer ban list from `api.reskate.dev`, at startup and every ten minutes, and turn those players away. Steam lobbies hosted from the game do the same. It's on by default. Set `"global_bans": false` to let them in; your own `bans` apply either way. On Linux the server needs `curl` installed to read the list.
+
 ## Updates
 
 The server keeps itself on the latest ReSkate release. It checks at startup and every half hour, and installs a new version as soon as the server is empty, keeping your config, mods and logs. Players and the server must run the **same ReSkate version**, so leave `auto_update` on unless you have a reason not to.
+
+## On Linux
+
+Since **1.0.8** each release also ships `ReSkateServer-Linux-<version>.tar.gz`, the same server as a native x86_64 Linux binary. It needs no Wine and no game install. It was ported by juan and is documented in [README-linux](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README-linux.md).
+
+```sh
+tar -xzf ReSkateServer-Linux-<version>.tar.gz
+cd ReSkateServer-Linux-<version>
+./ReSkateServer      # writes ReSkateServer.json; set name and admins, then restart
+```
+
+The release archive already has the Steam libraries (`libsteam_api.so`, `steamclient.so` and friends), a `world-layers.json` for time-of-day sync, and a systemd unit. If you build the server yourself instead, `setup-linux-server-libs.sh` fetches the Steam libraries.
+
+What's different from Windows:
+
+- **No self-update.** `auto_update` and `update` don't work on Linux. Replace the folder when a new release comes out, because players must be on the same version, and keep your `ReSkateServer.json` and `Mods`.
+- **Running as a service.** Copy `reskate-server.service` to `/etc/systemd/system/`, then `sudo systemctl enable --now reskate-server`.
+- **Global bans** need `curl` on the machine.
+
+## Community tools
+
+- [ReSkate Manager](https://github.com/xThrasherrr/reskate-manager) by xThrasherrr runs ReSkate servers and gives you a web panel to manage them (GPL-3.0).
+- [docker-reskate-server](https://github.com/dudedankdave/docker-reskate-server) is a Docker image that takes settings as environment variables. It uses host networking, because Steam's relay breaks behind bridge NAT.
+
+These are third-party projects, not ReSkate's. Read them before running them.
 
 Server hosts trade tips in the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX).

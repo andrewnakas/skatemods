@@ -9,7 +9,9 @@ related: [guides/play-skate-with-reskate, history/reskate]
 
 Every skate game eventually gets a trainer. Skate 3 had [CH3AT](/history/skate-3/) on RPCS3 and, this year, [SK8TRAINER](https://github.com/andrewnakas/sk8trainer) inside the native recomp. EA's 2025 skate. got its first one barely a day after [ReSkate](/blog/reskate-launch/) opened the game up.
 
-The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) is by Nakas, who also runs this site. It adds a **TRAINER** page to the ReSkate menu (Insert). Version 0.1.2 is out now.
+The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) is by Nakas, who also runs this site. It adds a **TRAINER** page to the ReSkate menu (Insert).
+
+> **Update, October 5:** the trainer was [merged into ReSkate](https://github.com/Dingo-Shenanigans/ReSkate/pull/37) and ships with every release since **1.0.9**, so there's nothing to install. By then it was on version 0.3.0, with every preset as a dial, Realistic and Fun lists, flip trick speed, auto push, and 243 of its 314 extra class values confirmed as read by the game. The installation steps below are for the old standalone fork. The [ReSkate guide](/guides/play-skate-with-reskate/#practice-with-the-trainer) covers the built-in version.
 
 ## What's in it
 

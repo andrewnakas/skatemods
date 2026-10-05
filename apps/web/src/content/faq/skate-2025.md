@@ -5,7 +5,7 @@ category: other-games
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/is-modding-legal]
 order: 30
-updated: 2026-10-03
+updated: 2026-10-05
 ---
 
 ## What skate. is
@@ -23,11 +23,11 @@ EA describes skate. as "a free-to-play online, massive-multiplayer skateboarding
 
 On top of the game it adds:
 
-- **Mods.** A `Mods` folder for custom maps, cosmetics, loading screens and scripts, and a [Thunderstore community](https://thunderstore.io/c/reskate/) the launcher browses directly. The full Skate 3 city, skate 2's New San Vanelona and Skater XL's Losal Streets were all up on the first day.
+- **Mods.** A `Mods` folder for custom maps, cosmetics, loading screens and scripts, and a [Thunderstore community](https://thunderstore.io/c/reskate/) the launcher browses directly. The full Skate 3 city, skate 2's New San Vanelona and Skater XL's Losal Streets were all up on the first day, and three days later there were over 200 mods.
 - **Multiplayer.** 32-player Steam lobbies, dedicated servers in an in-game browser, proximity voice, throwdowns and co-op challenges.
-- **Tools.** A park editor, time-of-day and world controls, fast travel, noclip and a console.
+- **Tools.** A park editor, a built-in trainer for physics tuning and practice, time-of-day and world controls, fast travel, noclip and a console.
 
-It's open source (GPL-3.0) and launched on Windows, with a Linux fix promised, and you need your own copy of skate. on Steam. Its FAQ says you can't be banned for using it. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
+It's open source (GPL-3.0) and runs on Windows, and on Linux through Proton. The dedicated server has a native Linux build. You need your own copy of skate. on Steam. Its FAQ says EA can't ban you for using it, but the ReSkate team keeps its own ban list for its multiplayer. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
 
 ## So where does that leave fans?
 

@@ -16,8 +16,8 @@ const date = d.date.toISOString().slice(0, 10);
 const toc = headings.filter((h) => h.depth === 2);
 const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/blog/${post.id}.md`;
 
-const [guides, faq, communities, games] = await Promise.all([
-  getCollection('guides'), getCollection('faq'), getCollection('communities'), getCollection('games'),
+const [guides, faq, communities, games, blog] = await Promise.all([
+  getCollection('guides'), getCollection('faq'), getCollection('communities'), getCollection('games'), getCollection('blog'),
 ]);
 // Same ref format as FAQ entries; a bad ref fails the build.
 const related = d.related.map((ref) => {
@@ -25,9 +25,10 @@ const related = d.related.map((ref) => {
   const hit =
     kind === 'guides' ? guides.find((x) => x.id === id)?.data.title :
     kind === 'faq' ? faq.find((x) => x.id === id)?.data.question :
-    kind === 'history' ? communities.find((x) => x.id === id)?.data.title : undefined;
+    kind === 'history' ? communities.find((x) => x.id === id)?.data.title :
+    kind === 'blog' ? blog.find((x) => x.id === id)?.data.title : undefined;
   if (!hit) throw new Error(`blog/${post.id}: related ref "${ref}" doesn't exist`);
-  return { href: `/${kind}/${id}/`, label: hit, kind: { guides: 'Guide', faq: 'FAQ', history: 'History' }[kind] };
+  return { href: `/${kind}/${id}/`, label: hit, kind: { guides: 'Guide', faq: 'FAQ', history: 'History', blog: 'Post' }[kind] };
 });
 const gameLinks = games.filter((g) => d.games.includes(g.id));
 if (gameLinks.length !== d.games.length) throw new Error(`blog/${post.id}: unknown game id in ${d.games.join(', ')}`);

@@ -4,14 +4,14 @@ description: Install ReSkate, the community modding platform for skate. (2025). 
 game: skate-2025
 level: beginner
 order: 6
-updated: 2026-10-03
+updated: 2026-10-05
 ---
 
-[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.0.3** (October 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
+[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.1.1** (October 5, 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
 
 ## What you need
 
-- **Windows 10 or 11**, 64-bit. At launch ReSkate was Windows-only. A Linux fix was promised soon after, so check the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) for the current state.
+- **Windows 10 or 11**, 64-bit. On **Linux** (Steam Deck included) the launcher runs under Proton, and since 1.0.4 it detects Steam there. It isn't officially documented, so see [Linux and Steam Deck](#linux-and-steam-deck) below.
 - **Your own copy of skate. on Steam.** The game is free-to-play, so adding it to your library is enough.
 - About **14 GB** free if the launcher has to download the game build for you.
 
@@ -26,13 +26,13 @@ updated: 2026-10-03
 5. If the game is missing, or Steam has updated it past that build, sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. The launcher downloads only the files it needs.
 6. Press **PLAY**.
 
-ReSkate supports **one game build at a time** (Steam build `25414733` for 1.0). Steam will keep updating your normal install. That's fine, because the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
+ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 1.1.1). Steam will keep updating your normal install. That's fine, because the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
 
 ## Controls
 
 | Key | Opens |
 |---|---|
-| **Insert** | the ReSkate menu: map and fast travel, world, park editor, skater, mods, multiplayer |
+| **Insert** | the ReSkate menu: map and fast travel, world, park editor, skater, trainer, mods, multiplayer |
 | **~** | the console (`help` lists every command) |
 | **T** | chat, in multiplayer |
 
@@ -42,6 +42,8 @@ You can rebind the menu and console keys in the launcher's Settings.
 
 Browse everything that's out on [skate. mods](/reskate/), which lists the ReSkate Thunderstore live. To install, the easiest way is the launcher's **MODS** page. Browse the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) and click install, or drag a mod `.zip` or folder onto the window.
 
+**MY MODS** lists what you have, with each mod's size on disk, a search box, a filter and a switch per mod. Tick several (Shift-click and Ctrl+A work) to enable, disable, update or uninstall them together. When Thunderstore has newer versions, the PLAY tile shows a count like "2 MOD UPDATES" and asks before launching without them.
+
 You can also install by hand. Every mod is a folder in `Mods\` beside `Skate.exe`, and `Mods\mods.json` sets the load order. In game, the **MODS** tab of the ReSkate menu turns mods on and off, and most changes apply without a restart.
 
 Good first downloads:
@@ -49,9 +51,11 @@ Good first downloads:
 - [Full Skate 3 Map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/): Port Carverton in skate.'s engine.
 - [Skate 2 Map](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/): New San Vanelona.
 - [Losal Streets](https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/) from Skater XL, and Yaky's [Desert Springs](https://thunderstore.io/c/reskate/p/memori/Desert_Springs/).
+- [South Florida](https://thunderstore.io/c/reskate/p/AltDoug/South_Florida/), B-Row's Skater XL map, and forestmouse's [SLS Hangar](https://thunderstore.io/c/reskate/p/forestmouse/The_SLS_Hangar/).
+- The [Skate 3 Soundtrack](https://thunderstore.io/c/reskate/p/Prayboy/Skate3Soundtrack/) as a radio station.
 - [SunJay's Low Cam](https://thunderstore.io/c/reskate/p/SunJayTeam/SunJays_Low_Cam/), a lower camera for street skating.
 
-Custom maps show up in the ReSkate menu's level list. Mods are checked against the game build they were made for. If one is outdated or can't merge cleanly, ReSkate leaves it out and names it, and the rest still load.
+Custom maps show up in the ReSkate menu's level list. Song mods show up in the game's music screen next to the licensed stations, and can bring their own playlists. Mods are checked against the game build they were made for. PLAY merges your mods before the game starts, and if one is outdated or can't merge cleanly, the launcher names it and the rest still load.
 
 **Only install mods you trust.** Mods change game data, and custom scripts can run code.
 
@@ -61,18 +65,17 @@ Open the ReSkate menu and pick the **Park Editor**. You place, move and save obj
 
 ## Practice with the trainer
 
-The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) adds a **TRAINER** page to the Insert menu: super high ollie, fast flips and spins, never bail, live physics tuning, presets, marker slots and slow motion. It's a build of ReSkate with the trainer included, so it replaces two files instead of going in `Mods\`:
+Since **1.0.9**, ReSkate has a **TRAINER** page built in (Insert → TRAINER). It started as Nakas's [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) fork and was [merged upstream](https://github.com/Dingo-Shenanigans/ReSkate/pull/37), so there's nothing extra to install.
 
-1. Run normal ReSkate once, then close the game and launcher.
-2. Back up `ReSkate.dll` and `ReSkateLauncher.exe` beside `Skate.exe`.
-3. Copy the two files from the [trainer release](https://github.com/andrewnakas/reskate-trainer/releases/latest) over them.
-4. Start the launcher, press **Insert** in game and open **TRAINER**.
+- **TUNE** opens on dials, one per preset (ollie height, push speed, flip and spin speed, bail resistance, grind lock-on, on-foot jump, glide and more), where 1 is the game's own. Below are switches (Auto Push, No Speed Wobble, Never bail), trick sliders for flip speed, no comply, boneless and hippy jump height, and the full table of values under EVERYTHING. Type a number beside any slider to go past its range. **Reset everything** puts the game back as it shipped.
+- **PRACTICE** has game speed and pause, five marker slots per map, return to the marker after a bail, and teleport.
+- **MAP & HUD** has a speed HUD, a read-out after every jump, telemetry recording to CSV, and spots or tuning a map's author ships in a `trainer.json`.
 
-To go back to stock ReSkate, restore your two backed-up files. Online, it follows ReSkate's session rules: a guest under host tuning can't edit, and dedicated servers can enforce the game's stock physics. It's meant for practice and freeskate.
+The HUD, the jump read-out and the LB + RB controller shortcuts start off. Online, a host's whole setup reaches guests, and under enforced physics a guest can't change their own. Every control is also a console command, such as `trainer set`, `trainer marker save` or `trainer reset everything` ([README](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Extension/Trainer/README.md)).
 
 ## Skate with friends
 
-- **Steam lobby.** From the Multiplayer menu, host a lobby for up to 32 players. Make it public, or share its code, optionally with a password. Everyone in a lobby is in one party.
+- **Steam lobby.** From the Multiplayer menu, host a lobby for up to 32 players. Make it public, or share its code, optionally with a password. Since 1.0.9 lobbies have parties like dedicated servers do: invite, join, leave, kick and promote, with `/p` for party chat.
 - **Dedicated servers.** Open **Multiplayer → Servers** to browse community servers. Want your own? See [Host a ReSkate server](/guides/host-a-reskate-server/).
 - In multiplayer you get proximity voice, text chat with emotes, parties, throwdowns (Jam, Spot Battle and S.K.A.T.E.) and co-op challenges.
 
@@ -81,10 +84,24 @@ To join a server running a custom map, you need the same map mod installed, and 
 ## When something breaks
 
 - The log is `logs\ReSkate.log` beside `Skate.exe`. Attach it when you ask for help in the bug-reports forum on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) or open a [GitHub issue](https://github.com/Dingo-Shenanigans/ReSkate/issues).
+- **"Cannot open file" or the launcher can't read `ReSkate.dll`**: your antivirus is holding or blocking it. Add the ReSkate folder to its exclusions. Since 1.1.0 the error names the file and the Windows error code.
+- **The launcher window is blank** on a laptop or PC with two GPUs: update to 1.0.6 or later, which draws on the best card instead of the onboard chip.
+- **A big custom map crashes on load**: update to 1.1.0 or later, which raises the game's physics body limit for large maps.
+- **A mod is missing in game**: PLAY names any mod it couldn't merge. Update it, or turn it off in MY MODS.
 - **Crash while loading on an older GPU** (an RX 580, for example): update to 1.0.2 or later, which sizes map streaming memory to your card's VRAM.
+- **"Can't host" or "can't join" with no reason**: update to 1.0.9 or later, which shows why the session refused.
 - **"Unknown Player" or no multiplayer**: Steam wasn't running or signed in when you pressed PLAY.
 - The launcher sends crash reports (a minidump and that session's log, never your Steam login). Untick **Send crash reports** under Settings → Advanced to turn this off.
 
+## Linux and Steam Deck
+
+ReSkate's launcher and runtime are Windows programs, but people run them on Linux:
+
+- **Through Steam with Proton.** Add `ReSkateLauncher.exe` to Steam as a non-Steam game and force a recent Proton. Since 1.0.4 the launcher detects that Steam is signed in under Proton, which earlier versions didn't, so multiplayer works.
+- **With a script.** [ReSkate Linux Setup](https://github.com/vitorioaugusto/ReSkate-Linux-Setup) builds a dedicated Wine prefix with VKD3D-Proton and DXVK, and has backup and repair options. It was tested on Arch/CachyOS with NVIDIA. It's a third-party project, so read it before running it.
+
+Hosting is easier: the [dedicated server](/guides/host-a-reskate-server/) has a native Linux build.
+
 ## Stay on the right side
 
-ReSkate is a fan project, not affiliated with EA or Full Circle. Its FAQ says you can't be banned for using it. Don't use it to get paid cosmetics or share leaks; the project rules both out. It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.
+ReSkate is a fan project, not affiliated with EA or Full Circle. Its FAQ says EA can't ban you for using it. The ReSkate team can, though: since 1.1.1, lobbies and most dedicated servers turn away players on its global multiplayer ban list. Don't use it to get paid cosmetics or share leaks; the project rules both out. It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.

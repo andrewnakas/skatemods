@@ -9,9 +9,9 @@ series: skate
 scene: active
 order: 5
 howToMod:
-  - Install ReSkate. It runs a pinned Steam build offline with a community runtime, on Windows, with your own copy of the game.
+  - Install ReSkate. It runs a pinned Steam build offline with a community runtime, on Windows (or Linux through Proton), with your own copy of the game.
   - Browse every mod at skatemods.com/reskate, then install it from the launcher's MODS page or drop it in the Mods folder.
-  - Build parks in ReSkate's Park Editor, and host a dedicated server with ReSkateServer.exe.
+  - Build parks in ReSkate's Park Editor, tune physics in its built-in Trainer, and host a dedicated server on Windows or Linux.
   - Leave the live game alone. It's online-only and protected by EA's Javelin anti-cheat.
 links:
   - { label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Skate_(2025_video_game)' }
@@ -24,7 +24,7 @@ EA announced a new skate in 2020 and set up **Full Circle**, a studio in Burnaby
 
 ## The live game is locked
 
-- **Kernel anti-cheat.** skate. uses EA's **Javelin** anti-cheat. It blocks tampering, and it's also why the game doesn't run on Steam Deck or Linux.
+- **Kernel anti-cheat.** skate. uses EA's **Javelin** anti-cheat. It blocks tampering, and it's also why the live game doesn't run on Steam Deck or Linux. ReSkate's offline build does, through Proton.
 - **Online-only Frostbite.** The community [Frostbite Modding Tool](https://github.com/FMTDev/FMT.Releases) lists skate. as unsupported and online-only.
 - **Live-service terms.** Changing the live client puts your account at risk. skatemods won't host mods that touch the live game.
 
@@ -34,9 +34,9 @@ EA announced a new skate in 2020 and set up **Full Circle**, a studio in Burnaby
 
 - a **Mods** folder and a built-in [Thunderstore](https://thunderstore.io/c/reskate/) browser for custom maps, cosmetics, loading screens and scripts;
 - **Steam lobbies** for up to 32 players, **dedicated servers**, proximity voice, throwdowns and co-op challenges;
-- a **Park Editor**, time-of-day and world controls, fast travel, noclip and a console.
+- a **Park Editor**, a built-in **Trainer** for physics tuning and practice, time-of-day and world controls, fast travel, noclip and a console.
 
-On day one the Thunderstore already had the full Skate 3 city, skate 2's New San Vanelona and Losal Streets from Skater XL.
+On day one the Thunderstore already had the full Skate 3 city, skate 2's New San Vanelona and Losal Streets from Skater XL. Three days later it had 216 mods and the project was on version 1.1.1.
 
 Start here:
 
@@ -44,5 +44,6 @@ Start here:
 - [Play skate. with ReSkate](/guides/play-skate-with-reskate/): install, controls and mods.
 - [Host a ReSkate server](/guides/host-a-reskate-server/): a dedicated server for your crew.
 - [The ReSkate launch](/blog/reskate-launch/): what shipped and who made it.
+- [The first three days](/blog/reskate-first-three-days/): eleven releases, a Linux server and 216 mods.
 
 ReSkate is open source (GPL-3.0) and not affiliated with EA. It still runs EA's client, so EA's terms still apply.
