@@ -14,7 +14,7 @@ When [ReSkate 1.0 came out](/blog/reskate-launch/) on October 2, its Discord had
 
 Most of the first releases answer specific reports, and the commit messages say who reported what.
 
-- **[1.0.4](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.4)** made PLAY merge mods *before* the game starts. Before, a mod the merge couldn't use was dropped silently, and the game started without it after a three-minute loading screen. Now the launcher names it. Settings changed in game stick (the camera used to jump back to high on leaving the menu), the mod manager moved into a bigger window, and Steam is detected under **Proton**, so Linux players can get online.
+- **[1.0.4](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.4)** made PLAY merge mods *before* the game starts. Before, a mod the merge couldn't use was dropped silently, and the game started without it after a three-minute loading screen. Now the launcher names it. Settings changed in game stick (the camera used to jump back to high on leaving the menu), the mod manager moved into a bigger window, and Steam is detected under **Proton**, the first step toward Linux players getting online.
 - **1.0.5 and 1.0.6** fixed a player who couldn't launch because an invisible Unicode character (a left-to-right mark) was in a folder name, and a blank launcher window on a PC with a GT 1030 that drew on the Intel chip beside it.
 - **[1.0.7](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.7)** fixed replay exports that played two to three times too fast and a crash with several cosmetic mods installed. Modded cosmetics now show as **Collector**, the game's own sixth rarity, "without claiming to be Legendary".
 - **[1.1.0](https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.1.0)** turned "Cannot open file for SHA-256" into an error that names the file and suggests an antivirus exclusion, which was the cause nearly every time.
@@ -42,6 +42,10 @@ Custom maps got very big very fast. Someone exported 41,000 parts of GTA IV, and
 The [mod list](/reskate/) has moved well past the first day's Skate 3 and Skater XL ports. Five mods passed 10,000 downloads: zeex64's Full Skate 3 Map (18,700), B-Row's South Florida from Skater XL, ported by AltDoug, brassy's New San Vanelona, Prayboy's Skate 3 soundtrack as a radio station, and relsmodding's Black Ops 2 Grind. Below them are real parks like forestmouse's SLS Hangar and DC Plaza Saint Petersburg, THUG2's Los Angeles, Bully's Bullworth, Counter-Strike's Dust2, Nuke and Overpass, and a Minecraft tutorial world. The cosmetics run from whole Carhartt and Nike SB collections to one pack of 328 colourways across 28 skate brands.
 
 Ten of the 216 are tagged "AI Generated" on Thunderstore. Several authors say their conversions and cosmetics were built with **ReSkate Studio**. ReSkate's own README has an AI disclosure too.
+
+## What's still broken
+
+Moving this fast has costs, and the [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows them. Windows Defender started flagging the download as `Behavior:Win32/DefenseEvasion.A!ml`, a machine-learning guess set off by a DLL loading into a game. Some board-graphics and map mods crash on 1.1.0 until they're reinstalled. On Linux under Proton, custom maps and servers running them hang on the loading screen since 1.0.8. Our [guide](/guides/play-skate-with-reskate/#known-issues-111) lists the workarounds.
 
 ## Where to start
 

@@ -81,6 +81,14 @@ The HUD, the jump read-out and the LB + RB controller shortcuts start off. Onlin
 
 To join a server running a custom map, you need the same map mod installed, and the same ReSkate version as the server.
 
+## Known issues (1.1.1)
+
+These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 5:
+
+- **Windows Defender or your browser calls it a Trojan.** Since around 1.0.8, the download and `ReSkate.dll` get flagged, usually as `Behavior:Win32/DefenseEvasion.A!ml` ([#47](https://github.com/Dingo-Shenanigans/ReSkate/issues/47), [#27](https://github.com/Dingo-Shenanigans/ReSkate/issues/27)). The `!ml` means a machine-learning guess. ReSkate loads a DLL into the game, which looks like what malware does. Only download from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). If you trust that copy, restore the file from quarantine and add the ReSkate folder to your antivirus exclusions. Otherwise the launcher can't read its own files ("Cannot open file for SHA-256", [#29](https://github.com/Dingo-Shenanigans/ReSkate/issues/29)).
+- **Board graphics or maps crash since 1.1.0** ([#46](https://github.com/Dingo-Shenanigans/ReSkate/issues/46)). Some mods installed before 1.1.0 break. Uninstall the mod and install it again from MY MODS. If the game still crashes, turn mods off one at a time to find the culprit.
+- **Linux/Proton: custom maps and servers hang on loading since 1.0.8** ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)). Free skating in San Van works, but modded maps and servers running them loop on the loading screen. Players report that 1.0.7 loads custom maps fine.
+
 ## When something breaks
 
 - The log is `logs\ReSkate.log` beside `Skate.exe`. Attach it when you ask for help in the bug-reports forum on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) or open a [GitHub issue](https://github.com/Dingo-Shenanigans/ReSkate/issues).
@@ -97,7 +105,7 @@ To join a server running a custom map, you need the same map mod installed, and 
 
 ReSkate's launcher and runtime are Windows programs, but people run them on Linux:
 
-- **Through Steam with Proton.** Add `ReSkateLauncher.exe` to Steam as a non-Steam game and force a recent Proton. Since 1.0.4 the launcher detects that Steam is signed in under Proton, which earlier versions didn't, so multiplayer works.
+- **Through Steam with Proton.** Add `ReSkateLauncher.exe` to Steam as a non-Steam game and force a recent Proton. Since 1.0.4 the launcher detects that Steam is signed in under Proton. Joining servers was fixed in 1.0.9 ([#28](https://github.com/Dingo-Shenanigans/ReSkate/issues/28)), but hosting a lobby may still say "Multiplayer is off" ([#19](https://github.com/Dingo-Shenanigans/ReSkate/issues/19)), and custom maps hang on loading since 1.0.8 (see [Known issues](#known-issues-111)).
 - **With a script.** [ReSkate Linux Setup](https://github.com/vitorioaugusto/ReSkate-Linux-Setup) builds a dedicated Wine prefix with VKD3D-Proton and DXVK, and has backup and repair options. It was tested on Arch/CachyOS with NVIDIA. It's a third-party project, so read it before running it.
 
 Hosting is easier: the [dedicated server](/guides/host-a-reskate-server/) has a native Linux build.
