@@ -16,13 +16,13 @@ updated: 2026-10-01
 
 A static recompiler does the translation **ahead of time**. [XenonRecomp](https://github.com/hedge-dev/XenonRecomp) "converts Xbox 360 executables into C++ code, which can then be recompiled for any platform". The [rexglue SDK](https://github.com/rexglue/rexglue-sdk) that Skate 3 uses describes the same idea: "Rather than interpreting or JIT-compiling PPC instructions at runtime, ReXGlue … generates C++ source code ahead of time."
 
-Code alone isn't enough. XenonRecomp's README warns that the output "is not going to function correctly without a runtime backing it", meaning something has to replace the console's graphics, audio and system calls. That runtime is most of the work in a recomp project, and much of it builds on Xenia's research ([XenonRecomp credits](https://github.com/hedge-dev/XenonRecomp)).
+The generated code also needs support code. XenonRecomp's README warns that the output "is not going to function correctly without a runtime backing it", meaning something has to replace the console's graphics, audio and system calls. That runtime is most of the work in a recomp project, and much of it builds on Xenia's research ([XenonRecomp credits](https://github.com/hedge-dev/XenonRecomp)).
 
 ## What that means for Skate 3
 
-[skate3recomp](https://github.com/mchughalex/skate3recomp) is "an unofficial native recompilation of the Xbox 360 version of Skate 3, supporting Windows, Linux, and macOS." Since v2.0 it doesn't emulate the GPU at all. It uses "a native renderer built directly on Direct3D 12 and Vulkan", which the README says delivers more than twice the frame rate of the emulated renderer at roughly a quarter of the GPU power draw.
+[skate3recomp](https://github.com/mchughalex/skate3recomp) is "an unofficial native recompilation of the Xbox 360 version of Skate 3, supporting Windows, Linux, and macOS." Since v2.0 it skips GPU emulation and uses "a native renderer built directly on Direct3D 12 and Vulkan", which the README says delivers more than twice the frame rate of the emulated renderer at roughly a quarter of the GPU power draw.
 
-What it doesn't do is include the game. "The project does not include Skate 3 retail game files", so you point it at the disc image of your own Xbox 360 copy. The Android, iOS, PS4 and web builds listed in the [Skate 3 history](/history/skate-3/) all build on this recompilation.
+It doesn't include the game: "The project does not include Skate 3 retail game files", so you point it at the disc image of your own Xbox 360 copy. The Android, iOS, PS4 and web builds listed in the [Skate 3 history](/history/skate-3/) all build on this recompilation.
 
 | | Emulator (RPCS3, Xenia) | Recomp (skate3recomp) |
 |---|---|---|

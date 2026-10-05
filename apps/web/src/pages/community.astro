@@ -16,12 +16,12 @@ const n = (x?: number) => (x ? x.toLocaleString('en-US') : '');
 const ways = [
   { title: 'Share a Skate 3 map', body: 'Upload it once and it converts for PS3, the PC recomp and the Rust engine. A person reviews every upload.', href: '/upload/', cta: 'Upload a map' },
   { title: 'Publish a skate. mod', body: 'Package it for the ReSkate Thunderstore and it shows up in the launcher and on skate. mods automatically.', href: '/reskate/', cta: 'See skate. mods' },
-  { title: 'Fix or write a page', body: 'Every guide, FAQ answer and history page is a Markdown file on GitHub. Spot a mistake or a missing credit? Open a pull request.', href: 'https://github.com/andrewnakas/skatemods', cta: 'Edit on GitHub' },
-  { title: 'Get credited', body: 'Built a tool, ran a server or made a map that mattered? The credits roll lists the people behind every scene, each with a source.', href: '/history/people/', cta: 'The people' },
+  { title: 'Fix or write a page', body: 'Every guide, FAQ answer and history page is a Markdown file on GitHub. Open a pull request to fix a mistake or add a missing credit.', href: 'https://github.com/andrewnakas/skatemods', cta: 'Edit on GitHub' },
+  { title: 'Get credited', body: 'The credits roll lists the people who built the tools, ran the servers and made the maps in every scene, each with a source.', href: '/history/people/', cta: 'The people' },
 ];
 ---
 <Base title="Community" image="/og/community.png" description="Where every skate modding scene talks: Discord servers for ReSkate, Skate 3, Session, THPS and THUG Pro, mod portals, and how to contribute.">
-  <PageHead title="Community" lede="Every scene on this site lives in a Discord somewhere. Here's where to find each one, and how to add your own work to the hub.">
+  <PageHead title="Community" lede="The Discord servers, mod portals and forums where each scene on this site talks, and how to add your own work to the hub.">
     {total > 0 && <p class="meta stat">{total.toLocaleString('en-US')} members across {discords.length} servers · counts as of {asOf}</p>}
   </PageHead>
 
@@ -42,7 +42,8 @@ const ways = [
             </div>
             <div class="side">
               {h.members && <span class="count">{n(h.members)}</span>}
-              {h.members && <span class="meta">members{h.online ? `, ${n(h.online)} online` : ''}</span>}
+              {h.members && <span class="meta">members</span>}
+              {h.online && <span class="meta online">{n(h.online)} online</span>}
               <a class="btn small" href={h.href} rel="noopener">Join</a>
             </div>
           </li>
@@ -55,11 +56,10 @@ const ways = [
       <ol class="hubs plain">
         {elsewhere.map((h) => (
           <li>
-            <span class="ph" aria-hidden="true">{h.kind === 'mods' ? 'M' : 'F'}</span>
             <div class="body">
               <a class="name" href={h.href}>{h.name}</a>
               <p>{h.what}</p>
-              <p class="meta tags"><a href={`/games/${h.game}/`}>{games.get(h.game)}</a></p>
+              <p class="meta tags">{h.kind === 'mods' ? 'Mod portal' : 'Forum'} · <a href={`/games/${h.game}/`}>{games.get(h.game)}</a></p>
             </div>
           </li>
         ))}
@@ -80,7 +80,7 @@ const ways = [
     </section>
 
     <div class="callout">
-      <p><strong>Run a server that should be here?</strong> It needs a permanent public invite and a focus on modding a skate game. <a href="https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/data/hubs.ts">Add it on GitHub</a>. skatemods isn't affiliated with any of these servers. Each one has its own rules.</p>
+      <p><strong>Listing a server:</strong> it needs a permanent public invite and a focus on modding a skate game. <a href="https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/data/hubs.ts">Add it on GitHub</a>. skatemods isn't affiliated with any of these servers. Each one has its own rules.</p>
     </div>
   </div>
 </Base>
@@ -91,6 +91,9 @@ const ways = [
   .hubs { list-style: none; margin: 0; padding: 0; }
   .hubs li { display: grid; grid-template-columns: 48px 1fr; gap: 0.5rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); align-items: start; }
   @media (min-width: 760px) { .hubs:not(.plain) li { grid-template-columns: 48px 1fr 10rem; } }
+  .hubs.plain li { grid-template-columns: 1fr; }
+  .side .meta { white-space: nowrap; }
+  .online { color: var(--ink-faint); }
   .hubs img, .ph { width: 48px; height: 48px; border-radius: var(--radius); }
   .ph { display: grid; place-items: center; background: var(--ink); color: var(--bg); font: 800 1.3rem var(--font-display); font-stretch: 75%; }
   .name { font-weight: 600; font-size: 1.12rem; text-decoration: none; }

@@ -29,6 +29,6 @@ On top of the game it adds:
 
 It's open source (GPL-3.0) and runs on Windows. It also runs on Linux through Proton, with rough edges. The dedicated server has a native Linux build. You need your own copy of skate. on Steam. Its FAQ says EA can't ban you for using it, but the ReSkate team keeps its own ban list for its multiplayer. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
 
-## So where does that leave fans?
+## Where that leaves fans
 
-skate. finally has an open scene of its own, alongside Skate 3, which runs natively, takes custom maps, and has a [community online server](/faq/skate-3-online/).
+skate. now has an open scene of its own, alongside Skate 3, which runs natively, takes custom maps, and has a [community online server](/faq/skate-3-online/).

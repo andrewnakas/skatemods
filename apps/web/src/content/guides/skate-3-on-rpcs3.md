@@ -7,7 +7,7 @@ order: 4
 updated: 2026-10-01
 ---
 
-RPCS3 is where most Skate 3 custom content was made and played for years. If you play the PS3 version, this is your setup.
+RPCS3 is where most Skate 3 custom content was made and played for years. Use it if you play the PS3 version.
 
 ## Find your game folder
 

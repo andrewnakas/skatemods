@@ -10,7 +10,7 @@ updated: 2026-10-01
 
 ## The retail formats
 
-Skate 3 runs on EA's RenderWare 4. A district isn't one file. It's a folder (`DIST_*`) of **stream files** that the game loads as you skate around:
+Skate 3 runs on EA's RenderWare 4. A district is a folder (`DIST_*`) of **stream files** that the game loads as you skate around:
 
 - **PS3** worlds use `.psf` streams (PlayStation 3 StreamFile). Their arena meshes are `.psg`.
 - **Xbox 360** worlds use `.xsf` streams with `.xsm`, `.xmm`, `.xss` and `.xst` manifests. Their arena meshes are `.rx2`.

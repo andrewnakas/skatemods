@@ -27,7 +27,7 @@ const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.ti
 <style>
   .guides { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
   .guides li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
-  @media (min-width: 720px) { .guides li { grid-template-columns: 2.5rem 1fr 11rem; } }
+  @media (min-width: 720px) { .guides li { grid-template-columns: 2.5rem 1fr 13rem; } }
   .guides a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
   .guides a:hover { text-decoration: underline; color: var(--accent); }
   .guides p { margin: 0.25rem 0 0; color: var(--ink-soft); }

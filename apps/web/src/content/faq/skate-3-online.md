@@ -10,7 +10,7 @@ updated: 2026-10-01
 
 ## EA's servers
 
-EA's own servers have had a bumpy life. They went down around 2016 and [came back in 2018](https://www.engadget.com/2018-06-06-ea-skate-3-servers-on.html) without an announcement. EA's [user agreement](https://www.ea.com/legal/user-agreement) promises 30 days' notice before a service shuts down. Don't count on official servers for anything long-term.
+EA's own servers have been unreliable. They went down around 2016 and [came back in 2018](https://www.engadget.com/2018-06-06-ea-skate-3-servers-on.html) without an announcement. EA's [user agreement](https://www.ea.com/legal/user-agreement) promises 30 days' notice before a service shuts down. Don't count on official servers for anything long-term.
 
 ## The community Blaze server
 

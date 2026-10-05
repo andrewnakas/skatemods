@@ -21,6 +21,6 @@ The 2020 remake rebuilt the first two games in **Unreal Engine 4**. Unreal games
 
 ## THPSPro
 
-The best-known mod is **THPSPro**. It brings in levels from across the series, rebuilt for the remake: THPS3 and THPS4, THUG 1 and 2, the Project 8 world with Downhill Rio, and some American Wasteland levels. It also adds custom restarts, a free-roam camera, unlocked hidden cheats, classic skins, and board and griptape graphics. It even has a limited online mode: free skate over LAN or a VPN, on the Epic version only ([Nexus](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121)).
+The best-known mod is **THPSPro**. It brings in levels from across the series, rebuilt for the remake: THPS3 and THPS4, THUG 1 and 2, the Project 8 world with Downhill Rio, and some American Wasteland levels. It also adds custom restarts, a free-roam camera, unlocked hidden cheats, classic skins, and board and griptape graphics. It also has a limited online mode: free skate over LAN or a VPN, on the Epic version only ([Nexus](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121)).
 
 Its author, bAstimc, also brought THPSPro to [THPS 3 + 4](/games/thps-3-4/). The full story is in the [THPSPro history](/history/thps-pro/).

@@ -22,7 +22,7 @@ The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) is by Naka
 
 ## Only the values that matter
 
-The interesting work is in the Tune tab. skate.'s tuning data is full of named values, and the game ignores a lot of them. A pass over the game's code found that it reads about **six in ten**. Version 0.1.2 hides the rest unless you tick "Values with no use found", so sliders don't silently do nothing.
+skate.'s tuning data, which the Tune tab edits, is full of named values, and the game ignores a lot of them. A pass over the game's code found that it reads about **six in ten**. Version 0.1.2 hides the rest unless you tick "Values with no use found", so sliders don't silently do nothing.
 
 The same pass fixed the headline features. In 0.1.0, some of the obvious values like ollie height did nothing, because the game reads differently named values instead. Ollie height, body flip speed and body spin speed are now plain numbers at the top of the Essentials list, wired to what the game really uses.
 

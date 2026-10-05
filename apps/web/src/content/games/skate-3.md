@@ -26,11 +26,11 @@ links:
 
 Skate 3 came out on **May 11, 2010** in North America (May 13 in Europe and Australia) for PlayStation 3 and Xbox 360. It moved the series to Port Carverton, a city split into three districts: Downtown, with ledges and rails; University, with banks and open plazas; and Industrial, with a huge quarry. It shipped with **Skate.Park**, an object-dropper park editor, plus online team modes and **Hall of Meat**, the bail mode that later made the game famous on YouTube.
 
-EA Black Box closed in 2013, and the series went quiet for over a decade. Skate 3 didn't. A 2014 wave of YouTube videos about its ragdoll physics and glitches led EA to reprint discs. Xbox One backward compatibility followed in **November 2016**. The servers went down without notice around 2015–2016 and came back just as quietly before E3 2018.
+EA Black Box closed in 2013, and the series went quiet for over a decade, but Skate 3 kept its audience. A 2014 wave of YouTube videos about its ragdoll physics and glitches led EA to reprint discs. Xbox One backward compatibility followed in **November 2016**. The servers went down without notice around 2015–2016 and came back just as quietly before E3 2018.
 
 ## Why Skate 3 is the center of this site
 
-For most of its life, modding Skate 3 meant a jailbroken console or an emulator. In 2026 that changed quickly:
+For most of its life, modding Skate 3 meant a jailbroken console or an emulator. Three developments in 2026 moved it onto PC and beyond:
 
 - **June 2026:** [skate3recomp](https://github.com/mchughalex/skate3recomp) statically recompiled the Xbox 360 executable to native code for Windows, Linux and macOS. In July, v2.0 added a native Direct3D 12 and Vulkan renderer.
 - **Summer 2026:** the community built tools that read and write Skate 3's world format directly (ArenaBuilder, DlcBuilder), so maps that only ran on modded PS3s can now be converted to the PC build.

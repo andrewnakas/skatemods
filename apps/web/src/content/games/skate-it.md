@@ -18,6 +18,6 @@ links:
 
 ## Modding today
 
-There's almost no Skate It modding scene. The realistic route is the **Dolphin** emulator for the Wii version, which supports high-resolution texture replacement and widescreen hacks for many games. The DS and iOS versions are effectively frozen.
+Skate It has almost no modding scene. The practical route is the **Dolphin** emulator for the Wii version, which supports high-resolution texture replacement and widescreen hacks for many games. The DS and iOS versions are effectively frozen.
 
 It's listed here for completeness: skatemods covers every skate game, including the quiet ones.

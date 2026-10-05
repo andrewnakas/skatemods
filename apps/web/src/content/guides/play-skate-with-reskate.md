@@ -26,7 +26,7 @@ updated: 2026-10-05
 5. If the game is missing, or Steam has updated it past that build, sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. The launcher downloads only the files it needs.
 6. Press **PLAY**.
 
-ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 1.1.1). Steam will keep updating your normal install. That's fine, because the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
+ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 1.1.1). Steam will keep updating your normal install, and the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
 
 ## Controls
 
@@ -40,7 +40,7 @@ You can rebind the menu and console keys in the launcher's Settings.
 
 ## Add mods
 
-Browse everything that's out on [skate. mods](/reskate/), which lists the ReSkate Thunderstore live. To install, the easiest way is the launcher's **MODS** page. Browse the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) and click install, or drag a mod `.zip` or folder onto the window.
+Browse everything that's out on [skate. mods](/reskate/), which lists the ReSkate Thunderstore live. Install them from the launcher's **MODS** page: browse the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) and click install, or drag a mod `.zip` or folder onto the window.
 
 **MY MODS** lists what you have, with each mod's size on disk, a search box, a filter and a switch per mod. Tick several (Shift-click and Ctrl+A work) to enable, disable, update or uninstall them together. When Thunderstore has newer versions, the PLAY tile shows a count like "2 MOD UPDATES" and asks before launching without them.
 
@@ -76,7 +76,7 @@ The HUD, the jump read-out and the LB + RB controller shortcuts start off. Onlin
 ## Skate with friends
 
 - **Steam lobby.** From the Multiplayer menu, host a lobby for up to 32 players. Make it public, or share its code, optionally with a password. Since 1.0.9 lobbies have parties like dedicated servers do: invite, join, leave, kick and promote, with `/p` for party chat.
-- **Dedicated servers.** Open **Multiplayer → Servers** to browse community servers. Want your own? See [Host a ReSkate server](/guides/host-a-reskate-server/).
+- **Dedicated servers.** Open **Multiplayer → Servers** to browse community servers. To run your own, see [Host a ReSkate server](/guides/host-a-reskate-server/).
 - In multiplayer you get proximity voice, text chat with emotes, parties, throwdowns (Jam, Spot Battle and S.K.A.T.E.) and co-op challenges.
 
 To join a server running a custom map, you need the same map mod installed, and the same ReSkate version as the server.

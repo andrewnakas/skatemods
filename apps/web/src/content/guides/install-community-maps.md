@@ -7,7 +7,7 @@ order: 2
 updated: 2026-10-01
 ---
 
-The game can only manage a few DLC packs at once, and every community map fights over the same slots. The **Skate 3 Level Loader** solves this by owning map selection. You keep unlimited packs imported, and it stages exactly one per launch.
+The game can only manage a few DLC packs at once, and every community map fights over the same slots. The **Skate 3 Level Loader** handles map selection itself: you keep unlimited packs imported, and it stages exactly one per launch.
 
 ## Install
 
@@ -48,7 +48,7 @@ python3 scripts/makeheader.py "path/to/pack_00000000.big"
 ./skate3loader manual <pack-id> --windowed
 ```
 
-This stages the pack and gets out of the way: no automation, so you navigate the game's own menus. That's how the "14 broken maps" turned out not to be broken. See the [maps catalog](/maps/) for which maps are known to boot and which stall.
+This stages the pack with no automation, so you navigate the game's own menus yourself. Manual mode showed that the "14 broken maps" weren't broken. See the [maps catalog](/maps/) for which maps are known to boot and which stall.
 
 ## PS3-only maps
 

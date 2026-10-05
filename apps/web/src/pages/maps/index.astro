@@ -81,7 +81,7 @@ const label: Record<string, string> = { boots: 'Boots', stalls: 'Stalls', untest
         <h3>${esc(m.title)}</h3>
         <p>by ${esc(m.author_credit)}</p>
         <div class="kinds">${m.kinds.map((k: string) => `<span class="chip ${k === 'original' ? '' : 'accent'}">${esc(kindLabel[k] ?? k)}</span>`).join('')}</div>
-      </a>`).join('') : '<p class="muted">No maps published yet. <a href="/upload/">Be the first.</a></p>';
+      </a>`).join('') : '<p class="muted">No maps published yet. <a href="/upload/">Upload one</a>.</p>';
   }).catch(() => {
     document.getElementById('uploads')!.innerHTML = '<p class="muted">Community uploads are unavailable right now.</p>';
   });

@@ -1,6 +1,6 @@
 ---
 question: Is modding Skate 3 legal?
-answer: Making your own maps and tools for a game you own is widely practiced and generally tolerated, but this isn't legal advice. The clear lines are these. Don't share retail game files, don't break copy protection to get games you don't own, and don't cheat in online games.
+answer: Making your own maps and tools for a game you own is widely practiced and generally tolerated, but this isn't legal advice. Three things are clearly off-limits. Don't share retail game files, don't break copy protection to get games you don't own, and don't cheat in online games.
 category: legal
 games: [skate-3, skate-2025]
 related: [faq/dumping-your-own-games, faq/uploading-other-peoples-maps, faq/skate-2025]

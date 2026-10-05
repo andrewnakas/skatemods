@@ -8,7 +8,7 @@ games: [skate-2025]
 related: [history/reskate, guides/play-skate-with-reskate, guides/host-a-reskate-server, blog/reskate-launch]
 ---
 
-When [ReSkate 1.0 came out](/blog/reskate-launch/) on October 2, its Discord had about 2,900 people and its Thunderstore had thirteen mods. Three days later the Discord has **19,182 members** ([invite API](https://discord.com/api/v9/invites/Tkd5D2Y6EX?with_counts=true), October 5), the [Thunderstore](https://thunderstore.io/c/reskate/) lists **216 mods** with more than **326,000 downloads**, and the [GitHub repository](https://github.com/Dingo-Shenanigans/ReSkate) has 339 stars and 48 forks. In between came eleven releases. Here's what changed, release by release.
+When [ReSkate 1.0 came out](/blog/reskate-launch/) on October 2, its Discord had about 2,900 people and its Thunderstore had thirteen mods. Three days later the Discord has **19,182 members** ([invite API](https://discord.com/api/v9/invites/Tkd5D2Y6EX?with_counts=true), October 5), the [Thunderstore](https://thunderstore.io/c/reskate/) lists **216 mods** with more than **326,000 downloads** (192 of them current, the rest deprecated or marked NSFW), and the [GitHub repository](https://github.com/Dingo-Shenanigans/ReSkate) has 339 stars and 48 forks. Eleven releases came in between.
 
 ## The fixes people asked for
 
@@ -45,12 +45,12 @@ Ten of the 216 are tagged "AI Generated" on Thunderstore. Several authors say th
 
 ## What's still broken
 
-Moving this fast has costs, and the [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows them. Windows Defender started flagging the download as `Behavior:Win32/DefenseEvasion.A!ml`, a machine-learning guess set off by a DLL loading into a game. Some board-graphics and map mods crash on 1.1.0 until they're reinstalled. On Linux under Proton, custom maps and servers running them hang on the loading screen since 1.0.8. Our [guide](/guides/play-skate-with-reskate/#known-issues-111) lists the workarounds.
+The [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows what the pace has cost. Windows Defender started flagging the download as `Behavior:Win32/DefenseEvasion.A!ml`, a machine-learning guess set off by a DLL loading into a game. Some board-graphics and map mods crash on 1.1.0 until they're reinstalled. On Linux under Proton, custom maps and servers running them hang on the loading screen since 1.0.8. Our [guide](/guides/play-skate-with-reskate/#known-issues-111) lists the workarounds.
 
 ## Where to start
 
-- New to it? [Play skate. with ReSkate](/guides/play-skate-with-reskate/) is up to date for 1.1.1, including Linux.
-- Hosting? [Host a ReSkate server](/guides/host-a-reskate-server/) covers Windows, Linux and global bans.
+- To play: [Play skate. with ReSkate](/guides/play-skate-with-reskate/) is up to date for 1.1.1, including Linux.
+- To host: [Host a ReSkate server](/guides/host-a-reskate-server/) covers Windows, Linux and global bans.
 - The full story, with everyone who built it, is on the [ReSkate history page](/history/reskate/).
 
 All figures are as of October 5, 2026.

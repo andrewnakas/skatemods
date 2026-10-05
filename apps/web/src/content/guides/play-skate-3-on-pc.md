@@ -7,7 +7,7 @@ order: 1
 updated: 2026-10-01
 ---
 
-skate3recomp is not an emulator. The Xbox 360 game's PowerPC code was translated ahead of time into native code, and since v2.0 a native Direct3D 12 / Vulkan renderer draws the scene. It's the base most current Skate 3 mods build on.
+skate3recomp runs the Xbox 360 game as native code: its PowerPC code was translated ahead of time, and since v2.0 a native Direct3D 12 / Vulkan renderer draws the scene. It's the base most current Skate 3 mods build on.
 
 ## What you need
 

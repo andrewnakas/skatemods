@@ -108,7 +108,7 @@ const doors = [
 
   <section class="section">
     <div class="wrap">
-      <div class="rule-head"><h2>Games</h2><a href="/games/">Index</a></div>
+      <div class="rule-head"><h2>Games</h2><a href="/games/">All games</a></div>
       <div class="table-wrap">
         <table class="games">
           <thead><tr><th>Year</th><th>Game</th><th class="hide-sm">Engine</th><th>Modding</th></tr></thead>
@@ -129,7 +129,7 @@ const doors = [
 
   <section class="section">
     <div class="wrap">
-      <div class="rule-head"><h2>Join the scene</h2><a href="/community/">Every community</a></div>
+      <div class="rule-head"><h2>Discord servers</h2><a href="/community/">All communities</a></div>
       <ul class="servers">
         {servers.map((h, i) => (
           <li>
@@ -145,7 +145,7 @@ const doors = [
 
   <section class="section">
     <div class="wrap convert">
-      <div class="rule-head"><h2>One upload, every platform</h2><a href="/convert/">How it works</a></div>
+      <div class="rule-head"><h2>Map conversion</h2><a href="/convert/">How conversion works</a></div>
       <p class="flow"><span>PS3 <code>DIST_*.psf</code></span><b aria-hidden="true">→</b><span>recomp <code>.big</code></span><b aria-hidden="true">→</b><span>Rust engine <code>.skate</code></span></p>
       <p class="muted">Skate 3 maps you upload are converted on free GitHub runners with no game files involved, checked against the upload policy, and published after a person reviews them.</p>
       <p class="btns"><a class="btn primary" href="/upload/">Upload a map</a> <a class="btn" href="/policy/">Upload policy</a></p>
@@ -159,7 +159,7 @@ const doors = [
   api('/maps').then(({ maps }) => {
     ul.innerHTML = maps.length
       ? maps.slice(0, 6).map((m: any) => `<li><time class="meta">${formatDate(m.approved_at)}</time><span><a href="/maps/view/?id=${m.id}">${esc(m.title)}</a> <span class="who">by ${esc(m.author_credit)}</span></span></li>`).join('')
-      : `<li class="empty"><strong>No uploads yet. Yours could be first.</strong> Upload a Skate 3 map once and it's converted for PS3, the PC recomp and the Rust engine, then published after review. <a href="/upload/">Upload a map</a> or browse <a href="/maps/">${ul.dataset.packs} known packs (${ul.dataset.maps} maps)</a>.</li>`;
+      : `<li class="empty"><strong>No uploads yet.</strong> Upload a Skate 3 map once and it's converted for PS3, the PC recomp and the Rust engine, then published after review. <a href="/upload/">Upload a map</a> or browse <a href="/maps/">${ul.dataset.packs} known packs (${ul.dataset.maps} maps)</a>.</li>`;
   }).catch(() => { ul.innerHTML = '<li class="empty">Maps are unavailable right now.</li>'; });
 </script>
 

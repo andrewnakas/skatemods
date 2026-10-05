@@ -21,13 +21,13 @@ const builds = [
   { repo: 'andrewnakas/SK8-Engine', name: 'SK8-Engine', platforms: 'Windows · Linux · macOS', what: 'The recomp extended toward one cross-platform build with every community feature: multiplayer, map loading, trainer and more.' },
   { repo: 'andrewnakas/skate3-level-loader', name: 'Level Loader', platforms: 'Windows · Linux · macOS', what: 'Patched engine plus a map library. Pick a map and boot straight into it.' },
   { repo: 'andrewnakas/skate3-android', name: 'Skate 3 for Android', platforms: 'Android (ARM64)', what: 'The recomp on Android phones, with Vulkan and custom GPU drivers.' },
-  { repo: 'Buku313/Skate3-Mobile', name: 'Skate3-Mobile', platforms: 'Android (ARM64)', what: 'An independent ARM64 Android recompilation. One APK, your own ISO.' },
+  { repo: 'Buku313/Skate3-Mobile', name: 'Skate3-Mobile', platforms: 'Android (ARM64)', what: 'An independent ARM64 Android recompilation, shipped as one APK that uses your own ISO.' },
   { repo: 'andrewnakas/skate3-ios-setup', name: 'iOS setup', platforms: 'iPhone · iPad', what: 'Build the recompilation for iOS from your own disc image.' },
 ];
 const withReleases = await Promise.all(builds.map(async (b) => ({ ...b, release: await latest(b.repo) })));
 ---
 <Base title="Skate 3 recomp" description="Native Skate 3 on Windows, Linux, macOS, Android and iOS: every recompilation build and where to get it.">
-  <PageHead title="Skate 3, native everywhere" lede="Static recompilation translated the Xbox 360 game's PowerPC code into native code ahead of time. It's not emulation: the retail skating and physics run directly on your machine." />
+  <PageHead title="Native Skate 3 builds" lede="Static recompilation translates the Xbox 360 game's PowerPC code into native code ahead of time, so the retail skating and physics run on your machine without an emulator." />
   <div class="wrap">
     <div class="grid">
       {withReleases.map((b) => (
@@ -46,7 +46,7 @@ const withReleases = await Promise.all(builds.map(async (b) => ({ ...b, release:
 
     <section class="prose more">
       <h2>The all-in-one build</h2>
-      <p>SK8-Engine is heading toward one Skate 3 that runs on every platform and includes everything the community has built: native rendering, online multiplayer, the map library with every converted community map, the <a href="https://github.com/andrewnakas/sk8trainer">trainer</a>, and phone and desktop builds from one tree. Progress is tracked on <a href="https://github.com/andrewnakas/SK8-Engine">GitHub</a>.</p>
+      <p>SK8-Engine aims to be one Skate 3 build for every platform with the community's additions included: native rendering, online multiplayer, the map library with every converted community map, the <a href="https://github.com/andrewnakas/sk8trainer">trainer</a>, and phone and desktop builds from one tree. Progress is tracked on <a href="https://github.com/andrewnakas/SK8-Engine">GitHub</a>.</p>
       <h2>You bring the game</h2>
       <p>None of these builds include Skate 3's game files. Every one asks for your own Xbox 360 disc image (and sometimes Title Update 3) on first run. <a href="/guides/play-skate-3-on-pc/">Install guide →</a></p>
     </section>

@@ -112,7 +112,7 @@ milestones:
     source: https://github.com/andrewnakas/reskate-trainer/releases
   - date: 2026-10-03
     title: '1.0.4: mods merge before PLAY'
-    body: The launcher merges mods before the game starts and names any mod it couldn't merge, instead of leaving it out silently three minutes into a loading screen. The mod manager is rebuilt in a bigger window, settings changed in game finally stick, and Steam is detected under Proton on Linux.
+    body: The launcher merges mods before the game starts and names any mod it couldn't merge, instead of leaving it out silently three minutes into a loading screen. The mod manager is rebuilt in a bigger window, settings changed in game now stick, and Steam is detected under Proton on Linux.
     who: AyeZeeBB
     source: https://github.com/Dingo-Shenanigans/ReSkate/releases/tag/v1.0.4
   - date: 2026-10-04
@@ -162,7 +162,7 @@ links:
 
 ## A way around the live service
 
-[skate.](/games/skate-2025/) is the hardest skate game to mod. It's online-only, free-to-play, protected by [EA Javelin anti-cheat](https://www.ea.com/news/ea-javelin-anticheat-2026-update), and updated constantly, and EA's [user agreement](https://www.ea.com/legal/user-agreement) treats mods as unauthorized third-party programs. ReSkate doesn't try to mod that live game. Its launcher checks your Steam install against one specific build of skate. (Steam build `25414733`), downloads exactly that build with DepotDownloader if it has to, and loads a community runtime, `ReSkate.dll`, on top. Every mod targets the same fixed version of the game, and nobody connects to EA's servers.
+[skate.](/games/skate-2025/) is the hardest skate game to mod. It's online-only, free-to-play, protected by [EA Javelin anti-cheat](https://www.ea.com/news/ea-javelin-anticheat-2026-update), and updated constantly, and EA's [user agreement](https://www.ea.com/legal/user-agreement) treats mods as unauthorized third-party programs. ReSkate leaves that live game alone. Its launcher checks your Steam install against one specific build of skate. (Steam build `25414733`), downloads exactly that build with DepotDownloader if it has to, and loads a community runtime, `ReSkate.dll`, on top. Every mod targets the same fixed version of the game, and nobody connects to EA's servers.
 
 The game's own settings and saves live in a separate folder from the normal game's, and your skater, outfits, unlocks and progress are kept on your PC ([README](https://github.com/Dingo-Shenanigans/ReSkate#readme)).
 
@@ -174,7 +174,7 @@ ReSkate went public on **October 2, 2026**. The [source](https://github.com/Ding
 - **`ReSkate.dll`** is the runtime the launcher loads into the game.
 - **`ReSkateServer.exe`** is a headless dedicated server that needs neither the game nor Steam installed.
 
-The launch announcement on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) called it "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins." By that night the server had nearly 2,900 members, and by the next morning more than 3,400. On October 5 it passed **19,000**. The announcement also answered the most-asked question: can you get banned? The project's FAQ says you can't. A Linux fix was promised for the following day.
+The launch announcement on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) called it "a modding platform for skate.: play offline, skate custom maps, host lobbies with your friends and build your own spots, parks and skins." By that night the server had nearly 2,900 members, and by the next morning more than 3,400. On October 5 it passed **19,000**. The announcement also answered the most-asked question, whether you can get banned: the project's FAQ says you can't. A Linux fix was promised for the following day.
 
 ## What's in it
 
@@ -208,9 +208,9 @@ Mods are distributed through a [Thunderstore community](https://thunderstore.io/
 | [gm_mcdonalds](https://thunderstore.io/c/reskate/p/crowkrow/gm_mcdonalds/), [Bo2 Grind](https://thunderstore.io/c/reskate/p/relsmodding/Bo2_Grind/) | crowkrow, relsmodding | Maps from Garry's Mod and Black Ops 2 |
 | [Supreme Box Tee](https://thunderstore.io/c/reskate/p/akia47/SupremeBoxTee/) | akia47 | A custom cosmetic |
 
-The list says a lot about who showed up. Skate 3, skate 2, Skater XL and BMX Streets maps all landed in skate. on day one, made by people from the [Skate 3](/history/skate-3/) and [Skater XL](/history/skater-xl/) scenes.
+Skate 3, skate 2, Skater XL and BMX Streets maps all landed in skate. on day one, made by people from the [Skate 3](/history/skate-3/) and [Skater XL](/history/skater-xl/) scenes.
 
-Then it exploded. By **October 5** there were **216 mods** and more than **326,000 downloads**. Maps lead the chart, but cosmetics (whole Carhartt, Nike SB and Supreme collections, and packs of hundreds of brand colourways) and soundtracks came close behind:
+By **October 5** there were **216 mods** and more than **326,000 downloads**. Maps lead the chart, but cosmetics (whole Carhartt, Nike SB and Supreme collections, and packs of hundreds of brand colourways) and soundtracks came close behind:
 
 | Mod | By | Downloads (Oct 5) |
 |---|---|---|

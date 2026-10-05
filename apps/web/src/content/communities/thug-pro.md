@@ -54,7 +54,7 @@ milestones:
     source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
   - date: "2012"
     title: A scene that was falling apart
-    body: According to co-creator morten, most official servers were gone and players were scattered across games and platforms. THUG Pro started as the fix.
+    body: According to co-creator morten, most official servers were gone and players were scattered across games and platforms, so THUG Pro set out to bring them back together.
     who: morten
     source: https://www.vice.com/en/article/tony-hawk-pro-skater-fans-are-keeping-the-series-alive-with-mods/
   - date: 2013-08-10
@@ -71,7 +71,7 @@ milestones:
     source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
   - date: 2014-12-08
     title: PS2 controls, AutoServer and more
-    body: A huge update adds the full PS2 control layout, THUG1-style drift, airshuffle, AutoServer hosting, new game modes and a new launcher.
+    body: This update adds the full PS2 control layout, THUG1-style drift, airshuffle, AutoServer hosting, new game modes and a new launcher.
     source: https://tonyhawkgames.fandom.com/wiki/THUG_Pro
   - date: 2015-04-26
     title: Project 8 levels
@@ -133,7 +133,7 @@ When *Pro Skater 5* flopped in 2015, [reviewers held THUG Pro up](https://en.wik
 
 ## Players start building
 
-Version 0.6 in [June 2018](https://thpsx.com/thugpro-update-0-6-0-0/) changed the relationship between the mod and its players by adding custom levels and soundtracks. The Blender tooling arrived at the same time. asdf's io_thug_tools was the first public plugin. denetii's [io_thps_scene](https://thpsx.com/forums/index.php?topic=930.0) built on it, and Ksk integrated the new rendering and material effects. Together they let anyone with Blender ship a park. The [0.6 release notes](http://thugpro.com/post/175316723159) read like a credits roll, with thanks to modelers, sprite and font makers, and Chase Sechrist for helping "re-ignite others interest In THPS modding."
+Version 0.6 in [June 2018](https://thpsx.com/thugpro-update-0-6-0-0/) added custom levels and soundtracks, so players could build for the mod themselves. The Blender tooling arrived at the same time. asdf's io_thug_tools was the first public plugin. denetii's [io_thps_scene](https://thpsx.com/forums/index.php?topic=930.0) built on it, and Ksk integrated the new rendering and material effects. Together they let anyone with Blender ship a park. The [0.6 release notes](http://thugpro.com/post/175316723159) read like a credits roll, with thanks to modelers, sprite and font makers, and Chase Sechrist for helping "re-ignite others interest In THPS modding."
 
 ## Today
 

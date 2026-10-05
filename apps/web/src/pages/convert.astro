@@ -9,7 +9,7 @@ const matrix = [
 ];
 ---
 <Base title="Map conversion" description="How skatemods converts Skate 3 maps between PS3, the native recomp and the Rust engine's .skate format, for free on GitHub Actions.">
-  <PageHead title="One upload, every platform" lede="Upload a Skate 3 map from any platform and get the others. The pipeline is open source, needs no game files, and runs on free GitHub Actions runners." />
+  <PageHead title="Map conversion" lede="Upload a Skate 3 map from one platform and get builds for the others. The pipeline is open source, needs no game files, and runs on free GitHub Actions runners." />
   <div class="wrap">
     <h2>What converts today</h2>
     <div class="table-wrap">
@@ -32,10 +32,10 @@ const matrix = [
         <li><strong>Unpack.</strong> Archives (<code>.zip</code>, <code>.7z</code>, <code>.rar</code>) and EA big files (including PS3 <code>.big.edat</code>) are unpacked with path-traversal and size checks. Every <code>DIST_*</code> world inside is detected as PS3 (<code>.psf</code>) or Xbox 360 (<code>.xsf</code>).</li>
         <li><strong>PS3 → recomp.</strong> <a href="https://github.com/andrewnakas/skate3-ps3-to-x360">skate3-ps3-to-x360</a> rebuilds vertex and index buffers, vertex descriptors, mesh islands and textures in Xbox 360 form, then packages a standalone DLC <code>.big</code> with DlcBuilder.</li>
         <li><strong>Xbox 360 → .skate.</strong> The <a href="https://github.com/SK8-ENGINE/skate-3-rust-engine">Rust engine's</a> asset pipeline decodes the world, builds the retail collision archive and writes a <code>.skate</code> file.</li>
-        <li><strong>Deliver.</strong> Each output is listed with its size, timing and a log. Anything the converter can't handle is refused and explained, never silently emitted wrong.</li>
+        <li><strong>Deliver.</strong> Each output is listed with its size, timing and a log. If the converter can't handle something, it refuses the job and says why instead of writing a broken file.</li>
       </ol>
 
-      <h2>Proven on free runners</h2>
+      <h2>Test run on free runners</h2>
       <p>The first end-to-end run on GitHub's free <code>ubuntu-latest</code> runner, with no game data present:</p>
       <div class="table-wrap">
         <table>

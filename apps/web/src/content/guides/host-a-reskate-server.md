@@ -83,13 +83,13 @@ Players vote with `/vote map <map>`, `/vote kick <player>` or `/vote tod <time>`
 
 ## Fair play
 
-Throwdowns and co-op challenges only mean something if nobody's cheating, so the server checks:
+The server runs three checks to keep throwdowns and co-op challenges fair:
 
 - **`speed_check`** catches games running faster than normal, such as Cheat Engine's speedhack, from the timing of what they send.
 - **`score_check`** flags players whose mods change trick scoring or skater physics. Each player's ReSkate checks its own mods at launch and reports when joining.
 - **`enforce_tuning`** (on by default) keeps everyone on the game's own physics tuning, so edited truck settings don't show up on anyone's skater.
 
-`warn` (the default) takes flagged players out of throwdowns and co-op until they're clean and tells the admins, `kick` removes them, and `off` disables the check. Running a server built around a scoring mod everyone installs? Add its fingerprint with `score-allow`.
+`warn` (the default) takes flagged players out of throwdowns and co-op until they're clean and tells the admins, `kick` removes them, and `off` disables the check. If your server is built around a scoring mod everyone installs, add its fingerprint with `score-allow`.
 
 ### Global bans
 

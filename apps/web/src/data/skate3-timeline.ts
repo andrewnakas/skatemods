@@ -128,7 +128,7 @@ export const timeline: Event[] = [
   {
     date: '2026-06-17', era: 'native',
     title: 'Skate 3 on Android',
-    body: 'An ARM64 recompilation with Vulkan rendering: one APK, your own ISO.',
+    body: 'An ARM64 recompilation with Vulkan rendering, shipped as one APK that uses your own ISO.',
     who: 'Buku313',
     source: 'https://github.com/Buku313/Skate3-Mobile',
   },
