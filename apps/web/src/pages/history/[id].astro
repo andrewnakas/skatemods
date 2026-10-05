@@ -33,7 +33,7 @@ const toc = [
   ...(hasEvents ? [{ href: '#timeline', text: 'Timeline' }] : []),
 ];
 ---
-<Base title={`${d.title} history`} description={d.short}>
+<Base title={`${d.title} history`} description={d.short} image={`/og/history-${community.id}.png`}>
   <PageHead parent={{ href: '/history/', label: 'History' }} eyebrow={d.years} title={d.title} lede={d.short}>
     <div class="facts">
       <Scene scene={d.scene} />

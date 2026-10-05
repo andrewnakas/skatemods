@@ -30,7 +30,9 @@ const related = d.related.map((ref) => {
 const gameLinks = games.filter((g) => d.games.includes(g.id));
 if (gameLinks.length !== d.games.length) throw new Error(`faq/${entry.id}: unknown game id in ${d.games.join(', ')}`);
 ---
-<Base title={d.question} description={d.answer}>
+<Base title={d.question} description={d.answer} image={`/og/faq-${entry.id}.png`} schema={{
+  '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: d.question, acceptedAnswer: { '@type': 'Answer', text: d.answer } }],
+}}>
   <PageHead parent={{ href: '/faq/', label: 'FAQ' }} title={d.question} lede={d.answer} />
   <div class="wrap layout">
     <article class="prose">

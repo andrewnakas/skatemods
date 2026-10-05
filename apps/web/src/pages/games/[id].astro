@@ -21,7 +21,7 @@ const guides = (await getCollection('guides')).filter((g) => g.data.game === gam
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const links = (t: string) => esc(t).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, text, url) => `<a href="${url}">${text}</a>`);
 ---
-<Base title={`Modding ${d.title}`} description={d.short}>
+<Base title={`Modding ${d.title}`} description={d.short} image={`/og/game-${game.id}.png`}>
   <PageHead parent={{ href: '/games/', label: 'Games' }} eyebrow={`${d.year} · ${d.developer}`} title={d.title} lede={d.short}>
     <div class="facts">
       <Scene scene={d.scene} />

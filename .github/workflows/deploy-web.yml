@@ -10,7 +10,7 @@ on:
   pull_request:
     paths: ['apps/web/**']
   schedule:
-    - cron: '17 6 * * *' # daily: refresh recomp release info and the map catalog
+    - cron: '17 */6 * * *' # every 6 hours: new ReSkate mod pages, Discord counts, recomp releases, map catalog
   workflow_dispatch:
 
 permissions:

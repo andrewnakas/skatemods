@@ -1,6 +1,6 @@
 ---
 title: Play skate. with ReSkate
-description: Install ReSkate, the community modding platform for skate. (2025). Play offline, add custom maps and cosmetics from Thunderstore, build parks and skate with friends in lobbies and on dedicated servers.
+description: Install ReSkate, the community modding platform for skate. (2025), the game fans call Skate 4. Play offline, add custom maps and cosmetics from Thunderstore, build parks and skate with friends in lobbies and on dedicated servers.
 game: skate-2025
 level: beginner
 order: 6
@@ -96,6 +96,9 @@ These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans
 
 ## When something breaks
 
+The [ReSkate troubleshooting table](/faq/reskate-not-working/) maps each error to its fix. The most common ones:
+
+
 - The log is `logs\ReSkate.log` beside `Skate.exe`. Attach it when you ask for help in the bug-reports forum on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX) or open a [GitHub issue](https://github.com/Dingo-Shenanigans/ReSkate/issues).
 - **"Cannot open file" or the launcher can't read `ReSkate.dll`**: your antivirus is holding or blocking it. Add the ReSkate folder to its exclusions. Since 1.1.0 the error names the file and the Windows error code.
 - **The launcher window is blank** on a laptop or PC with two GPUs: update to 1.0.6 or later, which draws on the best card instead of the onboard chip.
@@ -107,6 +110,9 @@ These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans
 - The launcher sends crash reports (a minidump and that session's log, never your Steam login). Untick **Send crash reports** under Settings → Advanced to turn this off.
 
 ## Linux and Steam Deck
+
+More detail, with what players report on Steam Deck, is in [Does ReSkate work on Steam Deck?](/faq/reskate-steam-deck/)
+
 
 ReSkate's launcher and runtime are Windows programs, but people run them on Linux:
 

@@ -3,7 +3,7 @@ question: Can skate. (2025) be modded?
 answer: Not the live game, which is online-only, protected by EA's Javelin anti-cheat and covered by a user agreement that bans mods. But since October 2, 2026 there's ReSkate, a community platform that runs one pinned Steam build offline with its own runtime. It adds custom maps, mods from Thunderstore, a park editor, Steam lobbies and dedicated servers.
 category: other-games
 games: [skate-2025]
-related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/is-modding-legal]
+related: [guides/play-skate-with-reskate, faq/is-skate-skate-4, faq/is-reskate-safe, faq/reskate-not-working, faq/reskate-steam-deck, history/reskate]
 order: 30
 updated: 2026-10-05
 ---

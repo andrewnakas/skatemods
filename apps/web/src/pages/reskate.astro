@@ -2,41 +2,18 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 
-// ReSkate mods live on Thunderstore. The build bakes in a snapshot so the page works without
-// JavaScript; the browser then refreshes it from the same API (it sends CORS headers).
-const API = 'https://thunderstore.io/c/reskate/api/v1/package/';
+import { getMods } from '../lib/thunderstore';
 
-interface Mod { name: string; owner: string; url: string; icon: string; description: string; downloads: number; created: string; updated: string; version: string; size: number }
-
-function toMods(packages: any[]): Mod[] {
-  return packages
-    .filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
-    .map((p) => ({
-      name: p.name.replace(/_/g, ' '),
-      owner: p.owner,
-      url: p.package_url,
-      icon: p.versions[0].icon,
-      description: p.versions[0].description,
-      downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0),
-      created: p.date_created,
-      updated: p.date_updated,
-      version: p.versions[0].version_number,
-      size: p.versions[0].file_size,
-    }));
-}
-
-let mods: Mod[] = [];
-try {
-  mods = toMods(await (await fetch(API)).json()).sort((a, b) => b.created.localeCompare(a.created));
-} catch {
-  // Offline build: the client fetch fills the list.
-}
+// ReSkate mods live on Thunderstore. The build bakes in a snapshot (and a page per mod) so the
+// list works without JavaScript; the browser then refreshes it from the same API (it sends CORS headers).
+const mods = (await getMods()).map((m) => ({ ...m, url: m.path })).sort((a, b) => b.created.localeCompare(a.created));
+const built = mods.map((m) => m.fullName);
 const day = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
 ---
-<Base title="skate. mods" image="/og/reskate.png" description="Every ReSkate mod for skate. (2025): custom maps, boards, cosmetics and scripts from the ReSkate Thunderstore, updated live.">
+<Base title="skate. (Skate 4) mods" image="/og/reskate.png" description="Every ReSkate mod for skate., the game fans call Skate 4: custom maps, boards, cosmetics, soundtracks and scripts, each with install steps.">
   <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="skate. mods" lede="Every mod on the ReSkate Thunderstore: custom maps, boards, cosmetics and scripts for EA's skate. The list refreshes from Thunderstore on every visit. Install mods from the ReSkate launcher's MODS page.">
-    <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">Set up ReSkate</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
+    <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">Set up ReSkate</a> · <a href="/faq/reskate-not-working/">Fix problems</a> · <a href="/faq/is-reskate-safe/">Is it safe?</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
   </PageHead>
   <div class="wrap">
     <div class="controls">
@@ -52,7 +29,7 @@ const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max
     </div>
     <p class="meta count" id="count">{mods.length} mods</p>
 
-    <ol class="mods" id="mods">
+    <ol class="mods" id="mods" data-built={JSON.stringify(built)}>
       {mods.map((m) => (
         <li>
           <img src={m.icon} alt="" width="56" height="56" loading="lazy" />
@@ -80,6 +57,8 @@ const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max
   const API = 'https://thunderstore.io/c/reskate/api/v1/package/';
   type Mod = { name: string; owner: string; url: string; icon: string; description: string; downloads: number; created: string; updated: string; version: string; size: number };
   const list = document.getElementById('mods')!;
+  // Mods with a page on this site link there; ones newer than the last build go to Thunderstore.
+  const built = new Set<string>(JSON.parse(list.dataset.built || '[]'));
   const count = document.getElementById('count')!;
   const q = document.getElementById('q') as HTMLInputElement;
   const buttons = [...document.querySelectorAll<HTMLButtonElement>('.sort button')];
@@ -112,7 +91,7 @@ const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max
     mods = packages
       .filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
       .map((p) => ({
-        name: p.name.replace(/_/g, ' '), owner: p.owner, url: p.package_url, icon: p.versions[0].icon,
+        name: p.name.replace(/_/g, ' '), owner: p.owner, url: built.has(p.full_name) ? `/reskate/${p.owner}/${p.name}/` : p.package_url, icon: p.versions[0].icon,
         description: p.versions[0].description,
         downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0),
         created: p.date_created, updated: p.date_updated, version: p.versions[0].version_number, size: p.versions[0].file_size,

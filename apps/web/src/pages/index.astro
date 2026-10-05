@@ -1,4 +1,5 @@
 ---
+import { getMods } from '../lib/thunderstore';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Scene from '../components/Scene.astro';
@@ -11,16 +12,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime()
 // The home feature is the post marked `featured`, or the newest one.
 const lead = posts.find((p) => p.data.featured) ?? posts[0];
 
-// Newest skate. mods, baked in at build time and refreshed in the browser.
-let fresh: { name: string; owner: string; url: string; icon: string; downloads: number }[] = [];
-try {
-  const packages = await (await fetch('https://thunderstore.io/c/reskate/api/v1/package/', { signal: AbortSignal.timeout(10000) })).json();
-  fresh = packages
-    .filter((p: any) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length)
-    .sort((a: any, b: any) => b.date_created.localeCompare(a.date_created))
-    .slice(0, 6)
-    .map((p: any) => ({ name: p.name.replace(/_/g, ' '), owner: p.owner, url: p.package_url, icon: p.versions[0].icon, downloads: p.versions.reduce((n: number, v: any) => n + v.downloads, 0) }));
-} catch {}
+// Newest skate. mods, baked in at build time; each links to its page on this site.
+const fresh = (await getMods()).sort((a, b) => b.created.localeCompare(a.created)).slice(0, 6).map((m) => ({ ...m, url: m.path }));
 
 const servers = hubs.filter((h) => h.kind === 'discord').slice(0, 4);
 const serverStats = await Promise.all(servers.map((h) => hubStats(h.invite!)));

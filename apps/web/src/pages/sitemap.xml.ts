@@ -1,11 +1,12 @@
 import { getCollection } from 'astro:content';
+import { getMods } from '../lib/thunderstore';
 
 // Public pages only: account, upload and admin screens are left out.
 const pages = ['/', '/games/', '/maps/', '/reskate/', '/guides/', '/faq/', '/history/', '/history/people/', '/blog/', '/community/', '/tools/', '/recomp/', '/play/', '/convert/', '/about/', '/policy/'];
 
 export async function GET() {
-  const [games, guides, faq, communities, blog] = await Promise.all([
-    getCollection('games'), getCollection('guides'), getCollection('faq'), getCollection('communities'), getCollection('blog'),
+  const [games, guides, faq, communities, blog, mods] = await Promise.all([
+    getCollection('games'), getCollection('guides'), getCollection('faq'), getCollection('communities'), getCollection('blog'), getMods(),
   ]);
   const urls = [
     ...pages,
@@ -14,6 +15,7 @@ export async function GET() {
     ...faq.map((f) => `/faq/${f.id}/`),
     ...communities.map((c) => `/history/${c.id}/`),
     ...blog.map((b) => `/blog/${b.id}/`),
+    ...mods.map((m) => m.path),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>https://skatemods.com${u}</loc></url>`).join('')}</urlset>`;

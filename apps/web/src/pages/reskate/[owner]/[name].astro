@@ -1,0 +1,127 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import { getMods, getReadme, renderReadme, stripTitle, hasBody, mapLimit, day, mb, type Mod } from '../../../lib/thunderstore';
+import { modNotes } from '../../../data/mod-notes';
+
+// One page per ReSkate mod, built from the Thunderstore snapshot at build time.
+export async function getStaticPaths() {
+  const mods = await getMods();
+  const readmes = await mapLimit(mods, 8, getReadme);
+  return mods.map((mod, i) => ({ params: { owner: mod.owner, name: mod.slug }, props: { mod, readme: readmes[i], all: mods } }));
+}
+
+interface Props { mod: Mod; readme: string; all: Mod[] }
+const { mod, readme, all } = Astro.props;
+const byName = new Map(all.map((m) => [m.fullName, m]));
+const body = stripTitle(readme, mod);
+const html = hasBody(body) ? renderReadme(body) : '';
+const note = modNotes[mod.fullName];
+const deps = mod.dependencies.map((d) => ({ id: d, mod: byName.get(d) }));
+const sameOwner = all.filter((m) => m.owner === mod.owner && m !== mod).sort((a, b) => b.downloads - a.downloads).slice(0, 6);
+const popular = all.filter((m) => m.owner !== mod.owner).sort((a, b) => b.downloads - a.downloads).slice(0, 8);
+const n = (x: number) => x.toLocaleString('en-US');
+const searchName = mod.name;
+const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)}${mod.description.length > 150 ? '…' : ''} A ReSkate mod for skate. by ${mod.owner}. How to install it, what's in it, and the download.`.trim();
+---
+<Base title={`${mod.name}: skate. mod by ${mod.owner}`} description={description} image={mod.icon} card="small" schema={{
+  '@type': 'SoftwareApplication', name: mod.name, applicationCategory: 'GameApplication', operatingSystem: 'Windows',
+  softwareVersion: mod.version, datePublished: mod.created, dateModified: mod.updated, downloadUrl: mod.downloadUrl,
+  image: mod.icon, author: { '@type': 'Person', name: mod.owner }, description: mod.description, url: `https://skatemods.com${mod.path}`,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/DownloadAction', userInteractionCount: mod.downloads },
+}}>
+  <PageHead parent={{ href: '/reskate/', label: 'skate. mods' }} eyebrow={mod.owner} title={mod.name} lede={mod.description}>
+    <p class="meta facts">
+      by <a href={`https://thunderstore.io/c/reskate/p/${mod.owner}/`} rel="noopener">{mod.owner}</a> · v{mod.version} · {mb(mod.size)} · {n(mod.downloads)} downloads · updated {day(mod.updated)}
+    </p>
+    <p class="btns">
+      <a class="btn primary" href="#install">How to install</a>
+      <a class="btn" href={mod.downloadUrl} rel="nofollow noopener">Download .zip (v{mod.version})</a>
+      <a class="btn" href={mod.thunderstore} rel="noopener">Thunderstore page</a>
+    </p>
+  </PageHead>
+
+  <div class="wrap layout">
+    <article>
+      <div class="hero"><img src={mod.icon} alt={`${mod.name} icon`} width="256" height="256" /></div>
+
+      {note && <section class="prose ours"><p set:html={note} /></section>}
+      {html ? (
+        <section class="prose readme" aria-label="The author's description">
+          <p class="meta src">From the author's README on Thunderstore</p>
+          <Fragment set:html={html} />
+        </section>
+      ) : (
+        !note && <section class="prose"><p>{mod.description}</p></section>
+      )}
+
+      <section class="prose" id="install">
+        <h2>Install {mod.name}</h2>
+        <p>You need <a href="/guides/play-skate-with-reskate/">ReSkate</a> and your own copy of <a href="https://store.steampowered.com/app/3354750/">skate. on Steam</a>.</p>
+        <ol>
+          <li>Open <code>ReSkateLauncher.exe</code> and go to <strong>MODS</strong>.</li>
+          <li>Search for <strong>{searchName}</strong> and click install. The launcher also installs anything it depends on.</li>
+          <li>Press <strong>PLAY</strong>. In game, the <strong>MODS</strong> tab of the ReSkate menu (Insert) turns it on and off.</li>
+        </ol>
+        <p>Or install it by hand: <a href={mod.downloadUrl} rel="nofollow noopener">download the .zip</a> and drop it on the launcher window, or unzip it into its own folder in <code>Mods\</code> beside <code>Skate.exe</code>.</p>
+        {deps.length > 0 && (
+          <>
+            <h3>It needs</h3>
+            <ul>{deps.map((d) => <li>{d.mod ? <a href={d.mod.path}>{d.mod.name}</a> : d.id}{d.mod && <> by {d.mod.owner}</>}</li>)}</ul>
+          </>
+        )}
+        <p>Maps show up in the ReSkate menu's level list. To join a server running a custom map, you need the same map installed. If the game won't load after installing, see <a href="/guides/play-skate-with-reskate/#known-issues-111">known issues</a>.</p>
+        <p class="note">skatemods doesn't host or review this mod. The download comes straight from Thunderstore. Only install mods you trust, because scripts can run code.</p>
+      </section>
+    </article>
+
+    <aside>
+      <dl class="details">
+        <dt>Author</dt><dd><a href={`https://thunderstore.io/c/reskate/p/${mod.owner}/`} rel="noopener">{mod.owner}</a></dd>
+        <dt>Version</dt><dd>{mod.version}{mod.versions > 1 && <span class="faint"> ({mod.versions} releases)</span>}</dd>
+        <dt>Size</dt><dd>{mb(mod.size)}</dd>
+        <dt>Downloads</dt><dd>{n(mod.downloads)}</dd>
+        <dt>Released</dt><dd>{day(mod.created)}</dd>
+        <dt>Updated</dt><dd>{day(mod.updated)}</dd>
+        {mod.categories.length > 0 && <><dt>Tags</dt><dd>{mod.categories.join(', ')}</dd></>}
+        {mod.website && <><dt>Website</dt><dd><a href={mod.website} rel="nofollow noopener">{mod.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a></dd></>}
+      </dl>
+
+      {sameOwner.length > 0 && (
+        <section>
+          <p class="h">More from {mod.owner}</p>
+          <ul class="mini">{sameOwner.map((m) => <li><a href={m.path}>{m.name}</a> <span class="faint">{n(m.downloads)}</span></li>)}</ul>
+        </section>
+      )}
+      <section>
+        <p class="h">Popular skate. mods</p>
+        <ul class="mini">{popular.map((m) => <li><a href={m.path}>{m.name}</a> <span class="faint">{n(m.downloads)}</span></li>)}</ul>
+        <p><a href="/reskate/">All skate. mods →</a></p>
+      </section>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .facts { margin: 1rem 0 0; }
+  .btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.1rem 0 0; }
+  .layout { display: grid; gap: 2.5rem; }
+  @media (min-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr) 260px; } aside { position: sticky; top: 84px; align-self: start; } }
+  .hero img { width: 128px; height: 128px; border-radius: var(--radius); border: 1px solid var(--line); }
+  .readme { margin-top: 1.25rem; }
+  .ours { margin-top: 1.25rem; padding-left: 1rem; border-left: 3px solid var(--accent); }
+  .readme .src { margin: 0 0 1rem; color: var(--ink-faint); }
+  .readme :global(img) { max-width: 100%; height: auto; border-radius: var(--radius); }
+  .readme :global(table) { display: block; overflow-x: auto; }
+  #install { margin-top: 2.5rem; }
+  .note { font-size: 0.9rem; color: var(--ink-faint); }
+  aside { font-size: 0.92rem; }
+  .details { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 0 0 1.75rem; padding-top: 0.75rem; border-top: 2px solid var(--ink); }
+  .details dt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); }
+  .details dd { margin: 0; overflow-wrap: anywhere; }
+  .h { font-weight: 600; margin: 0 0 0.4rem; padding-top: 0.75rem; border-top: 1px solid var(--line); }
+  .mini { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+  .mini li { padding: 0.2rem 0; }
+  .faint { color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.8rem; }
+</style>

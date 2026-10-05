@@ -80,6 +80,12 @@ def frontmatter(path):
     return get('title'), get('description'), get('date')
 
 
+def field(path, key):
+    block = path.read_text().split('---')[1]
+    m = re.search(rf'^{key}:\s*(.+)$', block, re.M)
+    return m.group(1).strip().strip('"\'') if m else ''
+
+
 if __name__ == '__main__':
     OUT.mkdir(parents=True, exist_ok=True)
     for name, (kicker, title, sub) in PAGES.items():
@@ -87,4 +93,13 @@ if __name__ == '__main__':
     for post in sorted((ROOT / 'src' / 'content' / 'blog').glob('*.md')):
         title, desc, date = frontmatter(post)
         card(f'blog-{post.stem}', f'Blog · {date}', title, desc)
+    content = ROOT / 'src' / 'content'
+    for f in sorted((content / 'guides').glob('*.md')):
+        card(f'guide-{f.stem}', f"Guide · {field(f, 'level')}", field(f, 'title'), field(f, 'description'))
+    for f in sorted((content / 'faq').glob('*.md')):
+        card(f'faq-{f.stem}', 'FAQ', field(f, 'question'), field(f, 'answer'))
+    for f in sorted((content / 'communities').glob('*.md')):
+        card(f'history-{f.stem}', f"History · {field(f, 'years')}", field(f, 'title'), field(f, 'short'))
+    for f in sorted((content / 'games').glob('*.md')):
+        card(f'game-{f.stem}', f"Modding · {field(f, 'year')}", field(f, 'title'), field(f, 'short'))
     print('\n'.join(sorted(p.name for p in OUT.glob('*.png'))))

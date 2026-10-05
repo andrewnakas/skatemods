@@ -1,6 +1,6 @@
 ---
 title: skate. (2025)
-short: Full Circle's free-to-play Frostbite revival. The live game is locked down, but ReSkate (out October 2, 2026) runs a pinned build offline with custom maps, Thunderstore mods, a park editor and community servers.
+short: Full Circle's free-to-play Frostbite revival, the game fans called Skate 4. The live game is locked down, but ReSkate (out October 2, 2026) runs a pinned build offline with custom maps, Thunderstore mods, a park editor and community servers.
 year: 2025
 developer: Full Circle (EA)
 engine: Frostbite

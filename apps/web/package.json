@@ -14,7 +14,8 @@
     "check:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "marked": "^15.0.12"
   },
   "allowScripts": {
     "esbuild": true

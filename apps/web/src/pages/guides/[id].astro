@@ -14,7 +14,11 @@ const game = (await getCollection('games')).find((g) => g.id === guide.data.game
 const toc = headings.filter((h) => h.depth === 2);
 const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/guides/${guide.id}.md`;
 ---
-<Base title={guide.data.title} description={guide.data.description}>
+<Base title={guide.data.title} description={guide.data.description} type="article" image={`/og/guide-${guide.id}.png`} schema={{
+  '@type': 'Article', headline: guide.data.title, description: guide.data.description, dateModified: guide.data.updated.toISOString(),
+  author: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' }, image: `https://skatemods.com/og/guide-${guide.id}.png`,
+  mainEntityOfPage: `https://skatemods.com/guides/${guide.id}/`,
+}}>
   <PageHead parent={{ href: '/guides/', label: 'Guides' }} eyebrow={game?.data.title} title={guide.data.title} lede={guide.data.description} />
   <div class="wrap layout">
     <article class="prose">
