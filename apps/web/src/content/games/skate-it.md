@@ -9,7 +9,7 @@ series: skate
 scene: niche
 order: 4
 howToMod:
-  - Play the Wii version on Dolphin, which supports custom texture packs.
+  - 'Play the Wii version on [Dolphin](https://dolphin-emu.org/download/), which supports custom texture packs.'
 links:
   - { label: Skate series (Wikipedia), url: 'https://en.wikipedia.org/wiki/Skate_(series)' }
 ---

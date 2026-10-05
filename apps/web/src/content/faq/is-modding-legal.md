@@ -12,7 +12,7 @@ updated: 2026-10-01
 
 ## What the community does and doesn't do
 
-The projects on this site share **their own work**: tools, documentation and maps built from scratch. They never share the game itself. skate3recomp "does not include Skate 3 retail game files" ([README](https://github.com/mchughalex/skate3recomp)). RPCS3 bans "asking for, providing or discussing illegal download links" ([quickstart](https://rpcs3.net/quickstart)). skatemods [refuses](/policy/) retail districts, official DLC and executables.
+The projects on this site share **their own work**: tools, documentation and maps built from scratch. They never share the game itself. [skate3recomp](/guides/play-skate-3-on-pc/) "does not include Skate 3 retail game files" ([README](https://github.com/mchughalex/skate3recomp)). [RPCS3](/faq/rpcs3-basics/) bans "asking for, providing or discussing illegal download links" ([quickstart](https://rpcs3.net/quickstart)). skatemods [refuses](/policy/) retail districts, official DLC and executables.
 
 ## Copy protection
 
@@ -24,4 +24,4 @@ According to the [EFF](https://www.eff.org/issues/coders/reverse-engineering-faq
 
 ## Online games are different
 
-Modern live-service games forbid mods outright. EA's [user agreement](https://www.ea.com/legal/user-agreement) treats any "add-on", "mod", "hack", "trainer", or "cheat" that changes the game in ways EA hasn't authorized as an Unauthorized Third-Party Program. That's why mods for the live [skate. (2025)](/faq/skate-2025/) service are off-limits. Community projects like ReSkate work on a separate, pinned build instead, though EA's terms still apply.
+Modern live-service games forbid mods outright. EA's [user agreement](https://www.ea.com/legal/user-agreement) treats any "add-on", "mod", "hack", "trainer", or "cheat" that changes the game in ways EA hasn't authorized as an Unauthorized Third-Party Program. That's why mods for the live [skate. (2025)](/faq/skate-2025/) service are off-limits. Community projects like [ReSkate](/guides/play-skate-with-reskate/) work on a separate, pinned build instead, though EA's terms still apply.

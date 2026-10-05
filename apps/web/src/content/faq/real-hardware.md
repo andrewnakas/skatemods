@@ -10,7 +10,7 @@ updated: 2026-10-01
 
 ## PS3: HEN and custom firmware
 
-Homebrew on a PS3 means running a hybrid (HEN) or custom firmware (CFW). RPCS3's [quickstart](https://rpcs3.net/quickstart) assumes one of these when it explains how to dump games from a console. With a modded PS3 you can:
+Homebrew on a PS3 means running a hybrid (HEN) or custom firmware (CFW). [RPCS3](/faq/rpcs3-basics/)'s [quickstart](https://rpcs3.net/quickstart) assumes one of these when it explains how to dump games from a console. With a modded PS3 you can:
 
 - run **SPRX mod menus**. The EA SKATE MODDING team's menu, for example, came as a one-click installer in Grim Doe's [All In One Modding Tool](http://web.archive.org/web/20251229022405/https://www.psx-place.com/threads/skate-3-all-in-one-modding-tool.38689/).
 - replace game files with **custom maps**, the same way as on RPCS3.

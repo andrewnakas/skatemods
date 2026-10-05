@@ -32,6 +32,8 @@ const guides = defineCollection({
     level: z.enum(['beginner', 'intermediate', 'advanced']),
     order: z.number(),
     updated: z.coerce.date(),
+    /** What the reader needs to get, shown as a box at the top of the guide. */
+    downloads: z.array(z.object({ label: z.string(), url: z.string(), note: z.string().optional() })).default([]),
   }),
 });
 

@@ -9,8 +9,8 @@ series: skate
 scene: niche
 order: 3
 howToMod:
-  - Run it on RPCS3 or Xenia.
-  - Use trainers and RTE tools on RGH/JTAG Xbox 360. The JRPC/XDRPC "Skate mod tool" supports skate 1.
+  - 'Run it on [RPCS3](/faq/rpcs3-basics/) or [Xenia](/faq/xenia-basics/).'
+  - 'Use trainers and RTE tools on RGH/JTAG Xbox 360. The JRPC/XDRPC [Skate mod tool](https://www.se7ensins.com/forums/threads/skate-mod-tool-jrpc-xdrpc.1531417/) supports skate 1.'
 links:
   - { label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Skate_(2007_video_game)' }
 ---

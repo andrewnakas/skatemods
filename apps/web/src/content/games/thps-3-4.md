@@ -10,8 +10,8 @@ scene: active
 order: 8
 howToMod:
   - Build in the official Create-A-Park and share through its online park browser. Parks work in private matches.
-  - On PC, install character swaps and other mods from Nexus Mods.
-  - Use THPSPro for extra features, classic skaters, a free-roam camera and hidden cheats.
+  - 'On PC, install character swaps and other mods from [Nexus Mods](https://www.nexusmods.com/games/tonyhawksproskater34/mods).'
+  - 'Use [THPSPro](https://www.nexusmods.com/tonyhawksproskater34/mods/1) for extra features, classic skaters, a free-roam camera and hidden cheats.'
 links:
   - { label: THPSPro on Nexus, url: 'https://www.nexusmods.com/tonyhawksproskater34/mods/1' }
   - { label: Official site, url: 'https://www.tonyhawkthegame.com/' }

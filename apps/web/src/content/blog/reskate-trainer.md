@@ -7,7 +7,7 @@ games: [skate-2025]
 related: [guides/play-skate-with-reskate, history/reskate]
 ---
 
-Every skate game eventually gets a trainer. Skate 3 had [CH3AT](/history/skate-3/) on RPCS3 and, this year, [SK8TRAINER](https://github.com/andrewnakas/sk8trainer) inside the native recomp. EA's 2025 skate. got its first one barely a day after [ReSkate](/blog/reskate-launch/) opened the game up.
+Every skate game eventually gets a trainer. Skate 3 had [CH3AT](/history/skate-3/) on [RPCS3](/faq/rpcs3-basics/) and, this year, [SK8TRAINER](https://github.com/andrewnakas/sk8trainer) inside the native recomp. EA's 2025 skate. got its first one barely a day after [ReSkate](/blog/reskate-launch/) opened the game up.
 
 The [ReSkate Trainer](https://github.com/andrewnakas/reskate-trainer) is by Nakas, who also runs this site. It adds a **TRAINER** page to the ReSkate menu (Insert).
 
@@ -28,7 +28,7 @@ The same pass fixed the headline features. In 0.1.0, some of the obvious values 
 
 ## Installing it
 
-The trainer is ReSkate 1.0.3 with the trainer built in, for the same game build (Steam `25414733`). It replaces ReSkate's own `ReSkate.dll` and `ReSkateLauncher.exe`, so the launcher can't install it like a Thunderstore mod. Back up those two files, copy the trainer's over them, and press Insert in game. Restore your backups to go back to stock. The [ReSkate guide](/guides/play-skate-with-reskate/#practice-with-the-trainer) has the steps.
+The trainer is ReSkate 1.0.3 with the trainer built in, for the same game build (Steam `25414733`). It replaces ReSkate's own `ReSkate.dll` and `ReSkateLauncher.exe`, so the launcher can't install it like a [Thunderstore](https://thunderstore.io/c/reskate/) mod. Back up those two files, copy the trainer's over them, and press Insert in game. Restore your backups to go back to stock. The [ReSkate guide](/guides/play-skate-with-reskate/#practice-with-the-trainer) has the steps.
 
 It ships no game data and unlocks no cosmetics. Online, it follows ReSkate's session rules: a guest under host tuning can't edit, and teleports follow the host's permission. It's open source under the GPL-3.0, like ReSkate, and isn't affiliated with EA or the ReSkate developers.
 

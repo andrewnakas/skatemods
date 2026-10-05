@@ -18,6 +18,16 @@ const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/co
   <PageHead parent={{ href: '/guides/', label: 'Guides' }} eyebrow={game?.data.title} title={guide.data.title} lede={guide.data.description} />
   <div class="wrap layout">
     <article class="prose">
+      {guide.data.downloads.length > 0 && (
+        <section class="get" aria-labelledby="get-h">
+          <h2 id="get-h">Downloads and links</h2>
+          <ul>
+            {guide.data.downloads.map((d) => (
+              <li><a href={d.url} rel="noopener">{d.label}</a>{d.note && <span class="note">{d.note}</span>}</li>
+            ))}
+          </ul>
+        </section>
+      )}
       <Content />
       <hr />
       <p class="foot">Updated {guide.data.updated.toISOString().slice(0, 10)} · <a href={edit}>Improve this guide on GitHub</a></p>
@@ -42,4 +52,11 @@ const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/co
   .h { font-weight: 600; margin: 0 0 0.5rem; }
   .back { margin-top: 1rem; }
   .foot { font-size: 0.88rem; color: var(--ink-faint); }
+  .get { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding: 0.9rem 0 0.6rem; margin: 0 0 2rem; }
+  .get h2 { font-size: 1.05rem; margin: 0 0 0.5rem; padding: 0; border: 0; }
+  .get ul { list-style: none; margin: 0; padding: 0; }
+  .get li { display: flex; flex-wrap: wrap; gap: 0.15rem 0.75rem; align-items: baseline; padding: 0.35rem 0; border-top: 1px solid var(--line); }
+  .get li:first-child { border-top: 0; }
+  .get a { font-weight: 600; }
+  .get .note { color: var(--ink-faint); font-size: 0.9rem; }
 </style>

@@ -5,6 +5,10 @@ game: skate-2025
 level: intermediate
 order: 7
 updated: 2026-10-05
+downloads:
+  - { label: "ReSkateServer for Windows or Linux (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "ReSkateServer-<version>.zip, or ReSkateServer-Linux-<version>.tar.gz" }
+  - { label: "Server manual (README.txt)", url: "https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt", note: "every setting and command" }
+  - { label: "Your SteamID64", url: "https://steamid.io/", note: "to make yourself an admin" }
 ---
 
 ReSkate ships a headless dedicated server, `ReSkateServer.exe`, that shows up in every player's in-game browser (**Multiplayer → Servers**). It needs **neither the game nor Steam installed**, and players connect through Steam's relay network, so you don't have to open any ports. This guide follows the official [server manual](https://github.com/Dingo-Shenanigans/ReSkate/blob/main/Server/README.txt) for ReSkate 1.1.1. There's a native [Linux build](#on-linux) too.
@@ -14,7 +18,7 @@ ReSkate ships a headless dedicated server, `ReSkateServer.exe`, that shows up in
 1. Download `ReSkateServer-<version>.zip` from [ReSkate's releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest) and unzip it into its own folder.
 2. Keep the folder together. `steam_api64.dll`, `steamclient64.dll`, `tier0_s64.dll` and `vstdlib_s64.dll` are how the server talks to Steam, and `world-layers.json` lets it set time of day and other world layers for everyone.
 3. Run `ReSkateServer.exe` once. It writes `ReSkateServer.json` next to itself.
-4. Edit that file. At minimum, set `name` and add your SteamID64 to `admins`.
+4. Edit that file. At minimum, set `name` and add your SteamID64 to `admins`. Paste your Steam profile URL into [steamid.io](https://steamid.io/) to find it.
 5. Start the server again. Players find it by name in the browser.
 
 The server signs in to Steam anonymously and gets a new Steam ID, and so a new join code, every time it starts. The browser always finds it by name. If you forward **UDP 27015–27016** anyway, the browser also shows your ping and joins are a little faster.

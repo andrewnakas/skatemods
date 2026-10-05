@@ -19,8 +19,8 @@ updated: 2026-10-01
 
 ## Why the Xbox 360 version is the default
 
-The recompilation was built from the Xbox 360 executable. It needs files "from your own legally obtained Xbox 360 copy of Skate 3" ([README](https://github.com/mchughalex/skate3recomp)). The new tools grew up around it: the [Level Loader](/guides/install-community-maps/), the Android, iOS and web builds, and the Rust engine's `.skate` maps.
+The recompilation was built from the Xbox 360 executable. It needs files "from your own legally obtained Xbox 360 copy of Skate 3" ([README](https://github.com/mchughalex/skate3recomp)). The new tools grew up around it: the [Level Loader](/guides/install-community-maps/), the Android, iOS and web builds, and the [Rust engine](/guides/skate-maps-rust-engine/)'s `.skate` maps.
 
 ## Why you might still want the PS3 version
 
-Most custom maps from before 2026 were made for PS3, and the community Blaze server is built for "RPCS3/PS3" ([README](https://github.com/skate6743/Skate3BlazeServer)). RPCS3 rates Skate 3 **Playable** for the US (BLUS30464), EU (BLES00760) and Japanese (BLJM60296) releases ([compatibility](https://rpcs3.net/compatibility?g=BLUS30464)). PS3 maps don't have to stay on PS3, though: skatemods converts them to the recomp and `.skate` automatically.
+Most custom maps from before 2026 were made for PS3, and the community Blaze server is built for "[RPCS3](/faq/rpcs3-basics/)/PS3" ([README](https://github.com/skate6743/Skate3BlazeServer)). RPCS3 rates Skate 3 **Playable** for the US (BLUS30464), EU (BLES00760) and Japanese (BLJM60296) releases ([compatibility](https://rpcs3.net/compatibility?g=BLUS30464)). PS3 maps don't have to stay on PS3, though: skatemods converts them to the recomp and `.skate` automatically.

@@ -10,11 +10,11 @@ scene: thriving
 featured: true
 order: 1
 howToMod:
-  - Play it natively on Windows, Linux or macOS with skate3recomp or SK8-Engine. You bring your own Xbox 360 disc image.
-  - Load community maps as DLC packs through the Skate 3 Level Loader.
-  - Convert PS3 custom maps to recomp packs with the PS3 Map Importer, or on this site.
-  - Mod textures on RPCS3 and Xenia with Skate 3 Texture Tools.
-  - Restore online play on RPCS3 with the custom Blaze server.
+  - 'Play it natively on Windows, Linux or macOS with [skate3recomp](/guides/play-skate-3-on-pc/) or [SK8-Engine](https://github.com/andrewnakas/SK8-Engine). You bring your own Xbox 360 disc image.'
+  - 'Load community maps as DLC packs through the [Skate 3 Level Loader](/guides/install-community-maps/).'
+  - 'Convert PS3 custom maps to recomp packs with the [PS3 Map Importer](/guides/convert-ps3-maps/), or [on this site](/upload/).'
+  - 'Mod textures on RPCS3 and Xenia with [Skate 3 Texture Tools](https://github.com/Shellywell123/Skate-3-Texture-Tools).'
+  - 'Restore online play on RPCS3 with the custom [Blaze server](https://github.com/skate6743/Skate3BlazeServer).'
 links:
   - { label: skate3recomp, url: 'https://github.com/mchughalex/skate3recomp' }
   - { label: SK8-Engine, url: 'https://github.com/andrewnakas/SK8-Engine' }

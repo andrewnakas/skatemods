@@ -9,10 +9,10 @@ series: skate
 scene: active
 order: 2
 howToMod:
-  - Run it on RPCS3 (PS3) or Xenia (Xbox 360). Both emulators have DLC guides.
-  - Play its city inside Skate 3 with the community New San Van mod, which now converts to the recomp too.
-  - Skate New San Vanelona in EA's 2025 skate. through ReSkate, with brassy's Skate 2 Map mod.
-  - Use RTE and trainer tools on RGH/JTAG Xbox 360 consoles. The JRPC/XDRPC "Skate mod tool" covers skate 1, 2 and 3.
+  - 'Run it on [RPCS3](/faq/rpcs3-basics/) (PS3) or [Xenia](/faq/xenia-basics/) (Xbox 360). Both emulators have DLC guides.'
+  - 'Play its city inside Skate 3 with the community New San Van mod, which now converts to the recomp too with the [PS3 Map Importer](/guides/convert-ps3-maps/).'
+  - 'Skate New San Vanelona in EA''s 2025 skate. through [ReSkate](/guides/play-skate-with-reskate/), with brassy''s [Skate 2 Map](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/) mod.'
+  - 'Use RTE and trainer tools on RGH/JTAG Xbox 360 consoles. The JRPC/XDRPC [Skate mod tool](https://www.se7ensins.com/forums/threads/skate-mod-tool-jrpc-xdrpc.1531417/) covers skate 1, 2 and 3.'
 links:
   - { label: RPCS3 wiki, url: 'https://wiki.rpcs3.net/index.php?title=Skate_2' }
   - { label: PS3 Map Importer (New San Van), url: 'https://github.com/andrewnakas/skate3-ps3-map-importer' }

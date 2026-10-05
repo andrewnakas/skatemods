@@ -9,10 +9,10 @@ series: tony-hawk
 scene: thriving
 order: 6
 howToMod:
-  - THUG Pro, a total conversion of THUG2 that collects levels from every Neversoft game, with online play and custom levels.
-  - PARTYMOD patches THPS2, THPS3, THPS4, THUG, THUG2, THAW and Mat Hoffman's Pro BMX with fixes, SDL2 controllers, widescreen and OpenSpy online.
-  - ClownJob'd, the THUG2 patch that inspired PARTYMOD, adds modern Windows support and OpenSpy multiplayer.
-  - Custom levels for THUG Pro come from the THPSX community and its Blender import/export plugin.
+  - '[THUG Pro](https://thugpro.com/), a total conversion of THUG2 that collects levels from every Neversoft game, with online play and custom levels.'
+  - '[PARTYMOD](https://partymod.newnet.city/) patches THPS2, THPS3, THPS4, THUG, THUG2, THAW and Mat Hoffman''s Pro BMX with fixes, SDL2 controllers, widescreen and OpenSpy online.'
+  - '[ClownJob''d](https://thpsx.com/forums/index.php?topic=1529.0), the THUG2 patch that inspired PARTYMOD, adds modern Windows support and OpenSpy multiplayer.'
+  - 'Custom levels for THUG Pro come from the [THPSX community](https://thpsx.com/) and its Blender import/export plugin.'
 links:
   - { label: THUG Pro, url: 'https://thpsx.com/thugpro-info/' }
   - { label: PARTYMOD, url: 'https://partymod.newnet.city/' }

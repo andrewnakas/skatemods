@@ -5,15 +5,19 @@ game: skate-3
 level: beginner
 order: 2
 updated: 2026-10-01
+downloads:
+  - { label: "Skate 3 Level Loader (latest release)", url: "https://github.com/andrewnakas/skate3-level-loader/releases/latest", note: "skate3loader for Windows, Linux or macOS, plus the patched engine" }
+  - { label: "skate3recomp", url: "/guides/play-skate-3-on-pc/", note: "or your ISO and Title Update 3" }
+  - { label: "Community maps", url: "/maps/", note: "the skatemods maps catalog" }
 ---
 
 The game can only manage a few DLC packs at once, and every community map fights over the same slots. The **Skate 3 Level Loader** handles map selection itself: you keep unlimited packs imported, and it stages exactly one per launch.
 
 ## Install
 
-1. Download your platform's archive from the [Level Loader releases](https://github.com/andrewnakas/skate3-level-loader/releases). It includes a patched engine.
+1. Download your platform's archive from the [Level Loader releases](https://github.com/andrewnakas/skate3-level-loader/releases/latest): `skate3loader` for Windows, Linux or macOS, plus `skate3-engine` (the patched engine).
 2. Unpack the engine archive into an `engine/` folder **beside** the launcher. On macOS, put it beside the `.app`, not inside it.
-3. On first run, point it at your Skate 3 ISO and Title Update 3, or let it reuse an existing skate3recomp install.
+3. On first run, point it at your Skate 3 ISO and Title Update 3, or let it reuse an existing [skate3recomp](/guides/play-skate-3-on-pc/) install.
 4. Run `./skate3loader doctor` once to check everything.
 
 ## Add maps
@@ -35,7 +39,7 @@ Two pack formats work:
 
 ### Packs without a `.header`
 
-Plenty of community packs ship only `name_00000000.big`. Generate the 328-byte header:
+Plenty of community packs ship only `name_00000000.big`. Generate the 328-byte header with [makeheader.py](https://github.com/andrewnakas/skate3-level-loader/blob/master/scripts/makeheader.py):
 
 ```bash
 python3 scripts/makeheader.py "path/to/pack_00000000.big"

@@ -9,11 +9,11 @@ series: sim
 scene: thriving
 order: 9
 howToMod:
-  - Install Unity Mod Manager (use the latest version) to load script mods.
-  - Browse and subscribe to maps, gear and scripts on mod.io. Consoles get maps through the in-game Mod Browser.
-  - XLGearModifier (XLGM2) adds dynamic clothing, custom character models and unlimited gear customization.
-  - XXLMod tunes stats and movement.
-  - Build maps in Unity with the community mapping wiki. Map scripting works through the XL Menu Mod and Map Patch.
+  - 'Install [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) (use the latest version) to load script mods.'
+  - 'Browse and subscribe to maps, gear and scripts on [mod.io](https://mod.io/g/skaterxl). Consoles get maps through the in-game Mod Browser.'
+  - '[XLGearModifier (XLGM2)](https://mod.io/g/skaterxl/m/xlgearmodifier) adds dynamic clothing, custom character models and unlimited gear customization.'
+  - '[XXLMod](https://github.com/DawgVinciSXL/XXLMod) tunes stats and movement.'
+  - 'Build maps in Unity with the community [mapping wiki](https://github.com/SkaterXLModding/skater-xl-mapping-wiki/wiki/Map-Scripting). Map scripting works through the XL Menu Mod and Map Patch.'
 links:
   - { label: mod.io, url: 'https://mod.io/g/skaterxl' }
   - { label: Mapping wiki, url: 'https://github.com/SkaterXLModding/skater-xl-mapping-wiki/wiki/Map-Scripting' }

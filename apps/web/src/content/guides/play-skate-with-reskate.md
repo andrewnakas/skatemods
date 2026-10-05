@@ -5,6 +5,11 @@ game: skate-2025
 level: beginner
 order: 6
 updated: 2026-10-05
+downloads:
+  - { label: "ReSkate for Windows (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "the ReSkate-<version>.zip, with ReSkateLauncher.exe and ReSkate.dll" }
+  - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
+  - { label: "Steam", url: "https://store.steampowered.com/about/", note: "open and signed in for multiplayer" }
+  - { label: "ReSkate mods", url: "/reskate/", note: "browse every mod; install from the launcher" }
 ---
 
 [ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.1.1** (October 5, 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
@@ -12,16 +17,16 @@ updated: 2026-10-05
 ## What you need
 
 - **Windows 10 or 11**, 64-bit. On **Linux** (Steam Deck included) the launcher runs under Proton, and since 1.0.4 it detects Steam there. It isn't officially documented, so see [Linux and Steam Deck](#linux-and-steam-deck) below.
-- **Your own copy of skate. on Steam.** The game is free-to-play, so adding it to your library is enough.
+- **Your own copy of [skate. on Steam](https://store.steampowered.com/app/3354750/).** The game is free-to-play, so adding it to your library is enough.
 - About **14 GB** free if the launcher has to download the game build for you.
 
 ## Install
 
-1. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Don't use any other mirror.
+1. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Don't use any other mirror. If you already have ReSkate and only need to replace a file, [ReSkateLauncher.exe](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkateLauncher.exe) and [ReSkate.dll](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkate.dll) are direct downloads of the latest version.
 2. Extract `ReSkateLauncher.exe` and `ReSkate.dll` into one of two places:
    - **your skate. folder**, beside `Skate.exe` (Steam → skate. → Manage → Browse local files), or
    - **an empty folder**, where the launcher installs the game for you.
-3. **Open Steam and sign in** if you want to play online. Without Steam, PLAY starts in offline mode as "Unknown Player", with no multiplayer.
+3. **Open [Steam](https://store.steampowered.com/about/) and sign in** if you want to play online. Without Steam, PLAY starts in offline mode as "Unknown Player", with no multiplayer.
 4. Run `ReSkateLauncher.exe`. It updates itself, then checks your game files against the supported build.
 5. If the game is missing, or Steam has updated it past that build, sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. The launcher downloads only the files it needs.
 6. Press **PLAY**.

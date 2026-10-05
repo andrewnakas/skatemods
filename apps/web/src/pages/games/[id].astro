@@ -17,6 +17,9 @@ const gameTools = tools.filter((t) => t.game === game.id);
 const faq = (await getCollection('faq')).filter((f) => f.data.games.includes(game.id)).sort((a, b) => a.data.order - b.data.order);
 const scenes = (await getCollection('communities')).filter((c) => c.data.games.includes(game.id)).sort((a, b) => a.data.order - b.data.order);
 const guides = (await getCollection('guides')).filter((g) => g.data.game === game.id).sort((a, b) => a.data.order - b.data.order);
+// howToMod steps may contain [text](url) links; everything else is escaped.
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const links = (t: string) => esc(t).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, text, url) => `<a href="${url}">${text}</a>`);
 ---
 <Base title={`Modding ${d.title}`} description={d.short}>
   <PageHead parent={{ href: '/games/', label: 'Games' }} eyebrow={`${d.year} · ${d.developer}`} title={d.title} lede={d.short}>
@@ -35,7 +38,7 @@ const guides = (await getCollection('guides')).filter((g) => g.data.game === gam
       {d.howToMod.length > 0 && (
         <section class="card">
           <h3>How to mod it</h3>
-          <ul>{d.howToMod.map((h) => <li>{h}</li>)}</ul>
+          <ul>{d.howToMod.map((h) => <li set:html={links(h)} />)}</ul>
         </section>
       )}
       {guides.length > 0 && (

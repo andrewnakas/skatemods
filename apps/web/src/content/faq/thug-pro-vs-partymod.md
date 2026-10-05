@@ -14,7 +14,7 @@ updated: 2026-10-01
 
 ## PARTYMOD
 
-"A series of patches, mostly for the Tony Hawk's Pro Skater series, that fixes bugs as well as introduces modernizations such as modern controller support" ([partymod.newnet.city](https://partymod.newnet.city/)). There's one patch per game: THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and Mat Hoffman's Pro BMX. Each keeps that game as it was, and several reconnect it to OpenSpy for online play. [History →](/history/partymod/)
+"A series of patches, mostly for the Tony Hawk's Pro Skater series, that fixes bugs as well as introduces modernizations such as modern controller support" ([partymod.newnet.city](https://partymod.newnet.city/)). There's one patch per game: THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and Mat Hoffman's Pro BMX. Each keeps that game as it was, and several reconnect it to [OpenSpy](https://openspy.net/) for online play. [History →](/history/partymod/)
 
 ## Rule of thumb
 

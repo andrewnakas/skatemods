@@ -5,6 +5,11 @@ game: skate-3
 level: intermediate
 order: 3
 updated: 2026-10-01
+downloads:
+  - { label: "PS3 Map Importer (Windows GUI)", url: "https://github.com/andrewnakas/skate3-ps3-map-importer", note: "download the repo as a ZIP and run START-MAP-IMPORTER-GUI.bat" }
+  - { label: "PS3 → X360 transcoder", url: "https://github.com/andrewnakas/skate3-ps3-to-x360", note: "the converter both options use" }
+  - { label: "Python 3.11+", url: "https://www.python.org/downloads/", note: "for the CLI" }
+  - { label: ".NET 9 SDK", url: "https://dotnet.microsoft.com/download/dotnet/9.0", note: "for the CLI" }
 ---
 
 Almost every Skate 3 custom map was built for PS3. The recomp runs the Xbox 360 game, whose world format differs in five object types: vertex buffers, index buffers, vertex descriptors, mesh island data and textures (linear DXT on PS3, Xenos-tiled on 360). The [PS3 → X360 transcoder](https://github.com/andrewnakas/skate3-ps3-to-x360) rebuilds each one. It was verified against EA's own PS3 and Xbox builds of University, where 5,000+ meshes come out byte-identical.
@@ -18,11 +23,11 @@ Almost every Skate 3 custom map was built for PS3. The recomp runs the Xbox 360 
 
 1. Download the [PS3 Map Importer](https://github.com/andrewnakas/skate3-ps3-map-importer) and run `START-MAP-IMPORTER-GUI.bat`. On first run it installs Git, .NET 9 and 7-Zip.
 2. Drag in the map archive or folder. It finds the real `DIST_*` folder inside wrapper folders.
-3. Press **CONVERT**, then drop the `.big` into your recomp's `dlc` folder or [the Level Loader](/guides/install-community-maps/).
+3. Press **CONVERT**, then drop the `.big` into your [recomp](/guides/play-skate-3-on-pc/)'s `dlc` folder or [the Level Loader](/guides/install-community-maps/).
 
 ## Option 2: the skatemods CLI (Linux, macOS, Windows)
 
-This is the same pipeline the site runs. It needs Python 3.11+, the .NET 9 SDK and `bsdtar`.
+This is the same pipeline the site runs. It needs [Python 3.11+](https://www.python.org/downloads/), the [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) and `bsdtar` (part of libarchive, already on macOS and Windows 10+).
 
 ```bash
 git clone https://github.com/andrewnakas/skatemods && cd skatemods

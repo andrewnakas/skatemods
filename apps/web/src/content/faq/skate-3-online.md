@@ -14,7 +14,7 @@ EA's own servers have been unreliable. They went down around 2016 and [came back
 
 ## The community Blaze server
 
-[Skate3BlazeServer](https://github.com/skate6743/Skate3BlazeServer) is a "Skate 3 Custom Blaze server for RPCS3/PS3 with working matchmaking and content server features":
+[Skate3BlazeServer](https://github.com/skate6743/Skate3BlazeServer) is a "Skate 3 Custom Blaze server for [RPCS3](/faq/rpcs3-basics/)/PS3 with working matchmaking and content server features":
 
 - "Functional matchmaking and player invites from friends list ingame"
 - "Relay servers for each lobby (no Peer to Peer connections between players)"

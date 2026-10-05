@@ -9,8 +9,8 @@ series: sim
 scene: active
 order: 10
 howToMod:
-  - Install Session Mod Manager, then press "Patch With Illusory Mod Unlocker" so custom maps and textures load.
-  - Get maps, decks, wheels and shirts from the Mod Manager's Asset Store, or from the Illusory Discord.
+  - 'Install [Session Mod Manager](https://github.com/rodriada000/SessionMapSwitcher/releases/latest), then press "Patch With Illusory Mod Unlocker" so custom maps and textures load.'
+  - 'Get maps, decks, wheels and shirts from the Mod Manager''s Asset Store, or from the [Illusory Discord](https://discord.gg/Mt3qzgN).'
   - Switch maps in-game without restarting.
   - Build maps in Unreal Engine 4. Session Mod Manager's settings tab includes a project watcher for map makers.
 links:

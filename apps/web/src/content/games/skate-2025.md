@@ -9,9 +9,9 @@ series: skate
 scene: active
 order: 5
 howToMod:
-  - Install ReSkate. It runs a pinned Steam build offline with a community runtime, on Windows (or Linux through Proton), with your own copy of the game.
-  - Browse every mod at skatemods.com/reskate, then install it from the launcher's MODS page or drop it in the Mods folder.
-  - Build parks in ReSkate's Park Editor, tune physics in its built-in Trainer, and host a dedicated server on Windows or Linux.
+  - 'Install [ReSkate](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest) ([guide](/guides/play-skate-with-reskate/)). It runs a pinned Steam build offline with a community runtime, on Windows (or Linux through Proton), with your own copy of [skate. on Steam](https://store.steampowered.com/app/3354750/).'
+  - 'Browse [every mod](/reskate/), then install it from the launcher''s MODS page or drop it in the Mods folder.'
+  - 'Build parks in ReSkate''s Park Editor, tune physics in its built-in [Trainer](/guides/play-skate-with-reskate/#practice-with-the-trainer), and [host a dedicated server](/guides/host-a-reskate-server/) on Windows or Linux.'
   - Leave the live game alone. It's online-only and protected by EA's Javelin anti-cheat.
 links:
   - { label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Skate_(2025_video_game)' }

@@ -61,7 +61,7 @@ When Vicarious Visions was folded into Blizzard, a remake of THPS3 and 4 looked 
 
 ## More levels with every update
 
-Update videos on YouTube track the growth, and each one thanks a long list of helpers. That list includes THUG Pro's morten and Skate 3 tool author GHFear ([update 2](https://www.youtube.com/watch?v=LvHQPdzISek)). [Update 8](https://www.youtube.com/watch?v=3NxNrzaWPKY) added the Project 8 world with goals. Today the [1+2 version](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121) "adds all THPS3+4, Underground 1+2 levels, the THP8 World + Downhill Rio and few THAW levels". It also includes a LAN/VPN free-skate online mode for the Epic version.
+Update videos on YouTube track the growth, and each one thanks a long list of helpers. That list includes [THUG Pro](/history/thug-pro/)'s morten and Skate 3 tool author GHFear ([update 2](https://www.youtube.com/watch?v=LvHQPdzISek)). [Update 8](https://www.youtube.com/watch?v=3NxNrzaWPKY) added the Project 8 world with goals. Today the [1+2 version](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121) "adds all THPS3+4, Underground 1+2 levels, the THP8 World + Downhill Rio and few THAW levels". It also includes a LAN/VPN free-skate online mode for the Epic version.
 
 ## Then 3+4 shipped
 

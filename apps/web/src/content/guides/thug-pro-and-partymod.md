@@ -5,6 +5,10 @@ game: tony-hawk-classic
 level: beginner
 order: 10
 updated: 2026-10-01
+downloads:
+  - { label: "THUG Pro", url: "https://thugpro.com/", note: "needs your own THUG2 for PC" }
+  - { label: "PARTYMOD patches", url: "https://partymod.newnet.city/", note: "for THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and Mat Hoffman's Pro BMX" }
+  - { label: "OpenSpy", url: "https://openspy.net/", note: "the GameSpy replacement the patches use for online play" }
 ---
 
 The Neversoft-era PC games still run well, if you patch them.
@@ -14,8 +18,8 @@ The Neversoft-era PC games still run well, if you patch them.
 [THUG Pro](https://thpsx.com/thugpro-info/) is a total conversion of *Tony Hawk's Underground 2*. It collects levels from nearly every Neversoft Tony Hawk game and adds online play, a visual overhaul, Create-A-Theme, and support for custom levels and soundtracks.
 
 1. Install THUG2 for PC from your own copy.
-2. Download THUG Pro from the THPSX site and follow its installer.
-3. Get custom levels from the THPSX community. A Blender plugin imports and exports levels if you want to make your own.
+2. Download THUG Pro from [thugpro.com](https://thugpro.com/) and follow its installer.
+3. Get custom levels from the [THUG Pro community](https://thugpro.com/community/) and the [THPSX forums](https://thpsx.com/). A Blender plugin imports and exports levels if you want to make your own.
 
 ## PARTYMOD: fix the original ports
 
@@ -24,7 +28,7 @@ The Neversoft-era PC games still run well, if you patch them.
 - Modern controller support (SDL2, and SDL3 since THPS3 2.0)
 - Widescreen resolutions
 - Bug fixes for modern Windows
-- Online play through **OpenSpy**, the community replacement for GameSpy, in the THPS3, THPS4, THUG and THUG2 patches
+- Online play through **[OpenSpy](https://openspy.net/)**, the community replacement for GameSpy, in the THPS3, THPS4, THUG and THUG2 patches
 
 Each patch is open source ([THPS3](https://github.com/PARTYMANX/partymod-thps3), [THPS4](https://github.com/PARTYMANX/partymod-thps4), [THUG2](https://github.com/PARTYMANX/partymod-thug2)). It leaves your game files alone: run `partypatcher.exe` to write a patched copy of the executable, then follow the readme. Remove the old widescreen mod (`dinput8.dll`) first if you have it installed.
 

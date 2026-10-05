@@ -9,8 +9,8 @@ series: tony-hawk
 scene: active
 order: 7
 howToMod:
-  - Install mods from Nexus Mods (117+ for this game). They're mostly Unreal .pak files.
-  - THPSPro adds levels from THPS3, THPS4, THUG, THUG2, American Wasteland and Project 8, plus a free-roam camera, unlocked cheats and classic skins.
+  - 'Install mods from [Nexus Mods](https://www.nexusmods.com/games/tonyhawksproskater1and2/mods) (117+ for this game). They''re mostly Unreal .pak files.'
+  - '[THPSPro](https://www.nexusmods.com/tonyhawksproskater1and2/mods/121) adds levels from THPS3, THPS4, THUG, THUG2, American Wasteland and Project 8, plus a free-roam camera, unlocked cheats and classic skins.'
   - Install mods by copying their Unreal .pak files into the game's Paks/~mods folder, as the THPSPro readme describes.
 links:
   - { label: THPSPro on Nexus, url: 'https://www.nexusmods.com/tonyhawksproskater1and2/mods/121' }
