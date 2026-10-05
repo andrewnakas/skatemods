@@ -57,6 +57,13 @@ const active = (href: string) => path.startsWith(href);
     <script is:inline>
       try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
     </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-GPC9R5H2NY"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GPC9R5H2NY');
+    </script>
   </head>
   <body>
     <a class="skip visually-hidden" href="#main">Skip to content</a>
