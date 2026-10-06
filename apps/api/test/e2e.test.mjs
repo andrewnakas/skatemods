@@ -182,3 +182,54 @@ test('site accounts: sign up, sign in, upload, no moderator powers', async () =>
   await runJob();
   assert.equal((await b.req('DELETE', `/api/maps/${mapId}`)).status, 200);
 });
+
+test('face scan pairing', async () => {
+  const phone = new Client();
+  const game = new Client();
+  const code = Array.from(randomBytes(10), (b) => 'abcdefghijkmnopqrstuvwxyz23456789'[b % 33]).join('');
+  // A 64x64 PNG header is all the API looks at.
+  const png = Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52]),
+    Buffer.from([0, 0, 0, 64, 0, 0, 0, 64]), randomBytes(200)]);
+  const meta = { skin: '#c68b6a', hair: '#2b1d14', hairStyle: 'Own_Hair_Test', facialHair: null };
+  const form = (m = meta, file = png) => {
+    const f = new FormData();
+    f.set('meta', JSON.stringify(m));
+    if (file) f.set('texture', new Blob([file], { type: 'image/png' }), 'face.png');
+    return f;
+  };
+
+  assert.equal((await game.req('GET', `/api/face/${code}`)).status, 404);
+  assert.equal((await game.req('GET', '/api/face/NOT-A-CODE')).status, 400);
+  // Only our own page can post a scan.
+  const xo = await fetch(`${BASE}/api/face/${code}`, { method: 'POST', headers: { Origin: 'https://evil.example' }, body: form() });
+  assert.equal(xo.status, 403);
+  assert.equal((await phone.req('POST', `/api/face/${code}`, { body: form({ ...meta, skin: 'red' }) })).status, 400);
+  assert.equal((await phone.req('POST', `/api/face/${code}`, { body: form(meta, Buffer.from('not a png')) })).status, 400);
+
+  const posted = await phone.req('POST', `/api/face/${code}`, { body: form() });
+  assert.equal(posted.status, 201, await posted.clone().text());
+  assert.equal((await phone.req('POST', `/api/face/${code}`, { body: form() })).status, 409);
+
+  const got = await game.req('GET', `/api/face/${code}`);
+  assert.equal(got.status, 200);
+  const body = await got.json();
+  assert.equal(body.skin, '#c68b6a');
+  assert.equal(body.hairStyle, 'Own_Hair_Test');
+  assert.equal(body.texture.width, 64);
+  assert.equal(body.texture.sha256, sha(png));
+
+  const tex = await game.req('GET', `/api/face/${code}/texture`);
+  assert.equal(tex.status, 200);
+  assert.equal(sha(Buffer.from(await tex.arrayBuffer())), sha(png));
+  // Picked up: gone, and the code can't be reused.
+  assert.equal((await game.req('GET', `/api/face/${code}`)).status, 404);
+  assert.equal((await game.req('GET', `/api/face/${code}/texture`)).status, 404);
+  assert.equal((await phone.req('POST', `/api/face/${code}`, { body: form() })).status, 409);
+
+  // Colours only: picked up with /done.
+  const other = code.slice(0, 9) + (code[9] === 'a' ? 'b' : 'a');
+  assert.equal((await phone.req('POST', `/api/face/${other}`, { body: form(meta, null) })).status, 201);
+  assert.equal((await game.req('GET', `/api/face/${other}`)).status, 200);
+  assert.equal((await game.req('GET', `/api/face/${other}/done`)).status, 200);
+  assert.equal((await game.req('GET', `/api/face/${other}`)).status, 404);
+});

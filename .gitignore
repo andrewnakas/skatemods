@@ -7,3 +7,4 @@ inputs/
 dist/
 .astro/
 .wrangler/
+apps/web/public/face/mediapipe/

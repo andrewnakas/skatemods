@@ -1,0 +1,352 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Face scan" noAnalytics description="Scan your face with your phone and put your face, skin tone and hair on your skater in skate. with ReSkate. Processed on your phone; deleted once your game picks it up.">
+  <PageHead parent={{ href: '/reskate/', label: 'skate. mods' }} title="Face scan" lede="Put your face, skin tone and hair on your skater in skate. Your phone does the scan, and your game downloads the result once." />
+  <div class="wrap face">
+    <section id="intro">
+      <div class="code-row">
+        <p class="meta" id="code-line"></p>
+        <form id="code-form" hidden>
+          <label>Code from the game
+            <input id="code-input" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="10" placeholder="10 letters and numbers" />
+          </label>
+          <button class="btn small" type="submit">Use code</button>
+        </form>
+      </div>
+      <p class="hint" id="no-code" hidden>Open the ReSkate menu in the game (<kbd>Insert</kbd>), go to <strong>Face scan</strong> and scan the QR code with your phone. You can also type the code shown under it.</p>
+
+      <div class="card consent">
+        <h3>Before you start</h3>
+        <ul>
+          <li>The camera feed stays on your phone. Face detection runs in this page; no video or photo is uploaded.</li>
+          <li>What is uploaded: a skin colour, a hair colour, a hairstyle and facial hair type, and a flat face texture made from one frame.</li>
+          <li>Your game downloads it once, and that deletes it. Anything not picked up is deleted after 24 hours. This page has no analytics. <a href="/policy/#face">Details</a>.</li>
+        </ul>
+        <label class="check"><input type="checkbox" id="consent" /> This is my own face, and I agree to the above.</label>
+        <button class="btn primary" id="start" disabled>Start camera</button>
+        <p class="error" id="start-error" role="alert" hidden></p>
+      </div>
+    </section>
+
+    <section id="scan" hidden>
+      <div class="stage">
+        <video id="video" playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <p class="prompt" id="prompt">Loading the face model…</p>
+      </div>
+      <div class="steps meta">
+        <span id="s-face" class="chip">Face found</span>
+        <span id="s-left" class="chip">Turned one way</span>
+        <span id="s-right" class="chip">Turned the other way</span>
+        <span id="s-front" class="chip">Facing the camera</span>
+      </div>
+      <button class="btn small" id="cancel">Cancel</button>
+    </section>
+
+    <section id="review" hidden>
+      <div class="review">
+        <div class="previews">
+          <canvas id="head" width="480" height="480" aria-label="Preview of the face on a head"></canvas>
+          <canvas id="flat" width="256" height="256" aria-label="The face texture"></canvas>
+        </div>
+        <form id="tune" class="tune">
+          <label>Skin tone
+            <span class="swatch-row"><input type="color" id="skin" /><input type="range" id="skin-shade" min="-30" max="30" value="0" aria-label="Lighter or darker" /></span>
+          </label>
+          <label>Hair colour<input type="color" id="hair" /></label>
+          <label>Hairstyle
+            <select id="hair-style">
+              <option value="keep">Keep the one I have</option>
+              <option value="bald">Bald</option>
+              <option value="buzz">Buzz cut</option>
+              <option value="short">Short</option>
+              <option value="medium">Medium</option>
+              <option value="long">Long</option>
+              <option value="tall">Tall / curly</option>
+            </select>
+          </label>
+          <label>Facial hair
+            <select id="facial-hair">
+              <option value="keep">Keep what I have</option>
+              <option value="none">None</option>
+              <option value="stubble">Stubble</option>
+              <option value="mustache">Mustache</option>
+              <option value="beard">Beard</option>
+            </select>
+          </label>
+          <label class="check"><input type="checkbox" id="send-face" checked /> Send the face texture (untick to send colours and hair only)</label>
+          <p class="meta" id="notes"></p>
+          <p class="error" id="send-error" role="alert" hidden></p>
+          <div class="btns">
+            <button class="btn primary" type="submit" id="send">Send to my game</button>
+            <button class="btn" type="button" id="again">Scan again</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="sent" hidden>
+      <div class="card">
+        <h3>Sent</h3>
+        <p>Your game picks it up within a few seconds. Look at the Face scan page in the ReSkate menu. Once the game downloads it, it is deleted from skatemods.</p>
+        <p class="meta" id="sent-meta"></p>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { FaceLandmarker, ImageSegmenter, FilesetResolver } from '@mediapipe/tasks-vision';
+  import { analyse, unwrap, preview, yaw, faceSize, hex, fromHex, type Frame, type Rgb, type Analysis } from '../lib/face';
+
+  const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+  const CODE = /^[a-km-z2-9]{10}$/;
+  let code = (new URLSearchParams(location.search).get('c') ?? '').toLowerCase();
+
+  function showCode() {
+    const ok = CODE.test(code);
+    $('code-line').textContent = ok ? `Pairing code ${code}` : '';
+    $('code-form').hidden = ok;
+    $('no-code').hidden = ok;
+  }
+  showCode();
+  $('code-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = $<HTMLInputElement>('code-input').value.trim().toLowerCase();
+    if (CODE.test(value)) { code = value; history.replaceState(null, '', `?c=${code}`); showCode(); }
+    else $<HTMLInputElement>('code-input').setCustomValidity('That is not a code the game makes'), $<HTMLInputElement>('code-input').reportValidity();
+  });
+
+  const consent = $<HTMLInputElement>('consent');
+  consent.addEventListener('change', () => { $<HTMLButtonElement>('start').disabled = !consent.checked; });
+
+  const show = (id: 'intro' | 'scan' | 'review' | 'sent') => {
+    for (const s of ['intro', 'scan', 'review', 'sent']) $(s).hidden = s !== id;
+    window.scrollTo({ top: 0 });
+  };
+  const video = $<HTMLVideoElement>('video');
+  let stream: MediaStream | null = null;
+  let landmarker: FaceLandmarker | null = null;
+  let segmenter: ImageSegmenter | null = null;
+  let running = false;
+
+  async function models() {
+    if (landmarker && segmenter) return;
+    const files = await FilesetResolver.forVisionTasks('/face/mediapipe');
+    [landmarker, segmenter] = await Promise.all([
+      FaceLandmarker.createFromOptions(files, {
+        baseOptions: { modelAssetPath: '/face/mediapipe/face_landmarker.task', delegate: 'GPU' },
+        runningMode: 'VIDEO', numFaces: 2,
+      }),
+      ImageSegmenter.createFromOptions(files, {
+        baseOptions: { modelAssetPath: '/face/mediapipe/selfie_multiclass.tflite', delegate: 'GPU' },
+        runningMode: 'IMAGE', outputCategoryMask: true, outputConfidenceMasks: false,
+      }),
+    ]);
+  }
+
+  function stop() {
+    running = false;
+    stream?.getTracks().forEach((t) => t.stop());
+    stream = null;
+    video.srcObject = null;
+  }
+
+  $('start').addEventListener('click', async () => {
+    const error = $('start-error');
+    error.hidden = true;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
+    } catch {
+      error.textContent = 'The camera could not start. Allow camera access for skatemods.com and try again.';
+      error.hidden = false;
+      return;
+    }
+    show('scan');
+    video.srcObject = stream;
+    await video.play();
+    try { await models(); } catch (e) {
+      stop();
+      show('intro');
+      error.textContent = `The face model could not load: ${(e as Error).message}`;
+      error.hidden = false;
+      return;
+    }
+    scan();
+  });
+  $('cancel').addEventListener('click', () => { stop(); show('intro'); });
+
+  // The scan: find one face, see it turn both ways (a printed photo can't), then take the most
+  // front-on frame.
+  function scan() {
+    running = true;
+    const overlay = $<HTMLCanvasElement>('overlay');
+    const ctx = overlay.getContext('2d')!;
+    const prompt = $('prompt');
+    const steps = { face: false, left: false, right: false, front: false };
+    const mark = (id: keyof typeof steps) => { steps[id] = true; $(`s-${id}`).classList.add('ok'); };
+    for (const id of Object.keys(steps)) $(`s-${id}`).classList.remove('ok');
+    let best: { score: number; frame: ImageData; landmarks: any[] } | null = null;
+    let frontFrames = 0;
+    let last = -1;
+    const grab = document.createElement('canvas');
+    const gc = grab.getContext('2d', { willReadFrequently: true })!;
+
+    const loop = () => {
+      if (!running) return;
+      if (video.readyState < 2 || video.currentTime === last) { requestAnimationFrame(loop); return; }
+      last = video.currentTime;
+      const w = video.videoWidth, h = video.videoHeight;
+      overlay.width = w; overlay.height = h;
+      const result = landmarker!.detectForVideo(video, performance.now());
+      ctx.clearRect(0, 0, w, h);
+      const faces = result.faceLandmarks ?? [];
+      if (faces.length !== 1) {
+        prompt.textContent = faces.length ? 'Only one face in the frame, please.' : 'Hold the phone at arm’s length and look at it.';
+        requestAnimationFrame(loop);
+        return;
+      }
+      const lm = faces[0];
+      ctx.fillStyle = 'rgba(255, 90, 60, 0.8)';
+      for (let i = 0; i < 468; i += 3) ctx.fillRect(lm[i].x * w - 1.5, lm[i].y * h - 1.5, 3, 3);
+      const size = faceSize(lm);
+      if (size < 0.28) { prompt.textContent = 'Move the phone closer.'; requestAnimationFrame(loop); return; }
+      if (size > 0.8) { prompt.textContent = 'Move the phone back a little.'; requestAnimationFrame(loop); return; }
+      if (!steps.face) mark('face');
+      const turn = yaw(lm);
+      if (turn < -0.17 && !steps.left) mark('left');
+      if (turn > 0.17 && !steps.right) mark('right');
+      if (!steps.left || !steps.right) {
+        prompt.textContent = !steps.left && !steps.right ? 'Turn your head slowly to one side…' : '…and now to the other side.';
+      } else {
+        prompt.textContent = 'Now look straight at the camera and hold still.';
+        if (Math.abs(turn) < 0.035) {
+          gc.canvas.width = w; gc.canvas.height = h;
+          gc.drawImage(video, 0, 0, w, h);
+          const score = Math.abs(turn);
+          if (!best || score < best.score) best = { score, frame: gc.getImageData(0, 0, w, h), landmarks: lm.map((p) => ({ x: p.x, y: p.y, z: p.z })) };
+          if (++frontFrames >= 8) {
+            mark('front');
+            finish(best!);
+            return;
+          }
+        }
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+
+  let frame: Frame | null = null;
+  let result: Analysis | null = null;
+  let face: HTMLCanvasElement | null = null;
+  let stopPreview = () => {};
+
+  function finish(best: { frame: ImageData; landmarks: any[] }) {
+    stop();
+    $('prompt').textContent = 'Working it out…';
+    const seg = segmenter!.segment(best.frame);
+    const mask = seg.categoryMask!;
+    frame = { image: best.frame, landmarks: best.landmarks, mask: mask.getAsUint8Array().slice(), maskWidth: mask.width, maskHeight: mask.height };
+    seg.close();
+    result = analyse(frame);
+    $<HTMLInputElement>('skin').value = hex(result.skin);
+    $<HTMLInputElement>('skin-shade').value = '0';
+    $<HTMLInputElement>('hair').value = hex(result.hair);
+    $<HTMLSelectElement>('hair-style').value = result.hairStyle;
+    $<HTMLSelectElement>('facial-hair').value = result.facialHair;
+    $('notes').textContent = result.notes.join(' ');
+    show('review');
+    render();
+  }
+
+  function skinNow(): Rgb {
+    const base = fromHex($<HTMLInputElement>('skin').value);
+    const shade = Number($<HTMLInputElement>('skin-shade').value) / 100;
+    return base.map((c) => Math.max(0, Math.min(255, shade >= 0 ? c + (255 - c) * shade : c * (1 + shade)))) as Rgb;
+  }
+  function render() {
+    if (!frame) return;
+    face = unwrap(frame, skinNow());
+    const flat = $<HTMLCanvasElement>('flat');
+    flat.getContext('2d')!.drawImage(face, 0, 0, flat.width, flat.height);
+    stopPreview();
+    stopPreview = preview($<HTMLCanvasElement>('head'), face);
+  }
+  $('skin').addEventListener('change', render);
+  $('skin-shade').addEventListener('change', render);
+  $('again').addEventListener('click', () => { stopPreview(); frame = null; show('intro'); });
+
+  $('tune').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const error = $('send-error');
+    error.hidden = true;
+    if (!CODE.test(code)) {
+      error.textContent = 'Enter the code from the game first (at the top of this page).';
+      error.hidden = false;
+      show('intro');
+      return;
+    }
+    const pick = (id: string) => { const v = $<HTMLSelectElement>(id).value; return v === 'keep' ? null : v; };
+    const meta = {
+      skin: hex(skinNow()), hair: $<HTMLInputElement>('hair').value,
+      hairStyle: pick('hair-style'), facialHair: pick('facial-hair'),
+    };
+    const body = new FormData();
+    body.set('meta', JSON.stringify(meta));
+    if ($<HTMLInputElement>('send-face').checked && face) {
+      const png = await new Promise<Blob | null>((r) => face!.toBlob(r, 'image/png'));
+      if (png) body.set('texture', png, 'face.png');
+    }
+    const send = $<HTMLButtonElement>('send');
+    send.disabled = true;
+    try {
+      const res = await fetch(`/api/face/${code}`, { method: 'POST', body, credentials: 'same-origin' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+      // Nothing of the scan is kept in the page once it is sent.
+      stopPreview();
+      frame = null; face = null;
+      $('sent-meta').textContent = `Code ${code}. Deleted on pickup, or at ${new Date(data.expiresAt * 1000).toLocaleString()} at the latest.`;
+      show('sent');
+    } catch (err) {
+      error.textContent = `Not sent: ${(err as Error).message}`;
+      error.hidden = false;
+    } finally {
+      send.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .face { max-width: 920px; }
+  .code-row { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-bottom: 0.5rem; }
+  .code-row form { display: flex; gap: 0.5rem; align-items: end; flex-wrap: wrap; }
+  .code-row label { display: grid; gap: 0.3rem; font-weight: 600; }
+  input:not([type]), select { font: inherit; padding: 0.45rem 0.6rem; border: 1.5px solid var(--ink); border-radius: var(--radius); background: var(--bg); color: var(--ink); }
+  #code-input { font-family: var(--font-mono); width: 13ch; }
+  .hint { color: var(--ink-soft); max-width: 65ch; }
+  .consent ul { padding-left: 1.2rem; color: var(--ink-soft); max-width: 70ch; }
+  .consent li + li { margin-top: 0.3rem; }
+  .check { display: flex; gap: 0.5rem; align-items: start; margin: 1rem 0; }
+  .check input { margin-top: 0.3rem; }
+  .error { color: var(--bad); }
+
+  .stage { position: relative; width: 100%; max-width: 560px; aspect-ratio: 3 / 4; background: var(--bg-sunk); border: 1px solid var(--ink); overflow: hidden; }
+  .stage video, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+  .prompt { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 0.7rem 0.9rem; background: var(--ink); color: var(--bg); font-weight: 600; }
+  .steps { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0.8rem 0 1rem; }
+
+  .review { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .review { grid-template-columns: 1fr 1fr; } }
+  .previews { display: grid; grid-template-columns: 1fr; gap: 0.75rem; align-content: start; }
+  #head { width: 100%; max-width: 420px; aspect-ratio: 1; border-top: 1px solid var(--ink); }
+  #flat { width: 128px; height: 128px; border: 1px solid var(--line); image-rendering: auto; }
+  .tune { display: grid; gap: 0.9rem; align-content: start; }
+  .tune > label:not(.check) { display: grid; gap: 0.3rem; font-weight: 600; }
+  .tune input[type='color'] { width: 3rem; height: 2.2rem; padding: 0; border: 1.5px solid var(--ink); border-radius: var(--radius); background: none; }
+  .swatch-row { display: flex; gap: 0.8rem; align-items: center; }
+  .swatch-row input[type='range'] { flex: 1; }
+</style>

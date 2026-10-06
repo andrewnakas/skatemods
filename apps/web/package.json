@@ -6,14 +6,15 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/face-assets.mjs && astro dev",
+    "build": "node scripts/face-assets.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "sync:catalog": "node scripts/sync-catalog.mjs",
     "check:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
     "astro": "^7.3.5",
     "marked": "^15.0.12"
   },

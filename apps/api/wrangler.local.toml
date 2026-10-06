@@ -10,6 +10,10 @@ directory = "../web/dist"
 run_worker_first = ["/api/*"]
 not_found_handling = "404-page"
 
+# Hourly: purge face scans nobody picked up within 24 hours (src/face.ts).
+[triggers]
+crons = ["0 * * * *"]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "skatemods"
@@ -30,3 +34,4 @@ MAX_UPLOAD_BYTES = "2147483648"
 MAX_PENDING_PER_USER = "5"
 DEV_LOGIN = "1"
 SIGNUPS_PER_HOUR = "1000"
+FACE_SCANS_PER_HOUR = "1000"

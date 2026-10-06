@@ -5,6 +5,7 @@ import { auth, loadUser, sameOrigin } from './auth';
 import { maps, me } from './maps';
 import { admin } from './admin';
 import { runner } from './runner';
+import { face, purgeFaceScans } from './face';
 import { LICENSES } from './policy';
 import { PART_SIZE } from './storage';
 
@@ -32,6 +33,7 @@ app.route('/me', me);
 app.route('/maps', maps);
 app.route('/admin', admin);
 app.route('/runner', runner);
+app.route('/face', face);
 
 app.notFound((c) => c.json({ error: 'Not found' }, 404));
 app.onError((err, c) => {
@@ -40,4 +42,9 @@ app.onError((err, c) => {
   return c.json({ error: 'Something went wrong' }, 500);
 });
 
-export default app;
+export default {
+  fetch: app.fetch,
+  async scheduled(_event: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
+    ctx.waitUntil(purgeFaceScans(env));
+  },
+} satisfies ExportedHandler<AppEnv['Bindings']>;

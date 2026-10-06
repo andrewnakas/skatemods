@@ -6,6 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 # Same origin as the site, so the session cookie never leaves skatemods.com.
 routes = [{ pattern = "skatemods.com/api/*", zone_name = "skatemods.com" }]
 
+# Hourly: purge face scans nobody picked up within 24 hours (src/face.ts).
+[triggers]
+crons = ["0 * * * *"]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "skatemods"

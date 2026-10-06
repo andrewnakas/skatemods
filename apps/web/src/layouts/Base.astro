@@ -11,9 +11,11 @@ interface Props {
   schema?: Record<string, unknown>;
   /** 'small' for a square image (a mod icon) instead of a 1200x630 card. */
   card?: 'large' | 'small';
+  /** Leave Google Analytics off (the face scan page). */
+  noAnalytics?: boolean;
 }
 
-const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large' } = Astro.props;
+const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large', noAnalytics = false } = Astro.props;
 const imageUrl = new URL(image, 'https://skatemods.com');
 const fullTitle = title === 'skatemods' ? 'skatemods: modding every skate game' : `${title} · skatemods`;
 const path = Astro.url.pathname;
@@ -60,13 +62,13 @@ const active = (href: string) => path.startsWith(href);
     <script is:inline>
       try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
     </script>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-GPC9R5H2NY"></script>
-    <script is:inline>
+    {!noAnalytics && <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-GPC9R5H2NY"></script>}
+    {!noAnalytics && <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-GPC9R5H2NY');
-    </script>
+    </script>}
   </head>
   <body>
     <a class="skip visually-hidden" href="#main">Skip to content</a>

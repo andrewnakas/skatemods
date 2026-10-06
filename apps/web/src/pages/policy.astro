@@ -38,6 +38,10 @@ import PageHead from '../components/PageHead.astro';
 
     <h2>Your data</h2>
     <p>Signing in with GitHub gives us your public profile only: login, name and avatar. No email and no repository access. Uploads, outputs and an audit log of moderation actions are kept in Cloudflare R2 and D1 until deleted.</p>
+    <h2 id="face">Face scans</h2>
+    <p>The <a href="/face/">face scan</a> page turns on your phone's camera only after you agree to this. Face detection and everything else the scan does runs in the page, on your phone. The camera feed, photos and face landmarks are never uploaded.</p>
+    <p>When you press <strong>Send to my game</strong>, the page uploads a skin colour, a hair colour, a hairstyle and facial hair type, and (unless you untick it) a flat face texture made from one frame. They are stored under the pairing code your game showed, with a hash of your IP address for rate limiting. Your game downloads them once and that deletes them. Anything not picked up is deleted after 24 hours. The face scan page does not load Google Analytics.</p>
+    <p>Only scan your own face.</p>
     <p>The site uses Google Analytics to count page views and see which pages people use. It sets cookies and sends your IP address, browser and the pages you visit to Google. We don't send it your account or anything you upload. To opt out, block it in your browser or use Google's <a href="https://tools.google.com/dlpage/gaoptout">opt-out add-on</a>.</p>
   </div>
 </Base>

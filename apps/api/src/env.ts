@@ -14,6 +14,8 @@ export interface Env {
   MAPS_REPO: string;
   /** New site accounts allowed per client per hour (default 3). */
   SIGNUPS_PER_HOUR?: string;
+  /** Face scans allowed per client per hour (default 10). */
+  FACE_SCANS_PER_HOUR?: string;
   /** Local development only: enables /api/auth/dev-login. Never set in production. */
   DEV_LOGIN?: string;
 }

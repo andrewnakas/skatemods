@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import { getMods } from '../lib/thunderstore';
 
 // Public pages only: account, upload and admin screens are left out.
-const pages = ['/', '/games/', '/maps/', '/reskate/', '/guides/', '/faq/', '/history/', '/history/people/', '/blog/', '/community/', '/tools/', '/recomp/', '/play/', '/convert/', '/about/', '/policy/'];
+const pages = ['/', '/games/', '/maps/', '/reskate/', '/guides/', '/faq/', '/history/', '/history/people/', '/blog/', '/community/', '/tools/', '/recomp/', '/play/', '/convert/', '/about/', '/policy/', '/face/'];
 
 export async function GET() {
   const [games, guides, faq, communities, blog, mods] = await Promise.all([
