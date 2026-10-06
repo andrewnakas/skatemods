@@ -5,7 +5,7 @@ games: [thps-1-2, thps-3-4]
 years: 2022–present
 scene: active
 order: 6
-updated: 2026-10-02
+updated: 2026-10-06
 people:
   - name: bAstimc
     role: Author of THPSPro for THPS 1+2 and 3+4. Started learning UE4 in February 2022 with guidance from GHFear, after years modding THAW and Project 8 builds. THPSPro ports levels from later games and restores classic tech, along with goals, a free-roam camera and a LAN mode.
@@ -46,6 +46,16 @@ milestones:
     body: The first big 3+4 update brings back custom restarts, the free-roam camera, lost levels and goals, plus recreated tech like boostplants.
     who: bAstimc
     source: https://www.youtube.com/watch?v=EYQx_2aP3LI
+  - date: 2026-02-05
+    title: Update 10
+    body: The 1+2 version reaches update 10, with a video featuring paige and blood. The 3+4 version updates to 1.1 the same day.
+    who: bAstimc
+    source: https://www.youtube.com/watch?v=zcjAOqHk3JU
+  - date: 2026-07-22
+    title: Update 10.2
+    body: The latest 1+2 release, with an update video featuring DebugBrat. It follows 10.1 on May 10.
+    who: bAstimc
+    source: https://www.youtube.com/watch?v=CK0-AsMRQvM
 links:
   - label: THPSPro for 1+2 (Nexus)
     url: https://www.nexusmods.com/tonyhawksproskater1and2/mods/121
@@ -65,4 +75,4 @@ Update videos on YouTube track the growth, and each one thanks a long list of he
 
 ## Then 3+4 shipped
 
-Iron Galaxy's [THPS 3+4](https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_3_%2B_4) came out in July 2025, and THPSPro moved with it. The [1.0 release for 3+4](https://www.youtube.com/watch?v=EYQx_2aP3LI) brought back custom restarts, the free-roam camera, lost levels and goals, and recreated old-school tech like boostplants. Both versions install as Unreal `.pak` files in the game's `~mods` folder. The rest of the remakes' Nexus scene is mostly character swaps and quality-of-life tweaks. THPSPro's own Discord is linked from [discord.thpspro.com](https://discord.thpspro.com).
+Iron Galaxy's [THPS 3+4](https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_3_%2B_4) came out in July 2025, and THPSPro moved with it. The [1.0 release for 3+4](https://www.youtube.com/watch?v=EYQx_2aP3LI) brought back custom restarts, the free-roam camera, lost levels and goals, and recreated old-school tech like boostplants. Both versions install as Unreal `.pak` files in the game's `~mods` folder. The rest of the remakes' Nexus scene is mostly character swaps and quality-of-life tweaks. bAstimc is also credited in [reTHAWed](/history/rethawed/), the American Wasteland total conversion, for its THPS 1+2 physics. THPSPro's own Discord is linked from [discord.thpspro.com](https://discord.thpspro.com).

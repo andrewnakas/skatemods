@@ -19,9 +19,11 @@ export const hubs: Hub[] = [
   { name: 'Illusory', game: 'session', scene: 'session', kind: 'discord', invite: 'Mt3qzgN', what: 'Home of the Unreal Mod Unlocker that Session Mod Manager uses, and a large Unreal modding community.' },
   { name: 'Session (crea-ture Studios)', game: 'session', scene: 'session', kind: 'discord', invite: 'session', what: 'The official Session: Skate Sim server, with channels for maps and mods.' },
   { name: 'THPSPro', game: 'thps-1-2', scene: 'thps-pro', kind: 'discord', invite: 'G9A8xWq9Hw', what: 'Mods for the THPS 1+2 and 3+4 remakes, and the THPSPro project.' },
+  { name: '10K Rising', game: 'tony-hawk-classic', scene: 'rethawed', kind: 'discord', invite: 'rethawed', what: 'Home of reTHAWed, the THAW total conversion: releases, mods, online sessions and help.' },
   { name: 'THUG Pro community', game: 'tony-hawk-classic', scene: 'thug-pro', kind: 'discord', invite: 'KateaQP', what: 'The Discord linked from thugpro.com: online sessions, custom levels and help.' },
   { name: 'ReSkate Thunderstore', game: 'skate-2025', kind: 'mods', url: 'https://thunderstore.io/c/reskate/', what: 'Every ReSkate mod, browsable here on skate. mods or in the ReSkate launcher.' },
   { name: 'Skater XL on mod.io', game: 'skater-xl', scene: 'skater-xl', kind: 'mods', url: 'https://mod.io/g/skaterxl', what: 'Maps and gear for Skater XL, also available in the game\'s own Mod Browser.' },
+  { name: 'reTHAWed mod depository', game: 'tony-hawk-classic', scene: 'rethawed', kind: 'mods', url: 'https://thpsgoat.com/mods', what: 'Custom skaters, decks, Create-a-Skater items and levels for reTHAWed, hosted by thpsGoat.' },
   { name: 'THPSX forums', game: 'tony-hawk-classic', scene: 'thug-pro', kind: 'forum', url: 'https://thpsx.com/', what: 'The long-running Tony Hawk\'s community site, with forums, the THPSX podcast and THUG Pro history.' },
 ];
 

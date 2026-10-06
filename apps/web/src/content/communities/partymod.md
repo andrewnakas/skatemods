@@ -5,7 +5,7 @@ games: [tony-hawk-classic]
 years: 2013–present
 scene: active
 order: 3
-updated: 2026-10-02
+updated: 2026-10-06
 people:
   - name: PARTYMANX
     role: Writes every PARTYMOD patch, for THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and Mat Hoffman's Pro BMX, including a Vulkan renderer for THPS2.
@@ -88,11 +88,21 @@ milestones:
     body: Both Underground games get PARTYMOD 1.0 together, with credit to ClownJob'd for much of the inspiration.
     who: PARTYMANX
     source: https://github.com/PARTYMANX/partymod-thug1/releases
+  - date: 2026-09-05
+    title: THPS3 2.0 previews
+    body: The first of four public previews of the rewritten THPS3 patch. The shared Rust code moves into a new partymod-common repository the day before.
+    who: PARTYMANX
+    source: https://github.com/PARTYMANX/partymod-thps3/releases/tag/v2.0.0-preview01
   - date: 2026-10-01
     title: PARTYMOD THPS3 2.0
-    body: Rewritten in Rust and moved to SDL3, after a year spent chasing every THPS3 fix PARTYMANX wanted.
+    body: Rewritten in Rust and moved to SDL3 ahead of THPS3's 25th anniversary, after a year spent chasing every THPS3 fix PARTYMANX wanted. It restores pedestrian shadows, shiny surfaces, texture animations and vibration, and the park editor works on a controller.
     who: PARTYMANX
     source: https://github.com/PARTYMANX/partymod-thps3/releases/tag/v2.0.0
+  - date: 2026-10-05
+    title: PARTYMOD THPS2 1.1.5
+    body: Fixes window z-fighting near the Gonz rail and how the Vulkan renderer picks a present mode, and updates SDL.
+    who: PARTYMANX
+    source: https://github.com/PARTYMANX/partymod-thps2/releases/tag/v1.1.5
 links:
   - label: PARTYMOD site and writeups
     url: https://partymod.newnet.city/
@@ -116,6 +126,6 @@ The Tony Hawk's PC ports ran their online play through GameSpy. When it [shut do
 
 PARTYMANX released [PARTYMOD for THPS3](https://github.com/PARTYMANX/partymod-thps3/releases/tag/1.0) on the game's 21st birthday in October 2022. Over the next two years it spread to every Neversoft PC port: THPS4, American Wasteland, THPS2, Mat Hoffman's Pro BMX, and both Underground games on the same day in December 2024. The [project site](https://partymod.newnet.city/) calls it "a series of patches, mostly for the Tony Hawk's Pro Skater series, that fixes bugs as well as introduces modernizations such as modern controller support via SDL2". The [THUG patches](https://github.com/PARTYMANX/partymod-thug2) credit ClownJob'd for much of their inspiration.
 
-The patches are deliberately conservative. They're "designed to keep the game as original as possible, and leave its files unmodified" ([README](https://github.com/PARTYMANX/partymod-thps3)). A small `partypatcher.exe` writes a patched copy of the executable and leaves the original alone. Along the way PARTYMANX wrote a [Vulkan renderer for THPS2](https://partymod.newnet.city/writeups/1.html). On October 1, 2026, they released [THPS3 2.0](https://github.com/PARTYMANX/partymod-thps3/releases/tag/v2.0.0), rewritten in Rust on SDL3.
+The patches are deliberately conservative. They're "designed to keep the game as original as possible, and leave its files unmodified" ([README](https://github.com/PARTYMANX/partymod-thps3)). A small `partypatcher.exe` writes a patched copy of the executable and leaves the original alone. Along the way PARTYMANX wrote a [Vulkan renderer for THPS2](https://partymod.newnet.city/writeups/1.html). On October 1, 2026, they released [THPS3 2.0](https://github.com/PARTYMANX/partymod-thps3/releases/tag/v2.0.0), rewritten in Rust on SDL3 ([writeup](https://partymod.newnet.city/writeups/4.html)). Updating from 1.x means running the new patcher again. PARTYMANX also rewrote the input and output code for [reTHAWed](/history/rethawed/), the American Wasteland total conversion, which credits them for it.
 
-To install either patch, see [Get started with THUG Pro and PARTYMOD](/guides/thug-pro-and-partymod/).
+To install either patch, see [Get started with THUG Pro, reTHAWed and PARTYMOD](/guides/thug-pro-and-partymod/).

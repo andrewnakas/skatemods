@@ -47,6 +47,7 @@ export const tools: Tool[] = [
   { name: 'skate3-audio', by: 'Nakas', game: 'skate-3', kind: 'research', open: true, url: 'https://github.com/andrewnakas/skate3-audio', what: 'RenderWare Audio decompilation tooling and container format docs.' },
   // Tony Hawk's
   { name: 'THUG Pro', by: 'Morten Larson, Quazz, %.Gone, Chase', game: 'tony-hawk-classic', kind: 'port', open: false, url: 'https://thpsx.com/thugpro-info/', what: 'THUG2 total conversion with levels from every Neversoft game, online play and custom levels.' },
+  { name: 'reTHAWed', by: 'Zedek, Uzis and the 10K Rising team', game: 'tony-hawk-classic', kind: 'port', open: false, url: 'https://www.rethawed.com/', what: 'THAW total conversion with levels from THPS1 to Project 8, THAW and THUG2 story modes, mod support and OpenSpy online.' },
   { name: 'PARTYMOD', by: 'PARTYMANX', game: 'tony-hawk-classic', kind: 'patch', open: true, url: 'https://partymod.newnet.city/', what: 'Fixes, SDL2 controllers, widescreen and OpenSpy online for THPS2 through THAW.' },
   { name: 'THPSPro (1+2)', by: 'THPSPro team', game: 'thps-1-2', kind: 'maps', open: false, url: 'https://www.nexusmods.com/tonyhawksproskater1and2/mods/121', what: 'Levels from THPS3 to Project 8 in the remake, plus a free-roam camera and unlocked cheats.' },
   { name: 'THPSPro (3+4)', by: 'THPSPro team', game: 'thps-3-4', kind: 'patch', open: false, url: 'https://www.nexusmods.com/tonyhawksproskater34/mods/1', what: 'Classic skaters, a free-roam camera and hidden cheats for the 2025 remake.' },

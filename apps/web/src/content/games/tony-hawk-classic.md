@@ -1,6 +1,6 @@
 ---
 title: Tony Hawk's (classic PC)
-short: Neversoft's THPS2 through American Wasteland on PC, kept alive by THUG Pro, PARTYMOD, ClownJob'd and OpenSpy online play.
+short: Neversoft's THPS2 through American Wasteland on PC, kept alive by THUG Pro, reTHAWed, PARTYMOD, ClownJob'd and OpenSpy online play.
 year: 2000
 developer: Neversoft
 engine: Neversoft engine (THPS / THUG)
@@ -10,11 +10,13 @@ scene: thriving
 order: 6
 howToMod:
   - '[THUG Pro](https://thugpro.com/), a total conversion of THUG2 that collects levels from every Neversoft game, with online play and custom levels.'
+  - '[reTHAWed](https://www.rethawed.com/), a total conversion of American Wasteland with levels from THPS1 to Project 8, both THAW''s and THUG2''s story modes, mod support and online play.'
   - '[PARTYMOD](https://partymod.newnet.city/) patches THPS2, THPS3, THPS4, THUG, THUG2, THAW and Mat Hoffman''s Pro BMX with fixes, SDL2 controllers, widescreen and OpenSpy online.'
   - '[ClownJob''d](https://thpsx.com/forums/index.php?topic=1529.0), the THUG2 patch that inspired PARTYMOD, adds modern Windows support and OpenSpy multiplayer.'
   - 'Custom levels for THUG Pro come from the [THPSX community](https://thpsx.com/) and its Blender import/export plugin.'
 links:
   - { label: THUG Pro, url: 'https://thpsx.com/thugpro-info/' }
+  - { label: reTHAWed, url: 'https://www.rethawed.com/' }
   - { label: PARTYMOD, url: 'https://partymod.newnet.city/' }
   - { label: PARTYMOD THUG2 source, url: 'https://github.com/PARTYMANX/partymod-thug2' }
   - { label: PCGamingWiki (THUG2), url: "https://www.pcgamingwiki.com/wiki/Tony_Hawk's_Underground_2" }
@@ -28,12 +30,16 @@ The classic Tony Hawk's games have the deepest PC modding history of any skate s
 
 Custom levels and soundtracks come from the **THPSX** community, using a Blender plugin (2017, updated 2018) that imports and exports THUG Pro levels. Reviewers have called it a better Tony Hawk game than the official *THPS5*.
 
+## reTHAWed
+
+**reTHAWed**, by the 10K Rising team, does for *American Wasteland* what THUG Pro does for THUG2 ([history](/history/rethawed/)). It collects levels from every main Neversoft game from THPS1 to Project 8, hundreds of skaters, classic mode tours for THPS2, THPS3 and Project 8, mod support and OpenSpy online play. It also keeps THAW's story mode, and since version 5.0 in **October 2026** it includes THUG2's story mode too ([5.0 write-up](/blog/rethawed-5/)). It installs through its own updater for Windows or Linux.
+
 ## PARTYMOD and ClownJob'd
 
 **PARTYMOD**, by PARTYMANX, is a family of open-source patches for THPS2, THPS3, THPS4, THUG, THUG2, American Wasteland and *Mat Hoffman's Pro BMX*. Each one fixes bugs, adds modern controller support through SDL2, supports widescreen resolutions, and connects online play to **OpenSpy**, the community replacement for GameSpy. PARTYMOD credits the earlier **ClownJob'd** THUG2 patch as its inspiration.
 
 ## Where to start
 
-1. Pick a game: THUG2 for THUG Pro, or any supported game for PARTYMOD.
+1. Pick a game: THUG2 for THUG Pro, American Wasteland for reTHAWed, or any supported game for PARTYMOD.
 2. Install from your own PC copy, then apply the patch or mod.
 3. Join the OpenSpy lobbies for online play.
