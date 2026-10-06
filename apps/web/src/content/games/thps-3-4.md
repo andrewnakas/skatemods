@@ -10,7 +10,7 @@ scene: active
 order: 8
 howToMod:
   - Build in the official Create-A-Park and share through its online park browser. Parks work in private matches.
-  - 'On PC, install character swaps and other mods from [Nexus Mods](https://www.nexusmods.com/games/tonyhawksproskater34/mods).'
+  - 'On PC, install character swaps and other mods from [Nexus Mods](https://www.nexusmods.com/games/tonyhawksproskater34/mods) into `Base\Content\Paks\~mods`, following our [remake modding guide](/guides/mod-thps-remakes/).'
   - 'Use [THPSPro](https://www.nexusmods.com/tonyhawksproskater34/mods/1) for extra features, classic skaters, a free-roam camera and hidden cheats.'
 links:
   - { label: THPSPro on Nexus, url: 'https://www.nexusmods.com/tonyhawksproskater34/mods/1' }
@@ -22,5 +22,7 @@ links:
 ## PC mods
 
 On PC, the scene arrived within weeks of launch. Nexus Mods hosts custom characters, such as crossover skaters from other franchises, along with visual tweaks and a port of **THPSPro** with classic skaters, a free-roam camera and hidden cheats.
+
+The game runs on Unreal Engine 4.27, and mods drop into `Base\Content\Paks\~mods` with no loader needed. The [remake modding guide](/guides/mod-thps-remakes/) lists the most-downloaded ones. Activision's terms forbid mods, so read [Can I use mods online?](/faq/thps-remake-mods-online/) before taking them into the cross-platform lobbies.
 
 Mods are PC-only. The console versions only get Create-A-Park.

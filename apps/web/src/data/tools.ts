@@ -48,7 +48,11 @@ export const tools: Tool[] = [
   // Tony Hawk's
   { name: 'THUG Pro', by: 'Morten Larson, Quazz, %.Gone, Chase', game: 'tony-hawk-classic', kind: 'port', open: false, url: 'https://thpsx.com/thugpro-info/', what: 'THUG2 total conversion with levels from every Neversoft game, online play and custom levels.' },
   { name: 'reTHAWed', by: 'Zedek, Uzis and the 10K Rising team', game: 'tony-hawk-classic', kind: 'port', open: false, url: 'https://www.rethawed.com/', what: 'THAW total conversion with levels from THPS1 to Project 8, THAW and THUG2 story modes, mod support and OpenSpy online.' },
+  { name: 'THUG Vita', by: 'iwannagooutside', game: 'tony-hawk-classic', kind: 'port', open: true, url: 'https://github.com/iwannagooutside/thug-vita-port', what: 'Native PS Vita port of THUG, built on kisak-thug. Needs custom firmware and your own USA Xbox disc.' },
+  { name: 'kisak-thug', by: 'SwagSoftware', game: 'tony-hawk-classic', kind: 'port', open: true, url: 'https://github.com/SwagSoftware/kisak-thug', what: 'Work-in-progress Windows port of THUG\'s source code with DirectX 9 and SDL input. Needs your own Xbox game data.' },
   { name: 'PARTYMOD', by: 'PARTYMANX', game: 'tony-hawk-classic', kind: 'patch', open: true, url: 'https://partymod.newnet.city/', what: 'Fixes, SDL2 controllers, widescreen and OpenSpy online for THPS2 through THAW.' },
+  { name: 'FModel', by: '4sval, with CUE4Parse by FabianFG', game: 'thps-1-2', kind: 'research', open: true, url: 'https://github.com/4sval/FModel/releases/latest', what: 'Browse and export assets from the THPS 1+2 and 3+4 paks; decrypts both games without a key.' },
+  { name: 'repak', by: 'trumank', game: 'thps-1-2', kind: 'textures', open: true, url: 'https://github.com/trumank/repak/releases/latest', what: 'Packs and unpacks Unreal .pak files, for building your own _P.pak mods.' },
   { name: 'THPSPro (1+2)', by: 'THPSPro team', game: 'thps-1-2', kind: 'maps', open: false, url: 'https://www.nexusmods.com/tonyhawksproskater1and2/mods/121', what: 'Levels from THPS3 to Project 8 in the remake, plus a free-roam camera and unlocked cheats.' },
   { name: 'THPSPro (3+4)', by: 'THPSPro team', game: 'thps-3-4', kind: 'patch', open: false, url: 'https://www.nexusmods.com/tonyhawksproskater34/mods/1', what: 'Classic skaters, a free-roam camera and hidden cheats for the 2025 remake.' },
   // Sims
