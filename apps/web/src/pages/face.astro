@@ -21,7 +21,7 @@ import PageHead from '../components/PageHead.astro';
         <h3>Before you start</h3>
         <ul>
           <li>The camera feed stays on your phone. Face detection runs in this page; no video or photo is uploaded.</li>
-          <li>What is uploaded: a skin colour, a hair colour, a hairstyle and facial hair type, and a flat face texture made from one frame.</li>
+          <li>What is uploaded: a flat face texture made from one frame, plus a skin colour, hair colour, hairstyle and facial hair type that the game matches to its own options.</li>
           <li>Your game downloads it once, and that deletes it. Anything not picked up is deleted after 24 hours. This page has no analytics. <a href="/policy/#face">Details</a>.</li>
         </ul>
         <label class="check"><input type="checkbox" id="consent" /> This is my own face, and I agree to the above.</label>
@@ -52,6 +52,7 @@ import PageHead from '../components/PageHead.astro';
           <canvas id="flat" width="256" height="256" aria-label="The face texture"></canvas>
         </div>
         <form id="tune" class="tune">
+          <p class="hint">Your face goes on as scanned. For skin tone and hair, the game picks its own option closest to these colours. Adjust them if the light was off.</p>
           <label>Skin tone
             <span class="swatch-row"><input type="color" id="skin" /><input type="range" id="skin-shade" min="-30" max="30" value="0" aria-label="Lighter or darker" /></span>
           </label>
@@ -76,7 +77,7 @@ import PageHead from '../components/PageHead.astro';
               <option value="beard">Beard</option>
             </select>
           </label>
-          <label class="check"><input type="checkbox" id="send-face" checked /> Send the face texture (untick to send colours and hair only)</label>
+          <label class="check"><input type="checkbox" id="send-face" checked /> Send my face (untick to send skin tone and hair only)</label>
           <p class="meta" id="notes"></p>
           <p class="error" id="send-error" role="alert" hidden></p>
           <div class="btns">
