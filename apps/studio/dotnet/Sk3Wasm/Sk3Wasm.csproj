@@ -14,6 +14,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <InvariantGlobalization>true</InvariantGlobalization>
     <WasmEnableThreads>false</WasmEnableThreads>
+    <!-- Retail-size maps (150k+ triangles, hundreds of textures) need more than the default heap. -->
+    <EmccMaximumHeapSize>4294901760</EmccMaximumHeapSize>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>

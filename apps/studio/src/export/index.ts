@@ -1,6 +1,7 @@
 import type { MapIR, Mesh } from '../ir';
 import { transformPoint } from '../ir';
 import { writeGlb } from '../util/glb';
+import { computeNormals } from '../util/normals';
 
 export type Target = 'skate' | 'reskate' | 'skate3' | 'glb';
 
@@ -31,7 +32,8 @@ export function mergeMap(map: MapIR, which: 'render' | 'collision' | 'all' = 're
   const byMaterial = new Map<number, number[]>();
   let vbase = 0;
   for (const o of objects) {
-    const m = o.mesh, t = o.transform;
+    const m = o.mesh.normals ? o.mesh : { ...o.mesh, normals: computeNormals(o.mesh.positions, o.mesh.indices) };
+    const t = o.transform;
     // Normal matrix: inverse transpose of the upper 3x3 (uniform-scale shortcut is not safe).
     const nm = normalMatrix(t);
     for (let i = 0; i < m.positions.length / 3; i++) {
@@ -42,8 +44,9 @@ export function mergeMap(map: MapIR, which: 'render' | 'collision' | 'all' = 're
         const x = nm[0] * n[i * 3] + nm[3] * n[i * 3 + 1] + nm[6] * n[i * 3 + 2];
         const y = nm[1] * n[i * 3] + nm[4] * n[i * 3 + 1] + nm[7] * n[i * 3 + 2];
         const z = nm[2] * n[i * 3] + nm[5] * n[i * 3 + 1] + nm[8] * n[i * 3 + 2];
-        const l = Math.hypot(x, y, z) || 1;
-        normals.set([x / l, y / l, z / l], (vbase + i) * 3);
+        const l = Math.hypot(x, y, z);
+        // Unreferenced or degenerate vertices get a valid up normal rather than zero length.
+        normals.set(l > 1e-8 ? [x / l, y / l, z / l] : [0, 1, 0], (vbase + i) * 3);
       }
       if (m.uvs) uvs.set([m.uvs[i * 2], m.uvs[i * 2 + 1]], (vbase + i) * 2);
     }
@@ -61,11 +64,12 @@ export function mergeMap(map: MapIR, which: 'render' | 'collision' | 'all' = 're
   const groups: Mesh['groups'] = [];
   let o = 0;
   for (const [material, list] of byMaterial) {
+    if (!list.length) continue;
     indices.set(list, o);
     groups.push({ start: o, count: list.length, material });
     o += list.length;
   }
-  return { positions, normals, uvs, indices, groups };
+  return { positions, normals, uvs, indices: indices.subarray(0, o), groups };
 }
 
 function det3(m: number[]): number {
@@ -101,7 +105,7 @@ export async function exportMap(map: MapIR, target: Target, progress: (t: string
     }
     case 'glb': {
       const mesh = mergeMap(map);
-      return { name: `${safe}.glb`, bytes: writeGlb(map.name, mesh, map.materials, map.textures), warnings: [] };
+      return { name: `${safe}.glb`, bytes: writeGlb(map.name, mesh, map.materials, map.textures, { spawns: map.spawns, rails: map.rails }), warnings: [] };
     }
     case 'skate3': {
       const { writeSkate3 } = await import('../formats/skate3/client');

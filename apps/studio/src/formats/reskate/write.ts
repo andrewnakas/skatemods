@@ -142,16 +142,31 @@ export function buildHandshake(map: MapIR, opts: ReskateExportOptions = {}): Res
     });
   }
 
+  // Grind rails become invisible collision prisms. Retail maps carry thousands of rails, and
+  // ReSkate caps collision parts, so rails are merged into one object per 64 m map cell.
   const radius = opts.railRadius ?? RAIL_RADIUS;
+  const RAIL_CELL = 64;
+  const cells = new Map<string, { names: string[]; positions: number[]; indices: number[] }>();
   for (const rail of map.rails) {
     const { positions, indices } = railMesh(rail.points, rail.closed, radius);
     if (!indices.length) { warnings.push(`rail ${rail.name}: no usable points`); continue; }
-    const name = unique(`grind_${safeName(rail.name, 'rail')}`);
+    const p0 = rail.points[0];
+    const key = `${Math.floor(p0[0] / RAIL_CELL)}_${Math.floor(p0[2] / RAIL_CELL)}`;
+    const cell = cells.get(key) ?? cells.set(key, { names: [], positions: [], indices: [] }).get(key)!;
+    const base = cell.positions.length / 3;
+    for (const v of positions) cell.positions.push(v);
+    for (const i of indices) cell.indices.push(base + i);
+    cell.names.push(rail.name);
+  }
+  for (const [key, cell] of cells) {
+    const label = cell.names.length === 1 ? cell.names[0] : `rails ${key} (${cell.names.length})`;
+    const name = unique(`grind_${safeName(label, 'rail')}`);
     const rel = `meshes/${name}.glb`;
-    const mesh: Mesh = { positions, indices, groups: [{ start: 0, count: indices.length, material: -1 }] };
-    files[rel] = writeGlb(rail.name, mesh, [], []);
+    const idx = new Uint32Array(cell.indices);
+    const mesh: Mesh = { positions: new Float32Array(cell.positions), indices: idx, groups: [{ start: 0, count: idx.length, material: -1 }] };
+    files[rel] = writeGlb(label, mesh, [], []);
     objects.push({
-      name: `${rail.name} (grind curve)`,
+      name: `${label} (grind curve)`,
       placement_mode: 'authored_mesh',
       render: false,
       collision_mesh: rel,

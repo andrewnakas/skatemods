@@ -1,7 +1,7 @@
 // A small procedural park so people can try the tools without a file.
 import type { MapIR, Mesh, Vec3 } from './ir';
 import { defaultMaterial, emptyMap, IDENTITY } from './ir';
-import { computeNormals } from './three/toIR';
+import { computeNormals } from './util/normals';
 
 class Builder {
   positions: number[] = [];

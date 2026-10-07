@@ -16,7 +16,8 @@
 //   The Blender exporter writes the spawn's Euler Z, which maps to the same
 //   rotation about runtime +Y.
 // - Surfaces: gameplay surface is per material (audio/physics/pattern); see surfaces.ts.
-import type { Light, MapIR, MapObject, Material, MeshGroup, Rail, Texture } from '../../ir';
+import { decodeRwcmSet } from './rwcm';
+import type { Light, MapIR, MapObject, Material, MeshGroup, Rail, SurfaceId, Texture } from '../../ir';
 import { IDENTITY, emptyMap } from '../../ir';
 import type { SkateCollisionExtra, SkateMapExtra, SkateRailExtra, SkateRenderExtra } from './extra';
 import { parseSkate, type ParseOptions } from './parse';
@@ -63,6 +64,7 @@ export function skateToMapIR(raw: SkateMap): MapIR {
 
   map.objects.push(renderObject(raw));
   if (raw.geometry.collision.count > 0) map.objects.push(collisionObject(raw));
+  else map.objects.push(...rwcmObjects(raw, map.warnings));
 
   map.rails = raw.rails.map(railToIR);
 
@@ -98,7 +100,7 @@ export function skateToMapIR(raw: SkateMap): MapIR {
   const native = raw.rails.filter((r) => r.native).length;
   if (native) map.warnings.push(`${native} native spline rail(s) sampled to polylines; unchanged ones are written back natively.`);
   if (raw.extensions.some((e) => e.tag === 'RWCM')) {
-    map.warnings.push('Collision comes from the embedded RWCM archive (retail clustered mesh), which overrides portable collision; it is kept as passthrough.');
+    map.warnings.push('Collision comes from the embedded RWCM archive (retail clustered mesh). It is decoded for other formats and written back unchanged to .skate.');
   }
   return map;
 }
@@ -190,6 +192,42 @@ function collisionObject(raw: SkateMap): MapObject {
     collision: { mode: 'mesh' },
     extra: { skate: extra },
   };
+}
+
+/**
+ * Retail maps carry collision only as an RWCM archive. Decode it into one collision object per
+ * gameplay surface so other formats get real collision. Tagged kind 'rwcm' so the .skate writer
+ * skips them while the original archive is still passed through.
+ */
+function rwcmObjects(raw: SkateMap, warnings: string[]): MapObject[] {
+  const ext = raw.extensions.find((e) => e.tag === 'RWCM' && e.payload.length > 0);
+  if (!ext) return [];
+  let tris;
+  try { tris = decodeRwcmSet(ext.payload); } catch (e) {
+    warnings.push(`Could not decode the RWCM collision archive (${e instanceof Error ? e.message : e}); other formats get no collision.`);
+    return [];
+  }
+  const bySurface = new Map<SurfaceId, number[]>();
+  for (let t = 0; t < tris.count; t++) {
+    const packed = tris.surfaces[t];
+    const id = surfaceFromSkate({ audio: packed & 127, physics: (packed >> 7) & 31, pattern: packed >> 12 });
+    (bySurface.get(id) ?? bySurface.set(id, []).get(id)!).push(t);
+  }
+  const out: MapObject[] = [];
+  for (const [surface, list] of bySurface) {
+    const positions = new Float32Array(list.length * 9);
+    list.forEach((t, i) => positions.set(tris.points.subarray(t * 9, t * 9 + 9), i * 9));
+    const indices = Uint32Array.from({ length: list.length * 3 }, (_, i) => i);
+    out.push({
+      name: `${raw.name} collision (${surface})`,
+      mesh: { positions, indices, groups: [{ start: 0, count: indices.length, material: 0 }] },
+      transform: [...IDENTITY],
+      render: false,
+      collision: { mode: 'mesh', surface },
+      extra: { skate: { kind: 'rwcm' } },
+    });
+  }
+  return out;
 }
 
 /** Samples per native spline segment when converting to a polyline. */

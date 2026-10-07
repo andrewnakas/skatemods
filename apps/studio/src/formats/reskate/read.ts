@@ -85,11 +85,23 @@ export function readReskateHandshake(files: Record<string, Uint8Array>, name?: s
       const g = glb(rec.collision_mesh ?? rec.mesh);
       const prim = g?.meshes[0]?.primitives[0];
       if (!prim) continue;
-      // Each prism ring's first corner lies on the curve (see rails.ts).
-      const points: Vec3[] = [];
-      for (let i = 0; i + RAIL_SIDES <= prim.positions.length / 3; i += RAIL_SIDES)
-        points.push([prim.positions[i * 3], prim.positions[i * 3 + 1], prim.positions[i * 3 + 2]]);
-      map.rails.push({ name: String(rec.name).replace(/ \(grind curve\)$/, ''), points, closed: false });
+      // Each prism ring's first corner lies on the curve (see rails.ts). Several rails can share
+      // one object; a ring that no triangle links to the previous one starts a new rail.
+      const rings = prim.positions.length / 3 / RAIL_SIDES;
+      const linked = new Set<number>();
+      for (let t = 0; t < prim.indices.length; t += 3) {
+        const a = Math.floor(prim.indices[t] / RAIL_SIDES), b = Math.floor(prim.indices[t + 1] / RAIL_SIDES), c = Math.floor(prim.indices[t + 2] / RAIL_SIDES);
+        for (const [x, y] of [[a, b], [b, c], [a, c]]) if (Math.abs(x - y) === 1) linked.add(Math.min(x, y));
+      }
+      const base = String(rec.name).replace(/ \(grind curve\)$/, '');
+      let points: Vec3[] = [];
+      const flush = () => { if (points.length >= 2) map.rails.push({ name: map.rails.some(r => r.name === base) || rings > points.length ? `${base} ${map.rails.length + 1}` : base, points, closed: false }); points = []; };
+      for (let r = 0; r < rings; r++) {
+        const i = r * RAIL_SIDES * 3;
+        points.push([prim.positions[i], prim.positions[i + 1], prim.positions[i + 2]]);
+        if (!linked.has(r)) flush();
+      }
+      flush();
       continue;
     }
     const rel = rec.mesh ?? rec.collision_mesh;

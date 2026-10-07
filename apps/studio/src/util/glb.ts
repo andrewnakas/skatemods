@@ -1,6 +1,6 @@
 // Minimal glTF 2.0 binary writer and reader for static triangle meshes.
 // Enough for ReSkate handshake meshes and Skate 3 builder input; no skins, morphs or Draco.
-import type { Material, Mesh, Texture } from '../ir';
+import type { Material, Mesh, Rail, Spawn, Texture } from '../ir';
 import { concat, encodePng, imageInfo } from './png';
 
 const ARRAY_BUFFER = 34962, ELEMENT_ARRAY_BUFFER = 34963;
@@ -50,7 +50,9 @@ class BinBuilder {
  * Writes one node with one mesh. Each MeshGroup becomes a primitive (in group order),
  * so primitive i uses materials[groupMaterials[i]]. Textures are embedded as PNG/JPEG.
  */
-export function writeGlb(name: string, mesh: Mesh, materials: Material[], textures: Texture[]): Uint8Array {
+export interface GlbMarkers { spawns?: Spawn[]; rails?: Rail[] }
+
+export function writeGlb(name: string, mesh: Mesh, materials: Material[], textures: Texture[], markers: GlbMarkers = {}): Uint8Array {
   const bin = new BinBuilder();
   const gltfMaterials: Record<string, unknown>[] = [];
   const images: Record<string, unknown>[] = [];
@@ -59,7 +61,8 @@ export function writeGlb(name: string, mesh: Mesh, materials: Material[], textur
   const texIndex = new Map<number, number>();
 
   const textureRef = (t: number | undefined): number | undefined => {
-    if (t === undefined || !textures[t]) return undefined;
+    // A texture needs TEXCOORD_0; collision-only meshes often have none.
+    if (t === undefined || !textures[t] || !mesh.uvs) return undefined;
     if (!texIndex.has(t)) {
       const tex = textures[t];
       const encoded = textureBytes(tex);
@@ -92,24 +95,54 @@ export function writeGlb(name: string, mesh: Mesh, materials: Material[], textur
     return matIndex.get(m)!;
   };
 
-  const attributes: Record<string, number> = { POSITION: bin.accessor(mesh.positions, 'VEC3', ARRAY_BUFFER, true) };
-  if (mesh.normals) attributes.NORMAL = bin.accessor(mesh.normals, 'VEC3', ARRAY_BUFFER);
-  if (mesh.uvs) attributes.TEXCOORD_0 = bin.accessor(mesh.uvs, 'VEC2', ARRAY_BUFFER);
-  if (mesh.uv2) attributes.TEXCOORD_1 = bin.accessor(mesh.uv2, 'VEC2', ARRAY_BUFFER);
+  // Each primitive gets only the vertices it uses (as Blender's glTF exporter does). Sharing one
+  // vertex buffer across hundreds of primitives makes importers copy it once per primitive.
+  const normalsOk = !!mesh.normals && validNormals(mesh.normals);
+  const shared = mesh.groups.length <= 1;
+  const sharedAttributes = shared ? attributesFor(bin, mesh, null, normalsOk) : null;
+  const primitives = mesh.groups.filter(g => g.count > 0).map(g => {
+    const slice = mesh.indices.subarray(g.start, g.start + g.count);
+    let attributes = sharedAttributes, indices: Uint32Array = slice;
+    if (!attributes) {
+      const remap = new Map<number, number>();
+      const used: number[] = [];
+      indices = new Uint32Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        let v = remap.get(slice[i]);
+        if (v === undefined) { v = used.length; used.push(slice[i]); remap.set(slice[i], v); }
+        indices[i] = v;
+      }
+      attributes = attributesFor(bin, mesh, used, normalsOk);
+    } else indices = slice.slice();
+    return {
+      attributes,
+      indices: bin.accessor(indices, 'SCALAR', ELEMENT_ARRAY_BUFFER),
+      material: materials[g.material] ? materialRef(g.material) : undefined,
+      mode: 4,
+    };
+  });
 
-  const primitives = mesh.groups.map(g => ({
-    attributes,
-    indices: bin.accessor(mesh.indices.slice(g.start, g.start + g.count), 'SCALAR', ELEMENT_ARRAY_BUFFER),
-    material: materials[g.material] ? materialRef(g.material) : undefined,
-    mode: 4,
-  }));
+  // Spawns as empty nodes facing local -Z (how Blender's glTF export writes empties), and rails
+  // as LINE_STRIP meshes named rail_*, so a GLB round trip through the studio keeps both.
+  const nodes: Record<string, unknown>[] = [{ name, mesh: 0 }];
+  const meshes: Record<string, unknown>[] = [{ name, primitives }];
+  for (const s of markers.spawns ?? []) {
+    const half = ((s.yaw + 180) * Math.PI) / 360;
+    nodes.push({ name: s.name.toLowerCase().startsWith('spawn') ? s.name : `spawn_${s.name}`, translation: s.position, rotation: [0, Math.sin(half), 0, Math.cos(half)] });
+  }
+  for (const r of markers.rails ?? []) {
+    if (r.points.length < 2) continue;
+    const pts = new Float32Array((r.closed ? [...r.points, r.points[0]] : r.points).flat());
+    meshes.push({ name: r.name, primitives: [{ attributes: { POSITION: bin.accessor(pts, 'VEC3', ARRAY_BUFFER, true) }, mode: 3 }] });
+    nodes.push({ name: `rail_${r.name}`, mesh: meshes.length - 1 });
+  }
 
   const json: Record<string, unknown> = {
     asset: { version: '2.0', generator: 'skatemods map studio' },
     scene: 0,
-    scenes: [{ nodes: [0] }],
-    nodes: [{ name, mesh: 0 }],
-    meshes: [{ name, primitives }],
+    scenes: [{ nodes: nodes.map((_, i) => i) }],
+    nodes,
+    meshes,
     accessors: bin.accessors,
     bufferViews: bin.views,
     buffers: [{ byteLength: 0 }],
@@ -135,6 +168,29 @@ export function writeGlb(name: string, mesh: Mesh, materials: Material[], textur
   v.setUint32(b, binPadded.length, true); v.setUint32(b + 4, 0x004e4942, true);
   out.set(binPadded, b + 8);
   return out;
+}
+
+function attributesFor(bin: BinBuilder, mesh: Mesh, used: number[] | null, normalsOk: boolean): Record<string, number> {
+  const pick = (src: Float32Array, n: number) => {
+    if (!used) return src;
+    const out = new Float32Array(used.length * n);
+    for (let i = 0; i < used.length; i++) for (let k = 0; k < n; k++) out[i * n + k] = src[used[i] * n + k];
+    return out;
+  };
+  const a: Record<string, number> = { POSITION: bin.accessor(pick(mesh.positions, 3), 'VEC3', ARRAY_BUFFER, true) };
+  if (mesh.normals && normalsOk) a.NORMAL = bin.accessor(pick(mesh.normals, 3), 'VEC3', ARRAY_BUFFER);
+  if (mesh.uvs) a.TEXCOORD_0 = bin.accessor(pick(mesh.uvs, 2), 'VEC2', ARRAY_BUFFER);
+  if (mesh.uv2) a.TEXCOORD_1 = bin.accessor(pick(mesh.uv2, 2), 'VEC2', ARRAY_BUFFER);
+  return a;
+}
+
+/** glTF requires unit-length normals; one bad vertex fails strict readers (SharpGLTF). */
+function validNormals(n: Float32Array): boolean {
+  for (let i = 0; i < n.length; i += 3) {
+    const l = n[i] * n[i] + n[i + 1] * n[i + 1] + n[i + 2] * n[i + 2];
+    if (!(Math.abs(l - 1) < 0.01)) return false;
+  }
+  return true;
 }
 
 /** PNG/JPEG bytes for a texture: passes through encoded PNG/JPEG, otherwise encodes rgba. */

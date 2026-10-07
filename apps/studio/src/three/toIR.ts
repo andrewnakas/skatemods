@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import type { MapIR, Material, Mesh, Texture } from '../ir';
 import { defaultMaterial, emptyMap } from '../ir';
 import { guessSurface } from '../surfaces';
+import { computeNormals } from '../util/normals';
+export { computeNormals };
 
 export interface ToIROptions {
   /** Multiply all positions (e.g. 0.01 for centimetre FBX). */
@@ -11,6 +13,11 @@ export interface ToIROptions {
   zUp?: boolean;
   /** UVs use OpenGL convention (v=0 at the bottom), as from OBJ/FBX/DAE loaders: flip to glTF's. */
   flipV?: boolean;
+  /**
+   * The local axis a spawn empty faces. glTF exporters rotate empties into Y-up, so a
+   * Blender empty's +Y arrives as local -Z; FBX and Collada keep Blender's local axes (+Y).
+   */
+  spawnForward?: 'negZ' | 'posY';
 }
 
 /** Reads pixels of any three texture image (ImageBitmap, HTMLImageElement, canvas, data). */
@@ -136,8 +143,7 @@ export async function threeToIR(root: THREE.Object3D, name: string, opts: ToIROp
     if (lname.startsWith('spawn')) {
       const world = new THREE.Matrix4().multiplyMatrices(fix, obj.matrixWorld);
       const p = new THREE.Vector3().setFromMatrixPosition(world);
-      // A Blender empty faces its +Y, which glTF's Y-up export turns into local -Z.
-      const f = new THREE.Vector3(0, 0, -1).transformDirection(world);
+      const f = (opts.spawnForward === 'posY' ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(0, 0, -1)).transformDirection(world);
       map.spawns.push({ name: obj.name, position: [p.x, p.y, p.z], yaw: (Math.atan2(f.x, f.z) * 180) / Math.PI });
     }
     if ((obj as THREE.Line).isLine && /rail|grind/.test(lname)) {
@@ -186,18 +192,4 @@ function indexed(geom: THREE.BufferGeometry): THREE.BufferGeometry {
   return g;
 }
 
-export function computeNormals(positions: Float32Array, indices: Uint32Array): Float32Array {
-  const n = new Float32Array(positions.length);
-  for (let i = 0; i < indices.length; i += 3) {
-    const a = indices[i] * 3, b = indices[i + 1] * 3, c = indices[i + 2] * 3;
-    const ux = positions[b] - positions[a], uy = positions[b + 1] - positions[a + 1], uz = positions[b + 2] - positions[a + 2];
-    const vx = positions[c] - positions[a], vy = positions[c + 1] - positions[a + 1], vz = positions[c + 2] - positions[a + 2];
-    const nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
-    for (const k of [a, b, c]) { n[k] += nx; n[k + 1] += ny; n[k + 2] += nz; }
-  }
-  for (let i = 0; i < n.length; i += 3) {
-    const l = Math.hypot(n[i], n[i + 1], n[i + 2]) || 1;
-    n[i] /= l; n[i + 1] /= l; n[i + 2] /= l;
-  }
-  return n;
-}
+

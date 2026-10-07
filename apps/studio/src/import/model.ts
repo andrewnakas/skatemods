@@ -47,6 +47,7 @@ export async function loadModel(main: InputFile, files: InputFile[]): Promise<Im
   const name = mainName.replace(/\.[^.]+$/, '');
   let root: THREE.Object3D;
   let zUp = false, flipV = true, scale = 1, axisUnknown = false;
+  let spawnForward: 'negZ' | 'posY' = 'negZ';
 
   try {
     if (kind === 'glb' || kind === 'gltf') {
@@ -63,6 +64,7 @@ export async function loadModel(main: InputFile, files: InputFile[]): Promise<Im
       root = await new FBXLoader(manager).loadAsync(mainUrl);
       // FBXLoader keeps file units; most exports are centimetres. Guess from size.
       scale = guessFbxScale(root);
+      spawnForward = 'posY';
     } else if (kind === 'obj') {
       const loader = new OBJLoader(manager);
       const mtlFile = files.find(f => ext(f.path) === 'mtl');
@@ -76,6 +78,7 @@ export async function loadModel(main: InputFile, files: InputFile[]): Promise<Im
     } else if (kind === 'dae') {
       const dae = await new ColladaLoader(manager).loadAsync(mainUrl);
       root = dae!.scene; // ColladaLoader already applies the file's up axis and units
+      spawnForward = 'posY';
     } else if (kind === 'stl' || kind === 'ply') {
       const geom = kind === 'stl' ? new STLLoader(manager).parse(main.bytes.slice().buffer) : new PLYLoader(manager).parse(main.bytes.slice().buffer);
       geom.computeVertexNormals();
@@ -89,7 +92,7 @@ export async function loadModel(main: InputFile, files: InputFile[]): Promise<Im
     } else throw new Error(`.${kind} is not supported`);
 
     await waitForTextures(manager);
-    const map = await threeToIR(root, name, { zUp, flipV, scale });
+    const map = await threeToIR(root, name, { zUp, flipV, scale, spawnForward });
     map.source = `model .${kind}`;
     if (scale !== 1) map.warnings.push(`Scaled by ${scale} (FBX in centimetres). Change it under Map if the skater looks wrong.`);
     if (missing.size) map.warnings.push(`Missing files: ${[...missing].join(', ')}. Drop them in with the model.`);

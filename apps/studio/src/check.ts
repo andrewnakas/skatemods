@@ -243,7 +243,8 @@ export function runChecks(map: MapIR, scale = 1): CheckResult[] {
     const heights: number[] = [], high: Vec3[] = [];
     for (const r of map.rails) for (const p0 of r.points) {
       const p: Vec3 = [p0[0] * scale, p0[1] * scale, p0[2] * scale];
-      const g = grid.down(p[0], p[1] - 0.05, p[2]);
+      // Start 25 cm under the rail so the rail's own collision isn't taken for the ground.
+      const g = grid.down(p[0], p[1] - 0.25, p[2]);
       if (g === null) continue;
       const h = p[1] - g;
       heights.push(h);
@@ -272,7 +273,11 @@ export function runChecks(map: MapIR, scale = 1): CheckResult[] {
   for (const s of map.spawns) {
     const g = grid.down(s.position[0] * scale, s.position[1] * scale + 0.5, s.position[2] * scale);
     if (g === null) results.push({ id: 'spawn', level: 'warn', text: `Spawn "${s.name}" has no ground under it.`, points: [s.position] });
-    else if (Math.abs(g - s.position[1] * scale) > 0.3) results.push({ id: 'spawn', level: 'warn', text: `Spawn "${s.name}" is ${(s.position[1] * scale - g).toFixed(2)} m off the ground.`, points: [s.position] });
+    else {
+      // Retail conversions place spawns 1 m up and the skater drops onto the ground; only flag more than that, or below it.
+      const off = s.position[1] * scale - g;
+      if (off < -0.05 || off > 1.2) results.push({ id: 'spawn', level: 'warn', text: `Spawn "${s.name}" is ${off.toFixed(2)} m ${off < 0 ? 'below' : 'above'} the ground.`, points: [s.position] });
+    }
   }
   if (!map.spawns.length) results.push({ id: 'spawn', level: 'warn', text: 'No spawn yet. Use the Spawn tool, or Auto spawn.', points: [] });
   return results;

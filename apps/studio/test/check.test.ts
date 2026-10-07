@@ -32,7 +32,7 @@ describe('checks', () => {
     map.spawns.push({ name: 'spawn', position: [10, 3, 10], yaw: 0 });
     const r = runChecks(map);
     expect(r.find(x => x.id === 'drops' && x.level === 'warn')?.points.length).toBeGreaterThan(0);
-    expect(r.find(x => x.id === 'spawn')?.text).toMatch(/off the ground/);
+    expect(r.find(x => x.id === 'spawn')?.text).toMatch(/above the ground/);
     expect(r.find(x => x.id === 'rooftops')).toBeTruthy();
   });
 

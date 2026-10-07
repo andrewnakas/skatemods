@@ -118,9 +118,12 @@ export function mapIRToSkate(map: MapIR): { raw: SkateMap; warnings: string[] } 
   const edges: number[] = [];
   let ordinal = 0;
   let skipped = 0;
+  const rwcmKept = (pass?.extensions ?? []).some((e) => e.tag === 'RWCM' && e.payload.length > 0);
   for (const o of map.objects) {
     const mode = o.collision.mode;
     if (mode === 'none') continue;
+    // Decoded RWCM collision: the archive itself is written back, so skip the copy.
+    if (rwcmKept && (o.extra?.skate as { kind?: string } | undefined)?.kind === 'rwcm') continue;
     ordinal++;
     if (mode === 'convex' || mode === 'hull') {
       warnings.push(`${o.name}: collision mode '${mode}' written as exact triangles (no convex decomposition in .skate export).`);

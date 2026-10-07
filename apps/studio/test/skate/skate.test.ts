@@ -194,7 +194,8 @@ describe('sample maps (skipped when work/ is absent)', () => {
       // MapIR view.
       expect(validate(map)).toEqual([]);
       expect(map.objects[0].mesh.indices.length / 3).toBe(s.triangles);
-      expect(map.objects.length).toBe(s.collision ? 2 : 1);
+      // Retail maps without triangle collision also get decoded RWCM collision objects.
+      expect(map.objects.filter((o) => (o.extra?.skate as { kind?: string } | undefined)?.kind !== 'rwcm').length).toBe(s.collision ? 2 : 1);
       expect(map.textures.length).toBe(s.textures);
       expect(map.materials.length).toBe(raw.materials.length);
       expect(map.rails.length).toBe(s.rails);
