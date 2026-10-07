@@ -1,0 +1,52 @@
+name: Map Studio (GitHub Pages test build)
+
+on:
+  push:
+    branches: [main]
+    paths: ['apps/studio/**', '.github/workflows/studio-pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: studio-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/studio/package-lock.json
+      - run: npm ci
+      - run: npx vitest run
+      # The Skate 3 tools (.NET WebAssembly) build from the pinned converter sources when present.
+      - name: Build Skate 3 WebAssembly tools
+        if: hashFiles('apps/studio/dotnet/build.sh') != ''
+        run: bash dotnet/build.sh
+      - run: npm run build
+        env:
+          STUDIO_BASE: /skatemods/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/studio/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

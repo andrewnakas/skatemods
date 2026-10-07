@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map Studio</title>
+  <meta name="description" content="Convert skate maps between Skate 3, the Skate 3 Rust engine and ReSkate, or build one from any 3D model or .blend file. Runs in your browser; nothing is uploaded.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23141413'/%3E%3Cpath d='M6 22h20M9 22l3-9h8l3 9' stroke='%23d63a1f' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="bar">
+    <a class="brand" href="https://skatemods.com/">skatemods</a>
+    <span class="slash">/</span>
+    <h1>Map Studio</h1>
+    <span class="test" title="This build is for testing. It goes on skatemods.com once the authors of the tools it builds on have signed off.">Test build</span>
+    <nav class="bar-actions">
+      <button id="open-btn" type="button">Open</button>
+      <button id="save-btn" type="button" disabled>Save project</button>
+      <button id="credits-btn" type="button">Credits</button>
+      <button id="theme-btn" type="button" aria-label="Toggle dark mode">Dark</button>
+    </nav>
+    <input id="file-input" type="file" multiple hidden>
+  </header>
+
+  <main class="app">
+    <aside class="panel left" aria-label="Map">
+      <section id="map-section">
+        <h2>Map</h2>
+        <p class="empty">Nothing loaded yet.</p>
+      </section>
+      <section id="objects-section" hidden>
+        <h2>Objects <span class="count" id="object-count"></span></h2>
+        <input id="object-filter" type="search" placeholder="Filter objects" aria-label="Filter objects">
+        <ol id="object-list" class="rows"></ol>
+      </section>
+    </aside>
+
+    <section class="view">
+      <div class="toolbar" role="toolbar" aria-label="Tools">
+        <div class="seg" id="tools">
+          <button data-tool="select" class="on" title="Select (1)">Select</button>
+          <button data-tool="spawn" title="Place spawn (2)">Spawn</button>
+          <button data-tool="rail" title="Draw rail (3)">Rail</button>
+          <button data-tool="edge-rail" title="Rail from an edge (4)">Edge rail</button>
+        </div>
+        <div class="seg" id="modes">
+          <button data-mode="textured" class="on">Textured</button>
+          <button data-mode="surfaces">Surfaces</button>
+          <button data-mode="collision">Collision</button>
+        </div>
+        <button id="frame-btn" title="Frame (F)">Frame</button>
+      </div>
+      <div class="canvas" id="canvas">
+        <div class="drop" id="drop">
+          <div class="drop-inner">
+            <p class="drop-title">Drop a map or a model</p>
+            <p>.blend, .glb, .gltf, .fbx, .obj, .dae, .stl, .ply<br>.skate, a ReSkate map folder or zip, or a Skate 3 DLC .big</p>
+            <p><button id="pick-btn" type="button" class="primary">Choose files</button> <button id="sample-btn" type="button">Load a sample park</button></p>
+            <p class="fine">Everything runs in this tab. Your files are not uploaded.</p>
+          </div>
+        </div>
+        <div class="busy" id="busy" hidden><span id="busy-text">Working</span></div>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <aside class="panel right" aria-label="Edit and export">
+      <section id="inspector-section" hidden>
+        <h2 id="inspector-title">Selection</h2>
+        <div id="inspector"></div>
+      </section>
+      <section id="spawns-section" hidden>
+        <h2>Spawns <span class="count" id="spawn-count"></span></h2>
+        <ol id="spawn-list" class="rows"></ol>
+        <p><button id="auto-spawn-btn" type="button">Auto spawn</button></p>
+      </section>
+      <section id="rails-section" hidden>
+        <h2>Rails <span class="count" id="rail-count"></span></h2>
+        <ol id="rail-list" class="rows"></ol>
+      </section>
+      <section id="check-section" hidden>
+        <h2>Check</h2>
+        <p class="hint">Measures the map against skate.'s skater limits. Rules and limits from <a href="https://github.com/Rinoversal/Skaterino" target="_blank" rel="noopener">Skaterino</a>.</p>
+        <p><button id="check-btn" type="button">Run checks</button></p>
+        <ol id="check-list" class="checks"></ol>
+      </section>
+      <section id="export-section" hidden>
+        <h2>Export</h2>
+        <ul id="target-list" class="targets"></ul>
+        <p><button id="export-btn" type="button" class="primary">Export</button></p>
+        <ol id="export-log" class="log"></ol>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="credits">
+    <h2>Built on</h2>
+    <p>Map Studio converts between formats other people worked out. It is a test build until they have looked at it.</p>
+    <table class="credits">
+      <tbody>
+        <tr><th>ReSkate Studio</th><td>The map export format (map.json) and the <code>reskate_cli compile-map</code> step the ReSkate export runs.</td></tr>
+        <tr><th><a href="https://github.com/Ethanw05/DumbadsSkate3ModdingTools" target="_blank" rel="noopener">Dumbad's Skate 3 Modding Tools</a> (Ethanw05)</th><td>ArenaBuilder and DlcBuilder: GLB to Skate 3 meshes, collision, textures and DLC packages.</td></tr>
+        <tr><th><a href="https://github.com/andrewnakas/skate3-ps3-to-x360" target="_blank" rel="noopener">sk3</a></th><td>Skate 3 .big, stream and arena reading and writing, PS3 and Xbox 360.</td></tr>
+        <tr><th><a href="https://github.com/SK8-ENGINE/skate-3-rust-engine" target="_blank" rel="noopener">Skate 3 Rust engine</a></th><td>The .skate map format.</td></tr>
+        <tr><th><a href="https://github.com/Rinoversal/Skaterino" target="_blank" rel="noopener">Skaterino</a> (Rinoversal)</th><td>The playability rules and skate. limits used by Check.</td></tr>
+        <tr><th><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>, <a href="https://github.com/101arrowz/fflate" target="_blank" rel="noopener">fflate</a>, <a href="https://github.com/101arrowz/fzstd" target="_blank" rel="noopener">fzstd</a></th><td>Model loading, rendering, zip and zstd.</td></tr>
+      </tbody>
+    </table>
+    <form method="dialog"><button class="primary">Close</button></form>
+  </dialog>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
