@@ -2,7 +2,7 @@ import type { MapIR, Mesh } from '../ir';
 import { transformPoint } from '../ir';
 import { writeGlb } from '../util/glb';
 
-export type Target = 'skate' | 'reskate' | 'skate3-x360' | 'skate3-recomp' | 'skate3-ps3' | 'glb';
+export type Target = 'skate' | 'reskate' | 'skate3' | 'glb';
 
 export interface TargetInfo {
   id: Target;
@@ -16,17 +16,15 @@ export interface TargetInfo {
 export const TARGETS: TargetInfo[] = [
   { id: 'reskate', label: 'ReSkate (skate.)', file: '.zip', note: 'ReSkate Studio map folder plus a build script. Building needs skate. and ReSkate Studio on Windows.' },
   { id: 'skate', label: 'Skate 3 Rust engine', file: '.skate', note: 'Loads directly in the Rust engine and in the browser player.' },
-  { id: 'skate3-recomp', label: 'Skate 3 recomp', file: '.big', note: 'Standalone DLC pack for skate3recomp and the Level Loader.', heavy: true },
-  { id: 'skate3-x360', label: 'Skate 3 Xbox 360', file: '.big', note: 'DLC pack for Xbox 360 / Xenia.', heavy: true },
-  { id: 'skate3-ps3', label: 'Skate 3 PS3', file: '.big', note: 'DLC pack for PS3 / RPCS3.', heavy: true },
+  { id: 'skate3', label: 'Skate 3 (Xbox 360, recomp)', file: '.big', note: 'Standalone DLC pack for skate3recomp with the Level Loader, Xenia or an Xbox 360. PS3 output is not available yet.', heavy: true },
   { id: 'glb', label: 'glTF (GLB)', file: '.glb', note: 'The whole map as one GLB, for Blender or any 3D tool.' },
 ];
 
 export interface ExportOutput { name: string; bytes: Uint8Array; warnings: string[] }
 
 /** Bakes every rendered object into world space as one mesh (materials kept per group). */
-export function mergeMap(map: MapIR, which: 'render' | 'collision' = 'render'): Mesh {
-  const objects = map.objects.filter(o => which === 'render' ? o.render : o.collision.mode !== 'none');
+export function mergeMap(map: MapIR, which: 'render' | 'collision' | 'all' = 'render'): Mesh {
+  const objects = map.objects.filter(o => which === 'all' || (which === 'render' ? o.render : o.collision.mode !== 'none'));
   let vcount = 0, icount = 0;
   for (const o of objects) { vcount += o.mesh.positions.length / 3; icount += o.mesh.indices.length; }
   const positions = new Float32Array(vcount * 3), normals = new Float32Array(vcount * 3), uvs = new Float32Array(vcount * 2);
@@ -105,11 +103,9 @@ export async function exportMap(map: MapIR, target: Target, progress: (t: string
       const mesh = mergeMap(map);
       return { name: `${safe}.glb`, bytes: writeGlb(map.name, mesh, map.materials, map.textures), warnings: [] };
     }
-    default: {
+    case 'skate3': {
       const { writeSkate3 } = await import('../formats/skate3/client');
-      const platform = target === 'skate3-x360' ? 'x360' : target === 'skate3-ps3' ? 'ps3' : 'recomp';
-      const bytes = await writeSkate3(map, platform, progress);
-      return { name: `${safe}_${platform}.big`, bytes, warnings: [] };
+      return writeSkate3(map, progress);
     }
   }
 }

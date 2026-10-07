@@ -401,7 +401,7 @@ $('check-list').onclick = e => {
 
 // ---------- export ----------
 function loadTargets(): Target[] {
-  try { const v = JSON.parse(localStorage.getItem('studio-targets') ?? 'null'); if (Array.isArray(v)) return v; } catch { /* ignore */ }
+  try { const v = JSON.parse(localStorage.getItem('studio-targets') ?? 'null'); if (Array.isArray(v)) return v.filter(t => TARGETS.some(x => x.id === t)); } catch { /* ignore */ }
   return ['reskate', 'skate'];
 }
 

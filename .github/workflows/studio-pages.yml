@@ -30,10 +30,19 @@ jobs:
           cache-dependency-path: apps/studio/package-lock.json
       - run: npm ci
       - run: npx vitest run
-      # The Skate 3 tools (.NET WebAssembly) build from the pinned converter sources when present.
+      # Skate 3 export runs ArenaBuilder/DlcBuilder (Dumbad's Skate 3 Modding Tools, no license
+      # yet) as .NET WebAssembly. It is only built and hosted once the repo variable
+      # STUDIO_SKATE3 is "true", which we set after the author OKs hosting it.
+      - uses: actions/setup-dotnet@v4
+        if: vars.STUDIO_SKATE3 == 'true'
+        with:
+          dotnet-version: 9.0.x
       - name: Build Skate 3 WebAssembly tools
-        if: hashFiles('apps/studio/dotnet/build.sh') != ''
-        run: bash dotnet/build.sh
+        if: vars.STUDIO_SKATE3 == 'true'
+        run: |
+          dotnet workload install wasm-tools
+          bash ../../converter/fetch_tools.sh "$GITHUB_WORKSPACE/work/tools"
+          DOTNET_ROOT="$(dirname "$(which dotnet)")" bash dotnet/build.sh
       - run: npm run build
         env:
           STUDIO_BASE: /skatemods/

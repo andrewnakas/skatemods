@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AbLib>Core</AbLib><AbMd5Shim>true</AbMd5Shim></PropertyGroup>
+  <Import Project="../ArenaBuilder.Lib.props" />
+  <ItemGroup>
+  </ItemGroup>
+</Project>

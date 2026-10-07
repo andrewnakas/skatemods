@@ -1,0 +1,27 @@
+<Project>
+  <!--
+    Shared settings for the browser builds of ArenaBuilder Modular's library projects. Each
+    ArenaBuilder.<X>/ArenaBuilder.<X>.csproj here compiles the pinned checkout's
+    src/ArenaBuilder.<X>/**/*.cs unmodified, under the same assembly name, so the dependency graph
+    is the upstream one. The only addition is Md5Shim.cs in the assemblies that call
+    MD5.HashData (Core, Collision, Mesh): the .NET browser runtime has no MD5
+    ("Cryptography_UnknownHashAlgorithm, MD5"), and ArenaBuilder.MD5 wins C# name lookup
+    (enclosing namespace) over the System.Security.Cryptography using-directive, so those calls
+    bind to the managed implementation without a source change.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ArenaBuilder.$(AbLib)</AssemblyName>
+    <RootNamespace>ArenaBuilder.$(AbLib)</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <NoWarn>$(NoWarn);CS1591;CS8618;CS8602;CS8604;CS8600;CS8603;CS0168;CS0219;CS0414;CS0649;CS0169;CS8619;CS8620;CS8625</NoWarn>
+    <AbSrc>$(MSBuildThisFileDirectory)../../../../work/tools/ps3x360/external/DumbadsSkate3ModdingTools/ArenaBuilder Modular/src/</AbSrc>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(AbSrc)ArenaBuilder.$(AbLib)/**/*.cs"
+             Exclude="$(AbSrc)ArenaBuilder.$(AbLib)/obj/**;$(AbSrc)ArenaBuilder.$(AbLib)/bin/**" LinkBase="src" />
+    <Compile Include="$(MSBuildThisFileDirectory)Md5Shim.cs" Condition="'$(AbMd5Shim)' == 'true'" />
+  </ItemGroup>
+</Project>

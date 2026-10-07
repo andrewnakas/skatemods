@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AbLib>NavPower</AbLib><AbMd5Shim>false</AbMd5Shim></PropertyGroup>
+  <Import Project="../ArenaBuilder.Lib.props" />
+  <ItemGroup>
+    <ProjectReference Include="../ArenaBuilder.Core/ArenaBuilder.Core.csproj" />
+    <PackageReference Include="DotRecast.Recast" Version="2026.3.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AbLib>Glb</AbLib><AbMd5Shim>false</AbMd5Shim></PropertyGroup>
+  <Import Project="../ArenaBuilder.Lib.props" />
+  <ItemGroup>
+    <ProjectReference Include="../ArenaBuilder.Collision/ArenaBuilder.Collision.csproj" />
+    <ProjectReference Include="../ArenaBuilder.NavPower/ArenaBuilder.NavPower.csproj" />
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.6" />
+  </ItemGroup>
+</Project>

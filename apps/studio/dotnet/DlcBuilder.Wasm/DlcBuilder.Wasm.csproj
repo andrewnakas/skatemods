@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    DlcBuilder.Core, compiled from the pinned checkout without touching it.
+    Differences from the upstream csproj, both for the browser build:
+      * no PlatformTarget=x64 (the wasm runtime is AnyCPU);
+      * the Windows packer binaries (bigfile.exe 0.35 MB, Stream File Tool.exe 4.5 MB) are NOT
+        embedded. They are only reached through BuildOptions.PackBig / PackOtsPsf, which the
+        browser never sets (the .big is written by Sk3.Stream.BigArchive instead).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DlcBuilder</RootNamespace>
+    <AssemblyName>DlcBuilder.Core</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS1591;CS1570;CS8618;CS8602;CS8604</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DlcSrc>$(MSBuildThisFileDirectory)../../../../work/tools/ps3x360/external/DumbadsSkate3ModdingTools/DlcBuilder.Core/</DlcSrc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(DlcSrc)**/*.cs" Exclude="$(DlcSrc)bin/**;$(DlcSrc)obj/**" LinkBase="src" />
+    <EmbeddedResource Include="$(DlcSrc)lib/mission_template/*"
+                      LogicalName="DlcBuilder.lib.mission_template.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- ArenaBuilder Core/Collision/Texture, browser builds (MD5 shim, see ArenaBuilder/ArenaBuilder.Lib.props). -->
+    <ProjectReference Include="../ArenaBuilder/ArenaBuilder.Core/ArenaBuilder.Core.csproj" />
+    <ProjectReference Include="../ArenaBuilder/ArenaBuilder.Collision/ArenaBuilder.Collision.csproj" />
+    <ProjectReference Include="../ArenaBuilder/ArenaBuilder.Texture/ArenaBuilder.Texture.csproj" />
+  </ItemGroup>
+</Project>

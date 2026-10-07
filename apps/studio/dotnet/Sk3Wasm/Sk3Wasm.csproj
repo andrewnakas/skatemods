@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <!--
+    Skate 3 map tooling for the browser (.NET 9 browser-wasm). Exposes [JSExport] entry points in
+    Exports.cs. Sources are referenced from the pinned checkouts under work/tools (see
+    converter/pins.env); nothing there is modified.
+    Rebuild: apps/studio/dotnet/build.sh
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <WasmEnableThreads>false</WasmEnableThreads>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+    <!-- partial: only framework assemblies are trimmed. ArenaBuilder/DlcBuilder/SharpGLTF use reflection-based
+         System.Text.Json (blenrose_materials.json, splines.json, glTF), so they are kept whole. -->
+    <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+    <WasmEmitSymbolMap>false</WasmEmitSymbolMap>
+    <DebuggerSupport>false</DebuggerSupport>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <EventSourceSupport>false</EventSourceSupport>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+    <WasmFingerprintAssets>false</WasmFingerprintAssets>
+    <CompressionEnabled>true</CompressionEnabled>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <Tools>$(MSBuildThisFileDirectory)../../../../work/tools/ps3x360/</Tools>
+    <AbSrc>$(Tools)external/DumbadsSkate3ModdingTools/ArenaBuilder Modular/src/</AbSrc>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(Tools)src/Sk3.Stream/Sk3.Stream.csproj" />
+    <ProjectReference Include="../ArenaBuilder/ArenaBuilder.Build/ArenaBuilder.Build.csproj" />
+    <ProjectReference Include="../DlcBuilder.Wasm/DlcBuilder.Wasm.csproj" />
+    <TrimmerRootAssembly Include="SharpGLTF.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The empty X360 Tex stream descriptor ArenaBuilder's DistPackRunner copies in (DONOTREMOVE/ctex_xbox). -->
+    <EmbeddedResource Include="$(AbSrc)ArenaBuilder.WinForms/bin/Debug/net8.0-windows/DONOTREMOVE/ctex_xbox/DIST_RENAME_Tex.*"
+                      LogicalName="tex%(Extension)" />
+  </ItemGroup>
+</Project>

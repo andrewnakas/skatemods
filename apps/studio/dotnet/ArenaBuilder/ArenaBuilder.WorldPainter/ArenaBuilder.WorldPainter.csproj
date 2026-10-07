@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AbLib>WorldPainter</AbLib><AbMd5Shim>false</AbMd5Shim></PropertyGroup>
+  <Import Project="../ArenaBuilder.Lib.props" />
+  <ItemGroup>
+    <ProjectReference Include="../ArenaBuilder.Core/ArenaBuilder.Core.csproj" />
+    <ProjectReference Include="../ArenaBuilder.Glb/ArenaBuilder.Glb.csproj" />
+  </ItemGroup>
+</Project>

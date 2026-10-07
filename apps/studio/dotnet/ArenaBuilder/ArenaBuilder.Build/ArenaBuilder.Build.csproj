@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AbLib>Build</AbLib><AbMd5Shim>false</AbMd5Shim></PropertyGroup>
+  <Import Project="../ArenaBuilder.Lib.props" />
+  <ItemGroup>
+    <ProjectReference Include="../ArenaBuilder.Collision/ArenaBuilder.Collision.csproj" />
+    <ProjectReference Include="../ArenaBuilder.Core/ArenaBuilder.Core.csproj" />
+    <ProjectReference Include="../ArenaBuilder.NavPower/ArenaBuilder.NavPower.csproj" />
+    <ProjectReference Include="../ArenaBuilder.Glb/ArenaBuilder.Glb.csproj" />
+    <ProjectReference Include="../ArenaBuilder.Mesh/ArenaBuilder.Mesh.csproj" />
+    <ProjectReference Include="../ArenaBuilder.Texture/ArenaBuilder.Texture.csproj" />
+    <ProjectReference Include="../ArenaBuilder.WorldPainter/ArenaBuilder.WorldPainter.csproj" />
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.6" />
+  </ItemGroup>
+</Project>
