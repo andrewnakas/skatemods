@@ -1,0 +1,172 @@
+620 spike-out/out/jumpcity/JumpCity.skate.log
+121 spike-out/out/jumpcity/manifest.jsonl
+8 spike-out/out/jumpcity/skate/JumpCity.irradiance
+94796095 spike-out/out/jumpcity/skate/JumpCity.skate
+281 spike-out/out/sunbada/manifest.jsonl
+93844560 spike-out/out/sunbada/recomp/sunbadartgallery_00000000.big
+8 spike-out/out/sunbada/skate/SunbadArtGallery.irradiance
+46690399 spike-out/out/sunbada/skate/SunbadArtGallery.skate
+5301 spike-out/out/sunbada/SunbadArtGallery.recomp.log
+592 spike-out/out/sunbada/SunbadArtGallery.skate.log
+172073088 spike-out/outputs.tgz.enc
+6148 testmaps/.DS_Store
+3787 testmaps/build_kenney_park.py
+458 testmaps/export_formats.py
+721232 testmaps/kenney-mini-skate/kenney_mini-skate.zip
+713 testmaps/kenney-mini-skate/License.txt
+30432 testmaps/kenney-mini-skate/Models/FBX format/bowl-corner-inner.fbx
+30304 testmaps/kenney-mini-skate/Models/FBX format/bowl-corner-outer.fbx
+25840 testmaps/kenney-mini-skate/Models/FBX format/bowl-side.fbx
+634560 testmaps/kenney-mini-skate/Models/FBX format/character-skate-boy.fbx
+632592 testmaps/kenney-mini-skate/Models/FBX format/character-skate-girl.fbx
+23968 testmaps/kenney-mini-skate/Models/FBX format/floor-concrete.fbx
+28080 testmaps/kenney-mini-skate/Models/FBX format/floor-wood.fbx
+25840 testmaps/kenney-mini-skate/Models/FBX format/half-pipe.fbx
+27584 testmaps/kenney-mini-skate/Models/FBX format/obstacle-box.fbx
+28352 testmaps/kenney-mini-skate/Models/FBX format/obstacle-end.fbx
+27200 testmaps/kenney-mini-skate/Models/FBX format/obstacle-middle.fbx
+26096 testmaps/kenney-mini-skate/Models/FBX format/pallet.fbx
+27344 testmaps/kenney-mini-skate/Models/FBX format/rail-curve.fbx
+25728 testmaps/kenney-mini-skate/Models/FBX format/rail-high.fbx
+25744 testmaps/kenney-mini-skate/Models/FBX format/rail-low.fbx
+26208 testmaps/kenney-mini-skate/Models/FBX format/rail-slope.fbx
+29200 testmaps/kenney-mini-skate/Models/FBX format/skateboard.fbx
+26320 testmaps/kenney-mini-skate/Models/FBX format/steps.fbx
+25920 testmaps/kenney-mini-skate/Models/FBX format/structure-platform.fbx
+27792 testmaps/kenney-mini-skate/Models/FBX format/structure-wood.fbx
+7529 testmaps/kenney-mini-skate/Models/FBX format/Textures/colormap.png
+14028 testmaps/kenney-mini-skate/Models/GLB format/bowl-corner-inner.glb
+14024 testmaps/kenney-mini-skate/Models/GLB format/bowl-corner-outer.glb
+5268 testmaps/kenney-mini-skate/Models/GLB format/bowl-side.glb
+190900 testmaps/kenney-mini-skate/Models/GLB format/character-skate-boy.glb
+190388 testmaps/kenney-mini-skate/Models/GLB format/character-skate-girl.glb
+1840 testmaps/kenney-mini-skate/Models/GLB format/floor-concrete.glb
+5320 testmaps/kenney-mini-skate/Models/GLB format/floor-wood.glb
+5268 testmaps/kenney-mini-skate/Models/GLB format/half-pipe.glb
+4524 testmaps/kenney-mini-skate/Models/GLB format/obstacle-box.glb
+10336 testmaps/kenney-mini-skate/Models/GLB format/obstacle-end.glb
+13228 testmaps/kenney-mini-skate/Models/GLB format/obstacle-middle.glb
+11704 testmaps/kenney-mini-skate/Models/GLB format/pallet.glb
+8576 testmaps/kenney-mini-skate/Models/GLB format/rail-curve.glb
+9640 testmaps/kenney-mini-skate/Models/GLB format/rail-high.glb
+9620 testmaps/kenney-mini-skate/Models/GLB format/rail-low.glb
+9676 testmaps/kenney-mini-skate/Models/GLB format/rail-slope.glb
+21060 testmaps/kenney-mini-skate/Models/GLB format/skateboard.glb
+8248 testmaps/kenney-mini-skate/Models/GLB format/steps.glb
+12412 testmaps/kenney-mini-skate/Models/GLB format/structure-platform.glb
+20476 testmaps/kenney-mini-skate/Models/GLB format/structure-wood.glb
+7529 testmaps/kenney-mini-skate/Models/GLB format/Textures/colormap.png
+98 testmaps/kenney-mini-skate/Models/OBJ format/bowl-corner-inner.mtl
+12620 testmaps/kenney-mini-skate/Models/OBJ format/bowl-corner-inner.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/bowl-corner-outer.mtl
+12486 testmaps/kenney-mini-skate/Models/OBJ format/bowl-corner-outer.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/bowl-side.mtl
+3849 testmaps/kenney-mini-skate/Models/OBJ format/bowl-side.obj
+39 testmaps/kenney-mini-skate/Models/OBJ format/character-skate-boy.mtl
+72 testmaps/kenney-mini-skate/Models/OBJ format/character-skate-boy.obj
+39 testmaps/kenney-mini-skate/Models/OBJ format/character-skate-girl.mtl
+73 testmaps/kenney-mini-skate/Models/OBJ format/character-skate-girl.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/floor-concrete.mtl
+349 testmaps/kenney-mini-skate/Models/OBJ format/floor-concrete.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/floor-wood.mtl
+3132 testmaps/kenney-mini-skate/Models/OBJ format/floor-wood.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/half-pipe.mtl
+3625 testmaps/kenney-mini-skate/Models/OBJ format/half-pipe.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-box.mtl
+2244 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-box.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-end.mtl
+8520 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-end.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-middle.mtl
+11832 testmaps/kenney-mini-skate/Models/OBJ format/obstacle-middle.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/pallet.mtl
+8251 testmaps/kenney-mini-skate/Models/OBJ format/pallet.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/rail-curve.mtl
+7450 testmaps/kenney-mini-skate/Models/OBJ format/rail-curve.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/rail-high.mtl
+6943 testmaps/kenney-mini-skate/Models/OBJ format/rail-high.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/rail-low.mtl
+6934 testmaps/kenney-mini-skate/Models/OBJ format/rail-low.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/rail-slope.mtl
+7536 testmaps/kenney-mini-skate/Models/OBJ format/rail-slope.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/skateboard.mtl
+18509 testmaps/kenney-mini-skate/Models/OBJ format/skateboard.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/steps.mtl
+5590 testmaps/kenney-mini-skate/Models/OBJ format/steps.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/structure-platform.mtl
+7705 testmaps/kenney-mini-skate/Models/OBJ format/structure-platform.obj
+98 testmaps/kenney-mini-skate/Models/OBJ format/structure-wood.mtl
+14265 testmaps/kenney-mini-skate/Models/OBJ format/structure-wood.obj
+7529 testmaps/kenney-mini-skate/Models/OBJ format/Textures/colormap.png
+6465 testmaps/kenney-mini-skate/Models/Textures/variation-a.png
+6450 testmaps/kenney-mini-skate/Overview.html
+86209 testmaps/kenney-mini-skate/Preview.png
+1927 testmaps/kenney-mini-skate/Previews/bowl-corner-inner.png
+1695 testmaps/kenney-mini-skate/Previews/bowl-corner-outer.png
+1829 testmaps/kenney-mini-skate/Previews/bowl-side.png
+1835 testmaps/kenney-mini-skate/Previews/character-skate-boy.png
+1767 testmaps/kenney-mini-skate/Previews/character-skate-girl.png
+781 testmaps/kenney-mini-skate/Previews/floor-concrete.png
+1481 testmaps/kenney-mini-skate/Previews/floor-wood.png
+1868 testmaps/kenney-mini-skate/Previews/half-pipe.png
+1648 testmaps/kenney-mini-skate/Previews/obstacle-box.png
+1754 testmaps/kenney-mini-skate/Previews/obstacle-end.png
+1686 testmaps/kenney-mini-skate/Previews/obstacle-middle.png
+1969 testmaps/kenney-mini-skate/Previews/pallet.png
+1410 testmaps/kenney-mini-skate/Previews/rail-curve.png
+1507 testmaps/kenney-mini-skate/Previews/rail-high.png
+1585 testmaps/kenney-mini-skate/Previews/rail-low.png
+1541 testmaps/kenney-mini-skate/Previews/rail-slope.png
+1646 testmaps/kenney-mini-skate/Previews/skateboard.png
+1884 testmaps/kenney-mini-skate/Previews/steps.png
+1908 testmaps/kenney-mini-skate/Previews/structure-platform.png
+1875 testmaps/kenney-mini-skate/Previews/structure-wood.png
+88905 testmaps/kenney-mini-skate/Sample.png
+185 testmaps/kenney-mini-skate/View Documentation.url
+118 testmaps/kenney-mini-skate/Visit Kenney.url
+55 testmaps/kenney-mini-skate/Visit Patreon.url
+157692 testmaps/out/fbx/kenney_park.fbx
+344675 testmaps/out/kenney_park_preview.png
+126842 testmaps/out/kenney_park.blend
+72380 testmaps/out/kenney_park.glb
+595120 testmaps/out/matrix/blend/kenney_park_00000000.big
+891933 testmaps/out/matrix/blend/kenney_park_reskate.zip
+150240 testmaps/out/matrix/blend/kenney_park.glb
+50292 testmaps/out/matrix/blend/kenney_park.skate
+613808 testmaps/out/matrix/fbx/kenney_park_00000000.big
+1203488 testmaps/out/matrix/fbx/kenney_park_reskate.zip
+323268 testmaps/out/matrix/fbx/kenney_park.glb
+152903 testmaps/out/matrix/fbx/kenney_park.skate
+592560 testmaps/out/matrix/from_reskate/kenney_park_00000000.big
+892177 testmaps/out/matrix/from_reskate/kenney_park_reskate.zip
+150228 testmaps/out/matrix/from_reskate/kenney_park.glb
+50931 testmaps/out/matrix/from_reskate/kenney_park.skate
+595120 testmaps/out/matrix/from_skate/kenney_park_00000000.big
+64542 testmaps/out/matrix/from_skate/kenney_park_reskate.zip
+154596 testmaps/out/matrix/from_skate/kenney_park.glb
+50292 testmaps/out/matrix/from_skate/kenney_park.skate
+595120 testmaps/out/matrix/from_studio_glb/kenney_park_00000000.big
+230362 testmaps/out/matrix/from_studio_glb/kenney_park_reskate.zip
+1069224 testmaps/out/matrix/from_studio_glb/kenney_park.glb
+195615 testmaps/out/matrix/from_studio_glb/kenney_park.skate
+582576 testmaps/out/matrix/glb/kenney_park_00000000.big
+1112881 testmaps/out/matrix/glb/kenney_park_reskate.zip
+148472 testmaps/out/matrix/glb/kenney_park.glb
+48806 testmaps/out/matrix/glb/kenney_park.skate
+576432 testmaps/out/matrix/obj/kenney_park_00000000.big
+1198909 testmaps/out/matrix/obj/kenney_park_reskate.zip
+323632 testmaps/out/matrix/obj/kenney_park.glb
+139827 testmaps/out/matrix/obj/kenney_park.skate
+54023718 testmaps/out/matrix/retail_jumpcity/JumpCity_reskate.zip
+90520554 testmaps/out/matrix/retail_jumpcity/JumpCity.skate
+48554464 testmaps/out/matrix/retail_sunbad/sunbadartgallery_00000000.big
+49207544 testmaps/out/matrix/retail_sunbad/SunbadArtGallery_reskate.zip
+36509213 testmaps/out/matrix/retail_sunbad/SunbadArtGallery.skate
+26858318 testmaps/out/matrix/sunbad_via_reskate/SunbadArtGallery.skate
+7529 testmaps/out/obj/colormap.png
+1631 testmaps/out/obj/kenney_park.mtl
+209551 testmaps/out/obj/kenney_park.obj
+595120 testmaps/out/studio_kenney_park_00000000.big
+891933 testmaps/out/studio_kenney_park_reskate.zip
+149484 testmaps/out/studio_kenney_park.glb
+50292 testmaps/out/studio_kenney_park.skate
+7529 testmaps/out/textures/colormap.png
