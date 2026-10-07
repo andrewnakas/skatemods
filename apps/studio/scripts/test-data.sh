@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# Restores the Map Studio test data (work/testmaps, work/spike-out) from the private R2 bucket.
-# Files are listed in test-data.txt as "<bytes> <path under work/>". Needs `wrangler login`.
-#   apps/studio/scripts/test-data.sh            # everything
-#   apps/studio/scripts/test-data.sh testmaps/  # only paths starting with this
+# Restores the Map Studio test data (work/testmaps, work/spike-out) from the private GitHub repo
+# andrewnakas/skatemods-testdata (release "test-data"). Needs `gh auth login` with access to it.
+# Some files are converted from retail Skate 3 maps, so that repo must stay private.
+#   apps/studio/scripts/test-data.sh             # both archives
+#   apps/studio/scripts/test-data.sh testmaps    # only work/testmaps
+#   apps/studio/scripts/test-data.sh spike-out   # only work/spike-out
 set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repo="$here/../../.."
-cd "$repo/apps/api"
-while read -r size path; do
-  [[ "$path" == "${1:-}"* ]] || continue
-  dest="$repo/work/$path"
-  [[ -f "$dest" && $(stat -f %z "$dest" 2>/dev/null || stat -c %s "$dest") == "$size" ]] && continue
-  mkdir -p "$(dirname "$dest")"
-  npx wrangler r2 object get "skatemods-maps/archive/studio-test/$path" --remote --file "$dest" >/dev/null
-  echo "restored $path"
-done < "$here/test-data.txt"
+work="$here/../../../work"
+mkdir -p "$work"
+tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
+patterns=(-p SHA256SUMS)
+if [[ -n "${1:-}" ]]; then patterns+=(-p "$1.tar*"); else patterns+=(-p 'testmaps.tar.gz' -p 'spike-out.tar'); fi
+gh release download test-data -R andrewnakas/skatemods-testdata -D "$tmp" "${patterns[@]}"
+(cd "$tmp" && shasum -a 256 -c --ignore-missing SHA256SUMS)
+for archive in "$tmp"/*.tar*; do tar xf "$archive" -C "$work"; echo "restored $(basename "$archive")"; done
