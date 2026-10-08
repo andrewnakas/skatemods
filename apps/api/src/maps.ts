@@ -117,6 +117,22 @@ export async function removeStorage(env: Env, map: MapRow) {
 
 export const maps = new Hono<AppEnv>();
 
+// The public catalog is readable from other origins so the browser build of the
+// engine (GitHub Pages) can list and load maps. Browsers only expose a "*"
+// response to requests sent without cookies, so this never reveals a private map.
+maps.use('*', async (c, next) => {
+  if (c.req.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: {
+      'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, HEAD', 'Access-Control-Max-Age': '86400',
+    } });
+  }
+  await next();
+  if (c.req.method === 'GET' || c.req.method === 'HEAD') {
+    c.header('Access-Control-Allow-Origin', '*');
+    c.header('Access-Control-Expose-Headers', 'Content-Length');
+  }
+});
+
 // Public list of approved maps.
 maps.get('/', async (c) => {
   const q = (c.req.query('q') ?? '').trim().slice(0, 80);
@@ -156,7 +172,18 @@ maps.get('/:id/files/:fileId', async (c) => {
   }
   if (file.storage === 'github') {
     // Public: straight to GitHub's CDN. Private (draft release): stream it with our token.
-    if (map.status === 'approved' && file.external_url) return c.redirect(file.external_url, 302);
+    if (map.status === 'approved' && file.external_url) {
+      // GitHub's release CDN sends no CORS headers, so a page on another origin
+      // (the browser engine) asks for the bytes through us with ?cors=1.
+      if (c.req.query('cors') !== '1') return c.redirect(file.external_url, 302);
+      const asset = await fetch(file.external_url, { headers: { 'User-Agent': 'skatemods' }, redirect: 'follow' });
+      if (!asset.ok || !asset.body) fail(503, 'File missing from storage');
+      return new Response(asset.body, { headers: {
+        'Content-Type': 'application/octet-stream',
+        'Content-Length': String(file.bytes),
+        'Cache-Control': 'public, max-age=3600',
+      } });
+    }
     if (!releasesEnabled(c.env) || !file.gh_asset_id) fail(404, 'File is in an unpublished release');
     const asset = await fetchAsset(c.env, file.gh_asset_id);
     if (!asset.ok) fail(404, 'File missing from storage');
