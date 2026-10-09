@@ -1,0 +1,236 @@
+---
+import Base from '../layouts/Base.astro';
+
+const game = 'https://andrewnakas.github.io/skate3-cleanroom/';
+const url = 'https://skatemods.com/skate-3-online/';
+
+// Shown on the page and sent to search engines as FAQPage data, so the two never drift.
+const faq = [
+  {
+    q: 'Can you play Skate 3 online?',
+    a: 'Yes. This page runs a Skate 3 engine rewrite in your browser, free, with multiplayer rooms for up to 10 skaters. To play the original PS3 game online, RPCS3 and the community Blaze server restore matchmaking.',
+  },
+  {
+    q: 'Is Skate 3 Online free?',
+    a: "Yes. There's nothing to buy, no account and no install. The game streams into your browser tab.",
+  },
+  {
+    q: 'Can I play Skate 3 in my browser?',
+    a: 'Yes, in Chrome or Edge 113 or newer on a desktop or laptop (Windows, macOS, ChromeOS or Linux), because it renders with WebGPU. Firefox and Safari don\'t expose WebGPU by default yet.',
+  },
+  {
+    q: 'How do I play Skate 3 online with friends?',
+    a: "Open the Multiplayer menu next to the map picker. A private room gives you an invite link to send; a public room shows up in everyone's menu so anyone can join. Up to 10 players skate the same map, with each other's tricks, bails and collisions.",
+  },
+  {
+    q: 'Do I need the Skate 3 disc or a download?',
+    a: 'No. The browser build ships a clean-room asset pack: every texture, sound and visual mesh was regenerated, so no retail files are sent to you. To play the full retail game, see the PC recomp or RPCS3 guides.',
+  },
+  {
+    q: 'Can I use a controller?',
+    a: 'Yes. Any controller your browser sees as a gamepad works, and an Xbox-style pad plays best: each stick does what it did on the Xbox 360. Keyboard works too.',
+  },
+  {
+    q: 'Which maps can I skate?',
+    a: "The built-in parks, plus every community map on skatemods.com that has a .skate conversion. You can also open a .skate file from your own disk. The three big Port Carverton districts aren't in the web build yet.",
+  },
+  {
+    q: 'Is this made by EA?',
+    a: 'No. It is a fan-made, open-source engine rewrite and is not affiliated with or endorsed by Electronic Arts. Skate 3 is a trademark of Electronic Arts.',
+  },
+];
+
+const schema = {
+  '@graph': [
+    {
+      '@type': ['VideoGame', 'WebApplication'],
+      '@id': `${url}#game`,
+      name: 'Skate 3 Online',
+      alternateName: ['Skate 3 browser', 'Skate 3 web', 'Skate 3 clean-room web build'],
+      url,
+      description: 'A fan-made Skate 3 engine rewrite that runs in the browser on WebGPU, with multiplayer rooms for up to 10 players and a clean-room asset pack.',
+      applicationCategory: 'GameApplication',
+      genre: ['Sports', 'Skateboarding'],
+      operatingSystem: 'Windows, macOS, ChromeOS, Linux (Chrome or Edge 113+ with WebGPU)',
+      browserRequirements: 'Requires WebGPU (Chrome or Edge 113+)',
+      playMode: ['SinglePlayer', 'MultiPlayer'],
+      numberOfPlayers: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 10 },
+      gamePlatform: 'Web browser',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD' },
+      sameAs: ['https://github.com/andrewnakas/skate3-cleanroom'],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ],
+};
+---
+<Base
+  title="Skate 3 Online: play free in your browser"
+  description="Play Skate 3 online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
+  image="/og/skate-3-online.png"
+  schema={schema}
+>
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">Free · In your browser · Up to 10 players</p>
+      <h1>Skate 3 Online</h1>
+      <p class="lede">Play Skate 3 in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stage" id="play">
+      <div class="gate">
+        <button class="btn primary big" type="button" id="start">▶ Start skating</button>
+        <p><strong>Chrome or Edge 113+</strong> on desktop (WebGPU). The first load is a large download and compiles shaders, so give it a moment.</p>
+        <p class="small">Or <a href={game} id="full">open it full-page</a>.</p>
+        <p class="small warn" id="nogpu" hidden>Your browser doesn't expose WebGPU. Try a recent Chrome or Edge on a desktop or laptop.</p>
+      </div>
+    </div>
+
+    <ol class="steps">
+      <li><span class="n">01</span><span><strong>Press Start</strong>The engine loads right in this tab.</span></li>
+      <li><span class="n">02</span><span><strong>Pick a map</strong>Built-in parks or any community map with a <code>.skate</code> conversion.</span></li>
+      <li><span class="n">03</span><span><strong>Go online</strong>Multiplayer menu → private room for an invite link, or join a public one.</span></li>
+    </ol>
+
+    <div class="info">
+      <section>
+        <h2>Play Skate 3 online with friends</h2>
+        <p>Open the <strong>Multiplayer</strong> menu next to the map picker. A <strong>private room</strong> gives you an invite link to send; a <strong>public room</strong> is listed in everyone's menu with its map and player count, so anyone can drop in.</p>
+        <p>Up to 10 players skate the same map together: positions, full ragdolls, tricks and player collisions all sync. The first player in a room hosts.</p>
+      </section>
+      <section>
+        <h2>Controls</h2>
+        <p>Keyboard and browser gamepads both work. A gamepad plays best: each stick does what it did on the Xbox 360, so flick-it tricks feel the way you remember.</p>
+        <p>Switch maps from the picker, or add <code>?map=Name</code> to the <a href={game}>full-page URL</a>.</p>
+      </section>
+      <section>
+        <h2>Maps</h2>
+        <p>The picker lists the built-in parks and every <a href="/maps/">community Skate 3 map</a> with a <code>.skate</code> conversion. It can also open a <code>.skate</code> file from your own disk.</p>
+        <p><a href="/upload/">Upload a map</a> and it's converted and playable here after review.</p>
+      </section>
+    </div>
+
+    <section class="about-build">
+      <h2>What is Skate 3 Online?</h2>
+      <div class="cols">
+        <div>
+          <p>It's the open-source <a href="https://github.com/SK8-ENGINE/skate-3-rust-engine">Skate 3 Rust and Bevy engine</a> compiled to WebAssembly and WebGPU, so Skate 3's physics, animations and grind rails run in a browser tab. It ships with a <strong>clean-room asset pack</strong>: every texture, sound and visual mesh is regenerated, and no retail pixels or mesh data are sent to you.</p>
+          <p>It's a fan project, not affiliated with or endorsed by EA. <a href="https://github.com/andrewnakas/skate3-cleanroom">How it's built →</a></p>
+        </div>
+        <div>
+          <ul>
+            <li><strong>Regenerated:</strong> all 7,681 textures, each rebuilt from coarse facts (size, a color grid, an alpha outline) plus new detail noise; 27 player sounds; and the visual geometry of every map and the skater.</li>
+            <li><strong>Kept, as facts:</strong> collision triangles, grind rails, the skater rig, animations and physics tuning.</li>
+            <li><strong>Not shipped:</strong> music, speech and everything else from the disc.</li>
+            <li><strong>Known limits:</strong> Downtown, University and Industrial aren't in the web build yet, and web audio is a simple clean-room driver.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Skate 3 Online FAQ</h2>
+      <div class="qa">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="more">
+      <h2>Other ways to play Skate 3</h2>
+      <ul>
+        <li><a href="/guides/play-skate-3-on-pc/"><strong>On PC, natively</strong><span>The skate3recomp port for Windows, Linux and macOS, from your own Xbox 360 disc.</span></a></li>
+        <li><a href="/faq/skate-3-online/"><strong>The original game, online</strong><span>RPCS3 and the community Blaze server bring back matchmaking and Skate.Park uploads.</span></a></li>
+        <li><a href="/games/skate-3/"><strong>Skate 3 modding</strong><span>Custom maps, texture mods, the Level Loader and the full history.</span></a></li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<script define:vars={{ game }}>
+  // Map, room and invite parameters (?smap=, ?room=, ?map=, ?mapurl=) pass straight through to the game.
+  const params = new URLSearchParams(location.search);
+  const src = game + (params.toString() ? `?${params}` : '');
+  document.getElementById('full').href = src;
+  if (!('gpu' in navigator)) document.getElementById('nogpu').hidden = false;
+
+  const stage = document.getElementById('play');
+  function start() {
+    const frame = document.createElement('iframe');
+    frame.src = src;
+    frame.title = 'Skate 3 Online';
+    frame.allow = 'fullscreen; gamepad; autoplay; cross-origin-isolated';
+    frame.allowFullscreen = true;
+    stage.replaceChildren(frame);
+    stage.scrollIntoView({ block: 'center' });
+    frame.focus();
+  }
+  document.getElementById('start').addEventListener('click', start);
+  // Arriving from a "play" link (#play, a map or an invite) starts straight away.
+  if (location.hash === '#play' || ['smap', 'room', 'map', 'mapurl'].some((k) => params.has(k))) start();
+  // The header's Play button links here too.
+  addEventListener('hashchange', () => { if (location.hash === '#play' && !stage.querySelector('iframe')) start(); });
+</script>
+
+<style>
+  .hero { padding: 2.5rem 0 1.5rem; }
+  .kicker { font: 500 0.85rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0 0 0.75rem; }
+  .hero h1 { font-size: clamp(3rem, 9vw, 6rem); margin: 0 0 0.9rem; }
+  .hero .lede { margin: 0; max-width: 60ch; }
+
+  .stage {
+    aspect-ratio: 16 / 9; width: 100%; border-radius: 16px; overflow: hidden; background: #0b0b0d;
+    border: 1px solid var(--line); display: grid; place-items: center; scroll-margin-top: 80px;
+  }
+  .stage :global(iframe) { width: 100%; height: 100%; border: 0; display: block; }
+  .gate { text-align: center; padding: 1.5rem; color: #ecebe6; max-width: 46ch; }
+  .gate a { color: #ffd21f; }
+  .big { font-size: 1.25rem; padding: 0.9rem 1.8rem; margin-bottom: 0.5rem; }
+  /* The stage is dark in both themes, so the button keeps fixed colors. */
+  .gate .btn.primary { background: #d63a1f; border-color: #d63a1f; color: #fff; }
+  .gate .btn.primary:hover { background: #ecebe6; border-color: #ecebe6; color: #0b0b0d; }
+  .small { font-size: 0.88rem; opacity: 0.8; }
+  .warn { color: #f2a94b; opacity: 1; }
+  @media (max-width: 600px) { .stage { aspect-ratio: 3 / 4; } }
+
+  .steps { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 0 2rem; border-top: 2px solid var(--ink); }
+  @media (min-width: 800px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .steps li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.5rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.95rem; }
+  .steps strong { display: block; color: var(--ink); font-size: 1.05rem; }
+  .steps .n { font: 500 0.85rem/1.6 var(--font-mono); color: var(--accent); }
+
+  .info { display: grid; gap: 2rem; margin-top: 3rem; }
+  @media (min-width: 900px) { .info { grid-template-columns: repeat(3, 1fr); } }
+  section h2 { font-size: 1.25rem; margin: 0 0 0.6rem; }
+  section p, section li { color: var(--ink-soft); font-size: 0.95rem; }
+  section ul { padding-left: 1.1rem; }
+
+  .about-build, .faq, .more { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
+  .about-build h2, .faq h2, .more h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-bottom: 1rem; }
+  .cols { display: grid; gap: 1rem 3rem; }
+  @media (min-width: 900px) { .cols { grid-template-columns: 1fr 1fr; } }
+  .cols ul { margin: 0; }
+
+  .qa { display: grid; gap: 0 3rem; }
+  @media (min-width: 900px) { .qa { grid-template-columns: 1fr 1fr; } }
+  details { border-bottom: 1px solid var(--line); padding: 0.75rem 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  summary:hover { color: var(--accent); }
+  details p { margin: 0.5rem 0 0.25rem; }
+
+  .more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0 2rem; }
+  @media (min-width: 800px) { .more ul { grid-template-columns: repeat(3, 1fr); } }
+  .more a { display: block; padding: 0.75rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  .more a:hover strong { color: var(--accent); }
+  .more strong { display: block; color: var(--ink); }
+  .more span { color: var(--ink-soft); font-size: 0.93rem; }
+</style>
