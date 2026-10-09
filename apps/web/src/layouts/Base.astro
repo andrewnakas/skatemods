@@ -17,7 +17,7 @@ interface Props {
 
 const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large', noAnalytics = false } = Astro.props;
 const imageUrl = new URL(image, 'https://skatemods.com');
-const fullTitle = title === 'skatemods' ? 'skatemods: play the Skate 3 clean-room rewrite online' : `${title} · skatemods`;
+const fullTitle = title === 'skatemods' ? 'skatemods: Clean Room Skate Online, a Skate 3 rewrite in your browser' : `${title} · skatemods`;
 const path = Astro.url.pathname;
 
 const nav = [
@@ -79,7 +79,7 @@ const active = (href: string) => path.startsWith(href);
           {nav.map((n) => <a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a>)}
         </nav>
         <div class="actions">
-          <a class="play" href="/skate-3-online/#play" aria-current={path.startsWith('/skate-3-online/') ? 'page' : undefined}>▶ Play Skate 3<span class="cr"> Clean Room</span></a>
+          <a class="play" href="/skate-3-online/#play" aria-current={path.startsWith('/skate-3-online/') ? 'page' : undefined}>▶ Play online</a>
           <a class="upload" href="/upload/">Upload</a>
           <a class="account" id="account" href="/signin/">Sign in</a>
           <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -106,7 +106,7 @@ const active = (href: string) => path.startsWith(href);
           </nav>
           <nav aria-label="Skate 3">
             <p class="h">Skate 3</p>
-            <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a><a href="/skate-3-online/">Skate 3 Clean Room online</a>
+            <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a><a href="/skate-3-online/">Clean Room Skate Online</a>
           </nav>
           <nav aria-label="skate. (2025)">
             <p class="h">skate. (2025)</p>
@@ -157,7 +157,6 @@ const active = (href: string) => path.startsWith(href);
   .upload { border: 1.5px solid var(--ink); padding: 0.3rem 0.65rem; border-radius: var(--radius); }
   .upload:hover { background: var(--ink); color: var(--bg) !important; }
   .actions .play { background: var(--accent); color: var(--accent-ink); padding: 0.3rem 0.7rem; border: 1.5px solid var(--accent); border-radius: var(--radius); font-weight: 700; white-space: nowrap; }
-  @media (max-width: 1339px) { .cr { display: none; } }
   .actions .play:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .account { font-family: var(--font-mono); font-size: 0.85rem; max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .theme { display: grid; place-items: center; width: 30px; height: 30px; border: 0; background: none; color: var(--ink-soft); cursor: pointer; padding: 0; }

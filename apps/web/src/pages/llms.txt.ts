@@ -15,7 +15,7 @@ export async function GET() {
 > An open-source, player-run reference for modding every skate game: EA's skate. (2025, called "Skate 4" by fans) through ReSkate, Skate 3 (native PC recompilation, custom maps, PS3 to Xbox 360 map conversion), skate 2, the Tony Hawk's games (THUG Pro, PARTYMOD, THPS remakes), Skater XL and Session. Every guide links its sources. No game files are hosted.
 
 Key facts:
-- Skate 3 Online (${u('/skate-3-online/')}) plays the Skate 3 clean-room rewrite free in the browser (Chrome or Edge 113+, WebGPU): a fan-made Rust engine rewrite with a clean-room asset pack, multiplayer rooms for up to 10 players and every community map with a .skate conversion. No download or disc. Not affiliated with EA.
+- Clean Room Skate Online (${u('/skate-3-online/')}) is a fan-made Skate 3 engine rewrite you can play free in the browser (Chrome or Edge 113+, WebGPU): a fan-made Rust engine rewrite with a clean-room asset pack, multiplayer rooms for up to 10 players and every community map with a .skate conversion. No download or disc. Not affiliated with EA.
 - ReSkate (https://github.com/Dingo-Shenanigans/ReSkate) is the open-source (GPL-3.0) modding platform for skate. (2025). It runs one pinned Steam build offline with a community runtime: custom maps, mods from the ReSkate Thunderstore, a park editor, a trainer, Steam lobbies and dedicated servers (Windows and Linux). Released October 2, 2026.
 - skate3recomp (https://github.com/mchughalex/skate3recomp) is a native recompilation of the Xbox 360 Skate 3 for Windows, Linux and macOS. You supply your own disc image.
 - Every ReSkate mod has a page here with install steps: ${u('/reskate/')}
@@ -39,7 +39,7 @@ ${top.map((m) => line(`${m.name} by ${m.owner}`, m.path, `${m.downloads.toLocale
 ${blog.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).map((p) => line(p.data.title, `/blog/${p.id}/`, p.data.description)).join('\n')}
 
 ## Optional
-- [Skate 3 Online](${u('/skate-3-online/')}): play the Skate 3 clean-room rewrite in your browser, solo or with up to 10 players
+- [Clean Room Skate Online](${u('/skate-3-online/')}): a fan-made Skate 3 rewrite you can play in your browser, solo or with up to 10 players
 - [All skate. mods](${u('/reskate/')}): every ReSkate mod, refreshed from Thunderstore
 - [Skate 3 maps](${u('/maps/')}): community Skate 3 maps converted for PS3, the PC recomp and the Rust engine
 - [Tools](${u('/tools/')}): every modding tool by game
