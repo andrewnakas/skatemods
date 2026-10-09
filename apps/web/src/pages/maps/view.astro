@@ -57,7 +57,9 @@ import Base from '../../layouts/Base.astro';
     const downloads = m.files.filter((f: any) => f.kind !== 'log');
     const logs = m.files.filter((f: any) => f.kind === 'log');
     // The browser build of the Rust engine loads a published .skate straight from here.
-    const playable = m.status === 'approved' && m.files.some((f: any) => f.kind === 'skate');
+    // (a map uploaded as .skate keeps that file as its original).
+    const playable = m.status === 'approved'
+      && m.files.some((f: any) => f.kind === 'skate' || (f.kind === 'original' && /\.skate$/i.test(f.name)));
     const policy = m.policy;
     el.innerHTML = `
       ${params.get('uploaded') ? `<div class="callout"><strong>Uploaded.</strong> Conversion is queued: this page updates by itself. Your map stays private until a moderator approves it.</div>` : ''}
