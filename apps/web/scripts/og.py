@@ -15,7 +15,7 @@ W, H, M = 1200, 630, 72
 
 PAGES = {
     'default': ('Guides · History · Maps · Mods', 'Mod every skate game.', 'Guides, history, maps and mods for every skate game, written by players.'),
-    'skate-3-online': ('Skate 3 clean-room rewrite · Free · Multiplayer', 'Play Skate 3 Clean Room online.', 'No download, no disc. Skate solo or with up to 10 friends in Chrome or Edge.'),
+    'skate-3-online': ('Fan-made Skate 3 rewrite · Free · Multiplayer', 'Clean Room Skate Online', 'Play Skate 3 online in your browser. No download, no disc, up to 10 players.'),
     'reskate': ('skate. (2025)', 'skate. mods', 'Every ReSkate mod: custom maps, boards, cosmetics and scripts, updated live.'),
     'community': ('Community', 'Where the scenes talk', 'Discord servers for ReSkate, Skate 3, Session, THPS and THUG Pro, and how to contribute.'),
 }

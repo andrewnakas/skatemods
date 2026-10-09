@@ -8,10 +8,10 @@ const url = 'https://skatemods.com/skate-3-online/';
 const faq = [
   {
     q: 'Can you play Skate 3 online?',
-    a: 'Yes. This page runs a Skate 3 engine rewrite in your browser, free, with multiplayer rooms for up to 10 skaters. To play the original PS3 game online, RPCS3 and the community Blaze server restore matchmaking.',
+    a: 'Yes. Clean Room Skate Online is a fan-made Skate 3 engine rewrite that runs in your browser, free, with multiplayer rooms for up to 10 skaters. To play the original PS3 game online, RPCS3 and the community Blaze server restore matchmaking.',
   },
   {
-    q: 'Is Skate 3 Online free?',
+    q: 'Is Clean Room Skate Online free?',
     a: "Yes. There's nothing to buy, no account and no install. The game streams into your browser tab.",
   },
   {
@@ -36,7 +36,7 @@ const faq = [
   },
   {
     q: 'Is this made by EA?',
-    a: 'No. It is a fan-made, open-source engine rewrite and is not affiliated with or endorsed by Electronic Arts. Skate 3 is a trademark of Electronic Arts.',
+    a: 'No. Clean Room Skate Online is a fan-made, open-source engine rewrite and is not affiliated with or endorsed by Electronic Arts. Skate 3 is a trademark of Electronic Arts.',
   },
 ];
 
@@ -45,8 +45,8 @@ const schema = {
     {
       '@type': ['VideoGame', 'WebApplication'],
       '@id': `${url}#game`,
-      name: 'Skate 3 Online: Clean-Room Rewrite',
-      alternateName: ['Skate 3 Online', 'Skate 3 clean-room rewrite', 'Skate 3 Clean Room', 'Skate 3 browser'],
+      name: 'Clean Room Skate Online',
+      alternateName: ['Clean Room Skate'],
       url,
       description: 'A fan-made Skate 3 engine rewrite that runs in the browser on WebGPU, with multiplayer rooms for up to 10 players and a clean-room asset pack.',
       applicationCategory: 'GameApplication',
@@ -68,16 +68,16 @@ const schema = {
 };
 ---
 <Base
-  title="Skate 3 Online: play the clean-room rewrite free in your browser"
-  description="Play the Skate 3 clean-room rewrite online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
+  title="Clean Room Skate Online: play a Skate 3 rewrite free in your browser"
+  description="Clean Room Skate Online is a fan-made Skate 3 engine rewrite you can play online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
   image="/og/skate-3-online.png"
   schema={schema}
 >
   <header class="hero">
     <div class="wrap">
-      <p class="kicker">Skate 3 clean-room rewrite · Free · Up to 10 players</p>
-      <h1>Skate 3 Online</h1>
-      <p class="lede">Play the Skate 3 clean-room rewrite online, right in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
+      <p class="kicker">Fan-made Skate 3 rewrite · Free · Up to 10 players</p>
+      <h1>Clean Room Skate Online</h1>
+      <p class="lede">A fan-made rewrite of the Skate 3 engine that you play online, right in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
     </div>
   </header>
 
@@ -99,7 +99,7 @@ const schema = {
 
     <div class="info">
       <section>
-        <h2>Play Skate 3 online with friends</h2>
+        <h2>Play online with friends</h2>
         <p>Open the <strong>Multiplayer</strong> menu next to the map picker. A <strong>private room</strong> gives you an invite link to send; a <strong>public room</strong> is listed in everyone's menu with its map and player count, so anyone can drop in.</p>
         <p>Up to 10 players skate the same map together: positions, full ragdolls, tricks and player collisions all sync. The first player in a room hosts.</p>
       </section>
@@ -116,7 +116,7 @@ const schema = {
     </div>
 
     <section class="about-build">
-      <h2>What is the Skate 3 clean-room rewrite?</h2>
+      <h2>What is Clean Room Skate Online?</h2>
       <div class="cols">
         <div>
           <p>It's the open-source <a href="https://github.com/SK8-ENGINE/skate-3-rust-engine">Skate 3 Rust and Bevy engine</a> compiled to WebAssembly and WebGPU, so Skate 3's physics, animations and grind rails run in a browser tab. It ships with a <strong>clean-room asset pack</strong>: every texture, sound and visual mesh is regenerated, and no retail pixels or mesh data are sent to you.</p>
@@ -134,7 +134,7 @@ const schema = {
     </section>
 
     <section class="faq">
-      <h2>Skate 3 Online FAQ</h2>
+      <h2>FAQ: playing Skate 3 online</h2>
       <div class="qa">
         {faq.map((f) => (
           <details>
@@ -167,7 +167,7 @@ const schema = {
   function start() {
     const frame = document.createElement('iframe');
     frame.src = src;
-    frame.title = 'Skate 3 Online: clean-room rewrite';
+    frame.title = 'Clean Room Skate Online';
     frame.allow = 'fullscreen; gamepad; autoplay; cross-origin-isolated';
     frame.allowFullscreen = true;
     stage.replaceChildren(frame);
