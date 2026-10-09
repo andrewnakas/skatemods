@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ModList from '../../components/ModList.astro';
+import { getMods } from '../../lib/thunderstore';
+import { inCategory, modCategories, type ModCategory } from '../../data/reskate-categories';
+
+// One landing page per Thunderstore category, from the build's snapshot. /reskate/ has the live list.
+export function getStaticPaths() {
+  return modCategories.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
+}
+
+const { cat } = Astro.props as { cat: ModCategory };
+const mods = (await getMods()).filter((m) => inCategory(m, cat)).sort((a, b) => b.downloads - a.downloads);
+const url = `https://skatemods.com/reskate/${cat.slug}/`;
+const schema = {
+  '@type': 'CollectionPage',
+  name: cat.title,
+  url,
+  description: cat.description,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: mods.length,
+    itemListElement: mods.slice(0, 50).map((m, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://skatemods.com${m.path}`, name: m.name })),
+  },
+};
+---
+<Base title={`${cat.title} for skate. (Skate 4)`} description={cat.description} image="/og/reskate.png" schema={schema}>
+  <PageHead parent={{ href: '/reskate/', label: 'ReSkate mods' }} title={cat.title} lede={cat.lede}>
+    <p class="meta head-links">
+      {modCategories.map((c, i) => <>{i > 0 && ' · '}{c === cat ? <strong>{c.short}</strong> : <a href={`/reskate/${c.slug}/`}>{c.short}</a>}</>)}
+      {' · '}<a href="/reskate/">All mods</a>
+    </p>
+  </PageHead>
+  <div class="wrap">
+    <p class="meta count">{mods.length} mods, most downloaded first. New uploads appear on <a href="/reskate/">the full list</a> first.</p>
+    <ModList mods={mods} />
+
+    <h2>How to install</h2>
+    <ol class="install">
+      <li>Set up ReSkate with your own copy of skate. on Steam: <a href="/guides/play-skate-with-reskate/">download and install ReSkate</a>.</li>
+      <li>Open <code>ReSkateLauncher.exe</code> → <strong>MODS</strong>, search for the mod and click install. Or drag the mod’s <code>.zip</code> onto the launcher window.</li>
+      <li>Press <strong>PLAY</strong>. The launcher merges your mods before the game starts and names any it couldn’t load.</li>
+    </ol>
+    <div class="callout note">
+      <p>To join a server running a custom map, install the same map mod and run the same ReSkate version as the server. <strong>Only install mods you trust:</strong> scripts can run code. skatemods doesn’t host or review these mods. They come straight from <a href="https://thunderstore.io/c/reskate/">Thunderstore</a>. Stuck? See <a href="/faq/reskate-not-working/">ReSkate isn’t working</a>.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .head-links { margin: 1rem 0 0; }
+  .count { margin: 0 0 0.5rem; }
+  .install { max-width: 70ch; padding-left: 1.25rem; }
+  .install li { margin: 0.4rem 0; }
+  .note { max-width: 70ch; }
+</style>

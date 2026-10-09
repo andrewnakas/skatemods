@@ -1,0 +1,36 @@
+---
+/** A list of ReSkate mods. /reskate/ re-renders the same markup client-side, so its styles are global to the list. */
+import { day, mb, type Mod } from '../lib/thunderstore';
+interface Props { mods: Mod[]; id?: string; built?: string[] }
+const { mods, id, built } = Astro.props;
+---
+<ol class="mods" id={id} data-built={built && JSON.stringify(built)}>
+  {mods.map((m) => (
+    <li>
+      <img src={m.icon} alt="" width="56" height="56" loading="lazy" />
+      <div class="body">
+        <a class="title" href={m.path}>{m.name}</a> <span class="by">by {m.owner}</span>
+        <p>{m.description}</p>
+      </div>
+      <div class="meta side">
+        <span>{m.downloads.toLocaleString('en-US')} downloads</span>
+        <span>{day(m.created)}</span>
+        <span>v{m.version} · {mb(m.size)}</span>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .mods { list-style: none; margin: 0 0 2.5rem; padding: 0; border-top: 2px solid var(--ink); }
+  .mods :global(li) { display: grid; grid-template-columns: 56px 1fr; gap: 0.5rem 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) { .mods :global(li) { grid-template-columns: 56px 1fr 11rem; } }
+  .mods :global(img) { width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius); background: var(--line); }
+  .mods :global(.title) { font-weight: 600; font-size: 1.08rem; text-decoration: none; }
+  .mods :global(.title:hover) { text-decoration: underline; color: var(--accent); }
+  .mods :global(.by) { color: var(--ink-faint); font-size: 0.9rem; }
+  .mods :global(.body p) { margin: 0.2rem 0 0; color: var(--ink-soft); font-size: 0.95rem; overflow-wrap: anywhere; }
+  .mods :global(.side) { display: flex; flex-direction: column; gap: 0.1rem; grid-column: 2; }
+  @media (min-width: 760px) { .mods :global(.side) { grid-column: auto; text-align: right; } }
+  .mods :global(.none) { display: block; color: var(--ink-soft); }
+</style>

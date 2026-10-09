@@ -168,6 +168,6 @@ In 2026, Alex McHugh released [skate3recomp](https://github.com/mchughalex/skate
 
 ## Port Carverton in the new game
 
-On October 2, 2026, the day [ReSkate](/history/reskate/) opened EA's 2025 skate. to mods, zeex64 put [the full Skate 3 map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) on its [Thunderstore](https://thunderstore.io/c/reskate/). Port Carverton became the platform's most downloaded mod on day one, ahead of brassy's port of skate 2's [New San Vanelona](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/). SunJay, who co-runs the Skate 3 modding Discord, shipped ReSkate mods that same day.
+On October 2, 2026, the day [ReSkate](/history/reskate/) opened EA's 2025 skate. to mods, zeex64 put [the full Skate 3 map](https://web.archive.org/web/20261006184233/https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) on its [Thunderstore](https://thunderstore.io/c/reskate/). Port Carverton became the platform's most downloaded mod on day one, ahead of brassy's port of skate 2's [New San Vanelona](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/). SunJay, who co-runs the Skate 3 modding Discord, shipped ReSkate mods that same day.
 
 skatemods.com exists to tie these together. A map uploaded once converts to every platform, and every tool above is credited to the people who built it.

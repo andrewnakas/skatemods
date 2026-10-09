@@ -1,6 +1,6 @@
 ---
-title: Play skate. with ReSkate
-description: Install ReSkate, the community modding platform for skate. (2025), the game fans call Skate 4. Play offline, add custom maps and cosmetics from Thunderstore, build parks and skate with friends in lobbies and on dedicated servers.
+title: "ReSkate: download, install and play skate. offline"
+description: How to download and install ReSkate, the community modding platform for skate. (2025), the game fans call Skate 4. Play offline, add custom maps and cosmetics from Thunderstore, build parks and skate with friends in lobbies and on dedicated servers.
 game: skate-2025
 level: beginner
 order: 6
@@ -53,7 +53,7 @@ You can also install by hand. Every mod is a folder in `Mods\` beside `Skate.exe
 
 Good first downloads:
 
-- [Full Skate 3 Map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/): Port Carverton in skate.'s engine.
+- [Skate 3 Improved](/reskate/333/Skate_3_Improved/): Port Carverton in skate.'s engine, with the DLC maps, original decals and surface sounds.
 - [Skate 2 Map](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/): New San Vanelona.
 - [Losal Streets](https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/) from Skater XL, and Yaky's [Desert Springs](https://thunderstore.io/c/reskate/p/memori/Desert_Springs/).
 - [South Florida](https://thunderstore.io/c/reskate/p/AltDoug/South_Florida/), B-Row's Skater XL map, and forestmouse's [SLS Hangar](https://thunderstore.io/c/reskate/p/forestmouse/The_SLS_Hangar/).

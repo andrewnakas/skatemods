@@ -41,7 +41,7 @@ On day one the Thunderstore already had the full Skate 3 city, skate 2's New San
 Start here:
 
 - [Browse skate. mods](/reskate/): every ReSkate mod on Thunderstore, updated live.
-- [Play skate. with ReSkate](/guides/play-skate-with-reskate/): install, controls and mods.
+- [ReSkate install guide](/guides/play-skate-with-reskate/): install, controls and mods.
 - [Host a ReSkate server](/guides/host-a-reskate-server/): a dedicated server for your crew.
 - [The ReSkate launch](/blog/reskate-launch/): what shipped and who made it.
 - [The first three days](/blog/reskate-first-three-days/): eleven releases, a Linux server and 216 mods.

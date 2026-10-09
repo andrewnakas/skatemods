@@ -31,4 +31,4 @@ Start by updating. ReSkate shipped eleven releases in its first three days, and 
 - Search the [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues?q=is%3Aissue) for your error before opening a new issue, and attach the log when you do.
 - Ask in the bug-reports forum on the [ReSkate Discord](https://discord.gg/Tkd5D2Y6EX).
 
-The full setup, controls and mod instructions are in [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
+The full setup, controls and mod instructions are in the [ReSkate install guide](/guides/play-skate-with-reskate/).

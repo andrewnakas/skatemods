@@ -27,7 +27,7 @@ On top of the game it adds:
 - **Multiplayer.** 32-player Steam lobbies, dedicated servers in an in-game browser, proximity voice, throwdowns and co-op challenges.
 - **Tools.** A park editor, a built-in trainer for physics tuning and practice, time-of-day and world controls, fast travel, noclip and a console.
 
-It's open source (GPL-3.0) and runs on Windows. It also runs on Linux through Proton, with rough edges. The dedicated server has a native Linux build. You need your own copy of skate. on Steam. Its FAQ says EA can't ban you for using it, but the ReSkate team keeps its own ban list for its multiplayer. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow [Play skate. with ReSkate](/guides/play-skate-with-reskate/).
+It's open source (GPL-3.0) and runs on Windows. It also runs on Linux through Proton, with rough edges. The dedicated server has a native Linux build. You need your own copy of skate. on Steam. Its FAQ says EA can't ban you for using it, but the ReSkate team keeps its own ban list for its multiplayer. The project says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([news feed](https://github.com/Dingo-Shenanigans/ReSkateCache)). Because it still runs EA's client, EA's terms still apply. To set it up, follow the [ReSkate install guide](/guides/play-skate-with-reskate/).
 
 ## Where that leaves fans
 

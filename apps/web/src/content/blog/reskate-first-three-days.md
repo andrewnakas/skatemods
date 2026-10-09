@@ -49,7 +49,7 @@ The [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows w
 
 ## Where to start
 
-- To play: [Play skate. with ReSkate](/guides/play-skate-with-reskate/) is up to date for 1.1.1, including Linux.
+- To play: the [ReSkate install guide](/guides/play-skate-with-reskate/) is up to date for 1.1.1, including Linux.
 - To host: [Host a ReSkate server](/guides/host-a-reskate-server/) covers Windows, Linux and global bans.
 - The full story, with everyone who built it, is on the [ReSkate history page](/history/reskate/).
 

@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { getMods } from '../lib/thunderstore';
+import { modCategories } from '../data/reskate-categories';
 
 // llms.txt (https://llmstxt.org): a plain map of the site for AI assistants and answer engines.
 export async function GET() {
@@ -40,7 +41,7 @@ ${blog.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).map((p) => 
 
 ## Optional
 - [Clean Room Skate Online](${u('/skate-3-online/')}): a fan-made Skate 3 rewrite you can play in your browser, solo or with up to 10 players
-- [All skate. mods](${u('/reskate/')}): every ReSkate mod, refreshed from Thunderstore
+- [All ReSkate mods](${u('/reskate/')}): every skate. mod on the ReSkate Thunderstore, refreshed live; by category: ${modCategories.map((c) => `[${c.short}](${u(`/reskate/${c.slug}/`)})`).join(', ')}
 - [Skate 3 maps](${u('/maps/')}): community Skate 3 maps converted for PS3, the PC recomp and the Rust engine
 - [Tools](${u('/tools/')}): every modding tool by game
 - [The people](${u('/history/people/')}): credits for everyone who built these scenes

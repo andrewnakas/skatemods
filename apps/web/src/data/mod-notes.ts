@@ -5,6 +5,8 @@
 export const modNotes: Record<string, string> = {
   'zeex64-Full_Skate_3_Map':
     'Port Carverton, the whole city from <a href="/games/skate-3/">Skate 3</a> (2010), running in EA\'s 2025 skate.: Downtown\'s ledges and rails, University\'s banks and plazas, and Industrial with its quarry. zeex64, who leads ReSkate, put it up on launch day, October 2, 2026, and it has been the most downloaded ReSkate mod ever since. The story of how Skate 3\'s world format became convertible is in the <a href="/history/skate-3/">Skate 3 modding history</a>.',
+  '333-Skate_3_Improved':
+    'Port Carverton, the city from <a href="/games/skate-3/">Skate 3</a> (2010), in EA\'s 2025 skate., with the DLC maps, Skate 3\'s original decals and surface sounds that change with the material underfoot. 333 put it up on October 7, 2026, and within days it was one of the two most downloaded maps on ReSkate, next to brassy\'s skate 2 city. zeex64\'s launch-day Full Skate 3 Map is no longer on Thunderstore. How Skate 3\'s world format became convertible is in the <a href="/history/skate-3/">Skate 3 modding history</a>.',
   'brassy-Skate2Map':
     'New San Vanelona, the city from <a href="/games/skate-2/">skate 2</a> (2009), ported into skate. by brassy. It went up the day after ReSkate launched and became one of its most downloaded maps.',
   'TeamMeebs-Losal_Streets':

@@ -5,7 +5,7 @@ games: [skate-2025]
 years: 2026–present
 scene: active
 order: 7
-updated: 2026-10-05
+updated: 2026-10-09
 people:
   - name: zeex64
     role: Leads ReSkate. Published the source, cut the 1.0 release and the eleven releases in its first three days, reviews and merges community pull requests, runs the news feed, and ported the full Skate 3 map to skate.
@@ -197,7 +197,7 @@ Mods are distributed through a [Thunderstore community](https://thunderstore.io/
 
 | Mod | By | What it is |
 |---|---|---|
-| [Full Skate 3 Map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) | zeex64 | Port Carverton, the whole Skate 3 city, in skate. |
+| [Full Skate 3 Map](https://web.archive.org/web/20261006184233/https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) | zeex64 | Port Carverton, the whole Skate 3 city, in skate. |
 | [Skate 2 Map](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/) | brassy | New San Vanelona from skate 2 |
 | [Losal Streets](https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/) | TeamMeebs | A street map from Skater XL |
 | [Desert Springs](https://thunderstore.io/c/reskate/p/memori/Desert_Springs/) | memori | Yaky's map, ported from BMX Streets |
@@ -214,7 +214,7 @@ By **October 5** there were **216 mods** and more than **326,000 downloads**. Ma
 
 | Mod | By | Downloads (Oct 5) |
 |---|---|---|
-| [Full Skate 3 Map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) | zeex64 | 18,700 |
+| [Full Skate 3 Map](https://web.archive.org/web/20261006184233/https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/) | zeex64 | 18,700 |
 | [South Florida](https://thunderstore.io/c/reskate/p/AltDoug/South_Florida/) | B-Row, ported by AltDoug | 11,900 |
 | [Skate 2 Map](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/) | brassy | 11,500 |
 | [Skate 3 Soundtrack](https://thunderstore.io/c/reskate/p/Prayboy/Skate3Soundtrack/) | Prayboy | 11,300 |
@@ -225,7 +225,7 @@ By **October 5** there were **216 mods** and more than **326,000 downloads**. Ma
 | [The SLS Hangar](https://thunderstore.io/c/reskate/p/forestmouse/The_SLS_Hangar/) | forestmouse | 5,100 |
 | [Bullworth](https://thunderstore.io/c/reskate/p/Lukas9875/Bullworth/) | Lukas9875 | 5,000 |
 
-Maps now come from everywhere: THUG2's Los Angeles, Bully's Bullworth, Counter-Strike's Dust2, Nuke and Overpass, the whole of GTA III and Vice City, True Skate's Underpass and real parks like DC Plaza Saint Petersburg. Several authors credit **ReSkate Studio** for their conversions and cosmetics. The [skate. mods](/reskate/) page lists every one, live.
+Maps now come from everywhere: THUG2's Los Angeles, Bully's Bullworth, Counter-Strike's Dust2, Nuke and Overpass, the whole of GTA III and Vice City, True Skate's Underpass and real parks like DC Plaza Saint Petersburg. Several authors credit **ReSkate Studio** for their conversions and cosmetics. By **October 9** the Thunderstore listed more than 1,250 current mods with about 2.6 million downloads. zeex64's Full Skate 3 Map is no longer there. 333's [Skate 3 Improved](/reskate/333/Skate_3_Improved/), posted October 7 with the DLC maps and Skate 3's original decals, is now the most downloaded Skate 3 city, close behind brassy's skate 2 map. The [ReSkate mods](/reskate/) page lists every mod, live, and [ReSkate custom maps](/reskate/maps/) has the maps alone.
 
 ## Trainers and tools
 

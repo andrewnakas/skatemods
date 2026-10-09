@@ -433,7 +433,7 @@ export const timeline: Event[] = [
     title: 'Port Carverton in the new skate.',
     body: 'On ReSkate\'s launch day, the whole Skate 3 city goes up on Thunderstore as a map for EA\'s 2025 skate., and becomes the platform\'s most downloaded mod.',
     who: 'zeex64',
-    source: 'https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/',
+    source: 'https://web.archive.org/web/20261006184233/https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/',
   },
 ];
 

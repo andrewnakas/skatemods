@@ -24,14 +24,14 @@ const n = (x: number) => x.toLocaleString('en-US');
 const searchName = mod.name;
 const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)}${mod.description.length > 150 ? '…' : ''} A ReSkate mod for skate. by ${mod.owner}. How to install it, what's in it, and the download.`.trim();
 ---
-<Base title={`${mod.name}: skate. mod by ${mod.owner}`} description={description} image={mod.icon} card="small" schema={{
+<Base title={`${mod.name}: ReSkate mod for skate. by ${mod.owner}`} description={description} image={mod.icon} card="small" schema={{
   '@type': 'SoftwareApplication', name: mod.name, applicationCategory: 'GameApplication', operatingSystem: 'Windows',
   softwareVersion: mod.version, datePublished: mod.created, dateModified: mod.updated, downloadUrl: mod.downloadUrl,
   image: mod.icon, author: { '@type': 'Person', name: mod.owner }, description: mod.description, url: `https://skatemods.com${mod.path}`,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/DownloadAction', userInteractionCount: mod.downloads },
 }}>
-  <PageHead parent={{ href: '/reskate/', label: 'skate. mods' }} eyebrow={mod.owner} title={mod.name} lede={mod.description}>
+  <PageHead parent={{ href: '/reskate/', label: 'ReSkate mods' }} eyebrow={mod.owner} title={mod.name} lede={mod.description}>
     <p class="meta facts">
       by <a href={`https://thunderstore.io/c/reskate/p/${mod.owner}/`} rel="noopener">{mod.owner}</a> · v{mod.version} · {mb(mod.size)} · {n(mod.downloads)} downloads · updated {day(mod.updated)}
     </p>

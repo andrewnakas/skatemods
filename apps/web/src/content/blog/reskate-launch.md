@@ -31,7 +31,7 @@ In game, multiplayer means 32-player Steam lobbies, an in-game server browser, p
 
 Thirteen mods went up on the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/) on the first day, and most of them are cities and parks from other games:
 
-- **[The full Skate 3 map](https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/)**, ported by zeex64, puts Port Carverton in the engine of the game that replaced it. It was the most downloaded mod of day one.
+- **[The full Skate 3 map](https://web.archive.org/web/20261006184233/https://thunderstore.io/c/reskate/p/zeex64/Full_Skate_3_Map/)**, ported by zeex64, puts Port Carverton in the engine of the game that replaced it. It was the most downloaded mod of day one.
 - **[New San Vanelona](https://thunderstore.io/c/reskate/p/brassy/Skate2Map/)** from skate 2, ported by brassy.
 - **[Losal Streets](https://thunderstore.io/c/reskate/p/TeamMeebs/Losal_Streets/)** from [Skater XL](/history/skater-xl/), by TeamMeebs.
 - Three maps by **Yaky**, a map maker the Skater XL scene already knows: [Shred Cavern](https://thunderstore.io/c/reskate/p/zeex64/Shred_Cavern_By_Yaky/), [The Lost Loop](https://thunderstore.io/c/reskate/p/zeex64/The_Lost_Loop_By_Yaky/), and [Desert Springs](https://thunderstore.io/c/reskate/p/memori/Desert_Springs/), ported from BMX Streets by memori.
@@ -54,7 +54,7 @@ What's different this time is the target: a live game that EA is still developin
 
 ## Get started
 
-- **Play:** [Play skate. with ReSkate](/guides/play-skate-with-reskate/) covers install, controls, mods and fixes.
+- **Play:** the [ReSkate install guide](/guides/play-skate-with-reskate/) covers install, controls, mods and fixes.
 - **Host:** [Host a ReSkate server](/guides/host-a-reskate-server/) walks through the config, custom maps and fair-play checks.
 - **History:** the [ReSkate scene page](/history/reskate/) has the timeline and the people behind it.
 - **Mods:** [browse every skate. mod](/reskate/), updated live from Thunderstore.
