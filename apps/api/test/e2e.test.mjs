@@ -119,6 +119,15 @@ test('full lifecycle', async () => {
   assert.deepEqual(dl, out);
   assert.ok((await (await anon.req('GET', '/api/maps')).json()).maps.some((m) => m.id === mapId && m.kinds.includes('recomp')));
 
+  // The browser engine reads the public catalog and files from another origin.
+  for (const path of ['/api/maps', `/api/maps/${mapId}`, `/api/maps/${mapId}/files/${recomp.id}?cors=1`]) {
+    const r = await fetch(BASE + path, { headers: { Origin: 'https://andrewnakas.github.io' } });
+    assert.equal(r.status, 200, path);
+    assert.equal(r.headers.get('access-control-allow-origin'), '*', path);
+    await r.arrayBuffer();
+  }
+  assert.equal((await fetch(BASE + '/api/me', { headers: { Origin: 'https://andrewnakas.github.io' } })).headers.get('access-control-allow-origin'), null);
+
   // Reports: anonymous needs contact; copyright claims need detail.
   assert.equal((await anon.req('POST', `/api/maps/${mapId}/report`, { json: { reason: 'broken' } })).status, 400);
   assert.equal((await anon.req('POST', `/api/maps/${mapId}/report`, { json: { reason: 'copyright', contact: 'me@example.com', details: 'short' } })).status, 400);

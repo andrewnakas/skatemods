@@ -5,7 +5,7 @@ import PageHead from '../components/PageHead.astro';
 const game = 'https://andrewnakas.github.io/skate3-cleanroom/';
 ---
 <Base title="Play in your browser" description="Skate the Skate 3 Rust engine in your browser on WebGPU, with a clean-room asset pack: no retail files, no install.">
-  <PageHead title="Skate in your browser" lede="The Skate 3 Rust and Bevy engine compiled to WebAssembly and WebGPU, with a clean-room asset pack: every texture and sound regenerated, no retail pixels shipped." />
+  <PageHead title="Skate in your browser" lede="The Skate 3 Rust and Bevy engine compiled to WebAssembly and WebGPU, with a clean-room asset pack: every texture, sound and visual mesh regenerated, no retail pixels or mesh data shipped." />
   <div class="wrap">
     <div class="stage" id="stage">
       <div class="gate">
@@ -19,16 +19,16 @@ const game = 'https://andrewnakas.github.io/skate3-cleanroom/';
     <div class="info">
       <section>
         <h2>Controls</h2>
-        <p>Keyboard and browser gamepads both work. A gamepad plays best: each stick does what it did on the Xbox 360. Use the map picker to switch maps, or add <code>?map=Name</code> to the full-page URL.</p>
+        <p>Keyboard and browser gamepads both work. A gamepad plays best: each stick does what it did on the Xbox 360. Use the map picker to switch maps, or add <code>?map=Name</code> to the full-page URL. The picker also lists every <a href="/maps/">community map</a> that has a <code>.skate</code> conversion, and opens a <code>.skate</code> file from your own disk.</p>
       </section>
       <section>
         <h2>What's in the pack</h2>
         <ul>
-          <li><strong>Regenerated:</strong> all 7,681 textures, each rebuilt from coarse facts (size, a color grid, an alpha outline) plus new detail noise, and 27 player sounds.</li>
-          <li><strong>Kept, as facts:</strong> map geometry, collision, grind rails, the skater rig, animations and physics tuning.</li>
+          <li><strong>Regenerated:</strong> all 7,681 textures, each rebuilt from coarse facts (size, a color grid, an alpha outline) plus new detail noise; 27 player sounds; and the visual geometry of every map and the skater (new vertex lattice, triangulation, normals and UVs).</li>
+          <li><strong>Kept, as facts:</strong> collision triangles (re-encoded, values unchanged), grind rails, the skater rig, animations and physics tuning.</li>
           <li><strong>Not shipped:</strong> music, speech and everything else from the disc.</li>
         </ul>
-        <p>A taint scan compares every regenerated file with the retail one: 0 failing. <a href="https://github.com/andrewnakas/skate3-cleanroom">How it's built →</a></p>
+        <p>Taint scans compare every regenerated texture, sound and mesh buffer with the retail one: 0 failing. <a href="https://github.com/andrewnakas/skate3-cleanroom">How it's built →</a></p>
       </section>
       <section>
         <h2>Known limits</h2>

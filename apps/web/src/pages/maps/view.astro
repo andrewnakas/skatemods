@@ -41,6 +41,7 @@ import Base from '../../layouts/Base.astro';
   const el = document.getElementById('map')!;
   const me = await getMe();
 
+  const PLAY = 'https://andrewnakas.github.io/skate3-cleanroom/';
   const platformLabel: Record<string, string> = { ps3: 'PS3', x360: 'Xbox 360 / recomp', skate: 'Rust engine', unknown: 'Unknown' };
 
   async function render() {
@@ -55,6 +56,8 @@ import Base from '../../layouts/Base.astro';
     const conv = m.conversion;
     const downloads = m.files.filter((f: any) => f.kind !== 'log');
     const logs = m.files.filter((f: any) => f.kind === 'log');
+    // The browser build of the Rust engine loads a published .skate straight from here.
+    const playable = m.status === 'approved' && m.files.some((f: any) => f.kind === 'skate');
     const policy = m.policy;
     el.innerHTML = `
       ${params.get('uploaded') ? `<div class="callout"><strong>Uploaded.</strong> Conversion is queued: this page updates by itself. Your map stays private until a moderator approves it.</div>` : ''}
@@ -68,6 +71,7 @@ import Base from '../../layouts/Base.astro';
       </div>
       ${m.reviewNote ? `<div class="callout"><strong>Moderator note:</strong> ${esc(m.reviewNote)}</div>` : ''}
       ${m.description ? `<div class="desc">${esc(m.description).replace(/\n/g, '<br>')}</div>` : ''}
+      ${playable ? `<p class="playnow"><a class="btn primary" href="${PLAY}?smap=${encodeURIComponent(m.id)}">Skate it in your browser</a> <span class="small">Needs Chrome or Edge (WebGPU). Loads this map into the <a href="/play/">browser build</a>.</span></p>` : ''}
 
       <h2>Downloads</h2>
       <div class="dl">
@@ -131,6 +135,7 @@ import Base from '../../layouts/Base.astro';
   .view :global(h1) { margin: 0.4rem 0 0.4rem; }
   .view :global(.byline) { color: var(--ink-soft); margin: 0 0 1rem; }
   .view :global(.chips) { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .view :global(.playnow) { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem; }
   .view :global(.desc) { max-width: 70ch; margin-top: 1.5rem; color: var(--ink-soft); }
   .view :global(.dl) { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
   .view :global(.file h3) { word-break: break-all; font-size: 1rem; }
