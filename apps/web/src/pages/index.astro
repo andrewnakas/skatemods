@@ -26,11 +26,29 @@ const doors = [
   { n: '04', href: '/games/', title: 'Mod another game', body: 'THUG Pro, Skater XL, Session and the rest: what works, where to start.' },
 ];
 ---
-<Base title="skatemods">
+<Base title="skatemods" description="Play Skate 3 online, free in your browser, with multiplayer for up to 10 skaters. Plus guides, history, community Skate 3 maps and mods for every skate game." image="/og/skate-3-online.png">
+  <section class="play">
+    <div class="wrap play-grid">
+      <div>
+        <p class="kicker">Free · No download · Multiplayer</p>
+        <h1><span>Play Skate 3</span> <span>online.</span></h1>
+        <p class="lede">Skate 3 runs in your browser. Press start, pick a park, and open a room for up to 10 friends. No disc, no emulator, no install.</p>
+        <p class="btns"><a class="btn primary big" href="/skate-3-online/#play">▶ Play Skate 3 now</a> <a class="btn big" href="/skate-3-online/">How it works</a></p>
+        <p class="meta">Chrome or Edge on desktop · Gamepad or keyboard</p>
+      </div>
+      <a class="screen" href="/skate-3-online/#play" aria-label="Play Skate 3 online now">
+        <span class="tag">Skate 3 Online</span>
+        <span class="go" aria-hidden="true">▶</span>
+        <span class="caption">Start skating</span>
+        <span class="hud" aria-hidden="true"><span>Solo</span><span>Private room</span><span>Public rooms</span></span>
+      </a>
+    </div>
+  </section>
+
   <section class="mast">
     <div class="wrap mast-grid">
       <div>
-        <h1>Mod every<br />skate game.</h1>
+        <h2 class="mast-h">Mod every<br />skate game.</h2>
         <p class="lede">A reference for modding skate games, written by players. Guides and history for every game, from Skate 3 to the new skate., and a home for Skate 3 maps that converts each upload between PS3, the PC recomp and the Rust engine.</p>
       </div>
       <ol class="doors">
@@ -157,10 +175,32 @@ const doors = [
 </script>
 
 <style>
-  .mast { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--line); }
+  .play { padding: 3.5rem 0 3rem; border-bottom: 2px solid var(--ink); }
+  .play-grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 940px) { .play-grid { grid-template-columns: 1.1fr 1fr; } }
+  .play h1 { font-size: clamp(3rem, 6.4vw, 5.6rem); margin-bottom: 1.25rem; }
+  .play h1 span { display: inline-block; white-space: nowrap; }
+  .play .kicker { font: 500 0.85rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0 0 0.75rem; }
+  .play .btns { margin: 1.5rem 0 0.75rem; }
+  .big { font-size: 1.15rem; padding: 0.8rem 1.5rem; }
+  .play .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .play .btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  /* A stand-in for the game screen: always dark, like the stage on /skate-3-online/. */
+  .screen {
+    position: relative; display: grid; place-items: center; align-content: center; gap: 0.75rem; aspect-ratio: 16 / 10;
+    background: #0b0b0d; color: #ecebe6; border-radius: 16px; border: 1px solid var(--line); text-decoration: none; overflow: hidden;
+  }
+  .screen .tag { position: absolute; top: 1rem; left: 1.25rem; font: 900 1.1rem/1 var(--font-display); font-stretch: 70%; text-transform: uppercase; color: #ffd21f; }
+  .screen .go { display: grid; place-items: center; width: 5.5rem; height: 5.5rem; border-radius: 50%; background: #d63a1f; color: #fff; font-size: 2rem; padding-left: 0.3rem; transition: transform 0.15s; }
+  .screen:hover .go { transform: scale(1.08); }
+  .screen .caption { font: 800 1.4rem/1 var(--font-display); text-transform: uppercase; }
+  .screen .hud { position: absolute; bottom: 1rem; left: 1.25rem; right: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font: 500 0.8rem var(--font-mono); text-transform: uppercase; color: #9d9a92; }
+  .screen .hud span::before { content: '● '; color: #4fbf6a; }
+
+  .mast { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--line); }
   .mast-grid { display: grid; gap: 2.5rem; align-items: end; }
   @media (min-width: 940px) { .mast-grid { grid-template-columns: 1.35fr 1fr; } }
-  .mast h1 { font-size: clamp(3.2rem, 10vw, 7rem); margin-bottom: 1.25rem; }
+  .mast-h { font-size: clamp(2.4rem, 6vw, 4.2rem); margin: 0 0 1.25rem; }
   .doors { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
   .doors a { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
   .doors a:hover strong { color: var(--accent); }

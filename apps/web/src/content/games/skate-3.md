@@ -10,6 +10,7 @@ scene: thriving
 featured: true
 order: 1
 howToMod:
+  - 'Play it [online in your browser](/skate-3-online/), free, with multiplayer rooms for up to 10 players. No disc needed.'
   - 'Play it natively on Windows, Linux or macOS with [skate3recomp](/guides/play-skate-3-on-pc/) or [SK8-Engine](https://github.com/andrewnakas/SK8-Engine). You bring your own Xbox 360 disc image.'
   - 'Load community maps as DLC packs through the [Skate 3 Level Loader](/guides/install-community-maps/).'
   - 'Convert PS3 custom maps to recomp packs with the [PS3 Map Importer](/guides/convert-ps3-maps/), or [on this site](/upload/).'

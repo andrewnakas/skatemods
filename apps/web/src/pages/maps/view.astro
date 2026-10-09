@@ -41,7 +41,7 @@ import Base from '../../layouts/Base.astro';
   const el = document.getElementById('map')!;
   const me = await getMe();
 
-  const PLAY = 'https://andrewnakas.github.io/skate3-cleanroom/';
+  const PLAY = '/skate-3-online/';
   const platformLabel: Record<string, string> = { ps3: 'PS3', x360: 'Xbox 360 / recomp', skate: 'Rust engine', unknown: 'Unknown' };
 
   async function render() {
@@ -71,7 +71,7 @@ import Base from '../../layouts/Base.astro';
       </div>
       ${m.reviewNote ? `<div class="callout"><strong>Moderator note:</strong> ${esc(m.reviewNote)}</div>` : ''}
       ${m.description ? `<div class="desc">${esc(m.description).replace(/\n/g, '<br>')}</div>` : ''}
-      ${playable ? `<p class="playnow"><a class="btn primary" href="${PLAY}?smap=${encodeURIComponent(m.id)}">Skate it in your browser</a> <span class="small">Needs Chrome or Edge (WebGPU). Loads this map into the <a href="/play/">browser build</a>.</span></p>` : ''}
+      ${playable ? `<p class="playnow"><a class="btn primary" href="${PLAY}?smap=${encodeURIComponent(m.id)}">Skate it in your browser</a> <span class="small">Needs Chrome or Edge (WebGPU). Loads this map into <a href="/skate-3-online/">Skate 3 Online</a>.</span></p>` : ''}
 
       <h2>Downloads</h2>
       <div class="dl">

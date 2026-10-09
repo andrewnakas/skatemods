@@ -1,12 +1,16 @@
 ---
 question: Can I still play Skate 3 online?
-answer: Yes, on RPCS3, through skate6743's community Blaze server. It restores matchmaking, friend invites and Skate.Park uploads. You point RPCS3 at it with a config tool, and everyone in a lobby has to use the same physics settings and game update.
+answer: Yes. The quickest way is Skate 3 Online, a free browser build with multiplayer rooms for up to 10 players. To play the original PS3 game online, use RPCS3 with skate6743's community Blaze server. It restores matchmaking, friend invites and Skate.Park uploads. You point RPCS3 at it with a config tool, and everyone in a lobby has to use the same physics settings and game update.
 category: skate-3
 games: [skate-3, skate, skate-2]
 related: [faq/rpcs3-basics, guides/skate-3-on-rpcs3, history/skate-3]
 order: 13
 updated: 2026-10-01
 ---
+
+## In your browser
+
+[Skate 3 Online](/skate-3-online/) runs a Skate 3 engine rewrite in Chrome or Edge with WebGPU: no disc, no download. Its **Multiplayer** menu opens a private room with an invite link, or a public room anyone can join, for up to 10 skaters on the same map. It isn't the retail game (the big districts aren't in it yet, and there's no music), but it's the fastest way to skate with friends.
 
 ## EA's servers
 
