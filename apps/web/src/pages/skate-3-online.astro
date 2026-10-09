@@ -45,8 +45,8 @@ const schema = {
     {
       '@type': ['VideoGame', 'WebApplication'],
       '@id': `${url}#game`,
-      name: 'Skate 3 Online',
-      alternateName: ['Skate 3 browser', 'Skate 3 web', 'Skate 3 clean-room web build'],
+      name: 'Skate 3 Online: Clean-Room Rewrite',
+      alternateName: ['Skate 3 Online', 'Skate 3 clean-room rewrite', 'Skate 3 Clean Room', 'Skate 3 browser'],
       url,
       description: 'A fan-made Skate 3 engine rewrite that runs in the browser on WebGPU, with multiplayer rooms for up to 10 players and a clean-room asset pack.',
       applicationCategory: 'GameApplication',
@@ -68,16 +68,16 @@ const schema = {
 };
 ---
 <Base
-  title="Skate 3 Online: play free in your browser"
-  description="Play Skate 3 online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
+  title="Skate 3 Online: play the clean-room rewrite free in your browser"
+  description="Play the Skate 3 clean-room rewrite online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
   image="/og/skate-3-online.png"
   schema={schema}
 >
   <header class="hero">
     <div class="wrap">
-      <p class="kicker">Free · In your browser · Up to 10 players</p>
+      <p class="kicker">Skate 3 clean-room rewrite · Free · Up to 10 players</p>
       <h1>Skate 3 Online</h1>
-      <p class="lede">Play Skate 3 in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
+      <p class="lede">Play the Skate 3 clean-room rewrite online, right in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
     </div>
   </header>
 
@@ -116,7 +116,7 @@ const schema = {
     </div>
 
     <section class="about-build">
-      <h2>What is Skate 3 Online?</h2>
+      <h2>What is the Skate 3 clean-room rewrite?</h2>
       <div class="cols">
         <div>
           <p>It's the open-source <a href="https://github.com/SK8-ENGINE/skate-3-rust-engine">Skate 3 Rust and Bevy engine</a> compiled to WebAssembly and WebGPU, so Skate 3's physics, animations and grind rails run in a browser tab. It ships with a <strong>clean-room asset pack</strong>: every texture, sound and visual mesh is regenerated, and no retail pixels or mesh data are sent to you.</p>
@@ -167,7 +167,7 @@ const schema = {
   function start() {
     const frame = document.createElement('iframe');
     frame.src = src;
-    frame.title = 'Skate 3 Online';
+    frame.title = 'Skate 3 Online: clean-room rewrite';
     frame.allow = 'fullscreen; gamepad; autoplay; cross-origin-isolated';
     frame.allowFullscreen = true;
     stage.replaceChildren(frame);
