@@ -41,7 +41,7 @@ ${blog.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).map((p) => 
 
 ## Optional
 - [Clean Room Skate Online](${u('/skate-3-online/')}): a fan-made Skate 3 rewrite you can play in your browser, solo or with up to 10 players
-- [All ReSkate mods](${u('/reskate/')}): every skate. mod on the ReSkate Thunderstore, refreshed live; by category: ${modCategories.map((c) => `[${c.short}](${u(`/reskate/${c.slug}/`)})`).join(', ')}
+- [All ReSkate mods](${u('/reskate/')}): every skate. mod on the ReSkate Thunderstore, refreshed live; by category: ${modCategories.map((c) => `[${c.short}](${u(`/reskate/${c.slug}/`)})`).join(', ')}; [best ReSkate mods](${u('/reskate/best/')}) ranked by downloads; [ReSkate changelog](${u('/reskate/changelog/')}) for every release
 - [Skate 3 maps](${u('/maps/')}): community Skate 3 maps converted for PS3, the PC recomp and the Rust engine
 - [Tools](${u('/tools/')}): every modding tool by game
 - [The people](${u('/history/people/')}): credits for everyone who built these scenes

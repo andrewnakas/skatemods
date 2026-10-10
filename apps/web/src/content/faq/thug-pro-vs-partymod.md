@@ -3,7 +3,7 @@ question: THUG Pro, reTHAWed or PARTYMOD, which should I use?
 answer: THUG Pro and reTHAWed are total conversions that collect levels from the whole series into one online game, THUG Pro on THUG2 and reTHAWed on American Wasteland. PARTYMOD patches each original PC port with modern controllers, fixes and widescreen. Plenty of people use both.
 category: other-games
 games: [tony-hawk-classic]
-related: [guides/thug-pro-and-partymod, history/thug-pro, history/rethawed, history/partymod]
+related: [guides/thug-pro-and-partymod, faq/rethawed-vs-thug-pro, history/thug-pro, history/rethawed, history/partymod]
 order: 31
 updated: 2026-10-06
 ---
@@ -29,4 +29,4 @@ A total conversion of *American Wasteland* by the 10K Rising team, with levels f
 | THPS3 or THPS4 exactly as it was, just working on a modern PC | PARTYMOD for that game |
 | More than one | Install them side by side. THUG Pro needs THUG2, reTHAWed needs THAW, and PARTYMOD patches each game separately. |
 
-Setup steps are in [Get started with THUG Pro, reTHAWed and PARTYMOD](/guides/thug-pro-and-partymod/).
+Choosing between the two total conversions: [reTHAWed or THUG Pro](/faq/rethawed-vs-thug-pro/). Setup steps are in [Get started with THUG Pro, reTHAWed and PARTYMOD](/guides/thug-pro-and-partymod/).

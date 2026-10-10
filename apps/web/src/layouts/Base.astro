@@ -13,11 +13,13 @@ interface Props {
   card?: 'large' | 'small';
   /** Leave Google Analytics off (the face scan page). */
   noAnalytics?: boolean;
+  /** Keep the page out of search results (account screens, 404). */
+  noindex?: boolean;
 }
 
-const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large', noAnalytics = false } = Astro.props;
+const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large', noAnalytics = false, noindex = false } = Astro.props;
 const imageUrl = new URL(image, 'https://skatemods.com');
-const fullTitle = title === 'skatemods' ? 'skatemods: Clean Room Skate Online, a Skate 3 rewrite in your browser' : `${title} · skatemods`;
+const fullTitle = title === 'skatemods' ? 'skatemods: skate mods, ReSkate and Skate 3 online' : `${title} · skatemods`;
 const path = Astro.url.pathname;
 
 const nav = [
@@ -32,6 +34,30 @@ const nav = [
   { href: '/tools/', label: 'Tools' },
 ];
 const active = (href: string) => path.startsWith(href);
+
+// Breadcrumbs for search results, from the URL: Home > section > this page.
+const sections: Record<string, string> = {
+  games: 'Games', maps: 'Maps', reskate: 'ReSkate mods', guides: 'Guides', faq: 'FAQ',
+  history: 'History', blog: 'Blog', community: 'Community', tools: 'Tools',
+};
+const segs = path.split('/').filter(Boolean);
+const crumbs = segs.length >= 2 && sections[segs[0]]
+  ? [{ name: 'skatemods', url: '/' }, { name: sections[segs[0]], url: `/${segs[0]}/` }, { name: title, url: path }]
+  : null;
+const siteSchema = path === '/'
+  ? {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'WebSite', '@id': 'https://skatemods.com/#site', name: 'skatemods', url: 'https://skatemods.com/', publisher: { '@id': 'https://skatemods.com/#org' } },
+        { '@type': 'Organization', '@id': 'https://skatemods.com/#org', name: 'skatemods', url: 'https://skatemods.com/', logo: 'https://skatemods.com/favicon.svg', sameAs: ['https://github.com/andrewnakas/skatemods'] },
+      ],
+    }
+  : null;
+const crumbSchema = crumbs && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.url, 'https://skatemods.com').href })),
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -51,6 +77,9 @@ const active = (href: string) => path.startsWith(href);
     <meta name="twitter:image" content={imageUrl} />
     <meta name="theme-color" content="#d63a1f" />
     <meta name="msvalidate.01" content="0FB507E950AF018426384B7E762A85A2" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {siteSchema && <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />}
+    {crumbSchema && <script type="application/ld+json" set:html={JSON.stringify(crumbSchema)} />}
     {schema && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...schema })} />}
     <meta property="og:url" content={new URL(path, 'https://skatemods.com')} />
     <link rel="alternate" type="application/rss+xml" title="skatemods blog" href="/blog/rss.xml" />
@@ -68,6 +97,19 @@ const active = (href: string) => path.startsWith(href);
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-GPC9R5H2NY');
+      // Conversions: downloads of mods and tools, and starting the browser game.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var h = a.href;
+        var kind = /thunderstore\.io\/package\/download\//.test(h) ? 'mod_download'
+          : /github\.com\/[^/]+\/[^/]+\/releases\/(latest|download|tag)/.test(h) ? 'tool_download'
+          : /thunderstore\.io\/c\/reskate\/p\//.test(h) ? 'thunderstore_click'
+          : /discord\.(gg|com\/invite)\//.test(h) ? 'discord_join'
+          : /\/skate-3-online\/#play$/.test(h) ? 'play_online'
+          : '';
+        if (kind) gtag('event', kind, { link_url: h, page_path: location.pathname });
+      }, true);
     </script>}
   </head>
   <body>

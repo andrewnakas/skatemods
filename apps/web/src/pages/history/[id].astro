@@ -33,7 +33,11 @@ const toc = [
   ...(hasEvents ? [{ href: '#timeline', text: 'Timeline' }] : []),
 ];
 ---
-<Base title={`${d.title} history`} description={d.short} image={`/og/history-${community.id}.png`}>
+<Base title={`${d.title} history`} description={d.short} type="article" image={`/og/history-${community.id}.png`} schema={{
+  '@type': 'Article', headline: `${d.title} history`, description: d.short, dateModified: d.updated.toISOString(),
+  author: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' }, image: `https://skatemods.com/og/history-${community.id}.png`,
+  mainEntityOfPage: `https://skatemods.com/history/${community.id}/`,
+}}>
   <PageHead parent={{ href: '/history/', label: 'History' }} eyebrow={d.years} title={d.title} lede={d.short}>
     <div class="facts">
       <Scene scene={d.scene} />

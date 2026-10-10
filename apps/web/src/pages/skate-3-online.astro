@@ -35,6 +35,10 @@ const faq = [
     a: "The built-in parks, plus every community map on skatemods.com that has a .skate conversion. You can also open a .skate file from your own disk. The three big Port Carverton districts aren't in the web build yet.",
   },
   {
+    q: 'Is this the Skate 3 browser port from skate.aaddpp.lol?',
+    a: "No. That port runs the same open-source Rust engine, but it's built to load converted Skate 3 game data. Clean Room Skate Online uses regenerated art and sound and needs no game files.",
+  },
+  {
     q: 'Is this made by EA?',
     a: 'No. Clean Room Skate Online is a fan-made, open-source engine rewrite and is not affiliated with or endorsed by Electronic Arts. Skate 3 is a trademark of Electronic Arts.',
   },
@@ -68,7 +72,7 @@ const schema = {
 };
 ---
 <Base
-  title="Clean Room Skate Online: play a Skate 3 rewrite free in your browser"
+  title="Play Skate 3 online: Clean Room Skate Online"
   description="Clean Room Skate Online is a fan-made Skate 3 engine rewrite you can play online, free in your browser. No download, no disc: multiplayer rooms for up to 10 skaters, community maps and gamepad support. Chrome or Edge with WebGPU."
   image="/og/skate-3-online.png"
   schema={schema}
@@ -76,7 +80,7 @@ const schema = {
   <header class="hero">
     <div class="wrap">
       <p class="kicker">Fan-made Skate 3 rewrite · Free · Up to 10 players</p>
-      <h1>Clean Room Skate Online</h1>
+      <h1>Play Skate 3 online: Clean Room Skate Online</h1>
       <p class="lede">A fan-made rewrite of the Skate 3 engine that you play online, right in your browser: no download, no disc, no emulator. Skate solo, or open a multiplayer room and send friends the link.</p>
     </div>
   </header>
@@ -133,6 +137,11 @@ const schema = {
       </div>
     </section>
 
+    <section class="port">
+      <h2>Looking for the Skate 3 browser port?</h2>
+      <p>The Skate 3 browser game at skate.aaddpp.lol that went viral in October 2026 runs the same open-source engine, but it's meant to load your own converted copy of the game, and the public site streams a converted data pack instead. <a href="/blog/skate-3-browser-port/">The browser port explained</a>. To compare every option, from the PC recomp to RPCS3, see <a href="/guides/play-skate-3-anywhere/">every way to play Skate 3</a>.</p>
+    </section>
+
     <section class="faq">
       <h2>FAQ: playing Skate 3 online</h2>
       <div class="qa">
@@ -148,7 +157,8 @@ const schema = {
     <section class="more">
       <h2>Other ways to play Skate 3</h2>
       <ul>
-        <li><a href="/guides/play-skate-3-on-pc/"><strong>On PC, natively</strong><span>The skate3recomp port for Windows, Linux and macOS, from your own Xbox 360 disc.</span></a></li>
+        <li><a href="/guides/play-skate-3-anywhere/"><strong>Every way to play Skate 3</strong><span>PC, Mac, Steam Deck, Android and browser options compared in one table.</span></a></li>
+        <li><a href="/guides/skate-3-recomp/"><strong>On PC, natively</strong><span>The skate3recomp port for Windows, Linux and macOS, from your own Xbox 360 disc.</span></a></li>
         <li><a href="/faq/skate-3-online/"><strong>The original game, online</strong><span>RPCS3 and the community Blaze server bring back matchmaking and Skate.Park uploads.</span></a></li>
         <li><a href="/games/skate-3/"><strong>Skate 3 modding</strong><span>Custom maps, texture mods, the Level Loader and the full history.</span></a></li>
       </ul>
@@ -214,8 +224,8 @@ const schema = {
   section p, section li { color: var(--ink-soft); font-size: 0.95rem; }
   section ul { padding-left: 1.1rem; }
 
-  .about-build, .faq, .more { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
-  .about-build h2, .faq h2, .more h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-bottom: 1rem; }
+  .about-build, .port, .faq, .more { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
+  .about-build h2, .port h2, .faq h2, .more h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-bottom: 1rem; }
   .cols { display: grid; gap: 1rem 3rem; }
   @media (min-width: 900px) { .cols { grid-template-columns: 1fr 1fr; } }
   .cols ul { margin: 0; }
@@ -228,7 +238,8 @@ const schema = {
   details p { margin: 0.5rem 0 0.25rem; }
 
   .more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0 2rem; }
-  @media (min-width: 800px) { .more ul { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 800px) { .more ul { grid-template-columns: repeat(2, 1fr); } }
+  .port p { max-width: 70ch; }
   .more a { display: block; padding: 0.75rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
   .more a:hover strong { color: var(--accent); }
   .more strong { display: block; color: var(--ink); }

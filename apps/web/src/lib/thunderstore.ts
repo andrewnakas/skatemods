@@ -29,11 +29,14 @@ export interface Mod {
 
 let cache: Promise<Mod[]> | undefined;
 
+/** Slurs we won't list or give a page to, whatever Thunderstore allows. */
+const BLOCKED = /n[i1!]gg|f[a@]gg?[o0]t|\bfag\b|retard|tr[a@]nny|\bkike|\bchink|\bspic\b/i;
+
 /** Every current, non-NSFW mod. Empty if Thunderstore can't be reached (the build still succeeds). */
 export function getMods(): Promise<Mod[]> {
   cache ??= fetch(LIST, { signal: AbortSignal.timeout(20000) })
     .then((r) => r.json())
-    .then((packages: any[]) => packages.filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length).map(toMod))
+    .then((packages: any[]) => packages.filter((p) => !p.is_deprecated && !p.has_nsfw_content && p.versions?.length && !BLOCKED.test(`${p.full_name} ${p.versions[0].description}`)).map(toMod))
     .catch(() => []);
   return cache;
 }
@@ -126,3 +129,6 @@ export async function mapLimit<T, R>(items: T[], limit: number, fn: (t: T) => Pr
 
 export const day = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 export const mb = (n: number) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
+
+/** Worth a search listing: some downloads or a real description. Others get noindex unless the README has content. */
+export const indexable = (m: Mod) => m.downloads >= 50 || m.description.trim().length >= 60;

@@ -1,10 +1,10 @@
 ---
-title: Mod Skate 3 on RPCS3
-description: Where Skate 3 files live in RPCS3, how to install DLC and custom maps, texture mods, and how to get online again.
+title: "Skate 3 on RPCS3: settings, patches and custom maps"
+description: The RPCS3 settings Skate 3 needs, game patches and the 1.05 update, where its files live, how to install DLC, custom maps and texture mods, and how to get online again.
 game: skate-3
 level: intermediate
 order: 4
-updated: 2026-10-01
+updated: 2026-10-10
 downloads:
   - { label: "RPCS3", url: "https://rpcs3.net/download", note: "the PS3 emulator" }
   - { label: "RPCS3 quickstart", url: "https://rpcs3.net/quickstart", note: "firmware and dumping your own disc" }
@@ -13,6 +13,21 @@ downloads:
 ---
 
 [RPCS3](https://rpcs3.net/download) is where most Skate 3 custom content was made and played for years. Use it if you play the PS3 version. Its [quickstart](https://rpcs3.net/quickstart) covers the firmware and dumping your own disc.
+
+## Settings
+
+Make a per-game config: right-click Skate 3 in RPCS3's game list and choose **Create Custom Configuration** (or **Change Custom Configuration**). The [Blaze server README](https://github.com/skate6743/Skate3BlazeServer) gives the CPU settings the community plays on:
+
+- **CPU → XFloat Accuracy:** Approximate
+- **CPU → Enable SPU loop detection:** off
+
+These matter most online. "Any setting that affects physics that you have set to different value will cause you to desync out of all lobbies immediately," so everyone in a lobby needs the same values. The same goes for physics mods from the Native Menu.
+
+Install the **1.05 game update** too: drag the update `.pkg` onto RPCS3's game list. The list's Version column shows 1.00 if you're missing it, and players still on 1.00 are put in separate lobbies from 1.05 players.
+
+## Patches
+
+RPCS3's **Patch Manager** (**Manage → Game Patches**) downloads community patches and lists the ones available for your game ID. Turn on only what you need, and turn patches off before reporting a bug. tuukkas made widescreen patches for Skate 3 on RPCS3 and Xenia ([Skate 3 history](/history/skate-3/)).
 
 ## Find your game folder
 

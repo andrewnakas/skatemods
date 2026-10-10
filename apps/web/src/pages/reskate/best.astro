@@ -1,0 +1,86 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { getMods, day, type Mod } from '../../lib/thunderstore';
+import { inCategory, modCategories } from '../../data/reskate-categories';
+import { modNotes } from '../../data/mod-notes';
+
+// Rankings from the build's Thunderstore snapshot: all-time downloads per category, plus the
+// fastest-growing new mods. Libraries and packages tagged "AI Generated" are left out.
+const built = new Date();
+const month = built.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const mods = (await getMods()).filter((m) => !m.categories.includes('AI Generated') && !m.categories.includes('Libraries'));
+const top = (list: Mod[], k: number) => [...list].sort((a, b) => b.downloads - a.downloads).slice(0, k);
+const overall = top(mods, 10);
+const sections = modCategories.map((c) => ({ cat: c, mods: top(mods.filter((m) => inCategory(m, c)), 10) })).filter((s) => s.mods.length);
+// Downloads per day for mods released in the last 7 days.
+const week = 7 * 864e5;
+const perDay = (m: Mod) => m.downloads / Math.max(1, (built.getTime() - new Date(m.created).getTime()) / 864e5);
+const rising = mods.filter((m) => built.getTime() - new Date(m.created).getTime() < week).sort((a, b) => perDay(b) - perDay(a)).slice(0, 10);
+const n = (x: number) => x.toLocaleString('en-US');
+const plain = (html: string) => html.replace(/<[^>]+>/g, '');
+const title = `Best ReSkate mods (${month}): top skate. maps`;
+const description = `The most downloaded ReSkate mods for skate. (Skate 4) right now: maps, boards, cosmetics, music and modpacks ranked by Thunderstore downloads, plus the fastest-rising new mods. Updated ${day(built.toISOString())}.`;
+---
+<Base title={title} description={description} image="/og/reskate.png" schema={{
+  '@type': 'ItemList', name: `Best ReSkate mods, ${month}`, url: 'https://skatemods.com/reskate/best/', numberOfItems: overall.length,
+  itemListElement: overall.map((m, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://skatemods.com${m.path}`, name: m.name })),
+}}>
+  <PageHead parent={{ href: '/reskate/', label: 'ReSkate mods' }} title="Best ReSkate mods" lede={`The most downloaded skate. mods on the ReSkate Thunderstore as of ${day(built.toISOString())}, by category, and the new mods picking up fastest this week. Rankings are download counts, not our opinion; mods tagged "AI Generated" and code libraries are left out.`}>
+    <p class="meta head-links">
+      <a href="#top-10">Top 10</a> · <a href="#rising">Rising this week</a> · {sections.map((s, i) => <>{i > 0 && ' · '}<a href={`#${s.cat.slug}`}>{s.cat.short}</a></>)} · <a href="/guides/play-skate-with-reskate/">Install ReSkate</a>
+    </p>
+  </PageHead>
+  <div class="wrap">
+    <section id="top-10">
+      <h2>Top 10 ReSkate mods</h2>
+      <ol class="rank">
+        {overall.map((m) => (
+          <li>
+            <a class="name" href={m.path}>{m.name}</a> <span class="by">by {m.owner}</span>
+            <span class="dl">{n(m.downloads)} downloads</span>
+            <p>{modNotes[m.fullName] ? plain(modNotes[m.fullName]).split('. ').slice(0, 2).join('. ').replace(/\.?$/, '.') : m.description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {rising.length > 0 && (
+      <section id="rising">
+        <h2>Rising this week</h2>
+        <p class="meta">Released in the last 7 days, ranked by downloads per day.</p>
+        <ol class="rank compact">
+          {rising.map((m) => <li><a class="name" href={m.path}>{m.name}</a> <span class="by">by {m.owner}</span><span class="dl">{n(Math.round(perDay(m)))}/day · out {day(m.created)}</span></li>)}
+        </ol>
+      </section>
+    )}
+
+    {sections.map((s) => (
+      <section id={s.cat.slug}>
+        <h2>Best {s.cat.title.replace('ReSkate ', '')}</h2>
+        <ol class="rank compact">
+          {s.mods.map((m) => <li><a class="name" href={m.path}>{m.name}</a> <span class="by">by {m.owner}</span><span class="dl">{n(m.downloads)}</span></li>)}
+        </ol>
+        <p><a href={`/reskate/${s.cat.slug}/`}>All {s.cat.title.replace('ReSkate ', '')} →</a></p>
+      </section>
+    ))}
+
+    <div class="callout note">
+      <p>Install any of these from the ReSkate launcher's <strong>MODS</strong> page, or see <a href="/guides/play-skate-with-reskate/">how to install ReSkate</a> first. Download counts come from Thunderstore and refresh with each site build. What changed in ReSkate itself: <a href="/reskate/changelog/">the changelog</a>.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .head-links { margin: 1rem 0 0; }
+  section { margin: 0 0 2.5rem; max-width: 80ch; }
+  section h2 { border-top: 2px solid var(--ink); padding-top: 0.75rem; }
+  .rank { padding-left: 1.6rem; margin: 0; }
+  .rank li { padding: 0.5rem 0; border-bottom: 1px solid var(--line); }
+  .rank.compact li { padding: 0.3rem 0; }
+  .rank .name { font-weight: 600; }
+  .rank .by { color: var(--ink-soft); font-size: 0.9rem; }
+  .rank .dl { float: right; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); }
+  .rank p { margin: 0.3rem 0 0; color: var(--ink-soft); font-size: 0.95rem; }
+  .note { max-width: 70ch; }
+</style>

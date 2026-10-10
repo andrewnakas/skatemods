@@ -1,5 +1,5 @@
 ---
-question: What's the difference between a recomp and an emulator?
+question: "Recomp vs emulator: what's the difference?"
 answer: An emulator imitates the console's hardware while the game runs. A static recompilation translates the game's code into a native program ahead of time. skate3recomp is a recompilation, so it runs like a PC game, but it still needs your own copy of Skate 3.
 category: basics
 games: [skate-3]

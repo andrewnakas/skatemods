@@ -1,5 +1,5 @@
 ---
-question: How is modding Skater XL different from modding Session?
+question: "Skater XL vs Session: how does modding differ?"
 answer: Skater XL has official mod support. Its in-game, mod.io-powered browser serves maps and gear on PC and consoles. Session's mods are unofficial and PC-only, installed with the community Session Mod Manager and the Illusory unlocker.
 category: other-games
 games: [skater-xl, session]

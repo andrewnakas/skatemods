@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "sync:catalog": "node scripts/sync-catalog.mjs",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "seo:lint": "node scripts/seo-lint.mjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.0.1",

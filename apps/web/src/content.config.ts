@@ -89,6 +89,8 @@ const blog = defineCollection({
     /** One or two sentences; shown on the index, the home page and as the page lede. */
     description: z.string(),
     date: z.coerce.date(),
+    /** Last real edit, shown as "Updated" and used for the sitemap. */
+    updated: z.coerce.date().optional(),
     author: z.string().default('skatemods'),
     /** Lead the home page with this post (and its ReSkate fact list). */
     featured: z.boolean().default(false),

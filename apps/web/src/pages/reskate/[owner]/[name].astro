@@ -1,7 +1,8 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
-import { getMods, getReadme, renderReadme, stripTitle, hasBody, mapLimit, day, mb, type Mod } from '../../../lib/thunderstore';
+import { getMods, getReadme, renderReadme, stripTitle, hasBody, indexable, mapLimit, day, mb, type Mod } from '../../../lib/thunderstore';
+import { inCategory, modCategories } from '../../../data/reskate-categories';
 import { modNotes } from '../../../data/mod-notes';
 
 // One page per ReSkate mod, built from the Thunderstore snapshot at build time.
@@ -19,12 +20,14 @@ const html = hasBody(body) ? renderReadme(body) : '';
 const note = modNotes[mod.fullName];
 const deps = mod.dependencies.map((d) => ({ id: d, mod: byName.get(d) }));
 const sameOwner = all.filter((m) => m.owner === mod.owner && m !== mod).sort((a, b) => b.downloads - a.downloads).slice(0, 6);
+const category = modCategories.find((c) => inCategory(mod, c));
+const similar = category ? all.filter((m) => m !== mod && m.owner !== mod.owner && inCategory(m, category)).sort((a, b) => b.downloads - a.downloads).slice(0, 6) : [];
 const popular = all.filter((m) => m.owner !== mod.owner).sort((a, b) => b.downloads - a.downloads).slice(0, 8);
 const n = (x: number) => x.toLocaleString('en-US');
 const searchName = mod.name;
 const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)}${mod.description.length > 150 ? '…' : ''} A ReSkate mod for skate. by ${mod.owner}. How to install it, what's in it, and the download.`.trim();
 ---
-<Base title={`${mod.name}: ReSkate mod for skate. by ${mod.owner}`} description={description} image={mod.icon} card="small" schema={{
+<Base title={`${mod.name}: ReSkate mod for skate. by ${mod.owner}`} description={description} noindex={!indexable(mod) && !html && !note} image={mod.icon} card="small" schema={{
   '@type': 'SoftwareApplication', name: mod.name, applicationCategory: 'GameApplication', operatingSystem: 'Windows',
   softwareVersion: mod.version, datePublished: mod.created, dateModified: mod.updated, downloadUrl: mod.downloadUrl,
   image: mod.icon, author: { '@type': 'Person', name: mod.owner }, description: mod.description, url: `https://skatemods.com${mod.path}`,
@@ -71,7 +74,7 @@ const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)
             <ul>{deps.map((d) => <li>{d.mod ? <a href={d.mod.path}>{d.mod.name}</a> : d.id}{d.mod && <> by {d.mod.owner}</>}</li>)}</ul>
           </>
         )}
-        <p>Maps show up in the ReSkate menu's level list. To join a server running a custom map, you need the same map installed. If the game won't load after installing, see <a href="/guides/play-skate-with-reskate/#known-issues-111">known issues</a>.</p>
+        <p>Maps show up in the ReSkate menu's level list. To join a server running a custom map, you need the same map installed. If the game won't load after installing, see <a href="/guides/play-skate-with-reskate/#known-issues-202">known issues</a>.</p>
         <p class="note">skatemods doesn't host or review this mod. The download comes straight from Thunderstore. Only install mods you trust, because scripts can run code.</p>
       </section>
     </article>
@@ -92,6 +95,13 @@ const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)
         <section>
           <p class="h">More from {mod.owner}</p>
           <ul class="mini">{sameOwner.map((m) => <li><a href={m.path}>{m.name}</a> <span class="faint">{n(m.downloads)}</span></li>)}</ul>
+        </section>
+      )}
+      {category && (
+        <section>
+          <p class="h">Similar {category.short.toLowerCase()}</p>
+          <ul class="mini">{similar.map((m) => <li><a href={m.path}>{m.name}</a> <span class="faint">{n(m.downloads)}</span></li>)}</ul>
+          <p><a href={`/reskate/${category.slug}/`}>All {category.title.replace('ReSkate ', '')} →</a></p>
         </section>
       )}
       <section>

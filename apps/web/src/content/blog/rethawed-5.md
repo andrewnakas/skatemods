@@ -1,5 +1,5 @@
 ---
-title: "reTHAWed 5.0 adds THUG2's story mode to American Wasteland"
+title: "reTHAWed 5.0 adds THUG2's story mode to THAW"
 description: The THAW total conversion from 10K Rising shipped version 5.0 on October 4, with a hotfix the next day. You can now play THUG2's whole story inside THAW, dress your story skater in anything from Create-a-Skater, and show custom graphics online. PARTYMOD THPS3 2.0 and a native THUG port for the PS Vita came out the same week.
 date: 2026-10-06
 author: skatemods

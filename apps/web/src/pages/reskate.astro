@@ -10,10 +10,16 @@ import { getMods } from '../lib/thunderstore';
 // list works without JavaScript; the browser then refreshes it from the same API (it sends CORS headers).
 const mods = (await getMods()).sort((a, b) => b.created.localeCompare(a.created));
 const built = mods.map((m) => m.fullName);
+// The full list is ~1,300 mods; bake in the newest 150 and let the script render the rest.
+const SSR = 150;
+const total = `${Math.floor(mods.length / 100) * 100}+`;
 ---
-<Base title="ReSkate mods for skate. (Skate 4)" image="/og/reskate.png" description="Every ReSkate mod for skate., the game fans call Skate 4: custom maps, boards, cosmetics, soundtracks and scripts, each with install steps. Refreshed from Thunderstore on every visit.">
+<Base title={mods.length ? `ReSkate mods: ${total} skate. mods, maps and boards` : 'ReSkate mods for skate. (Skate 4)'} image="/og/reskate.png" description={`Browse ${mods.length ? total + ' ' : ''}ReSkate mods for skate. (Skate 4): custom maps, boards, clothing, soundtracks and scripts from Thunderstore, each with install steps and download counts.`} schema={{
+  '@type': 'CollectionPage', name: 'ReSkate mods for skate.', url: 'https://skatemods.com/reskate/',
+  mainEntity: { '@type': 'ItemList', numberOfItems: mods.length, itemListElement: [...mods].sort((a, b) => b.downloads - a.downloads).slice(0, 30).map((m, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://skatemods.com${m.path}`, name: m.name })) },
+}}>
   <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="ReSkate mods" lede="Every mod on the ReSkate Thunderstore: custom maps, boards, cosmetics and scripts for EA's skate. The list refreshes from Thunderstore on every visit. Install mods from the ReSkate launcher's MODS page.">
-    <p class="meta head-links">Browse: {modCategories.map((c, i) => <>{i > 0 && ' · '}<a href={`/reskate/${c.slug}/`}>{c.short}</a></>)}</p>
+    <p class="meta head-links">Browse: {modCategories.map((c, i) => <>{i > 0 && ' · '}<a href={`/reskate/${c.slug}/`}>{c.short}</a></>)} · <a href="/reskate/best/">Best mods</a> · <a href="/reskate/changelog/">ReSkate changelog</a></p>
     <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">Set up ReSkate</a> · <a href="/faq/reskate-not-working/">Fix problems</a> · <a href="/faq/is-reskate-safe/">Is it safe?</a> · <a href="/face/">Face scan</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
   </PageHead>
   <div class="wrap">
@@ -30,7 +36,8 @@ const built = mods.map((m) => m.fullName);
     </div>
     <p class="meta count" id="count">{mods.length} mods</p>
 
-    <ModList mods={mods} id="mods" built={built} />
+    <ModList mods={mods.slice(0, SSR)} id="mods" built={built} />
+    {mods.length > SSR && <p class="meta" id="more">Showing the newest {SSR}. The full list of {mods.length} loads with JavaScript, or browse by category: {modCategories.map((c, i) => <>{i > 0 && ' · '}<a href={`/reskate/${c.slug}/`}>{c.short}</a></>)}.</p>}
     {mods.length === 0 && <p class="empty" id="empty">Loading mods from Thunderstore…</p>}
 
     <div class="callout note">
@@ -83,6 +90,7 @@ const built = mods.map((m) => m.fullName);
         created: p.date_created, updated: p.date_updated, version: p.versions[0].version_number, size: p.versions[0].file_size,
       }));
     document.getElementById('empty')?.remove();
+    document.getElementById('more')?.remove();
     render();
   }).catch(() => {
     if (!list.children.length) document.getElementById('empty')!.textContent = 'Thunderstore is unavailable right now. Browse the mods at thunderstore.io/c/reskate.';

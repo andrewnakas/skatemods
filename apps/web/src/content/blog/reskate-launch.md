@@ -1,11 +1,14 @@
 ---
-title: ReSkate 1.0 is out, and skate. has mods
-description: On October 2, 2026, ReSkate shipped an open-source launcher, runtime and dedicated server for EA's skate. Within a day there were custom maps from Skate 3, skate 2 and Skater XL, community servers, two hotfixes and nearly 2,900 people in its Discord.
+title: "What is ReSkate? The skate. mod platform's 1.0 launch"
+description: ReSkate is the open-source launcher, runtime and dedicated server that lets you play EA's skate. offline with mods. It launched on October 2, 2026, and within a day there were custom maps from Skate 3, skate 2 and Skater XL, community servers, two hotfixes and nearly 2,900 people in its Discord.
 date: 2026-10-03
+updated: 2026-10-10
 author: skatemods
 games: [skate-2025, skate-3, skate-2, skater-xl]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/skate-2025]
 ---
+
+*Updated October 10: ReSkate is now on version 2.0.2. See [what's new in ReSkate 2.0](/blog/reskate-2/), and [download, install and play](/guides/play-skate-with-reskate/) for setup.*
 
 For a year, the answer to "can you mod the new skate.?" was no. EA's free-to-play revival is online-only, sits behind Javelin kernel anti-cheat, and changes with every live-service patch. Its user agreement calls mods unauthorized third-party programs. While the 2010 game got a native PC port and a fully writable world format, the newest game in the series stayed closed.
 

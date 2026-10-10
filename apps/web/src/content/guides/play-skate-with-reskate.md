@@ -4,7 +4,7 @@ description: How to download and install ReSkate, the community modding platform
 game: skate-2025
 level: beginner
 order: 6
-updated: 2026-10-05
+updated: 2026-10-10
 downloads:
   - { label: "ReSkate for Windows (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "the ReSkate-<version>.zip, with ReSkateLauncher.exe and ReSkate.dll" }
   - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
@@ -12,7 +12,11 @@ downloads:
   - { label: "ReSkate mods", url: "/reskate/", note: "browse every mod; install from the launcher" }
 ---
 
-[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers. This guide covers ReSkate **1.1.1** (October 5, 2026). The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
+ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it beside `Skate.exe`, and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
+
+## What is ReSkate
+
+[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers, and since 2.0 it blocks the game's own calls to EA. This guide covers ReSkate **2.0.2** (October 9, 2026); [what's new in 2.0](/blog/reskate-2/) lists the changes. The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
 
 ## What you need
 
@@ -20,7 +24,11 @@ downloads:
 - **Your own copy of [skate. on Steam](https://store.steampowered.com/app/3354750/).** The game is free-to-play, so adding it to your library is enough.
 - About **14 GB** free if the launcher has to download the game build for you.
 
-## Install
+## How to download ReSkate
+
+The only official download is [ReSkate's GitHub releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get `ReSkate-<version>.zip`, which holds the launcher and the runtime. The same page has the dedicated server for Windows and Linux. Re-uploads on other sites, in YouTube descriptions or in Discord DMs aren't from the ReSkate team. All the official links are in [Where do I download ReSkate?](/faq/reskate-download-links/)
+
+## How to install ReSkate
 
 1. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Don't use any other mirror. If you already have ReSkate and only need to replace a file, [ReSkateLauncher.exe](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkateLauncher.exe) and [ReSkate.dll](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkate.dll) are direct downloads of the latest version.
 2. Extract `ReSkateLauncher.exe` and `ReSkate.dll` into one of two places:
@@ -31,7 +39,7 @@ downloads:
 5. If the game is missing, or Steam has updated it past that build, sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. The launcher downloads only the files it needs.
 6. Press **PLAY**.
 
-ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 1.1.1). Steam will keep updating your normal install, and the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
+ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 2.0.2). Steam will keep updating your normal install, and the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
 
 ## Controls
 
@@ -41,7 +49,9 @@ ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged
 | **~** | the console (`help` lists every command) |
 | **T** | chat, in multiplayer |
 
-You can rebind the menu and console keys in the launcher's Settings.
+You can rebind the menu and console keys in the launcher's Settings. Since 2.0 the launcher also works with a controller, and the Steam Deck trackpad moves the pointer.
+
+Two 2.0 additions are worth turning on. **Hall of Meat** brings back Skate 3's bail screen, with the bones you hurt and a Meat score (Custom Stuff → Player, or `hallofmeat 1` in the console). **True first person** keeps the horizon level instead of copying every nod of the skater's head. It's on by default when you switch to first person.
 
 ## Add mods
 
@@ -84,15 +94,16 @@ The HUD, the jump read-out and the LB + RB controller shortcuts start off. Onlin
 - **Dedicated servers.** Open **Multiplayer → Servers** to browse community servers. To run your own, see [Host a ReSkate server](/guides/host-a-reskate-server/).
 - In multiplayer you get proximity voice, text chat with emotes, parties, throwdowns (Jam, Spot Battle and S.K.A.T.E.) and co-op challenges.
 
-To join a server running a custom map, you need the same map mod installed, and the same ReSkate version as the server.
+To join a server running a custom map, you need the same map mod installed, and the same ReSkate version as the server. The multiplayer protocol changed four times between 1.1.5 and 2.0.2, so an old client can't join a new server.
 
-## Known issues (1.1.1)
+## Known issues (2.0.2)
 
-These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 5:
+These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 10:
 
 - **Windows Defender or your browser calls it a Trojan.** Since around 1.0.8, the download and `ReSkate.dll` get flagged, usually as `Behavior:Win32/DefenseEvasion.A!ml` ([#47](https://github.com/Dingo-Shenanigans/ReSkate/issues/47), [#27](https://github.com/Dingo-Shenanigans/ReSkate/issues/27)). The `!ml` means a machine-learning guess. ReSkate loads a DLL into the game, which looks like what malware does. Only download from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). If you trust that copy, restore the file from quarantine and add the ReSkate folder to your antivirus exclusions. Otherwise the launcher can't read its own files ("Cannot open file for SHA-256", [#29](https://github.com/Dingo-Shenanigans/ReSkate/issues/29)).
 - **Board graphics or maps crash since 1.1.0** ([#46](https://github.com/Dingo-Shenanigans/ReSkate/issues/46)). Some mods installed before 1.1.0 break. Uninstall the mod and install it again from MY MODS. If the game still crashes, turn mods off one at a time to find the culprit.
-- **Linux/Proton: custom maps and servers hang on loading since 1.0.8** ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)). Free skating in San Van works, but modded maps and servers running them loop on the loading screen. Players report that 1.0.7 loads custom maps fine.
+- **The Insert menu doesn't open on Intel Arc graphics cards** ([#102](https://github.com/Dingo-Shenanigans/ReSkate/issues/102), [#145](https://github.com/Dingo-Shenanigans/ReSkate/issues/145)). ReSkate runs and mods load, but the menu can't attach to the game's image. Rebinding the key doesn't help. On other cards, a menu that won't open usually means the game was started from Steam rather than with PLAY in `ReSkateLauncher.exe`.
+- **Linux/Proton: a black screen when you join a server on a different map** after loading a custom map ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)). The README's workaround is to load the server's map first. A player reports that loading two custom maps in one session works on 2.0.2 ([#109](https://github.com/Dingo-Shenanigans/ReSkate/issues/109)).
 
 ## When something breaks
 
@@ -116,11 +127,18 @@ More detail, with what players report on Steam Deck, is in [Does ReSkate work on
 
 ReSkate's launcher and runtime are Windows programs, but people run them on Linux:
 
-- **Through Steam with Proton.** Add `ReSkateLauncher.exe` to Steam as a non-Steam game and force a recent Proton. Since 1.0.4 the launcher detects that Steam is signed in under Proton. Joining servers was fixed in 1.0.9 ([#28](https://github.com/Dingo-Shenanigans/ReSkate/issues/28)), but hosting a lobby may still say "Multiplayer is off" ([#19](https://github.com/Dingo-Shenanigans/ReSkate/issues/19)), and custom maps hang on loading since 1.0.8 (see [Known issues](#known-issues-111)).
+- **Through skate.'s own Steam entry (the official way).** Put `ReSkateLauncher.exe` and `ReSkate.dll` beside `Skate.exe`, then set skate.'s Steam launch options to:
+
+  ```
+  bash -c 'exec "${@/EAAntiCheat.GameServiceLauncher.exe/ReSkateLauncher.exe}"' -- %command%
+  ```
+
+  Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton. This option swaps in ReSkate's launcher and keeps skate.'s app ID and Proton prefix. The README says it was tested with ReSkate 1.1.3 and Proton Experimental on CachyOS, including hosting a lobby and joining a public server ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)). 2.0.0 didn't start under Proton; use 2.0.1 or later. See [Known issues](#known-issues-202) for the map-switching black screen.
+- **As a non-Steam game.** Adding `ReSkateLauncher.exe` to Steam with a forced Proton also works, but you lose skate.'s Proton prefix.
 - **With a script.** [ReSkate Linux Setup](https://github.com/vitorioaugusto/ReSkate-Linux-Setup) builds a dedicated Wine prefix with VKD3D-Proton and DXVK, and has backup and repair options. It was tested on Arch/CachyOS with NVIDIA. It's a third-party project, so read it before running it.
 
 Hosting is easier: the [dedicated server](/guides/host-a-reskate-server/) has a native Linux build.
 
 ## Stay on the right side
 
-ReSkate is a fan project, not affiliated with EA or Full Circle. Its FAQ says EA can't ban you for using it. The ReSkate team can, though: since 1.1.1, lobbies and most dedicated servers turn away players on its global multiplayer ban list. Don't use it to get paid cosmetics or share leaks; the project rules both out. It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.
+ReSkate is a fan project, not affiliated with EA or Full Circle. Its FAQ says EA can't ban you for using it. The ReSkate team can, though: since 1.1.1, lobbies and most dedicated servers turn away players on its global multiplayer ban list. Don't use it to get paid cosmetics or share leaks; the project rules both out, and since 1.1.2 mods that copy store items don't load ([why](/faq/reskate-cosmetics-policy/)). It runs EA's client, so EA's terms still apply. Read [Can skate. be modded?](/faq/skate-2025/) for the background.

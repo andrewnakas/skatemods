@@ -5,7 +5,7 @@ games: [skate-2025]
 years: 2026–present
 scene: active
 order: 7
-updated: 2026-10-09
+updated: 2026-10-10
 people:
   - name: zeex64
     role: Leads ReSkate. Published the source, cut the 1.0 release and the eleven releases in its first three days, reviews and merges community pull requests, runs the news feed, and ported the full Skate 3 map to skate.
@@ -139,6 +139,29 @@ milestones:
     title: 216 mods
     body: Three days after it opened, the ReSkate Thunderstore lists 216 mods with more than 326,000 downloads between them. The Full Skate 3 Map alone passes 18,000.
     source: https://thunderstore.io/c/reskate/
+  - date: 2026-10-05
+    title: '1.1.2: store-item copies left out'
+    body: Mods that add copies of EA's store items under new names no longer load, and the launcher, mod manager and game say why. The same release adds server map pools from xThrasherrr and direct messages from moelrobi.
+    who: zeex64
+    source: https://github.com/Dingo-Shenanigans/ReSkate/commit/de631ad9e6
+  - date: 2026-10-07
+    title: '1.1.4–1.1.5: tokens, self-updating Linux servers, protocol 43'
+    body: Dedicated servers can sign in with a Steam login token and keep the same ID, Linux servers update themselves, and the browser lists official servers and friends' servers first. 1.1.5 adds a per-player object limit and fixes servers at 20 updates a second. Its new multiplayer protocol means older builds can't join newer ones.
+    who: zeex64
+    source: https://github.com/Dingo-Shenanigans/ReSkate/commit/101e1af6e4
+  - date: 2026-10-09
+    title: 'Full Circle comments on mods'
+    body: skate.'s developer says it welcomes community creativity but won't support mods that unlock paid cosmetics, expose unreleased content or profit from its assets, and that it is working on official creation tools.
+    source: https://shredder.news/ea-skate-says-mods-steal-from-artists-and-developers
+  - date: 2026-10-09
+    title: 'ReSkate 2.0'
+    body: Version 2.0.0 brings a steadier first-person camera (JusSkates), Skate 3's Hall of Meat (Krischan-Klug), random parks (ComputerKWasTaken), controller and Steam Deck trackpad support in the launcher (northdroplet), skater effects on other players, and a block on the game's calls to EA's online services (Vebjorhk). 2.0.1 fixes starting under Proton the same day, and 2.0.2 adds server polls and custom votes (moelrobi).
+    who: zeex64
+    source: https://github.com/Dingo-Shenanigans/ReSkate/compare/v1.1.1...v2.0.2
+  - date: 2026-10-10
+    title: 1,457 mods
+    body: The ReSkate Thunderstore lists 1,457 current packages with about 3 million downloads between them. The ReSkate Discord has about 53,500 members, and the GitHub repository 763 stars, 133 forks and 23 contributors.
+    source: https://thunderstore.io/c/reskate/
 links:
   - label: ReSkate on GitHub (download and source)
     url: https://github.com/Dingo-Shenanigans/ReSkate
@@ -158,6 +181,8 @@ links:
     url: https://skatemods.com/blog/reskate-launch/
   - label: 'The first three days: 1.0.4 to 1.1.1'
     url: https://skatemods.com/blog/reskate-first-three-days/
+  - label: 'ReSkate 2.0: what changed'
+    url: https://skatemods.com/blog/reskate-2/
 ---
 
 ## A way around the live service
@@ -252,12 +277,18 @@ Eleven releases went out in the first three days, most of them answers to specif
 
 By then at least ten people had commits in the repository, and it had 339 stars and 48 forks.
 
+## 2.0: October 9, 2026
+
+Ten more releases followed in the next four days, ending in **2.0.0** on October 9 and two same-day fixes. Most of the work went into dedicated servers: map pools and rotation, direct messages, polls and custom votes, Steam login tokens, self-updating Linux servers, a [Pterodactyl egg](https://github.com/Dingo-Shenanigans/ReSkate/pull/103), per-player object limits and pose and sound messages less than half their old size. The multiplayer protocol changed four times along the way, so players and servers have to stay on the same version.
+
+Players got a steadier first-person camera from JusSkates, Skate 3's **Hall of Meat** bail screen from Krischan-Klug, random park layouts from ComputerKWasTaken, chat bubbles from jnslol, and a launcher that works with a controller and the Steam Deck trackpad from northdroplet. Vebjorhk's change blocks the game's own calls to EA for error reports, telemetry and remote configuration. By October 10 the repository had 23 contributors and 763 stars, and the Discord had about 53,500 members. [Our 2.0 post](/blog/reskate-2/) covers it release by release.
+
 ## Where it came from
 
 The groundwork happened around the **Dumbads & SunJays Skate3 Modding Discord** ([invite](https://discord.com/invite/AgDEQFR2Jj)), the server where Skate 3's world format became writable. Footage of [custom maps and time-of-day changes](https://www.youtube.com/watch?v=ubEv_Pkk4OU) circulated there and on YouTube in September 2026. ReSkate now has [its own Discord](https://discord.gg/Tkd5D2Y6EX), with channels for bug reports, mod help and Thunderstore releases.
 
 ## The lines it draws
 
-ReSkate calls itself a fan project, "not affiliated with or endorsed by Electronic Arts or Full Circle", and you need your own copy of skate. on Steam. Its news feed says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([source](https://github.com/Dingo-Shenanigans/ReSkateCache)). The GPL covers ReSkate's own code, not the game or anything from it, and it still runs EA's client, so EA's terms still apply. The README also asks you to install only mods you trust, because custom scripts can run code.
+ReSkate calls itself a fan project, "not affiliated with or endorsed by Electronic Arts or Full Circle", and you need your own copy of skate. on Steam. Its news feed says it's "NOT a replacement for the live game, a way to get paid cosmetics, or a place for leaks" ([source](https://github.com/Dingo-Shenanigans/ReSkateCache)). Since 1.1.2 the launcher enforces part of that: mods that copy EA's store items under new names don't load ([commit](https://github.com/Dingo-Shenanigans/ReSkate/commit/de631ad9e6)). On October 9, Full Circle said it won't support mods that unlock paid cosmetics, expose unreleased content or profit from its assets, and that it is working on official creation tools ([shredder.news](https://shredder.news/ea-skate-says-mods-steal-from-artists-and-developers)). The GPL covers ReSkate's own code, not the game or anything from it, and it still runs EA's client, so EA's terms still apply. The README also asks you to install only mods you trust, because custom scripts can run code.
 
 If you're involved and something here is wrong or missing, [fix it on GitHub](https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/communities/reskate.md).
