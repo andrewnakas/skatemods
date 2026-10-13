@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
+import LatestReskate from '../../components/LatestReskate.astro';
 
 export async function getStaticPaths() {
   const faq = await getCollection('faq');
@@ -36,6 +37,7 @@ if (gameLinks.length !== d.games.length) throw new Error(`faq/${entry.id}: unkno
   <PageHead parent={{ href: '/faq/', label: 'FAQ' }} title={d.question} lede={d.answer} />
   <div class="wrap layout">
     <article class="prose">
+      {d.latestReskate && <LatestReskate />}
       <Content />
       <hr />
       <p class="foot">Updated {d.updated.toISOString().slice(0, 10)} · <a href={edit}>Improve this answer on GitHub</a></p>

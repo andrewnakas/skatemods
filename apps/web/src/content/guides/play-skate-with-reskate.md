@@ -4,7 +4,8 @@ description: How to download and install ReSkate, the community modding platform
 game: skate-2025
 level: beginner
 order: 6
-updated: 2026-10-10
+updated: 2026-10-13
+latestReskate: true
 downloads:
   - { label: "ReSkate for Windows (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "the ReSkate-<version>.zip, with ReSkateLauncher.exe and ReSkate.dll" }
   - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
@@ -16,7 +17,7 @@ ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `R
 
 ## What is ReSkate
 
-[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers, and since 2.0 it blocks the game's own calls to EA. This guide covers ReSkate **2.0.2** (October 9, 2026); [what's new in 2.0](/blog/reskate-2/) lists the changes. The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
+[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers, and since 2.0 it blocks the game's own calls to EA. The box at the top of this page shows the current release, read from GitHub each time the site is built. The [changelog](/reskate/changelog/) lists what changed in every version, [what's new in 2.0](/blog/reskate-2/) covers the big update, and [ReSkate 2.0.7](/blog/reskate-2-0-7/) the releases since. The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
 
 ## What you need
 
@@ -26,7 +27,7 @@ ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `R
 
 ## How to download ReSkate
 
-The only official download is [ReSkate's GitHub releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get `ReSkate-<version>.zip`, which holds the launcher and the runtime. The same page has the dedicated server for Windows and Linux. Re-uploads on other sites, in YouTube descriptions or in Discord DMs aren't from the ReSkate team. All the official links are in [Where do I download ReSkate?](/faq/reskate-download-links/)
+The only official download is [ReSkate's GitHub releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get `ReSkate-<version>.zip`, which holds the launcher and the runtime. The same page has the dedicated server for Windows and Linux. Re-uploads on other sites, in YouTube descriptions or in Discord DMs aren't from the ReSkate team. ReSkate's README links only to GitHub and [Thunderstore](https://thunderstore.io/c/reskate/), so websites named after ReSkate (this one included) are fan sites, not the team's. All the official links are in [Where do I download ReSkate?](/faq/reskate-download-links/)
 
 ## How to install ReSkate
 
@@ -96,13 +97,16 @@ The HUD, the jump read-out and the LB + RB controller shortcuts start off. Onlin
 
 To join a server running a custom map, you need the same map mod installed, and the same ReSkate version as the server. The multiplayer protocol changed four times between 1.1.5 and 2.0.2, so an old client can't join a new server.
 
-## Known issues (2.0.2)
+## Known issues
 
-These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 10:
+These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 13 (ReSkate 2.0.7):
 
 - **Windows Defender or your browser calls it a Trojan.** Since around 1.0.8, the download and `ReSkate.dll` get flagged, usually as `Behavior:Win32/DefenseEvasion.A!ml` ([#47](https://github.com/Dingo-Shenanigans/ReSkate/issues/47), [#27](https://github.com/Dingo-Shenanigans/ReSkate/issues/27)). The `!ml` means a machine-learning guess. ReSkate loads a DLL into the game, which looks like what malware does. Only download from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). If you trust that copy, restore the file from quarantine and add the ReSkate folder to your antivirus exclusions. Otherwise the launcher can't read its own files ("Cannot open file for SHA-256", [#29](https://github.com/Dingo-Shenanigans/ReSkate/issues/29)).
 - **Board graphics or maps crash since 1.1.0** ([#46](https://github.com/Dingo-Shenanigans/ReSkate/issues/46)). Some mods installed before 1.1.0 break. Uninstall the mod and install it again from MY MODS. If the game still crashes, turn mods off one at a time to find the culprit.
-- **The Insert menu doesn't open on Intel Arc graphics cards** ([#102](https://github.com/Dingo-Shenanigans/ReSkate/issues/102), [#145](https://github.com/Dingo-Shenanigans/ReSkate/issues/145)). ReSkate runs and mods load, but the menu can't attach to the game's image. Rebinding the key doesn't help. On other cards, a menu that won't open usually means the game was started from Steam rather than with PLAY in `ReSkateLauncher.exe`.
+- **The Insert menu doesn't open on Intel Arc graphics cards** ([#102](https://github.com/Dingo-Shenanigans/ReSkate/issues/102), [#145](https://github.com/Dingo-Shenanigans/ReSkate/issues/145)). Rebinding the key didn't help. The fix is in **2.0.6**: the menu was watching the wrong swapchain on Intel GPUs. Run `ReSkateLauncher.exe` so it updates, then press PLAY. On other cards, a menu that won't open usually means the game was started from Steam rather than with PLAY in the launcher.
+- **The skateboard turns invisible** on 2.0.6 and 2.0.7 without any board mods ([#195](https://github.com/Dingo-Shenanigans/ReSkate/issues/195)). One player sees it on Steam Deck but not on Windows 11. There's no workaround yet.
+- **Linux, Steam Deck and macOS (Wine): the game stops right after starting** since a recent update, with "stopped right after starting (status 1)" ([#182](https://github.com/Dingo-Shenanigans/ReSkate/issues/182)). A Steam Deck player gets in by turning off all mods first.
+- **Switching to a custom map crashes or freezes the PC** ([#198](https://github.com/Dingo-Shenanigans/ReSkate/issues/198)). The reporter's log shows the game still looking for mods they had uninstalled or turned off, so a clean install of ReSkate and your mods is worth trying.
 - **Linux/Proton: a black screen when you join a server on a different map** after loading a custom map ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)). The README's workaround is to load the server's map first. A player reports that loading two custom maps in one session works on 2.0.2 ([#109](https://github.com/Dingo-Shenanigans/ReSkate/issues/109)).
 
 ## When something breaks
@@ -133,7 +137,7 @@ ReSkate's launcher and runtime are Windows programs, but people run them on Linu
   bash -c 'exec "${@/EAAntiCheat.GameServiceLauncher.exe/ReSkateLauncher.exe}"' -- %command%
   ```
 
-  Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton. This option swaps in ReSkate's launcher and keeps skate.'s app ID and Proton prefix. The README says it was tested with ReSkate 1.1.3 and Proton Experimental on CachyOS, including hosting a lobby and joining a public server ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)). 2.0.0 didn't start under Proton; use 2.0.1 or later. See [Known issues](#known-issues-202) for the map-switching black screen.
+  Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton. This option swaps in ReSkate's launcher and keeps skate.'s app ID and Proton prefix. The README says it was tested with ReSkate 1.1.3 and Proton Experimental on CachyOS, including hosting a lobby and joining a public server ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)). 2.0.0 didn't start under Proton; use 2.0.1 or later. See [Known issues](#known-issues) for the map-switching black screen.
 - **As a non-Steam game.** Adding `ReSkateLauncher.exe` to Steam with a forced Proton also works, but you lose skate.'s Proton prefix.
 - **With a script.** [ReSkate Linux Setup](https://github.com/vitorioaugusto/ReSkate-Linux-Setup) builds a dedicated Wine prefix with VKD3D-Proton and DXVK, and has backup and repair options. It was tested on Arch/CachyOS with NVIDIA. It's a third-party project, so read it before running it.
 

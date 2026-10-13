@@ -34,6 +34,8 @@ const guides = defineCollection({
     updated: z.coerce.date(),
     /** What the reader needs to get, shown as a box at the top of the guide. */
     downloads: z.array(z.object({ label: z.string(), url: z.string(), note: z.string().optional() })).default([]),
+    /** Show the current ReSkate release (from GitHub at build time) at the top. */
+    latestReskate: z.boolean().default(false),
   }),
 });
 
@@ -51,6 +53,8 @@ const faq = defineCollection({
     related: z.array(z.string()).default([]),
     order: z.number(),
     updated: z.coerce.date(),
+    /** Show the current ReSkate release (from GitHub at build time) at the top. */
+    latestReskate: z.boolean().default(false),
   }),
 });
 

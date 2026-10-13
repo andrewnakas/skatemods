@@ -1,0 +1,62 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import { getReleases } from '../../../lib/reskate-releases';
+import { day } from '../../../lib/thunderstore';
+
+// One page per ReSkate release, for searches like "reskate 2.0.7". Same data as the full changelog.
+export async function getStaticPaths() {
+  const releases = await getReleases();
+  return releases.map((r, i) => ({
+    params: { tag: r.tag },
+    props: { r, newer: releases[i - 1], older: releases[i + 1], latest: i === 0 },
+  }));
+}
+
+const { r, newer, older, latest } = Astro.props;
+const n = (x: number) => x.toLocaleString('en-US');
+const version = r.tag.replace(/^v/, '');
+const protocol = r.changes.some((c) => /protocol/i.test(c.text));
+const summary = r.changes.slice(0, 3).map((c) => c.text.replace(/\.$/, '')).join('; ');
+const title = `ReSkate ${version}: what changed (${day(r.date)})`;
+const description = r.changes.length
+  ? `ReSkate ${version} came out on ${day(r.date)} with ${r.changes.length} change${r.changes.length === 1 ? '' : 's'}: ${summary}.`.slice(0, 300)
+  : `ReSkate ${version}, released ${day(r.date)}.`;
+---
+<Base title={title} description={description} noindex={r.changes.length === 0} schema={{
+  '@type': 'Article', headline: title, description, datePublished: r.date, dateModified: r.date,
+  author: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' },
+  mainEntityOfPage: `https://skatemods.com/reskate/changelog/${r.tag}/`,
+}}>
+  <PageHead parent={{ href: '/reskate/changelog/', label: 'ReSkate changelog' }} title={`ReSkate ${version}`} lede={`Released ${day(r.date)}${latest ? ', the current version' : ''}. ReSkate's GitHub releases have no notes, so this lists the commits since ${older ? older.tag : 'the start'}, minus merges.`}>
+    <p class="meta facts">
+      {n(r.downloads)} downloads from GitHub · <a href={r.zip ?? r.url} rel="noopener">{latest ? 'Download' : 'Get'} {r.zip ? r.zip.split('/').pop() : r.tag}</a> · <a href={r.url}>Release on GitHub</a> · <a href="/guides/play-skate-with-reskate/">Install guide</a>
+    </p>
+  </PageHead>
+  <div class="wrap">
+    {!latest && (
+      <div class="callout note"><p>This isn't the current version. The launcher updates itself when it starts; the <a href="/reskate/changelog/">changelog</a> starts with the newest release.</p></div>
+    )}
+    {r.changes.length > 0
+      ? <ul class="changes">{r.changes.map((c) => <li><a href={c.url} rel="nofollow noopener">{c.text}</a></li>)}</ul>
+      : <p>{older ? 'No code changes listed.' : 'The first public release.'}</p>}
+    {protocol && (
+      <p>A change in this release mentions the multiplayer protocol. Players and servers on different protocol versions can't play together, so update the launcher and your server.</p>
+    )}
+    <nav class="pn" aria-label="Other releases">
+      {older ? <a href={`/reskate/changelog/${older.tag}/`}>← {older.tag}</a> : <span></span>}
+      {newer ? <a href={`/reskate/changelog/${newer.tag}/`}>{newer.tag} →</a> : <span></span>}
+    </nav>
+    <p class="more">Problems after updating: <a href="/faq/reskate-not-working/">ReSkate isn't working</a> · <a href="/guides/play-skate-with-reskate/#known-issues">Known issues</a> · <a href="/history/reskate/">ReSkate history</a></p>
+  </div>
+</Base>
+
+<style>
+  .facts { margin: 1rem 0 0; }
+  .changes { max-width: 80ch; padding-left: 1.2rem; }
+  .changes li { margin: 0.25rem 0; }
+  .changes a { color: var(--ink); text-decoration: none; }
+  .changes a:hover { color: var(--accent); text-decoration: underline; }
+  .pn { display: flex; justify-content: space-between; max-width: 80ch; border-top: 2px solid var(--ink); padding-top: 0.8rem; margin-top: 2rem; font-weight: 600; }
+  .more { color: var(--ink-faint); font-size: 0.92rem; }
+</style>

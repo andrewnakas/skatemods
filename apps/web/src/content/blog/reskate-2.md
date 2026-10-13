@@ -3,7 +3,6 @@ title: "ReSkate 2.0: first person, Hall of Meat, servers"
 description: ReSkate went from 1.1.1 to 2.0.2 between October 5 and 9, 2026. It added a steadier first-person camera, Skate 3's Hall of Meat, random parks, controller and Steam Deck support in the launcher, server map pools, polls and login tokens, and it now blocks the game's calls to EA.
 date: 2026-10-10
 author: skatemods
-featured: true
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/reskate-download-links, blog/reskate-first-three-days]
 ---

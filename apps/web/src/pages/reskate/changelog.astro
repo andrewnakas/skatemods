@@ -31,8 +31,8 @@ const description = latest
     <ol class="releases">
       {releases.map((r) => (
         <li id={r.tag}>
-          <h2><a href={r.url}>{r.tag}</a></h2>
-          <p class="meta">{day(r.date)} · {n(r.downloads)} downloads</p>
+          <h2><a href={`/reskate/changelog/${r.tag}/`}>{r.tag}</a></h2>
+          <p class="meta">{day(r.date)} · {n(r.downloads)} downloads · <a href={r.url}>GitHub</a></p>
           {r.changes.length > 0
             ? <ul>{r.changes.map((c) => <li><a href={c.url} rel="nofollow noopener">{c.text}</a></li>)}</ul>
             : <p class="faint">{r === releases[releases.length - 1] ? 'The first public release.' : 'No code changes listed.'}</p>}

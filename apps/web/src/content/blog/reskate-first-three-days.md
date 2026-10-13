@@ -45,7 +45,7 @@ Ten of the 216 are tagged "AI Generated" on Thunderstore. Several authors say th
 
 ## What's still broken
 
-The [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows what the pace has cost. Windows Defender started flagging the download as `Behavior:Win32/DefenseEvasion.A!ml`, a machine-learning guess set off by a DLL loading into a game. Some board-graphics and map mods crash on 1.1.0 until they're reinstalled. On Linux under Proton, custom maps and servers running them hang on the loading screen since 1.0.8. Our [guide](/guides/play-skate-with-reskate/#known-issues-202) lists the workarounds.
+The [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) shows what the pace has cost. Windows Defender started flagging the download as `Behavior:Win32/DefenseEvasion.A!ml`, a machine-learning guess set off by a DLL loading into a game. Some board-graphics and map mods crash on 1.1.0 until they're reinstalled. On Linux under Proton, custom maps and servers running them hang on the loading screen since 1.0.8. Our [guide](/guides/play-skate-with-reskate/#known-issues) lists the workarounds.
 
 ## Where to start
 

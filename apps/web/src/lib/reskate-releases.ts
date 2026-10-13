@@ -11,6 +11,8 @@ export interface Release {
   date: string;
   url: string;
   downloads: number;
+  /** Direct link to the ReSkate-<version>.zip asset, if the release has one. */
+  zip?: string;
   changes: { text: string; url: string }[];
 }
 
@@ -50,6 +52,7 @@ export function getReleases(): Promise<Release[]> {
         date: r.published_at,
         url: r.html_url,
         downloads: r.assets.reduce((n: number, a: any) => n + a.download_count, 0),
+        zip: r.assets.find((a: any) => /^ReSkate-[\d.]+\.zip$/.test(a.name))?.browser_download_url,
         changes,
       });
     }
@@ -57,3 +60,6 @@ export function getReleases(): Promise<Release[]> {
   })().catch(() => []);
   return cache;
 }
+
+/** The newest release, or undefined if GitHub couldn't be reached at build time. */
+export const latestRelease = async (): Promise<Release | undefined> => (await getReleases())[0];

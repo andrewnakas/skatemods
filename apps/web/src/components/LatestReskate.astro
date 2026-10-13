@@ -1,0 +1,28 @@
+---
+// The current ReSkate release, read from GitHub at build time so version numbers in guides never go stale.
+import { latestRelease } from '../lib/reskate-releases';
+import { day } from '../lib/thunderstore';
+
+const r = await latestRelease();
+const releases = 'https://github.com/Dingo-Shenanigans/ReSkate/releases/latest';
+---
+<aside class="latest" aria-label="Latest ReSkate release">
+  {r ? (
+    <p>
+      <span class="k">Latest ReSkate</span>
+      <strong><a href={r.url}>{r.tag}</a></strong>, released {day(r.date)} ·
+      <a href={r.zip ?? releases} rel="noopener">Download {r.zip ? r.zip.split('/').pop() : 'from GitHub'}</a> ·
+      <a href={`/reskate/changelog/${r.tag}/`}>What changed</a>
+    </p>
+  ) : (
+    <p><span class="k">Latest ReSkate</span> <a href={releases} rel="noopener">Download from GitHub releases</a> · <a href="/reskate/changelog/">Changelog</a></p>
+  )}
+  <p class="src">Official download from ReSkate's GitHub. Checked when this page was built.</p>
+</aside>
+
+<style>
+  .latest { border: 2px solid var(--ink); padding: 0.7rem 0.9rem; margin: 0 0 1.6rem; }
+  .latest p { margin: 0; }
+  .latest .k { font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8rem; margin-right: 0.4rem; }
+  .latest .src { color: var(--ink-faint); font-size: 0.85rem; margin-top: 0.3rem; }
+</style>
