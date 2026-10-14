@@ -23,6 +23,7 @@ Start by updating. ReSkate shipped eleven releases in its first three days, and 
 | Can't join a server, or it loads forever | Missing the server's map mod, or a different ReSkate version | Install the same map and update ReSkate |
 | "Can't host" or "can't join" with no reason | Older version | 1.0.9 and later say why |
 | Settings in the game's menu don't stick | Fixed in 1.0.4 | Update |
+| ReSkate won't launch after the October 13 skate. update | It was in Steam's skate. folder, and Steam updated the game past ReSkate's build | Move it to its own folder: [ReSkate not launching after a skate. update?](/faq/reskate-wont-launch-after-update/) |
 | The Insert menu, Mod Options or the Multiplayer tab won't open on an Intel Arc card | The menu watched the wrong swapchain on Intel GPUs ([#145](https://github.com/Dingo-Shenanigans/ReSkate/issues/145)) | Update to 2.0.6 or later |
 | On Linux, Steam Deck or Wine, the game stops right after starting (status 1) | Open since a recent update ([#182](https://github.com/Dingo-Shenanigans/ReSkate/issues/182)) | Turn off all mods, then turn them back on one at a time |
 | The skateboard is invisible | Open on 2.0.6 and 2.0.7, seen on Steam Deck ([#195](https://github.com/Dingo-Shenanigans/ReSkate/issues/195)) | No fix yet |

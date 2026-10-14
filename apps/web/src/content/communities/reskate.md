@@ -5,7 +5,7 @@ games: [skate-2025]
 years: 2026–present
 scene: active
 order: 7
-updated: 2026-10-10
+updated: 2026-10-13
 people:
   - name: zeex64
     role: Leads ReSkate. Published the source, cut the 1.0 release and the eleven releases in its first three days, reviews and merges community pull requests, runs the news feed, and ported the full Skate 3 map to skate.
@@ -46,6 +46,10 @@ people:
     role: Commissioned and ported South Florida, B-Row's Skater XL map, which became the second most downloaded ReSkate mod.
     url: https://thunderstore.io/c/reskate/p/AltDoug/South_Florida/
     source: https://thunderstore.io/c/reskate/p/AltDoug/South_Florida/
+  - name: Fourth Studio
+    role: Built ReSkate's Road Rash (bails leave marks that build up, 2.0.3) and Board Break (a hard slam snaps the deck, 2.0.6), the content packs for both, and the searchable item grids with favorites.
+    url: https://thunderstore.io/c/reskate/p/Fourth_Studio/Board_Break_Pack/
+    source: https://github.com/Dingo-Shenanigans/ReSkate/commit/bd628abc76
   - name: forestmouse
     role: Built real-world skateparks for ReSkate, including the SLS Hangar, DC Plaza Saint Petersburg and Fire Station Park.
     url: https://thunderstore.io/c/reskate/p/forestmouse/The_SLS_Hangar/
@@ -149,6 +153,10 @@ milestones:
     body: Dedicated servers can sign in with a Steam login token and keep the same ID, Linux servers update themselves, and the browser lists official servers and friends' servers first. 1.1.5 adds a per-player object limit and fixes servers at 20 updates a second. Its new multiplayer protocol means older builds can't join newer ones.
     who: zeex64
     source: https://github.com/Dingo-Shenanigans/ReSkate/commit/101e1af6e4
+  - date: 2026-10-07
+    title: 'PC Gamer covers ReSkate'
+    body: The first major games-press story reports more than 350,000 downloads from GitHub and over 70 forks, says zee_x64 and ReGlitched built it with AI assistance after working on R5Reloaded, and quotes zee_x64 that the team would comply if EA sent a cease and desist.
+    source: https://www.pcgamer.com/games/sports/reskate-modding-platform-released/
   - date: 2026-10-09
     title: 'Full Circle comments on mods'
     body: skate.'s developer says it welcomes community creativity but won't support mods that unlock paid cosmetics, expose unreleased content or profit from its assets, and that it is working on official creation tools.
@@ -161,6 +169,24 @@ milestones:
   - date: 2026-10-10
     title: 1,457 mods
     body: The ReSkate Thunderstore lists 1,457 current packages with about 3 million downloads between them. The ReSkate Discord has about 53,500 members, and the GitHub repository 763 stars, 133 forks and 23 contributors.
+    source: https://thunderstore.io/c/reskate/
+  - date: 2026-10-09
+    title: 'Press follows the statement'
+    body: IGN, Dexerto and Shredder report Full Circle's statement the same day, and Kotaku follows on October 10. All frame it as a response to ReSkate, though the statement doesn't name it.
+    source: https://www.ign.com/articles/skate-developer-promises-more-creative-tools-are-coming-after-reskate-modding-platform-goes-viral
+  - date: 2026-10-10
+    title: '2.0.3–2.0.7: map downloads, pause menu, Board Break'
+    body: Five releases in three days. Servers offer their map to players who don't have it, the pause menu gets a sortable server browser, Discord shows where you're skating, and Fourth Studio's Road Rash and Board Break arrive. 2.0.6 fixes the Insert menu on Intel Arc cards and moves to multiplayer protocol 49.
+    who: zeex64, Fourth Studio, moelrobi, wxndr
+    source: https://github.com/Dingo-Shenanigans/ReSkate/compare/v2.0.2...v2.0.7
+  - date: 2026-10-13
+    title: 'Its own folder'
+    body: EA's skate. update reaches Steam and stops ReSkate for players who had installed it in Steam's skate. folder. The team says it won't move to the new build, tells players to give ReSkate a folder of its own, and changes the launcher to refuse Steam's folder. An update tagged 2.0.8 is pulled the same evening, and the team reverts to 2.0.7.
+    who: zeex64, Glitch
+    source: https://github.com/Dingo-Shenanigans/ReSkate/commit/375605b9fe
+  - date: 2026-10-13
+    title: 2,955 packages
+    body: The ReSkate Thunderstore lists 2,955 packages with about 7.8 million downloads, 414 of them uploaded that day. The Discord has about 92,000 members, and the GitHub repository 1,050 stars, 180 forks and 28 contributors. The launcher itself has been downloaded about 244,000 times.
     source: https://thunderstore.io/c/reskate/
 links:
   - label: ReSkate on GitHub (download and source)
@@ -282,6 +308,31 @@ By then at least ten people had commits in the repository, and it had 339 stars 
 Ten more releases followed in the next four days, ending in **2.0.0** on October 9 and two same-day fixes. Most of the work went into dedicated servers: map pools and rotation, direct messages, polls and custom votes, Steam login tokens, self-updating Linux servers, a [Pterodactyl egg](https://github.com/Dingo-Shenanigans/ReSkate/pull/103), per-player object limits and pose and sound messages less than half their old size. The multiplayer protocol changed four times along the way, so players and servers have to stay on the same version.
 
 Players got a steadier first-person camera from JusSkates, Skate 3's **Hall of Meat** bail screen from Krischan-Klug, random park layouts from ComputerKWasTaken, chat bubbles from jnslol, and a launcher that works with a controller and the Steam Deck trackpad from northdroplet. Vebjorhk's change blocks the game's own calls to EA for error reports, telemetry and remote configuration. By October 10 the repository had 23 contributors and 763 stars, and the Discord had about 53,500 members. [Our 2.0 post](/blog/reskate-2/) covers it release by release.
+
+## 2.0.3 to 2.0.7
+
+Five more releases came between October 10 and 12. A server now tells joiners which Thunderstore package its map comes from and offers to download it, so nobody has to hunt for a map before joining. zeex64 rebuilt the pause menu's Multiplayer page into a server browser with sortable columns, search and filters, and added Discord Rich Presence with "Ask to Join". Fourth Studio added two optional effects: **Road Rash**, where bails leave marks that build up on your skater, and **Board Break**, where a hard slam snaps the deck. moelrobi gave dedicated servers park mods and console-started votes, wxndr built a Windows window for running a server, and servers got roles with their own tags and permissions. [Our 2.0.7 post](/blog/reskate-2-0-7/) has the details.
+
+## October 13: a folder of its own
+
+ReSkate has always run one pinned build of skate. Until then the README offered two places to put it, Steam's skate. folder or an empty one, and many players chose Steam's. On October 13, EA's Season 5 mid-season update reached Steam and replaced the game files underneath them, and ReSkate stopped launching. Glitch had warned in the Discord the day before that the team wouldn't update to support the new build and that players should back up their game. On the day, zeex64 posted the fix, which is to move ReSkate into an empty folder where it keeps its own copy of the game, and the same day the README and launcher were changed so ReSkate refuses to run from Steam's folder ([commit](https://github.com/Dingo-Shenanigans/ReSkate/commit/375605b9fe)). Our FAQ [ReSkate not launching after a skate. update?](/faq/reskate-wont-launch-after-update/) has the steps. The same evening, an update tagged 2.0.8 went out and was pulled, and the team posted that it was reverting to 2.0.7.
+
+By then the Discord had about 92,000 members, up from about 50,000 on October 9, when zeex64 announced the milestone. The Thunderstore had about 2,955 packages, and uploads were still climbing, from 7 on launch day to 414 on October 13.
+
+## What people install
+
+Maps get the attention, but most ReSkate downloads are clothes. Of the 2,955 packages on October 13, 181 were tagged as maps; the rest were mostly cosmetics, boards and music. The most downloaded non-map packs recreate real streetwear: Carhartt, Nike SB Dunks, Supreme and Chrome Hearts, made without any licence from those brands. That is the kind of mod Full Circle's statement said "rips off" skate brands. Skate 3 nostalgia is the other big draw: [Dem Bones](/reskate/Madvillain/DemBones/) as a costume, the [Skate 3 soundtrack](/reskate/Prayboy/Skate3Soundtrack/) as a radio station, a [Skate 3 scoring HUD](/reskate/ProbablyFineSoft/Skate3_HUD/), and Kitty_Meow's [OG Camera](/reskate/Kitty_Meow/OG_Camera/) with Skate 3's fisheye lens. Fourth Studio's [Board Break](/reskate/Fourth_Studio/Board_Break_Pack/) and [Road Rash](/reskate/Fourth_Studio/Road_Rash/) packs fill in ReSkate's newest built-in features. The [best ReSkate mods](/reskate/best/) page ranks them by downloads.
+
+## In the press
+
+- **PC Gamer**, October 7: [Skate has been de-live serviced by ReSkate](https://www.pcgamer.com/games/sports/reskate-modding-platform-released/), by Tyler Wilde. The first big story: 350,000 GitHub downloads, AI-assisted development by zee_x64 and ReGlitched, and zee_x64 saying the team would comply with a cease and desist. Updated October 9 with Full Circle's statement.
+- **PC Guide**, October 5: [Modders get Skate working on Steam Deck before EA does](https://www.pcguide.com/news/modders-get-skate-working-on-steam-deck-before-ea-does-online-or-offline-with-new-reskate-platform/), by Jack Goodall, on players running it at 60 FPS on Steam Deck.
+- **IGN**, October 9: [Skate Developer Promises More Creative Tools Are Coming After ReSkate Modding Platform Goes Viral](https://www.ign.com/articles/skate-developer-promises-more-creative-tools-are-coming-after-reskate-modding-platform-goes-viral), by Virginia Glaze.
+- **Dexerto**, October 9: [Skate devs respond to viral mods](https://www.dexerto.com/gaming/skate-devs-respond-to-viral-mods-and-promise-more-freedom-for-players-3417549/), by Michael Gwilliam, which notes Full Circle gave no date for its tools and didn't promise offline play.
+- **Shredder**, October 9: [the ReSkate story](https://shredder.news/reskate-modding/) and [Full Circle's statement](https://shredder.news/ea-skate-says-mods-steal-from-artists-and-developers/), from the skateboarding side.
+- **Kotaku**, October 10: [Skate Devs Respond To Offline Mod, Would Prefer You Didn't](https://kotaku.com/skate-developers-full-circle-respond-to-offline-mod-would-prefer-you-didnt-2000743777), by Zack Kotzer.
+
+On YouTube, ZexyZek's [I Finally Tried ReSkate](https://www.youtube.com/watch?v=cuv-DGFDuYs) had more than 400,000 views by October 13, a day after it went up. nekobueno's [ReSkate Trailer V2](https://www.youtube.com/watch?v=YgFHgiYoryo), which zeex64 shared in the ReSkate Discord, and xtcgames' [install tutorial](https://www.youtube.com/watch?v=W2UOa_LBOwo) are among the most watched.
 
 ## Where it came from
 

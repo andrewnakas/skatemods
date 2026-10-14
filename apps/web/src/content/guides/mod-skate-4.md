@@ -4,7 +4,7 @@ description: How to mod EA's skate. (2025), the game players call Skate 4, on PC
 game: skate-2025
 level: beginner
 order: 8
-updated: 2026-10-10
+updated: 2026-10-13
 downloads:
   - { label: "ReSkate (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "ReSkate-<version>.zip, the launcher and runtime" }
   - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
@@ -19,7 +19,7 @@ You mod skate. with [ReSkate](/history/reskate/), a free, open-source platform t
 
 1. Add [skate.](https://store.steampowered.com/app/3354750/) to your Steam library. It's free.
 2. Download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). That's the only official download ([all links](/faq/reskate-download-links/)).
-3. Extract `ReSkateLauncher.exe` and `ReSkate.dll` beside `Skate.exe`, or into an empty folder where the launcher installs the game (about 14 GB).
+3. Extract `ReSkateLauncher.exe` and `ReSkate.dll` into a new, empty folder of their own (not Steam's skate. folder). The launcher installs its own copy of the game there (about 14 GB), so Steam updates can't break it.
 4. Run `ReSkateLauncher.exe` and press **PLAY**.
 
 The full walkthrough, with controls, multiplayer and fixes, is [download, install and play](/guides/play-skate-with-reskate/).

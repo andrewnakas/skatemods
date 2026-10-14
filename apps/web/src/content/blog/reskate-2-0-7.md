@@ -2,6 +2,7 @@
 title: "ReSkate 2.0.7: map downloads, pause menu, Board Break"
 description: ReSkate shipped five updates between October 10 and 12, 2026, from 2.0.3 to 2.0.7. Servers now offer their map to players who don't have it, the pause menu has a real server browser, Discord shows where you're skating, and two optional mods break boards and scrape up your skater.
 date: 2026-10-13
+updated: 2026-10-13
 author: skatemods
 featured: true
 games: [skate-2025]
@@ -38,11 +39,16 @@ Fourth Studio added two optional effects. **Road Rash** (2.0.3) marks your skate
 
 ## Fixes and performance
 
-- 2.0.6 fixes the Insert menu on **Intel Arc** cards, which couldn't attach to the game's picture ([b042bf2](https://github.com/Dingo-Shenanigans/ReSkate/commit/b042bf253a)), and a crash when a PlayStation controller is first read.
+- 2.0.5 was a hotfix for 2.0.4, which could close the game the moment a DualSense or DualShock 4 was connected, according to the team's patch notes on Discord. 2.0.6 fixes the Insert menu on **Intel Arc** cards, which couldn't attach to the game's picture ([b042bf2](https://github.com/Dingo-Shenanigans/ReSkate/commit/b042bf253a)).
+- A hotfix to 2.0.7, shipped under the same version number, waits for a map update to finish before loading the map when you join a server, which used to end on "This map is not loading". It also stops asking you to "update" to an older map than yours, and renames the Staff tag to ReSkate Admin.
 - 2.0.4 raised the game's entity limit to four times its normal size for big maps. 2.0.7 brought it down to two times, because every map paid the memory cost and the largest map load seen needs about 150,000 of the 262,144 slots ([0f8af62](https://github.com/Dingo-Shenanigans/ReSkate/commit/0f8af62710)).
 - 2.0.7 raises the streamed texture limit to 32,764 and turns off the game's ad system, which has nothing to serve offline. A player measured about 5% more FPS from that; the commit notes the team didn't measure it ([3df1a3c](https://github.com/Dingo-Shenanigans/ReSkate/commit/3df1a3cdfc)).
 - 2.0.3 stopped running anything in `scripts/Custom`. Nothing used the folder except one mod that loaded a DLL through it ([b7936a3](https://github.com/Dingo-Shenanigans/ReSkate/commit/b7936a36c6)).
 
 ## Still open
+
+On October 13, ReSkate tagged 2.0.8 and 2.0.9 on GitHub, but neither is a published release. That evening the team posted in its patch-notes channel that it was reverting to 2.0.7 while it fixed the update, so 2.0.7 is still the version to run.
+
+The same day, EA's skate. update reached Steam and broke ReSkate for anyone who had installed it in Steam's skate. folder. The fix is to move ReSkate to its own folder: [ReSkate not launching after a skate. update?](/faq/reskate-wont-launch-after-update/).
 
 Some players see an invisible board on 2.0.6 and 2.0.7, including on Steam Deck, and some Linux and Wine setups stop right after starting unless mods are off. Our [known issues](/guides/play-skate-with-reskate/#known-issues) list has the workarounds, and [ReSkate isn't working](/faq/reskate-not-working/) maps errors to fixes.

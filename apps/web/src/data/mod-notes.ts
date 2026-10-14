@@ -17,4 +17,24 @@ export const modNotes: Record<string, string> = {
     'Grind, the skatepark map from Call of Duty: Black Ops II, rebuilt for skate. It passed 10,000 downloads in ReSkate\'s first three days.',
   'Prayboy-Skate3Soundtrack':
     'The Skate 3 soundtrack as a station in skate.\'s music screen. Since ReSkate 1.0.9, mods can add songs and their own playlists next to the licensed stations.',
+  'ProbablyFineSoft-Skate3_HUD':
+    'Skate 3\'s scoring display in skate.: the blue multiplier badge with its progress ring, and a Futura-style font for the trick list and score. It is one of the most downloaded ReSkate mods that changes how the game looks rather than adding clothes or a map. Pair it with <a href="/reskate/Kitty_Meow/OG_Camera/">OG Camera</a> for more of the 2010 feel.',
+  'SunJayTeam-SunJays_Low_Cam':
+    'A lower camera for street skating. It was one of the first ReSkate mods, out on launch day, October 2, 2026, and its settings now sit in the game\'s Advanced Camera menu.',
+  'Kitty_Meow-OG_Camera':
+    'Skate 3\'s camera rebuilt in skate.: the 12 mm fisheye, the low and high chase cams, the lazy swing, and the grind, manual and big-air shots. It is data only, with no DLL, so it loads like any other ReSkate content mod.',
+  'Kitty_Meow-Hall_of_Meat':
+    'Skate 3\'s Hall of Meat bail scoring, with X-ray bones, the Thrasher panel, sounds and slow motion. The Thunderstore package does nothing alone: download Hall-of-Meat.zip from the GitHub link in its README and extract it into your ReSkate folder. ReSkate 2.0 also added its own Hall of Meat (see <a href="/blog/reskate-2/">ReSkate 2.0</a>).',
+  'Fourth_Studio-Road_Rash':
+    'The wounds for ReSkate\'s built-in Road Rash feature: dust, scrapes, bruises and raw wounds on knees, elbows and face that build up as you bail, in 45 skin items with or without blood. Road Rash has been part of ReSkate since 2.0.3, and zeex64 pointed players to this pack in the ReSkate Discord. Since 2.0.6 it is off until you turn it on. More in <a href="/blog/reskate-2-0-7/">ReSkate 2.0.7</a>.',
+  'Fourth_Studio-Board_Break_Pack':
+    'The decks for ReSkate\'s Board Break: a hard slam snaps your board at the nose, middle or tail. Eight deck shapes and the break sounds come in one pack. It needs ReSkate 2.0.6 or newer, with Board Break turned on in the ReSkate menu. More in <a href="/blog/reskate-2-0-7/">ReSkate 2.0.7</a>.',
+  'Madvillain-DemBones':
+    'Dem Bones, the skeleton from <a href="/games/skate-3/">Skate 3</a>, as a full-body costume. Find him under Apparel, then Costumes.',
+  'Prayboy-Skate2Soundtracks':
+    'The skate 2 soundtrack as its own station with cover art, 35 tracks added next to the game\'s music. Prayboy also made the Skate 3 soundtrack pack, the most downloaded music mod on ReSkate.',
+  'forestmouse-Spitfire_F4_Wheels':
+    '48 Spitfire Formula Four wheels, each design with the print outside and flipped inside, on a custom 58 mm conical wheel model. forestmouse also made The SLS Hangar map.',
+  'NxRoot-Hoverboard':
+    'Equip it as your trucks and the trucks and wheels disappear, so the deck floats. It passed 25,000 downloads within a week of its October 7 release.',
 };

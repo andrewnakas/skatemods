@@ -13,7 +13,7 @@ downloads:
   - { label: "ReSkate mods", url: "/reskate/", note: "browse every mod; install from the launcher" }
 ---
 
-ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it beside `Skate.exe`, and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
+ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it into a new, empty folder of its own (not Steam's skate. folder), and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
 
 ## What is ReSkate
 
@@ -32,15 +32,19 @@ The only official download is [ReSkate's GitHub releases page](https://github.co
 ## How to install ReSkate
 
 1. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Don't use any other mirror. If you already have ReSkate and only need to replace a file, [ReSkateLauncher.exe](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkateLauncher.exe) and [ReSkate.dll](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest/download/ReSkate.dll) are direct downloads of the latest version.
-2. Extract `ReSkateLauncher.exe` and `ReSkate.dll` into one of two places:
-   - **your skate. folder**, beside `Skate.exe` (Steam → skate. → Manage → Browse local files), or
-   - **an empty folder**, where the launcher installs the game for you.
+2. Extract `ReSkateLauncher.exe` and `ReSkate.dll` into **a new, empty folder of their own**, such as `C:\Games\ReSkate`. Don't put them in Steam's skate. folder: ReSkate keeps its own copy of the game in its folder, so Steam updating skate. can't break it. You need about 14 GB free on that drive.
 3. **Open [Steam](https://store.steampowered.com/about/) and sign in** if you want to play online. Without Steam, PLAY starts in offline mode as "Unknown Player", with no multiplayer.
 4. Run `ReSkateLauncher.exe`. It updates itself, then checks your game files against the supported build.
-5. If the game is missing, or Steam has updated it past that build, sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. The launcher downloads only the files it needs.
+5. The first time, the launcher downloads the supported game build into that folder. Sign in when asked, with a QR code from the Steam app or your username, password and Steam Guard. Later runs only fetch what's missing.
 6. Press **PLAY**.
 
-ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 2.0.2). Steam will keep updating your normal install, and the launcher puts the supported build back. ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
+ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged through 2.0.7). Your normal Steam install keeps updating for EA's live game, and ReSkate's own copy stays on that build.
+
+<div class="callout note">
+
+**ReSkate stopped launching after the October 13 skate. update?** You probably installed it in Steam's skate. folder, and Steam updated the game underneath it. Move ReSkate to its own folder: [ReSkate not launching after a skate. update?](/faq/reskate-wont-launch-after-update/).
+
+</div> ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
 
 ## Controls
 
@@ -101,6 +105,7 @@ To join a server running a custom map, you need the same map mod installed, and 
 
 These are open on [ReSkate's issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues) as of October 13 (ReSkate 2.0.7):
 
+- **ReSkate won't launch after the October 13 skate. update** if it was installed in Steam's skate. folder. Steam updated the game past the build ReSkate supports, and the team said in its Discord it won't move to the new build. Move `ReSkateLauncher.exe`, `ReSkate.dll`, `Mods` and `ReSkateLauncher.settings.json` to a folder of their own and run the launcher from there. Details: [ReSkate not launching after a skate. update?](/faq/reskate-wont-launch-after-update/).
 - **Windows Defender or your browser calls it a Trojan.** Since around 1.0.8, the download and `ReSkate.dll` get flagged, usually as `Behavior:Win32/DefenseEvasion.A!ml` ([#47](https://github.com/Dingo-Shenanigans/ReSkate/issues/47), [#27](https://github.com/Dingo-Shenanigans/ReSkate/issues/27)). The `!ml` means a machine-learning guess. ReSkate loads a DLL into the game, which looks like what malware does. Only download from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). If you trust that copy, restore the file from quarantine and add the ReSkate folder to your antivirus exclusions. Otherwise the launcher can't read its own files ("Cannot open file for SHA-256", [#29](https://github.com/Dingo-Shenanigans/ReSkate/issues/29)).
 - **Board graphics or maps crash since 1.1.0** ([#46](https://github.com/Dingo-Shenanigans/ReSkate/issues/46)). Some mods installed before 1.1.0 break. Uninstall the mod and install it again from MY MODS. If the game still crashes, turn mods off one at a time to find the culprit.
 - **The Insert menu doesn't open on Intel Arc graphics cards** ([#102](https://github.com/Dingo-Shenanigans/ReSkate/issues/102), [#145](https://github.com/Dingo-Shenanigans/ReSkate/issues/145)). Rebinding the key didn't help. The fix is in **2.0.6**: the menu was watching the wrong swapchain on Intel GPUs. Run `ReSkateLauncher.exe` so it updates, then press PLAY. On other cards, a menu that won't open usually means the game was started from Steam rather than with PLAY in the launcher.
@@ -131,11 +136,13 @@ More detail, with what players report on Steam Deck, is in [Does ReSkate work on
 
 ReSkate's launcher and runtime are Windows programs, but people run them on Linux:
 
-- **Through skate.'s own Steam entry (the official way).** Put `ReSkateLauncher.exe` and `ReSkate.dll` beside `Skate.exe`, then set skate.'s Steam launch options to:
+- **Through skate.'s own Steam entry (the official way).** Install skate. with Steam, put `ReSkateLauncher.exe` and `ReSkate.dll` in a new, empty folder of their own, such as `~/Games/ReSkate`, then set skate.'s Steam launch options to this, with your own folder's path:
 
   ```
-  bash -c 'exec "${@/EAAntiCheat.GameServiceLauncher.exe/ReSkateLauncher.exe}"' -- %command%
+  bash -c 'exec "${@/*EAAntiCheat.GameServiceLauncher.exe//home/you/Games/ReSkate/ReSkateLauncher.exe}"' -- %command%
   ```
+
+  Don't use Steam's skate. folder: since October 13 the README says the launcher refuses to run from there, and it installs its own copy of the game in your folder the first time.
 
   Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton. This option swaps in ReSkate's launcher and keeps skate.'s app ID and Proton prefix. The README says it was tested with ReSkate 1.1.3 and Proton Experimental on CachyOS, including hosting a lobby and joining a public server ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)). 2.0.0 didn't start under Proton; use 2.0.1 or later. See [Known issues](#known-issues) for the map-switching black screen.
 - **As a non-Steam game.** Adding `ReSkateLauncher.exe` to Steam with a forced Proton also works, but you lose skate.'s Proton prefix.

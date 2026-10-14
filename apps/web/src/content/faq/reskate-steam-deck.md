@@ -5,7 +5,7 @@ category: other-games
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, faq/reskate-not-working]
 order: 35
-updated: 2026-10-10
+updated: 2026-10-13
 ---
 
 ## Why ReSkate runs where skate. doesn't
@@ -16,14 +16,14 @@ EA's skate. doesn't run on Steam Deck or Linux, because its Javelin anti-cheat i
 
 1. On Steam Deck, switch to **Desktop Mode**.
 2. Install [skate.](https://store.steampowered.com/app/3354750/) through Steam.
-3. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest) and extract `ReSkateLauncher.exe` and `ReSkate.dll` beside `Skate.exe` (Steam → skate. → Manage → Browse local files).
-4. In Steam → skate. → Properties → Launch Options, enter:
+3. Download the latest `ReSkate-<version>.zip` from [GitHub Releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest) and extract `ReSkateLauncher.exe` and `ReSkate.dll` into a new, empty folder of their own, such as `~/Games/ReSkate`. Not Steam's skate. folder: since October 13 the launcher refuses to run from there ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)).
+4. In Steam → skate. → Properties → Launch Options, enter this with your own folder's path:
 
    ```
-   bash -c 'exec "${@/EAAntiCheat.GameServiceLauncher.exe/ReSkateLauncher.exe}"' -- %command%
+   bash -c 'exec "${@/*EAAntiCheat.GameServiceLauncher.exe//home/deck/Games/ReSkate/ReSkateLauncher.exe}"' -- %command%
    ```
 
-5. Press **Play** on skate. in your Steam library. Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton; this option swaps in ReSkate's launcher and keeps skate.'s own Proton prefix ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)).
+5. Press **Play** on skate. in your Steam library. The first time, the launcher installs its own copy of the game (about 14 GB) into your folder. Steam normally starts EA's anti-cheat launcher, which refuses to run under Proton; this option swaps in ReSkate's launcher and keeps skate.'s own Proton prefix ([README](https://github.com/Dingo-Shenanigans/ReSkate#linux-proton)).
 
 Since 2.0 the launcher works with a controller, with the Steam Deck trackpad as a mouse ([#63](https://github.com/Dingo-Shenanigans/ReSkate/pull/63)), so you can switch back to Game Mode once it's set up. 2.0.0 failed under Proton with "ReSkate could not attach to Skate"; 2.0.1 fixed it the same day ([4d77b85](https://github.com/Dingo-Shenanigans/ReSkate/commit/4d77b859bc)).
 
