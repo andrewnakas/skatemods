@@ -2,14 +2,15 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import { getReleases } from '../../../lib/reskate-releases';
-import { day } from '../../../lib/thunderstore';
+import { day, renderReadme } from '../../../lib/thunderstore';
 
 // One page per ReSkate release, for searches like "reskate 2.0.7". Same data as the full changelog.
 export async function getStaticPaths() {
   const releases = await getReleases();
+  const stable = releases.find((x) => !x.prerelease);
   return releases.map((r, i) => ({
     params: { tag: r.tag },
-    props: { r, newer: releases[i - 1], older: releases[i + 1], latest: i === 0 },
+    props: { r, newer: releases[i - 1], older: releases[i + 1], latest: r === stable },
   }));
 }
 
@@ -19,24 +20,32 @@ const version = r.tag.replace(/^v/, '');
 const protocol = r.changes.some((c) => /protocol/i.test(c.text));
 const summary = r.changes.slice(0, 3).map((c) => c.text.replace(/\.$/, '')).join('; ');
 const title = `ReSkate ${version}: what changed (${day(r.date)})`;
-const description = r.changes.length
+// The first lines of the notes, when the team wrote some, make a better summary than commit subjects.
+const noteLines = r.notes.split('\n').map((l) => l.replace(/^[#*\-\s]+|\*\*/g, '').trim()).filter((l) => l.length > 20);
+const description = noteLines.length
+  ? `ReSkate ${version}${r.prerelease ? ' (pre-release)' : ''}, ${day(r.date)}: ${noteLines.slice(0, 2).join(' ')}`.slice(0, 300)
+  : r.changes.length
   ? `ReSkate ${version} came out on ${day(r.date)} with ${r.changes.length} change${r.changes.length === 1 ? '' : 's'}: ${summary}.`.slice(0, 300)
   : `ReSkate ${version}, released ${day(r.date)}.`;
 ---
-<Base title={title} description={description} noindex={r.changes.length === 0} schema={{
+<Base title={title} description={description} noindex={r.changes.length === 0 && !r.notes} schema={{
   '@type': 'Article', headline: title, description, datePublished: r.date, dateModified: r.date,
   author: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' },
   mainEntityOfPage: `https://skatemods.com/reskate/changelog/${r.tag}/`,
 }}>
-  <PageHead parent={{ href: '/reskate/changelog/', label: 'ReSkate changelog' }} title={`ReSkate ${version}`} lede={`Released ${day(r.date)}${latest ? ', the current version' : ''}. ReSkate's GitHub releases have no notes, so this lists the commits since ${older ? older.tag : 'the start'}, minus merges.`}>
+  <PageHead parent={{ href: '/reskate/changelog/', label: 'ReSkate changelog' }} title={`ReSkate ${version}`} lede={r.prerelease
+    ? `A pre-release from ${day(r.date)}: a test build that can be less stable than the current version. The launcher has a setting to try pre-releases.`
+    : `Released ${day(r.date)}${latest ? ', the current version' : ''}.${r.notes ? '' : ` This release has no notes on GitHub, so this lists the commits since ${older ? older.tag : 'the start'}, minus merges.`}`}>
     <p class="meta facts">
       {n(r.downloads)} downloads from GitHub · <a href={r.zip ?? r.url} rel="noopener">{latest ? 'Download' : 'Get'} {r.zip ? r.zip.split('/').pop() : r.tag}</a> · <a href={r.url}>Release on GitHub</a> · <a href="/guides/play-skate-with-reskate/">Install guide</a>
     </p>
   </PageHead>
   <div class="wrap">
-    {!latest && (
+    {!latest && !r.prerelease && (
       <div class="callout note"><p>This isn't the current version. The launcher updates itself when it starts; the <a href="/reskate/changelog/">changelog</a> starts with the newest release.</p></div>
     )}
+    {r.notes && <div class="prose notes" set:html={renderReadme(r.notes)} />}
+    {r.notes && r.changes.length > 0 && <h2 class="commits-h">Commits</h2>}
     {r.changes.length > 0
       ? <ul class="changes">{r.changes.map((c) => <li><a href={c.url} rel="nofollow noopener">{c.text}</a></li>)}</ul>
       : <p>{older ? 'No code changes listed.' : 'The first public release.'}</p>}
@@ -53,6 +62,8 @@ const description = r.changes.length
 
 <style>
   .facts { margin: 1rem 0 0; }
+  .notes { max-width: 80ch; margin-bottom: 1.5rem; }
+  .commits-h { font-size: 1.1rem; }
   .changes { max-width: 80ch; padding-left: 1.2rem; }
   .changes li { margin: 0.25rem 0; }
   .changes a { color: var(--ink); text-decoration: none; }

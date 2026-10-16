@@ -6,7 +6,7 @@ import { day } from '../../lib/thunderstore';
 
 // Every ReSkate release with the commits that went into it, rebuilt on each deploy.
 const releases = await getReleases();
-const latest = releases[0];
+const latest = releases.find((r) => !r.prerelease);
 const n = (x: number) => x.toLocaleString('en-US');
 const total = releases.reduce((s, r) => s + r.downloads, 0);
 const title = latest ? `ReSkate changelog: every update up to ${latest.tag}` : 'ReSkate changelog';
@@ -31,7 +31,7 @@ const description = latest
     <ol class="releases">
       {releases.map((r) => (
         <li id={r.tag}>
-          <h2><a href={`/reskate/changelog/${r.tag}/`}>{r.tag}</a></h2>
+          <h2><a href={`/reskate/changelog/${r.tag}/`}>{r.tag}</a>{r.prerelease && <span class="pre"> pre-release</span>}</h2>
           <p class="meta">{day(r.date)} · {n(r.downloads)} downloads · <a href={r.url}>GitHub</a></p>
           {r.changes.length > 0
             ? <ul>{r.changes.map((c) => <li><a href={c.url} rel="nofollow noopener">{c.text}</a></li>)}</ul>
@@ -56,5 +56,6 @@ const description = latest
   .releases ul li { margin: 0.2rem 0; }
   .releases ul a { color: var(--ink); text-decoration: none; }
   .releases ul a:hover { color: var(--accent); text-decoration: underline; }
+  .releases .pre { font-size: 0.9rem; font-weight: 400; color: var(--ink-faint); }
   .faint { color: var(--ink-faint); }
 </style>

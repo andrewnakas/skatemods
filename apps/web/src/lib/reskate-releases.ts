@@ -13,6 +13,10 @@ export interface Release {
   downloads: number;
   /** Direct link to the ReSkate-<version>.zip asset, if the release has one. */
   zip?: string;
+  /** A test build GitHub marks as a pre-release. */
+  prerelease: boolean;
+  /** The release notes on GitHub, as Markdown; empty for most releases. */
+  notes: string;
   changes: { text: string; url: string }[];
 }
 
@@ -52,7 +56,9 @@ export function getReleases(): Promise<Release[]> {
         date: r.published_at,
         url: r.html_url,
         downloads: r.assets.reduce((n: number, a: any) => n + a.download_count, 0),
-        zip: r.assets.find((a: any) => /^ReSkate-[\d.]+\.zip$/.test(a.name))?.browser_download_url,
+        zip: r.assets.find((a: any) => /^ReSkate-[\w.-]+\.zip$/.test(a.name))?.browser_download_url,
+        prerelease: !!r.prerelease,
+        notes: (r.body ?? '').trim(),
         changes,
       });
     }
@@ -61,5 +67,12 @@ export function getReleases(): Promise<Release[]> {
   return cache;
 }
 
-/** The newest release, or undefined if GitHub couldn't be reached at build time. */
-export const latestRelease = async (): Promise<Release | undefined> => (await getReleases())[0];
+/** The newest stable release, or undefined if GitHub couldn't be reached at build time. */
+export const latestRelease = async (): Promise<Release | undefined> => (await getReleases()).find((r) => !r.prerelease);
+
+/** A pre-release newer than the latest stable one, if there is one. */
+export const latestPrerelease = async (): Promise<Release | undefined> => {
+  const all = await getReleases();
+  const stable = all.findIndex((r) => !r.prerelease);
+  return all.slice(0, stable < 0 ? all.length : stable).find((r) => r.prerelease);
+};

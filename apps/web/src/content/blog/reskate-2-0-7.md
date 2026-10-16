@@ -4,7 +4,6 @@ description: ReSkate shipped five updates between October 10 and 12, 2026, from 
 date: 2026-10-13
 updated: 2026-10-13
 author: skatemods
-featured: true
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, faq/reskate-not-working, blog/reskate-2]
 ---

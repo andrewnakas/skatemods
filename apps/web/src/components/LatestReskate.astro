@@ -1,9 +1,10 @@
 ---
 // The current ReSkate release, read from GitHub at build time so version numbers in guides never go stale.
-import { latestRelease } from '../lib/reskate-releases';
+import { latestRelease, latestPrerelease } from '../lib/reskate-releases';
 import { day } from '../lib/thunderstore';
 
 const r = await latestRelease();
+const pre = await latestPrerelease();
 const releases = 'https://github.com/Dingo-Shenanigans/ReSkate/releases/latest';
 ---
 <aside class="latest" aria-label="Latest ReSkate release">
@@ -17,6 +18,9 @@ const releases = 'https://github.com/Dingo-Shenanigans/ReSkate/releases/latest';
   ) : (
     <p><span class="k">Latest ReSkate</span> <a href={releases} rel="noopener">Download from GitHub releases</a> · <a href="/reskate/changelog/">Changelog</a></p>
   )}
+  {pre && (
+    <p class="pre">Test build: <a href={`/reskate/changelog/${pre.tag}/`}>{pre.tag}</a> ({day(pre.date)}), a pre-release for testers that can be less stable. The launcher has a setting to try pre-releases.</p>
+  )}
   <p class="src">Official download from ReSkate's GitHub. Checked when this page was built.</p>
 </aside>
 
@@ -24,5 +28,6 @@ const releases = 'https://github.com/Dingo-Shenanigans/ReSkate/releases/latest';
   .latest { border: 2px solid var(--ink); padding: 0.7rem 0.9rem; margin: 0 0 1.6rem; }
   .latest p { margin: 0; }
   .latest .k { font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8rem; margin-right: 0.4rem; }
+  .latest .pre { font-size: 0.9rem; margin-top: 0.3rem; }
   .latest .src { color: var(--ink-faint); font-size: 0.85rem; margin-top: 0.3rem; }
 </style>

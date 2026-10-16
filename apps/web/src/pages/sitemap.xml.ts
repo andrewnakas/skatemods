@@ -21,7 +21,7 @@ export async function GET() {
     ...faq.map((f): [string, string] => [`/faq/${f.id}/`, fresh(f.data.updated, f.data.latestReskate)]),
     ...communities.map((c): [string, string] => [`/history/${c.id}/`, day(c.data.updated)]),
     ...blog.map((b): [string, string] => [`/blog/${b.id}/`, day(b.data.updated ?? b.data.date)]),
-    ...releases.filter((r) => r.changes.length > 0).map((r): [string, string] => [`/reskate/changelog/${r.tag}/`, day(r.date)]),
+    ...releases.filter((r) => r.changes.length > 0 || r.notes).map((r): [string, string] => [`/reskate/changelog/${r.tag}/`, day(r.date)]),
     ...mods.filter(indexable).map((m): [string, string] => [m.path, day(m.updated)]),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
