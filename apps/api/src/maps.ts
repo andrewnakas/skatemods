@@ -137,19 +137,30 @@ maps.use('*', async (c, next) => {
 maps.get('/', async (c) => {
   const q = (c.req.query('q') ?? '').trim().slice(0, 80);
   const platform = c.req.query('platform');
+  // Paging is opt-in (the game's Maps page); without it the site gets the first 200.
+  const paged = c.req.query('page') !== undefined;
+  const per = paged ? Math.min(Math.max(Number(c.req.query('per')) || 20, 1), 50) : 200;
+  const page = paged ? Math.max(Number(c.req.query('page')) || 0, 0) : 0;
+  const kind = c.req.query('kind');
   const where = [`m.status = 'approved'`];
   const binds: unknown[] = [];
   if (q) { where.push('(m.title LIKE ? OR m.author_credit LIKE ?)'); binds.push(`%${q}%`, `%${q}%`); }
   if (platform && (PLATFORMS as readonly string[]).includes(platform)) { where.push('m.source_platform = ?'); binds.push(platform); }
+  if (kind && /^[a-z0-9_-]{1,20}$/.test(kind)) {
+    where.push(`EXISTS (SELECT 1 FROM files f WHERE f.map_id = m.id AND f.complete = 1 AND f.kind = ?)`); binds.push(kind);
+  }
   const { results } = await c.env.DB.prepare(
     `SELECT m.id, m.title, m.author_credit, m.license, m.source_platform, m.approved_at, u.login AS uploader,
        (SELECT group_concat(kind) FROM files f WHERE f.map_id = m.id AND f.complete = 1 AND f.kind != 'log') AS kinds,
        (SELECT coalesce(sum(downloads), 0) FROM files f WHERE f.map_id = m.id) AS downloads
      FROM maps m JOIN users u ON u.id = m.owner_id
-     WHERE ${where.join(' AND ')} ORDER BY m.approved_at DESC LIMIT 200`,
-  ).bind(...binds).all();
+     WHERE ${where.join(' AND ')} ORDER BY m.approved_at DESC LIMIT ? OFFSET ?`,
+  ).bind(...binds, per + 1, page * per).all();
+  const more = results.length > per;
+  if (more) results.pop();
   c.header('Cache-Control', 'public, max-age=60');
   return c.json({
+    ...(paged ? { page, per, more } : {}),
     maps: results.map((r: any) => ({ ...r, kinds: r.kinds ? [...new Set(String(r.kinds).split(','))] : [] })),
   });
 });
