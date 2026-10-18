@@ -1,13 +1,12 @@
 ---
 title: .skate maps in the Rust engine
-description: Load, convert and understand the .skate format used by the Skate 3 Rust and Bevy engine and the browser build.
+description: Load, convert and understand the .skate format used by the Skate 3 Rust and Bevy engine.
 game: skate-3
 level: advanced
 order: 5
 updated: 2026-10-01
 downloads:
   - { label: "Skate 3 Rust engine", url: "https://github.com/SK8-ENGINE/skate-3-rust-engine", note: "source; build it or use PLAY.bat from a checkout" }
-  - { label: "Clean Room Skate Online", url: "/skate-3-online/", note: "the browser build, no install" }
   - { label: "skatemods converter", url: "https://github.com/andrewnakas/skatemods/tree/main/converter", note: "turns Skate 3 maps into .skate files" }
 ---
 
@@ -21,7 +20,7 @@ Clone or download the [engine repository](https://github.com/SK8-ENGINE/skate-3-
 .\scripts\Launch.ps1 -Map 'C:\path with spaces\park.skate'
 ```
 
-In game, **Escape** opens the map menu so you can switch without restarting. In the [browser build](/skate-3-online/), add `?map=Name` to the URL.
+In game, **Escape** opens the map menu so you can switch without restarting.
 
 ## What's inside
 

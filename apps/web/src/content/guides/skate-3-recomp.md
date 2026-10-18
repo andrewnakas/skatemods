@@ -65,4 +65,4 @@ There's no official mobile build. [Skate3-Mobile](https://github.com/Buku313/Ska
 
 ## Online play
 
-The Recomp has no online mode. An [open issue](https://github.com/mchughalex/skate3recomp/issues/140) asks for one and hasn't had an answer. To skate online today, use [RPCS3 with the community Blaze server](/faq/skate-3-online/) for the original game, or [Clean Room Skate Online](/skate-3-online/) in a browser.
+The Recomp has no online mode. An [open issue](https://github.com/mchughalex/skate3recomp/issues/140) asks for one and hasn't had an answer. To skate online today, use [RPCS3 with the community Blaze server](/faq/skate-3-online/) for the original game.

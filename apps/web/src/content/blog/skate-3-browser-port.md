@@ -1,6 +1,6 @@
 ---
 title: "Skate 3 in a web browser: the browser port explained"
-description: A Skate 3 browser game at skate.aaddpp.lol went viral on October 8, 2026. What it runs, where its game data comes from, and the browser options that need no game files at all.
+description: A Skate 3 browser game at skate.aaddpp.lol went viral on October 8, 2026. What it runs, where its game data comes from, and how to play Skate 3 with your own copy instead.
 date: 2026-10-10
 author: skatemods
 games: [skate-3]
@@ -28,9 +28,7 @@ If you want to use the engine with your own copy:
 
 The site also links a Discord, donation pages and a pump.fun token. skatemods has no connection to any of them.
 
-## Options that need no game files
-
-[Clean Room Skate Online](/skate-3-online/) runs the same Rust engine in your browser with a **clean-room asset pack**: every texture, sound and visual mesh is regenerated, and no retail data is sent to you. It has multiplayer rooms for up to 10 players and loads [community maps](/maps/). It doesn't have the big Skate 3 districts or the soundtrack.
+## Other ways to play
 
 For the full game on your own hardware, the native [Skate 3 Recomp](/guides/skate-3-recomp/) runs your Xbox 360 copy on Windows, Linux and macOS. [Every way to play Skate 3](/guides/play-skate-3-anywhere/) compares all of them in one table.
 

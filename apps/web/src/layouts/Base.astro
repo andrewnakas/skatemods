@@ -97,7 +97,7 @@ const crumbSchema = crumbs && {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-GPC9R5H2NY');
-      // Conversions: downloads of mods and tools, and starting the browser game.
+      // Conversions: downloads of mods and tools.
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]');
         if (!a) return;
@@ -106,7 +106,6 @@ const crumbSchema = crumbs && {
           : /github\.com\/[^/]+\/[^/]+\/releases\/(latest|download|tag)/.test(h) ? 'tool_download'
           : /thunderstore\.io\/c\/reskate\/p\//.test(h) ? 'thunderstore_click'
           : /discord\.(gg|com\/invite)\//.test(h) ? 'discord_join'
-          : /\/skate-3-online\/#play$/.test(h) ? 'play_online'
           : '';
         if (kind) gtag('event', kind, { link_url: h, page_path: location.pathname });
       }, true);
@@ -121,7 +120,6 @@ const crumbSchema = crumbs && {
           {nav.map((n) => <a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a>)}
         </nav>
         <div class="actions">
-          <a class="play" href="/skate-3-online/#play" aria-current={path.startsWith('/skate-3-online/') ? 'page' : undefined}>▶ Play online</a>
           <a class="upload" href="/upload/">Upload</a>
           <a class="account" id="account" href="/signin/">Sign in</a>
           <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -148,7 +146,7 @@ const crumbSchema = crumbs && {
           </nav>
           <nav aria-label="Skate 3">
             <p class="h">Skate 3</p>
-            <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a><a href="/skate-3-online/">Clean Room Skate Online</a>
+            <a href="/maps/">Maps</a><a href="/upload/">Upload a map</a><a href="/convert/">Conversion</a><a href="/recomp/">Recomp builds</a>
           </nav>
           <nav aria-label="skate. (2025)">
             <p class="h">skate. (2025)</p>
@@ -198,8 +196,6 @@ const crumbSchema = crumbs && {
   .actions a:hover { color: var(--accent); }
   .upload { border: 1.5px solid var(--ink); padding: 0.3rem 0.65rem; border-radius: var(--radius); }
   .upload:hover { background: var(--ink); color: var(--bg) !important; }
-  .actions .play { background: var(--accent); color: var(--accent-ink); padding: 0.3rem 0.7rem; border: 1.5px solid var(--accent); border-radius: var(--radius); font-weight: 700; white-space: nowrap; }
-  .actions .play:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .account { font-family: var(--font-mono); font-size: 0.85rem; max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .theme { display: grid; place-items: center; width: 30px; height: 30px; border: 0; background: none; color: var(--ink-soft); cursor: pointer; padding: 0; }
   .theme:hover { color: var(--ink); }

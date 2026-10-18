@@ -196,13 +196,6 @@ export const timeline: Event[] = [
     source: 'https://github.com/andrewnakas/skate3-ps3-map-importer',
   },
   {
-    date: '2026-09-28', era: 'native',
-    title: 'Clean-room web build',
-    body: 'The Rust engine compiled to WebAssembly and WebGPU, with every texture regenerated so no retail pixels ship. You can play it in a browser tab.',
-    who: 'Nakas',
-    source: 'https://github.com/andrewnakas/skate3-cleanroom',
-  },
-  {
     date: '2026-10-01', era: 'convert',
     title: 'skatemods.com: conversion in the cloud',
     body: 'An open-source hub where uploaded maps convert automatically to every Skate 3 platform: PS3 → recomp → .skate, on free CI runners with no game data.',

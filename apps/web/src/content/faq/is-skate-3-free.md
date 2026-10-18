@@ -1,6 +1,6 @@
 ---
 question: Is Skate 3 free?
-answer: No. Skate 3 costs $19.99 on the Xbox store and is included with EA Play. The community PC port and emulators are free, but they need a copy you own. Clean Room Skate Online, a fan-made rewrite, is free in your browser, and EA's newer game, skate., is free-to-play.
+answer: No. Skate 3 costs $19.99 on the Xbox store and is included with EA Play. The community PC port and emulators are free, but they need a copy you own. EA's newer game, skate., is free-to-play.
 category: skate-3
 games: [skate-3, skate-2025]
 related: [guides/play-skate-3-anywhere, faq/skate-3-pc-port, faq/is-skate-skate-4]
@@ -14,7 +14,6 @@ The [Xbox store](https://www.xbox.com/en-US/games/store/skate-3/bnkdkqxmxrr2) li
 
 ## Free ways to play
 
-- **[Clean Room Skate Online](/skate-3-online/)**: a fan-made Skate 3 engine rewrite in your browser, with regenerated art and sound. Free, no download, no game files. It has parks and community maps, not the Skate 3 city.
 - **[Skate 3 Recomp](/guides/skate-3-recomp/), RPCS3 and Xenia** are free software, but each needs a dump of a disc you own. [Every way to play Skate 3](/guides/play-skate-3-anywhere/) compares them.
 
 ## skate. (2025)

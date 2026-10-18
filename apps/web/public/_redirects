@@ -1,2 +1,4 @@
-/play /skate-3-online/ 301
-/play/ /skate-3-online/ 301
+/play / 302
+/play/ / 302
+/skate-3-online / 302
+/skate-3-online/* / 302
