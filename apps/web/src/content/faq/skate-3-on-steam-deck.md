@@ -1,11 +1,11 @@
 ---
 question: Can I play Skate 3 on Steam Deck?
-answer: Yes. The Skate 3 Recomp runs on the Deck as a native Linux build or as the Windows build through Proton, and RPCS3 runs the PS3 version. Both need your own copy of the game. Clean Room Skate Online also runs in a browser in Desktop Mode.
+answer: Yes. The Skate 3 Recomp runs on the Deck as a native Linux build or as the Windows build through Proton, and RPCS3 runs the PS3 version. Both need your own copy of the game.
 category: skate-3
 games: [skate-3]
 related: [guides/skate-3-recomp, guides/play-skate-3-anywhere, faq/rpcs3-basics]
 order: 40
-updated: 2026-10-10
+updated: 2026-10-18
 ---
 
 ## The Recomp

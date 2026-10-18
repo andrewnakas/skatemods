@@ -198,7 +198,7 @@ export const timeline: Event[] = [
   {
     date: '2026-09-28', era: 'native',
     title: 'Clean-room web build',
-    body: 'The Rust engine compiled to WebAssembly and WebGPU, with every texture regenerated so no retail pixels ship. You can play it in a browser tab.',
+    body: 'The Rust engine compiled to WebAssembly and WebGPU, meant to ship only regenerated art and sound. Retail animations turned out to have slipped in, and it went offline on October 18, 2026 while they are removed.',
     who: 'Nakas',
     source: 'https://github.com/andrewnakas/skate3-cleanroom',
   },

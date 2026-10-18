@@ -30,7 +30,7 @@ The site also links a Discord, donation pages and a pump.fun token. skatemods ha
 
 ## Options that need no game files
 
-[Clean Room Skate Online](/skate-3-online/) runs the same Rust engine in your browser with a **clean-room asset pack**: every texture, sound and visual mesh is regenerated, and no retail data is sent to you. It has multiplayer rooms for up to 10 players and loads [community maps](/maps/). It doesn't have the big Skate 3 districts or the soundtrack.
+*Update, October 18, 2026: our own browser build, Clean Room Skate Online, is offline while files from the retail game that ended up in it by mistake are removed.*
 
 For the full game on your own hardware, the native [Skate 3 Recomp](/guides/skate-3-recomp/) runs your Xbox 360 copy on Windows, Linux and macOS. [Every way to play Skate 3](/guides/play-skate-3-anywhere/) compares all of them in one table.
 

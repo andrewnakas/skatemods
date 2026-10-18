@@ -4,7 +4,7 @@ import { modCategories } from '../data/reskate-categories';
 import { getReleases } from '../lib/reskate-releases';
 
 // Public pages only: account, upload and admin screens are left out.
-const pages = ['/', '/games/', '/maps/', '/reskate/', '/reskate/best/', '/reskate/changelog/', ...modCategories.map((c) => `/reskate/${c.slug}/`), '/guides/', '/faq/', '/history/', '/history/people/', '/blog/', '/community/', '/tools/', '/recomp/', '/skate-3-online/', '/convert/', '/about/', '/policy/', '/face/'];
+const pages = ['/', '/games/', '/maps/', '/reskate/', '/reskate/best/', '/reskate/changelog/', ...modCategories.map((c) => `/reskate/${c.slug}/`), '/guides/', '/faq/', '/history/', '/history/people/', '/blog/', '/community/', '/tools/', '/recomp/', '/convert/', '/about/', '/policy/', '/face/'];
 const day = (d: Date | string) => new Date(d).toISOString().slice(0, 10);
 
 export async function GET() {

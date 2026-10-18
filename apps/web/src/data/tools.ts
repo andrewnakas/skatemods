@@ -29,7 +29,6 @@ export const tools: Tool[] = [
   { name: 'skate3-android', by: 'Nakas', game: 'skate-3', kind: 'port', open: true, url: 'https://github.com/andrewnakas/skate3-android', what: 'Android shell for the recomp: setup, map packs and GPU driver management.' },
   { name: 'skate3-ios-setup', by: 'Nakas', game: 'skate-3', kind: 'port', open: true, url: 'https://github.com/andrewnakas/skate3-ios-setup', what: 'Build the recompilation for iOS from your own disc image.' },
   { name: 'Skate 3 Rust engine', by: 'SK8-ENGINE', game: 'skate-3', kind: 'port', open: true, url: 'https://github.com/SK8-ENGINE/skate-3-rust-engine', what: 'Rust and Bevy reimplementation with .skate maps, a Lua mod SDK, vehicles and multiplayer mods.' },
-  { name: 'Skate 3 clean room (web)', by: 'Nakas', game: 'skate-3', kind: 'port', open: true, url: 'https://github.com/andrewnakas/skate3-cleanroom', what: 'The Rust engine on WebGPU with a regenerated asset pack, playable in a browser.' },
   { name: 'skate3-quest-ar', by: 'Nakas', game: 'skate-3', kind: 'port', open: true, url: 'https://github.com/andrewnakas/skate3-quest-ar', what: 'The Rust engine on Meta Quest 3 in passthrough AR: a miniature skater in your room.' },
   // Skate 3: maps
   { name: 'Skate 3 Level Loader', by: 'Nakas', game: 'skate-3', kind: 'maps', open: true, url: 'https://github.com/andrewnakas/skate3-level-loader', what: 'Map library and launcher for the recomp. Import packs, then pick a map to boot into it.' },

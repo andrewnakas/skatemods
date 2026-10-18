@@ -1,11 +1,11 @@
 ---
 question: Can I play Skate 3 on a Mac?
-answer: Yes. The Skate 3 Recomp has an experimental Apple Silicon build, RPCS3 runs the PS3 version on macOS, and Clean Room Skate Online runs in Chrome on a Mac with no game files. Xenia doesn't support macOS.
+answer: Yes. The Skate 3 Recomp has an experimental Apple Silicon build, and RPCS3 runs the PS3 version on macOS. Xenia doesn't support macOS.
 category: skate-3
 games: [skate-3]
 related: [guides/play-skate-3-anywhere, guides/skate-3-recomp, faq/rpcs3-basics]
 order: 39
-updated: 2026-10-10
+updated: 2026-10-18
 ---
 
 ## The Recomp (Apple Silicon)
@@ -21,10 +21,6 @@ Some players report crashes at launch on macOS ([#102](https://github.com/mchugh
 ## RPCS3
 
 [RPCS3](https://rpcs3.net/download) has macOS builds, and Skate 3 is rated Playable on it. You need your own PS3 disc dump and the PS3 system software. See [How well does Skate 3 run on RPCS3?](/faq/rpcs3-basics/)
-
-## In the browser
-
-[Clean Room Skate Online](/skate-3-online/) runs a fan-made Skate 3 engine rewrite in Chrome or Edge on macOS. It needs no game files. It has parks and community maps, not the Skate 3 city.
 
 ## Not on Mac
 

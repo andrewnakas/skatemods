@@ -4,7 +4,7 @@ description: The Skate 3 custom maps and DLC packs that load on the PC recomp, w
 game: skate-3
 level: beginner
 order: 2
-updated: 2026-10-10
+updated: 2026-10-18
 downloads:
   - { label: "Skate 3 Level Loader", url: "https://github.com/andrewnakas/skate3-level-loader/releases/latest", note: "imports map packs into the recomp" }
   - { label: "Community maps on skatemods", url: "/maps/", note: "uploaded by their authors, converted to every platform" }
@@ -38,7 +38,7 @@ If you own the Xbox 360 DLC, these all boot: **Danny Way's Mega Compound**, **Ma
 
 ### Kenney Park
 
-An original park built from Kenney's CC0 Mini Skate kit, and the first map uploaded to [skatemods](/maps/). Because it's an original, it's available converted for every platform, and it plays in the browser in [Clean Room Skate Online](/skate-3-online/) with no game files.
+An original park built from Kenney's CC0 Mini Skate kit, and the first map uploaded to [skatemods](/maps/). Because it's an original, it's available converted for every platform.
 
 ### GTA V Mega Brainrot
 
@@ -63,7 +63,7 @@ The Sleepen Map Archive (Bay Creek, Harrisburgh, The Animal House, The Old Wareh
 - **RPCS3:** copy the map into your game's `USRDIR` as its readme says ([Skate 3 on RPCS3](/guides/skate-3-on-rpcs3/#dlc-and-custom-maps)).
 - **PS3-only map on the Recomp:** [convert it](/guides/convert-ps3-maps/) first.
 - **Real PS3:** a console on HEN or custom firmware takes custom maps the same way as RPCS3. A stock console can't load them. See the [real hardware FAQ](/faq/real-hardware/).
-- **Browser:** maps converted to `.skate` play in [Clean Room Skate Online](/skate-3-online/) and the [Rust engine](/guides/skate-maps-rust-engine/).
+- **Rust engine:** maps converted to `.skate` play in the [Rust engine](/guides/skate-maps-rust-engine/).
 
 ## Skate 3 maps in skate. (2025)
 
@@ -71,4 +71,4 @@ Port Carverton itself is now a map for EA's newer game through ReSkate. [Skate 3
 
 ## Made a map?
 
-[Upload it](/upload/). Once it's reviewed, skatemods converts it automatically (PS3 maps to recomp and `.skate`), and it shows up on [/maps/](/maps/) and in Clean Room Skate Online.
+[Upload it](/upload/). Once it's reviewed, skatemods converts it automatically (PS3 maps to recomp and `.skate`), and it shows up on [/maps/](/maps/).
