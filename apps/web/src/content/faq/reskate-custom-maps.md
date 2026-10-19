@@ -27,6 +27,7 @@ To install by hand, put the mod folder in `Mods\` beside `Skate.exe`. `Mods\mods
 
 ## When a map won't load
 
+- **Black screen, or a map that won't load:** see [ReSkate black screen or custom maps not loading?](/faq/reskate-maps-not-loading/).
 - **Crash on a big map:** update to ReSkate 1.1.0 or later, which raised the physics body limit for large maps.
 - **A map broke after 1.1.0:** uninstall it and install it again from **MY MODS** ([#46](https://github.com/Dingo-Shenanigans/ReSkate/issues/46)).
 - **Endless loading on Linux or Steam Deck:** custom maps have hung under Proton since 1.0.8 ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)).

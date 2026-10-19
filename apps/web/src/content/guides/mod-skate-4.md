@@ -4,7 +4,7 @@ description: How to mod EA's skate. (2025), the game players call Skate 4, on PC
 game: skate-2025
 level: beginner
 order: 8
-updated: 2026-10-13
+updated: 2026-10-19
 downloads:
   - { label: "ReSkate (latest release)", url: "https://github.com/Dingo-Shenanigans/ReSkate/releases/latest", note: "ReSkate-<version>.zip, the launcher and runtime" }
   - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
@@ -28,7 +28,7 @@ The full walkthrough, with controls, multiplayer and fixes, is [download, instal
 
 Open the launcher's **MODS** page. It browses the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/), and one click installs a mod and anything it depends on. You can also drag a mod's `.zip` onto the launcher window. In game, press **Insert** and open the **MODS** tab to switch mods on and off.
 
-On October 10, 2026, the ReSkate Thunderstore had 1,457 mods. Browse them here by type:
+skate. mods aren't on Nexus Mods: they're published on Thunderstore, and ReSkate's launcher installs them from there. They only work on PC, not on PS5 or Xbox ([why](/faq/reskate-ps5-xbox/)). On October 16, 2026, the ReSkate Thunderstore had about 3,700 packages. Browse them here by type:
 
 - [Custom maps](/reskate/maps/): the Skate 3 city, skate 2's New San Vanelona, Skater XL spots and original parks
 - [Board graphics](/reskate/boards/): decks, grip and wheels

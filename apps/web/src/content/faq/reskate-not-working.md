@@ -29,6 +29,8 @@ Start by updating. ReSkate shipped eleven releases in its first three days, and 
 | The skateboard is invisible | Open on 2.0.6 and 2.0.7, seen on Steam Deck ([#195](https://github.com/Dingo-Shenanigans/ReSkate/issues/195)) | No fix yet |
 | On Linux or Steam Deck, custom maps hang loading | Open Proton issue since 1.0.8 ([#31](https://github.com/Dingo-Shenanigans/ReSkate/issues/31)) | See [ReSkate on Steam Deck and Linux](/faq/reskate-steam-deck/) |
 
+Map problems (black screens, maps that won't load, crashes switching maps) have their own page: [ReSkate black screen or custom maps not loading?](/faq/reskate-maps-not-loading/)
+
 ## Still stuck
 
 - Your log is `logs\ReSkate.log` beside `Skate.exe`. It usually names the mod or file at fault.
