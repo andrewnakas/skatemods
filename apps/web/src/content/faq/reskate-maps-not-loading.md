@@ -1,6 +1,6 @@
 ---
 question: "ReSkate black screen or custom maps not loading?"
-answer: Usually you joined a server on another map while a custom map was loaded: load the server's map first. Crashes when switching custom maps are an open bug, so restart the game between them. Dense maps such as Los Santos City crashed the GPU until 2.1.0, and some custom maps fail on Steam Deck.
+answer: "Usually you joined a server on another map while a custom map was loaded: load the server's map first. Crashes when switching custom maps are an open bug, so restart the game between them. Dense maps such as Los Santos City crashed the GPU until 2.1.0, and some custom maps fail on Steam Deck."
 category: other-games
 games: [skate-2025]
 related: [faq/reskate-custom-maps, faq/reskate-not-working, faq/reskate-steam-deck, guides/play-skate-with-reskate]
