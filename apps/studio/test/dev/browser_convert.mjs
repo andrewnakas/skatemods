@@ -48,7 +48,7 @@ try {
       else if (e.method === 'Target.attachedToTarget') console.log('  target:', e.params.targetInfo.type, e.params.targetInfo.url);
     }
     if ((Date.now() - t0) % 30000 < 2000) console.log(`${((Date.now() - t0) / 1000).toFixed(0)}s ${st.bar} ${st.what}`);
-    if (Date.now() - t0 > 30 * 60e3) { console.log('timeout'); process.exitCode = 1; break; }
+    if (Date.now() - t0 > Number(process.env.TIMEOUT_MIN ?? 30) * 60e3) { console.log("timeout"); process.exitCode = 1; break; }
   }
   if (!process.exitCode) {
     const out = await ev(`(async () => {
