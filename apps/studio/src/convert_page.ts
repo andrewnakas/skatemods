@@ -80,27 +80,44 @@ drop.ondrop = async (e) => {
   }
 };
 
-// Thunderstore: thunderstore.io/c/reskate/p/<owner>/<name>/[v/<version>/] -> our streaming pass-through
-const API = new URLSearchParams(location.search).get('api') ?? 'https://skatemods.com';
-// the pass-through lives in skatemods' API worker; until that route is deployed, offer only the zip/folder pickers
-const tsForm = document.getElementById('ts-form') as HTMLFormElement;
-tsForm.hidden = true;
-fetch(`${API}/api/thunderstore/_/_/0.0.0`, { method: 'HEAD' }).then((r) => { tsForm.hidden = r.status === 404; }).catch(() => {});
-$<HTMLFormElement>('ts-form').onsubmit = async (e) => {
-  e.preventDefault();
-  const url = $<HTMLInputElement>('ts-url').value.trim();
-  const m = /thunderstore\.io\/(?:c\/[^/]+\/)?(?:p|package)\/([A-Za-z0-9_]+)\/([A-Za-z0-9_]+)(?:\/(?:v\/)?(\d+\.\d+\.\d+))?/.exec(url);
-  if (!m) return fail('That does not look like a Thunderstore package link.');
-  let [, owner, name, version] = m;
+// Thunderstore: thunderstore.io/c/reskate/p/<owner>/<name>/[<version>/] -> skatemods.com/ts-dl, a streaming
+// pass-through (a Cloudflare Pages Function in apps/web/functions; Thunderstore itself sends no CORS headers).
+// The link can also arrive as ?url=<link> (or ?ts=), which starts the conversion straight away.
+const SITE = new URLSearchParams(location.search).get('api') ?? 'https://skatemods.com';
+const TS_LINK = /thunderstore\.io\/(?:c\/[^/]+\/)?(?:p|package)\/([A-Za-z0-9_]+)\/([A-Za-z0-9_]+)(?:\/(?:v\/)?(\d+\.\d+\.\d+))?/;
+const tsForm = $<HTMLFormElement>('ts-form'), tsInput = $<HTMLInputElement>('ts-url');
+
+async function fromThunderstore(link: string) {
+  const m = TS_LINK.exec(link);
+  if (!m) return fail('That does not look like a Thunderstore package link (thunderstore.io/c/reskate/p/<author>/<map>/).');
+  const [, owner, name, version] = m;
+  if (busy) return;
+  err.hidden = true; pick.hidden = true; run.hidden = false; done.hidden = true;
+  modName.textContent = `${owner}/${name}`; log.textContent = ''; bar.style.width = '0%';
+  what.textContent = 'asking Thunderstore';
   try {
-    if (!version) {
-      const r = await fetch(`https://thunderstore.io/api/experimental/package/${owner}/${name}/`);
-      if (!r.ok) throw new Error(`Thunderstore says ${r.status}`);
-      version = (await r.json()).latest.version_number;
+    const r = await fetch(`${SITE}/ts-dl/${owner}/${name}${version ? '/' + version : ''}`);
+    if (!r.ok || !r.body) {
+      const why = await r.json().catch(() => ({} as { error?: string }));
+      throw new Error(why.error ?? `HTTP ${r.status}`);
     }
-    what.textContent = 'downloading';
-    const r = await fetch(`${API}/api/thunderstore/${owner}/${name}/${version}`);
-    if (!r.ok) throw new Error(r.status === 429 ? 'too many downloads this hour, try later' : `download failed (${r.status})`);
-    fromZip(new File([await r.blob()], `${owner}-${name}-${version}.zip`));
-  } catch (x) { fail(`Could not fetch the package: ${x instanceof Error ? x.message : x}`); }
-};
+    const ver = r.headers.get('X-Version') ?? version ?? 'latest';
+    const total = Number(r.headers.get('Content-Length') ?? 0);
+    const parts: Uint8Array[] = []; let got = 0;
+    const reader = r.body.getReader();
+    for (;;) {
+      const { done: end, value } = await reader.read();
+      if (end) break;
+      parts.push(value); got += value.length;
+      bar.style.width = total ? `${Math.round((got / total) * 15)}%` : '5%';
+      what.textContent = `downloading ${(got / 1e6).toFixed(0)}${total ? ` of ${(total / 1e6).toFixed(0)}` : ''} MB`;
+    }
+    log.textContent += `downloaded ${owner}-${name}-${ver}.zip (${(got / 1e6).toFixed(1)} MB) from Thunderstore\n`;
+    run.hidden = true; pick.hidden = false;
+    fromZip(new File(parts as BlobPart[], `${owner}-${name}-${ver}.zip`));
+  } catch (x) { fail(`Could not fetch ${owner}/${name} from Thunderstore: ${x instanceof Error ? x.message : x}`); }
+}
+
+tsForm.onsubmit = (e) => { e.preventDefault(); fromThunderstore(tsInput.value.trim()); };
+const linked = new URLSearchParams(location.search).get('url') ?? new URLSearchParams(location.search).get('ts');
+if (linked) { tsInput.value = linked; fromThunderstore(linked); }

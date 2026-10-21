@@ -9,8 +9,15 @@ const CONVERTER = 'https://andrewnakas.github.io/skatemods/convert.html';
 <Base title="Convert ReSkate maps to Skate 3" description="Turn a ReSkate (skate.) map mod into a Skate 3 DLC map for the recomp, in your browser. No game files, nothing uploaded, base-game props replaced with an original CC0 pack.">
   <PageHead title="ReSkate map → Skate 3" lede="Drop a ReSkate map mod (the Thunderstore .zip or its folder) and get a Skate 3 DLC pack for the recomp. It runs in this tab: no skate. install, no game files, nothing uploaded." />
   <div class="wrap">
+    <form class="tslink" id="tslink">
+      <label for="tsurl">Paste a Thunderstore map link</label>
+      <div class="row">
+        <input id="tsurl" name="url" type="url" placeholder="https://thunderstore.io/c/reskate/p/brassy/bedroom/" spellcheck="false" required>
+        <button class="btn primary" type="submit">Convert</button>
+      </div>
+    </form>
     <div class="stage">
-      <iframe src={CONVERTER} title="ReSkate to Skate 3 map converter" loading="lazy" allow="clipboard-write"></iframe>
+      <iframe id="converter" src={CONVERTER} data-base={CONVERTER} title="ReSkate to Skate 3 map converter" allow="clipboard-write"></iframe>
     </div>
     <p class="btns"><a class="btn" href={CONVERTER} target="_blank" rel="noopener">Open the converter in its own tab</a></p>
 
@@ -27,7 +34,25 @@ const CONVERTER = 'https://andrewnakas.github.io/skatemods/convert.html';
   </div>
 </Base>
 
+<script>
+  // ?url=<thunderstore link> on this page (or the paste box) is handed to the embedded converter, which downloads
+  // the map through skatemods.com/ts-dl and converts it straight away.
+  const frame = document.getElementById('converter') as HTMLIFrameElement;
+  const input = document.getElementById('tsurl') as HTMLInputElement;
+  const load = (link: string) => {
+    frame.src = `${frame.dataset.base}?url=${encodeURIComponent(link)}`;
+    const u = new URL(location.href); u.searchParams.set('url', link); history.replaceState(null, '', u);
+  };
+  const initial = new URLSearchParams(location.search).get('url');
+  if (initial) { input.value = initial; load(initial); }
+  document.getElementById('tslink')!.addEventListener('submit', (e) => { e.preventDefault(); if (input.value.trim()) load(input.value.trim()); });
+</script>
+
 <style>
+  .tslink { margin: 1rem 0 0; }
+  .tslink label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+  .tslink .row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tslink input { flex: 1 1 320px; min-width: 0; padding: 0.55rem 0.7rem; font: inherit; border: 1px solid var(--line, #d6d1c4); border-radius: 3px; background: var(--bg, #fff); color: inherit; }
   .stage { width: 100%; height: min(92vh, 980px); border: 1px solid var(--line, #d6d1c4); border-radius: 3px; overflow: hidden; margin: 1rem 0; }
   .stage iframe { width: 100%; height: 100%; border: 0; display: block; }
 </style>

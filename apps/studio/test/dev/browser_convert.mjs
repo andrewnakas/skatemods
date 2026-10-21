@@ -6,7 +6,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const [url, zip, exe = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'] = process.argv.slice(2);
+const [url, zip = '-', exe = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'] = process.argv.slice(2);
 const profile = mkdtempSync(join(tmpdir(), 'cv-browser-'));
 const port = 9300 + Math.floor(Math.random() * 500);
 const br = spawn(exe, ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--no-first-run', 'about:blank'], { stdio: 'ignore' });
@@ -25,6 +25,7 @@ try {
   await cmd('Target.setAutoAttach', { autoAttach: true, waitForDebuggerOnStart: false, flatten: true });
   await cmd('Page.navigate', { url });
   for (let i = 0; i < 100 && (await ev('!!document.getElementById("zip-input")')) !== true; i++) await sleep(200);
+  if (zip !== '-') {                                   // '-' = no file: the page starts by itself (?url=...)
   const doc = await cmd('DOM.getDocument');
   const q = await cmd('DOM.querySelector', { nodeId: doc.result.root.nodeId, selector: '#zip-input' });
   await cmd('DOM.setFileInputFiles', { nodeId: q.result.nodeId, files: [zip] });
@@ -32,6 +33,7 @@ try {
   const state = await ev(`JSON.stringify({ files: document.getElementById('zip-input').files.length, runHidden: document.getElementById('run').hidden })`);
   console.log('after pick', state);
   if (JSON.parse(state).runHidden) await ev(`document.getElementById('zip-input').dispatchEvent(new Event('change')), 1`);
+  }
   const t0 = Date.now();
   for (;;) {
     await sleep(2000);
@@ -46,7 +48,7 @@ try {
       else if (e.method === 'Target.attachedToTarget') console.log('  target:', e.params.targetInfo.type, e.params.targetInfo.url);
     }
     if ((Date.now() - t0) % 30000 < 2000) console.log(`${((Date.now() - t0) / 1000).toFixed(0)}s ${st.bar} ${st.what}`);
-    if (Date.now() - t0 > 30 * 60e3) { console.log('timeout'); process.exitCode = 1; break; }
+    if (Date.now() - t0 > Number(process.env.TIMEOUT_MIN ?? 30) * 60e3) { console.log("timeout"); process.exitCode = 1; break; }
   }
   if (!process.exitCode) {
     const out = await ev(`(async () => {
