@@ -6,11 +6,13 @@ const matrix = [
   { from: 'PS3 (DIST .psf, .big.edat)', recomp: ['ok', 'Yes'], skate: ['ok', 'Yes, via recomp'], ps3: ['', 'Already'] },
   { from: 'Xbox 360 / recomp (.xsf, .big)', recomp: ['', 'Already'], skate: ['ok', 'Yes'], ps3: ['warn', 'Planned'] },
   { from: '.skate (Rust engine)', recomp: ['warn', 'Planned'], skate: ['', 'Already'], ps3: ['warn', 'Planned'] },
+  { from: 'ReSkate / skate. map mod', recomp: ['ok', 'Yes, in your browser'], skate: ['warn', 'Planned'], ps3: ['warn', 'Planned'] },
 ];
 ---
 <Base title="Map conversion" description="How skatemods converts Skate 3 maps between PS3, the native recomp and the Rust engine's .skate format, for free on GitHub Actions.">
   <PageHead title="Map conversion" lede="Upload a Skate 3 map from one platform and get builds for the others. The pipeline is open source, needs no game files, and runs on free GitHub Actions runners." />
   <div class="wrap">
+    <p class="btns"><a class="btn primary" href="/convert-reskate-maps/">Convert a ReSkate map to Skate 3 in your browser</a></p>
     <h2>What converts today</h2>
     <div class="table-wrap">
       <table>

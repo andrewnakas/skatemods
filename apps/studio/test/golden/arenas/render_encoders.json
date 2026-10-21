@@ -1,0 +1,173 @@
+{
+"inputs": {
+"half": {
+"$a": "f8",
+"o": 0,
+"n": 19106,
+"shape": [
+19106
+]
+},
+"probes": {
+"rec_off": 16,
+"fill": [
+3739147998,
+3739147998
+],
+"records": {
+"$a": "f8",
+"o": 152848,
+"n": 120,
+"shape": [
+3,
+40
+]
+}
+},
+"quads": {
+"rec_off": 16,
+"fill": [
+0,
+0
+],
+"records": [
+{
+"points": {
+"$a": "f8",
+"o": 153808,
+"n": 20,
+"shape": [
+5,
+4
+]
+},
+"axis": {
+"$a": "f8",
+"o": 153968,
+"n": 4,
+"shape": [
+4
+]
+},
+"guid": {
+"$u64": "2c70170a12345678"
+},
+"w": 0,
+"tag": 4022250974
+},
+{
+"points": {
+"$a": "f8",
+"o": 154000,
+"n": 20,
+"shape": [
+5,
+4
+]
+},
+"axis": {
+"$a": "f8",
+"o": 154160,
+"n": 4,
+"shape": [
+4
+]
+},
+"guid": {
+"$u64": "ffffffffffffffff"
+},
+"w": 7,
+"tag": 4022250974
+}
+]
+},
+"guid_quads": [
+[
+{
+"$u64": "0000000000000001"
+},
+{
+"$u64": "0000000000000002"
+},
+{
+"$u64": "0000000000000003"
+},
+{
+"$u64": "ffffffffffffffff"
+}
+],
+[
+{
+"$u64": "2c70170a00000001"
+},
+{
+"$u64": "0000000000000000"
+},
+{
+"$u64": "0000000000000005"
+},
+{
+"$u64": "0000000000000006"
+}
+]
+],
+"polys": {
+"bbox": {
+"$a": "f8",
+"o": 154192,
+"n": 8,
+"shape": [
+8
+]
+},
+"points": {
+"$a": "f8",
+"o": 154256,
+"n": 48,
+"shape": [
+3,
+4,
+4
+]
+}
+}
+},
+"expect": [
+{
+"label": "probes",
+"size": 496,
+"sha256": "ecbc71ac1ab4bf21309f52a783e093aa6245d797668ca9e25c1d23f79113d22f",
+"raw": "render_encoders.0.expect"
+},
+{
+"label": "quads",
+"size": 240,
+"sha256": "3a0d4429a8abc6430bdcd713b190e5686fd614f9297facf89ffbdfe5b492091d",
+"raw": "render_encoders.1.expect"
+},
+{
+"label": "guid_quads",
+"size": 80,
+"sha256": "0b015a0db54a18c8df505926f06e9b7be3e66857631209a569cbc2d2c4fdcfa1",
+"raw": "render_encoders.2.expect"
+},
+{
+"label": "polys",
+"size": 240,
+"sha256": "03b33727a35619ce1083870456a9d3472bdf02e1b97d17aaf046019c6616e24c",
+"raw": "render_encoders.3.expect"
+},
+{
+"label": "exports_noindex",
+"size": 100,
+"sha256": "bcf22d78397aef9fd25272ebe9359a7db3e92809c48e42b6e9c9e81bc37c5fc5",
+"raw": "render_encoders.4.expect"
+},
+{
+"label": "half",
+"size": 38212,
+"sha256": "4852b2469b3aa14c74ee997649dd535a092c8af0e4f1efd2732bac6f5142d7bc",
+"raw": "render_encoders.5.expect"
+}
+]
+}

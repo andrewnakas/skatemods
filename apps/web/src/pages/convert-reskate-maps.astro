@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+// The converter is the Map Studio's convert.html (built from apps/studio, hosted on GitHub Pages); it runs
+// entirely in the visitor's browser, so this page only frames it.
+const CONVERTER = 'https://andrewnakas.github.io/skatemods/convert.html';
+---
+<Base title="Convert ReSkate maps to Skate 3" description="Turn a ReSkate (skate.) map mod into a Skate 3 DLC map for the recomp, in your browser. No game files, nothing uploaded, base-game props replaced with an original CC0 pack.">
+  <PageHead title="ReSkate map → Skate 3" lede="Drop a ReSkate map mod (the Thunderstore .zip or its folder) and get a Skate 3 DLC pack for the recomp. It runs in this tab: no skate. install, no game files, nothing uploaded." />
+  <div class="wrap">
+    <div class="stage">
+      <iframe src={CONVERTER} title="ReSkate to Skate 3 map converter" loading="lazy" allow="clipboard-write"></iframe>
+    </div>
+    <p class="btns"><a class="btn" href={CONVERTER} target="_blank" rel="noopener">Open the converter in its own tab</a></p>
+
+    <div class="prose">
+      <h2>What it does</h2>
+      <ul>
+        <li><strong>Reads the mod itself.</strong> Its own Frostbite files are read with our own decoders (including an open Kraken decompressor). The base game is never needed.</li>
+        <li><strong>Writes a Skate 3 pack.</strong> You get tiles, collision, grind lines, the map's own textures and its authored spawn. Unzip the result into the recomp's <code>dlc/</code> folder.</li>
+        <li><strong>Base-game assets come from a CC0 pack.</strong> Where a map uses the game's own textures or props, the converter fetches only those pieces from <a href="https://github.com/andrewnakas/skate-base-cc0">skate-base-cc0</a>. That pack is original, public-domain stand-ins with the same size and skate lines.</li>
+        <li><strong>The same mod always gives the same pack.</strong> The output is byte-for-byte reproducible, so everyone in a multiplayer session who converts the same map gets an identical file.</li>
+      </ul>
+      <p>A large map takes a few minutes and needs a few GB of free memory. The command-line version, <code>skate3-convert</code>, is in the <a href="https://github.com/andrewnakas/skatemods">skatemods repo</a> under <code>apps/studio/cli</code>.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .stage { width: 100%; height: min(92vh, 980px); border: 1px solid var(--line, #d6d1c4); border-radius: 3px; overflow: hidden; margin: 1rem 0; }
+  .stage iframe { width: 100%; height: 100%; border: 0; display: block; }
+</style>

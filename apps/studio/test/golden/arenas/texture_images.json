@@ -1,0 +1,351 @@
+{
+"inputs": {
+"cases": [
+{
+"label": "noise16",
+"name_id": {
+"$u64": "0000000000001111"
+},
+"arena_id": 1,
+"opts": {
+"alpha": false
+},
+"shape": [
+16,
+16,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 0,
+"n": 1024,
+"shape": [
+16,
+16,
+4
+]
+}
+},
+{
+"label": "noise64x32_alpha",
+"name_id": {
+"$u64": "0000000000002222"
+},
+"arena_id": 2,
+"opts": {},
+"shape": [
+32,
+64,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 1024,
+"n": 8192,
+"shape": [
+32,
+64,
+4
+]
+}
+},
+{
+"label": "alpha8",
+"name_id": {
+"$u64": "0000000000003333"
+},
+"arena_id": 3,
+"opts": {},
+"shape": [
+8,
+8,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 9216,
+"n": 256,
+"shape": [
+8,
+8,
+4
+]
+}
+},
+{
+"label": "tall2x8",
+"name_id": {
+"$u64": "0000000000004444"
+},
+"arena_id": 4,
+"opts": {},
+"shape": [
+8,
+2,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 9472,
+"n": 64,
+"shape": [
+8,
+2,
+4
+]
+}
+},
+{
+"label": "px1",
+"name_id": {
+"$u64": "0000000000005555"
+},
+"arena_id": 5,
+"opts": {},
+"shape": [
+1,
+1,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 9536,
+"n": 4,
+"shape": [
+1,
+1,
+4
+]
+}
+},
+{
+"label": "levels3",
+"name_id": {
+"$u64": "0000000000006666"
+},
+"arena_id": 6,
+"opts": {
+"levels": 3
+},
+"shape": [
+64,
+64,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 9544,
+"n": 16384,
+"shape": [
+64,
+64,
+4
+]
+}
+},
+{
+"label": "lowres_opaque",
+"name_id": {
+"$u64": "0000000000007777"
+},
+"arena_id": 7,
+"opts": {
+"lowres": true
+},
+"shape": [
+32,
+64,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 25928,
+"n": 8192,
+"shape": [
+32,
+64,
+4
+]
+}
+},
+{
+"label": "lowres_alpha",
+"name_id": {
+"$u64": "0000000000008888"
+},
+"arena_id": 8,
+"opts": {
+"lowres": true
+},
+"shape": [
+32,
+32,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 34120,
+"n": 4096,
+"shape": [
+32,
+32,
+4
+]
+}
+},
+{
+"label": "fmt18_with_alpha",
+"name_id": {
+"$u64": "0000000000009999"
+},
+"arena_id": 9,
+"opts": {
+"fmt": 18
+},
+"shape": [
+16,
+32,
+4
+],
+"rgba": {
+"$a": "u1",
+"o": 38216,
+"n": 2048,
+"shape": [
+16,
+32,
+4
+]
+}
+},
+{
+"label": "formula1024x512",
+"name_id": {
+"$u64": "000000000000aaaa"
+},
+"arena_id": 10,
+"opts": {},
+"shape": [
+512,
+1024,
+4
+],
+"formula": true
+},
+{
+"label": "formula256_alpha",
+"name_id": {
+"$u64": "000000000000bbbb"
+},
+"arena_id": 11,
+"opts": {},
+"shape": [
+256,
+256,
+4
+],
+"formula": true
+},
+{
+"label": "noise2048x1024_alpha",
+"name_id": {
+"$u64": "000000000000dddd"
+},
+"arena_id": 13,
+"opts": {},
+"shape": [
+1024,
+2048,
+4
+],
+"formula": true
+},
+{
+"label": "cube_formula",
+"cube": true
+}
+]
+},
+"expect": [
+{
+"label": "noise16",
+"size": 8760,
+"sha256": "4a9b3da61b2d3d695f0160343f7c5e3af274d83b2033739aaf15b42a349f865a",
+"raw": "texture_images.0.expect"
+},
+{
+"label": "noise64x32_alpha",
+"size": 33336,
+"sha256": "ee288ba1c593f3ff47703ff804a36eab60353c8c7a08d8a878a4b4d176e7a512",
+"raw": "texture_images.1.expect"
+},
+{
+"label": "alpha8",
+"size": 16952,
+"sha256": "4f0504f38f94bd4068e262e09b0d34deb7250814d0e66e93d688bbe531b70f21",
+"raw": "texture_images.2.expect"
+},
+{
+"label": "tall2x8",
+"size": 8760,
+"sha256": "89e3edc8876fa2f08d478a2a4cce3a7cc0daf0598f53c7199d3c66de1a90bc54",
+"raw": "texture_images.3.expect"
+},
+{
+"label": "px1",
+"size": 8760,
+"sha256": "e9b07b48d7101d9d906ccba6f4242c753ddd5efffd2f843d1157e5e703efd6ae",
+"raw": "texture_images.4.expect"
+},
+{
+"label": "levels3",
+"size": 49720,
+"sha256": "3f70853f4a78722faa5a006798c0b60d960bf07b163429c4bfdbd2ac0f625432",
+"raw": "texture_images.5.expect"
+},
+{
+"label": "lowres_opaque",
+"size": 8760,
+"sha256": "adddacb19bdc9842a56f7cb4fc1738c993677e508a94ab9c53b0fb4181fbde15",
+"raw": "texture_images.6.expect"
+},
+{
+"label": "lowres_alpha",
+"size": 8760,
+"sha256": "06a924239b3ce17d47c2f5f605406109ce734d3d13e476947f0be1c9fedec185",
+"raw": "texture_images.7.expect"
+},
+{
+"label": "fmt18_with_alpha",
+"size": 8760,
+"sha256": "1f569938aa80025183c3ae8a5146cdc63d52417ee34dff0526f6202b7036c0e4",
+"raw": "texture_images.8.expect"
+},
+{
+"label": "formula1024x512",
+"size": 369208,
+"sha256": "4f6fa742d9624bf87e492de9e3429148382b6ec8f852f308f6ec48b9b1d271c7"
+},
+{
+"label": "formula256_alpha",
+"size": 131640,
+"sha256": "649ced145206c7e22a97a97abb445a0b04705d276ee61e24083239879fc1c32e"
+},
+{
+"label": "noise2048x1024_alpha",
+"size": 2835000,
+"sha256": "6d207b6172d0d6f2a1dc8d1e3e579880543d46353cbe5ce154ed832648cd266d"
+},
+{
+"label": "cube_formula",
+"size": 148024,
+"sha256": "14a62ad0051ece832ab49ce3fffd3b269d68aa69ecaa7e9ee33aa50013668253"
+},
+{
+"label": "fetch_words",
+"size": 192,
+"sha256": "de31819dae89b7070bc2994864dc9780817f88e97bc38f2942439fdce3398b4c",
+"raw": "texture_images.13.expect"
+}
+]
+}

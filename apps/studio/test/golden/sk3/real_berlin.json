@@ -1,0 +1,955 @@
+{
+ "tiles_dir": "set REAL_BERLIN_TILES (skate4to3 work/mod_thps_berlin/lvl/arenas/pack_tiles)",
+ "selection": [
+  "cPres_-150_-150_high",
+  "cPres_-150_-50_high",
+  "cPres_-50_-150_high",
+  "cPres_-50_-50_high",
+  "cSim_-150_-150_high",
+  "cSim_-150_-50_high",
+  "cSim_-50_-150_high",
+  "cSim_-50_-50_high",
+  "cTex_-150_-150_high",
+  "cTex_-150_-50_high",
+  "cTex_-50_-150_high",
+  "cTex_-50_-50_high"
+ ],
+ "display": "THPS Berlin",
+ "spots": [
+  {
+   "title": "Start",
+   "pos": [
+    -100.0,
+    5.0,
+    -100.0
+   ],
+   "yaw": 45.0
+  },
+  {
+   "title": "Corner",
+   "pos": [
+    -180.5,
+    2.0,
+    -60.25
+   ],
+   "yaw": 200.0
+  }
+ ],
+ "cases": [
+  {
+   "name": "raw",
+   "kw": {},
+   "kinds": {
+    "Pres": [
+     "cPres_-150_-150_high",
+     "cPres_-150_-50_high",
+     "cPres_-50_-150_high",
+     "cPres_-50_-50_high"
+    ],
+    "Sim": [
+     "cSim_-150_-150_high",
+     "cSim_-150_-50_high",
+     "cSim_-50_-150_high",
+     "cSim_-50_-50_high"
+    ],
+    "Tex": [
+     "cTex_-150_-150_high",
+     "cTex_-150_-50_high",
+     "cTex_-50_-150_high",
+     "cTex_-50_-50_high"
+    ]
+   },
+   "files": {
+    "data/content/world/stream/DIST_THPSBerlin/cPres_-150_-150_high.xsf": [
+     "3dab8f2ae011f4f047d565fc08ff82e62a2f189801e0e9695f5b4f9fa36b314a",
+     78080
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cPres_-150_-50_high.xsf": [
+     "d7f0ce882b79b0b6f4647178d0e6d04eb0e7a88ee7ca5925094b32e166cf5194",
+     143872
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cPres_-50_-150_high.xsf": [
+     "49efa4b98bad9a1899879262cb247d978d4498cb1862094ffa8e6f75bb330a6d",
+     118784
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cPres_-50_-50_high.xsf": [
+     "cfd28e6c2255d7a28155f6b642b163aef86550b9346efe5c9492e1b89c0f8a7f",
+     260608
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xmm": [
+     "e951f536c419a505bd5a28201553eef83e6105db401a632939a3b575dbd87c67",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xsm": [
+     "81965d797cb2367bd3f7be2e288e7cdefe656742a52b23ebae71d8f1849061ed",
+     448
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xss": [
+     "2be5228accf7aa36fba0f42953c404db1037853ec0a0ee14a4b8af3a2e476bb5",
+     344
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xst": [
+     "0c1bd3e52495c990cf628dbed8c11f9694d424ca36a80f7cea64d524144d467f",
+     5592
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-150_-150_high.xsf": [
+     "af67334d4e9bc1a70dae29f14825b9ff724f6d0450721195e9c2d593dfa1a463",
+     7936
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-150_-50_high.xsf": [
+     "30c23a63b4361cfacdeb99b726381c73c189135b417e296888d95bfd60718b23",
+     12032
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-50_-150_high.xsf": [
+     "d2a795921cc149dc51e73cf8a3438267f0f47d8b1367b6612fe2d8eede6766e0",
+     11776
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-50_-50_high.xsf": [
+     "c699d8ead31303bc87a4ef352b393ff366a84f2e1b09c2795204516be4097e45",
+     23552
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xmm": [
+     "04eb29e4e637a9fdeec450e85c95e4125187ece3f9d3b17802821a0d50af9183",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xsm": [
+     "a8958c70e1898eb81a6547342fcb07ba86e75dbda5a923e5071cb7cfbbeccc6e",
+     448
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xss": [
+     "3d5f0b248629f906b99a45e9e9c1c0bb1e79de9514f49f3b34b81031ec190541",
+     344
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xst": [
+     "faec16c6dd47a01eb1fa9379c95a81de5d996b1ec3ce11a30f32f3d746c84b16",
+     280
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cTex_-150_-150_high.xsf": [
+     "b82af244d22910c207b6ef40964fc5f5220dd98f496340ac37e1c56d0a1705cc",
+     561408
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cTex_-150_-50_high.xsf": [
+     "d53b5f726a17fcb92f3389b36cc3485a6676e9706a2257561a2eb0928efef382",
+     691456
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cTex_-50_-150_high.xsf": [
+     "e4429e7346d25f58ea3d1052ec4afa47924de1f544760b68f4dabd6b2b4470cb",
+     698624
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cTex_-50_-50_high.xsf": [
+     "64d5c24f0260f63b42967291ed8304a667682f99274551251cf1528bf42686aa",
+     1041664
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xmm": [
+     "c7bdd2b1b8896a823e7fa99ae69cd01084b6d36064cc301ea9dcc7bd31cb87b2",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xsm": [
+     "184d9a7f8a89b4987faae0d8a67b39d148455f7adcb5bed6189c25f82de22a21",
+     448
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xss": [
+     "268aea6feea939df71714ec352bb71065951d8fdeaa9dd69cfd30156a4942e0b",
+     344
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xst": [
+     "b053a3bffd97cc9023a090d451591b198d3974f852c39cf261cc790f87e329a5",
+     5272
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x32aa87497deb00ab].loc": [
+     "876b11e3b3949b8b43272212fa43dfdbc3ccd60e579632958f553a1275b26165",
+     350
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x32aa87497deb00ab].rx2": [
+     "da672be74e9259806e0352daf9e64df5815efe79dd550fd2426f231edf39c7af",
+     2308
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x46b2f887070417f2].loc": [
+     "eed882c6ae825175b19ddfcaca4ef1367c83ccdded5d99b6413487badfa93f60",
+     340
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x46b2f887070417f2].rx2": [
+     "b8aacc3b97482bb998b02e8febe450c40f9867c7951a386de13730bd46917aa7",
+     1140
+    ],
+    "data/boundary/freeskate_dlc_thpsberlin_thpsberlin.xml": [
+     "46e33a0424e3c09c3aac1a06e59ad883605d0f376f6142d7d55b5f23709f6720",
+     172
+    ],
+    "data/stream/freeskate_dlc_thpsberlin_thpsberlin.xml": [
+     "bf388e43c512994af6329cbbca21e20934ef18bd9a3cf0c42cd2e6bd9e320586",
+     260
+    ],
+    "data/stream/dist_thpsberlin_thpsberlindlc_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/dist_thpsberlin_thpsberlindlc_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pmm": [
+     "35409c030c572b619654b8729cfbcc5490b848530b1ddeae87ad83070d749e3c",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.psm": [
+     "9134274c5f0336c69f30e31bdb2f02349d7e4ad1b104766e6ad4b28263fa421f",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pss": [
+     "5344169cea7978ff1a037627a3fb035d8b22b8180a1253c6ce89d5ae02146a94",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pst": [
+     "cc056b3122da90c19e78cb92408d8fb56872517701405b37f4f9fd5617e3b439",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x2bd91ea16ec30397].loc": [
+     "af5d4bb7a45f9cc583c441f772ae5e23c767b10a4b8861ad41f3e7f947a9ed70",
+     346
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x2bd91ea16ec30397].rx2": [
+     "d4bf0d7187876b06da5b091b3fc89a7566d6bf241a87c4570b5d91bca6dd4199",
+     2244
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x3d1202d370acc699].loc": [
+     "f72aa30cd3d4eba0acd8559465d66cd22082404cd78772939f42854c359edc1a",
+     336
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x3d1202d370acc699].rx2": [
+     "3cd801820b4fc30c85ffd21bf19dbbf86badb52f6337b3ca12afc396157733f0",
+     1124
+    ],
+    "data/boundary/freeskate_dlc_thpsberlin_spot1.xml": [
+     "46e33a0424e3c09c3aac1a06e59ad883605d0f376f6142d7d55b5f23709f6720",
+     172
+    ],
+    "data/stream/freeskate_dlc_thpsberlin_spot1.xml": [
+     "b9a6df63f6a2cb36ac7e9b818cd1682addc17f85acb130da7b98562ce8fbebb0",
+     261
+    ],
+    "data/stream/dist_thpsberlin_spot1dlc_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/dist_thpsberlin_spot1dlc_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pmm": [
+     "35409c030c572b619654b8729cfbcc5490b848530b1ddeae87ad83070d749e3c",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.psm": [
+     "9134274c5f0336c69f30e31bdb2f02349d7e4ad1b104766e6ad4b28263fa421f",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pss": [
+     "5344169cea7978ff1a037627a3fb035d8b22b8180a1253c6ce89d5ae02146a94",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pst": [
+     "cc056b3122da90c19e78cb92408d8fb56872517701405b37f4f9fd5617e3b439",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.loc": [
+     "e264ba95b0a50af6d4adfae920059ec871f196b3492b296f3439d70ea1fd10df",
+     1267
+    ],
+    "data/stream/DIST_THPSBerlin_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/DIST_THPSBerlin_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/fe/languages/english/LANGUAGE_English_thpsberlin_skate3ng-dlc_thpsberlin_minimal.BIN": [
+     "b201e82a1925fb70613ed19511aec29c9a1cc259711bc94cefd79a259593912a",
+     308
+    ],
+    "data/fe/languages/english/LANGUAGE_English_HISTOGRAM_skate3ng-dlc_thpsberlin_minimal.BIN": [
+     "4cb6292f8f290fcea256e9e32c8866ffcb796654644b1e12d4f50467940367db",
+     6156
+    ],
+    "data/unlocks/thpsberlin.unlock": [
+     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     0
+    ],
+    "data/unlocks/thpsberlin0000_product00000000.unlock": [
+     "7749660d8081011a7bbf64890b9e3e5466b45f9e671c351f3a9191b968fcb6c5",
+     29
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.vlt": [
+     "93c4c99a94cdebf22667140fc8d405ca1f3fa188844082163bdef5ba80a87438",
+     1328
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.vlt": [
+     "c30564c4e7556f2d0708fd13d9e187fc2ddeadcfa0bc07d461483927d3329127",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.vlt": [
+     "b87a4cea9a0ec7f4b5cd9a07ea48a8a9a85aca35af23115f949bf0ea68ee5f89",
+     1360
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.vlt": [
+     "da056d35f205ce4f6b44494cf19fea26b90129bfbabe17358141fb6538e7ab22",
+     1360
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.vlt": [
+     "e1f04b81f3105583436d0fbfd0470df3ca72effc28951e817f3b8876ac203054",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.vlt": [
+     "ca3ca16bd77d9df40bf117beb1ec2555077cb90cf3f80ab69fec2748fe66bbf3",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.vlt": [
+     "37a3b708d866ef1ab4d06e5a699f318ce60bf9070128775ced8bc3686f9d05a7",
+     1328
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.vlt": [
+     "31214eca8e0fd9b29782756262411969fcbdabce087cb5d368201613df51667d",
+     368
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.bin": [
+     "a95d55537b3764edeeb3301f5bec72ec46426a861a6d75d5f282881fb9e12d62",
+     36
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.vlt": [
+     "4b5b78af9a83488fd7cf2df57d9ec4c9778fa1dcf99d59e7729e9902cfd770a9",
+     352
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.bin": [
+     "a95d55537b3764edeeb3301f5bec72ec46426a861a6d75d5f282881fb9e12d62",
+     36
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challengebanks/dlc_thps.vlt": [
+     "2590502d1e9ba2fb4b965bb3ca6f21b77371e47afae5c7fc3289bb1a6e3a1118",
+     7216
+    ],
+    "data/db/challengebanks/dlc_thps.bin": [
+     "8a5a99f4cc1467f3558baabc20229b271230015e7bfd5474f3eb3ea77f2c8c5d",
+     1960
+    ],
+    "data/db/challengebanks/dlc_thps.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/progressionbanks/dlc_thps.vlt": [
+     "f46a6d3b2943fff6b9c4bdb2556451a5e07bc8972f5e5556e7a51241755a0188",
+     2256
+    ],
+    "data/db/progressionbanks/dlc_thps.bin": [
+     "4c1625201f8651d433f8126bba0a1f79c5f9050315e6b2ac509f4b93c373a4dc",
+     320
+    ],
+    "data/db/progressionbanks/dlc_thps.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thps_local_data_framework.vlt": [
+     "9675fb45b31173c02d02af50c03bd4aa079ce60cab9e5913144c8504cfc624a5",
+     1872
+    ],
+    "data/db/dlc_thps_local_data_framework.bin": [
+     "fd8917030a637a91129c6613ddd1ba8f690489e97c1f24053ac5fa0bfef4a839",
+     112
+    ],
+    "data/db/dlc_thps_local_data_framework.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thpsberlin_minimal.vlt": [
+     "5e4bb195e4c19a6c8dd4719a98b0e1be1b9fcbfae095667d8f722c942200e773",
+     4976
+    ],
+    "data/db/dlc_thpsberlin_minimal.bin": [
+     "d5166082d641d6b575b6c0cbe02d9f79ba3e01155b79689846e6ab47061b267c",
+     2272
+    ],
+    "data/db/dlc_thpsberlin_minimal.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thpsberlin_minimal.vaultlist.xml": [
+     "532a6121c8f51260edff85ed4ba614f6d8c375ea204feab8747e44c9c2d0b966",
+     290
+    ]
+   },
+   "big": [
+    "b1fbb4885602208d1bf2043b49f9934b3bbf43f75d456878124a09c83068f47e",
+    3735344
+   ]
+  },
+  {
+   "name": "xbox2",
+   "kw": {
+    "stream_form": "xbox2",
+    "center_rule": "community"
+   },
+   "kinds": {
+    "Pres": [
+     "cPres_-150_-150_high"
+    ],
+    "Sim": [
+     "cSim_-150_-150_high",
+     "cSim_-150_-50_high",
+     "cSim_-50_-150_high",
+     "cSim_-50_-50_high"
+    ],
+    "Tex": []
+   },
+   "files": {
+    "data/content/world/stream/DIST_THPSBerlin/cPres_-150_-150_high.xsf": [
+     "64b7f20b133ca750f185c323c7ed597cee9a2682a66c83a8e2e968cf69f3e8a6",
+     18816
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xmm": [
+     "e951f536c419a505bd5a28201553eef83e6105db401a632939a3b575dbd87c67",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xsm": [
+     "7f42a62775dd717dcadceb3fdc69ceefe5bf1f32f57a905f962897f0a862ea4d",
+     136
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xss": [
+     "39db0cc27e8381eff87fda3d29d0a85b9dd2c42e37768538fa1fae4f7fa30ff7",
+     104
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Pres.xst": [
+     "58cfcc74823d40a063def692c53b498b0a70c4108948cfbdcbef542639c3c645",
+     856
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-150_-150_high.xsf": [
+     "bce3893ce23fbc3895c9f179ec3daaa2d74cc90cf25bb670c03c51f84c64c1be",
+     3968
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-150_-50_high.xsf": [
+     "3c19b04d92ba961cf2cd7ad20be5acd22a874cd6ca1609c3a51a994139705d89",
+     6272
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-50_-150_high.xsf": [
+     "219a3b2e16a73f8427a5c78e3fe351857d7250b1e571d4266c8eb9916b093c93",
+     4864
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/cSim_-50_-50_high.xsf": [
+     "6c8ac95de0ec19a4313ba6618a7acd7ac8932266b402d294083925ff5260188a",
+     11776
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xmm": [
+     "04eb29e4e637a9fdeec450e85c95e4125187ece3f9d3b17802821a0d50af9183",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xsm": [
+     "44edc6bba95874b7a05e27f73975db1596dbc3303a58695d37f9dfa843781e97",
+     448
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xss": [
+     "3d5f0b248629f906b99a45e9e9c1c0bb1e79de9514f49f3b34b81031ec190541",
+     344
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.xst": [
+     "faec16c6dd47a01eb1fa9379c95a81de5d996b1ec3ce11a30f32f3d746c84b16",
+     280
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xmm": [
+     "c7bdd2b1b8896a823e7fa99ae69cd01084b6d36064cc301ea9dcc7bd31cb87b2",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xsm": [
+     "e98561491792aca6734e93542d9de37f1ff88cbd3f025c7548dc096186caa705",
+     32
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xss": [
+     "af009a8dec28f109d01f16d0d7feea6d18e5e4bbb0fe74a317d644f101ea51ce",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Tex.xst": [
+     "d28cb43dd969d32081fb0976593b8176860451a3fca7c661004edcae960b3ea5",
+     24
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x32aa87497deb00ab].loc": [
+     "876b11e3b3949b8b43272212fa43dfdbc3ccd60e579632958f553a1275b26165",
+     350
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x32aa87497deb00ab].rx2": [
+     "da672be74e9259806e0352daf9e64df5815efe79dd550fd2426f231edf39c7af",
+     2308
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x46b2f887070417f2].loc": [
+     "eed882c6ae825175b19ddfcaca4ef1367c83ccdded5d99b6413487badfa93f60",
+     340
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x46b2f887070417f2].rx2": [
+     "b8aacc3b97482bb998b02e8febe450c40f9867c7951a386de13730bd46917aa7",
+     1140
+    ],
+    "data/boundary/freeskate_dlc_thpsberlin_thpsberlin.xml": [
+     "46e33a0424e3c09c3aac1a06e59ad883605d0f376f6142d7d55b5f23709f6720",
+     172
+    ],
+    "data/stream/freeskate_dlc_thpsberlin_thpsberlin.xml": [
+     "160e4f7511306c083e6794f6aa588be0d85714811046efa11f9068c0d44d099e",
+     262
+    ],
+    "data/stream/dist_thpsberlin_thpsberlindlc_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/dist_thpsberlin_thpsberlindlc_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pmm": [
+     "35409c030c572b619654b8729cfbcc5490b848530b1ddeae87ad83070d749e3c",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.psm": [
+     "9134274c5f0336c69f30e31bdb2f02349d7e4ad1b104766e6ad4b28263fa421f",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pss": [
+     "5344169cea7978ff1a037627a3fb035d8b22b8180a1253c6ce89d5ae02146a94",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Pres.pst": [
+     "cc056b3122da90c19e78cb92408d8fb56872517701405b37f4f9fd5617e3b439",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Sim.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_thpsberlin/freeskate_thpsberlin_thpsberlin_Tex.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x2bd91ea16ec30397].loc": [
+     "af5d4bb7a45f9cc583c441f772ae5e23c767b10a4b8861ad41f3e7f947a9ed70",
+     346
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x2bd91ea16ec30397].rx2": [
+     "d4bf0d7187876b06da5b091b3fc89a7566d6bf241a87c4570b5d91bca6dd4199",
+     2244
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x3d1202d370acc699].loc": [
+     "f72aa30cd3d4eba0acd8559465d66cd22082404cd78772939f42854c359edc1a",
+     336
+    ],
+    "data/content/global_locators/DLC_BAM/DIST_THPSBerlin/DIST_THPSBer_[0x3d1202d370acc699].rx2": [
+     "3cd801820b4fc30c85ffd21bf19dbbf86badb52f6337b3ca12afc396157733f0",
+     1124
+    ],
+    "data/boundary/freeskate_dlc_thpsberlin_spot1.xml": [
+     "46e33a0424e3c09c3aac1a06e59ad883605d0f376f6142d7d55b5f23709f6720",
+     172
+    ],
+    "data/stream/freeskate_dlc_thpsberlin_spot1.xml": [
+     "bc54afa33d3213e358449db950b371a25fb6ebe3555db5359321f5c1a933d074",
+     262
+    ],
+    "data/stream/dist_thpsberlin_spot1dlc_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/dist_thpsberlin_spot1dlc_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pmm": [
+     "35409c030c572b619654b8729cfbcc5490b848530b1ddeae87ad83070d749e3c",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.psm": [
+     "9134274c5f0336c69f30e31bdb2f02349d7e4ad1b104766e6ad4b28263fa421f",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pss": [
+     "5344169cea7978ff1a037627a3fb035d8b22b8180a1253c6ce89d5ae02146a94",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Pres.pst": [
+     "cc056b3122da90c19e78cb92408d8fb56872517701405b37f4f9fd5617e3b439",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Sim.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pmm": [
+     "f4de102bce2311bd1c4567b6e88dd0c992b7388db9adde5558147f860ddcbc43",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.psm": [
+     "31804a78789e223983907c47ec9a8d8fe05e8077046d0e379822598a7fed42f0",
+     32
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pss": [
+     "4cb53eca639e234bee77600e1bacb609b1a67e82c90d96d94c83a9884a600717",
+     24
+    ],
+    "data/content/missions/freeskate_thpsberlin_spot1/freeskate_thpsberlin_spot1_Tex.pst": [
+     "af7533930960166441674dbbcf347b234b93a0d1b0e9c5fa0a093308b32d4aea",
+     24
+    ],
+    "data/content/world/stream/DIST_THPSBerlin/DIST_THPSBerlin_Sim.loc": [
+     "e264ba95b0a50af6d4adfae920059ec871f196b3492b296f3439d70ea1fd10df",
+     1267
+    ],
+    "data/stream/DIST_THPSBerlin_Pres.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/stream/DIST_THPSBerlin_Sim.xml": [
+     "b751ee5f1e6935857a9bd0062023a82405b1df816f9e176f9bca1a6c3168686e",
+     670
+    ],
+    "data/fe/languages/english/LANGUAGE_English_thpsberlin_skate3ng-dlc_thpsberlin_minimal.BIN": [
+     "b201e82a1925fb70613ed19511aec29c9a1cc259711bc94cefd79a259593912a",
+     308
+    ],
+    "data/fe/languages/english/LANGUAGE_English_HISTOGRAM_skate3ng-dlc_thpsberlin_minimal.BIN": [
+     "4cb6292f8f290fcea256e9e32c8866ffcb796654644b1e12d4f50467940367db",
+     6156
+    ],
+    "data/unlocks/thpsberlin.unlock": [
+     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     0
+    ],
+    "data/unlocks/thpsberlin0000_product00000000.unlock": [
+     "7749660d8081011a7bbf64890b9e3e5466b45f9e671c351f3a9191b968fcb6c5",
+     29
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.vlt": [
+     "93c4c99a94cdebf22667140fc8d405ca1f3fa188844082163bdef5ba80a87438",
+     1328
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.vlt": [
+     "c30564c4e7556f2d0708fd13d9e187fc2ddeadcfa0bc07d461483927d3329127",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_gap_tag.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.vlt": [
+     "b87a4cea9a0ec7f4b5cd9a07ea48a8a9a85aca35af23115f949bf0ea68ee5f89",
+     1360
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_accumulation.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.vlt": [
+     "da056d35f205ce4f6b44494cf19fea26b90129bfbabe17358141fb6538e7ab22",
+     1360
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_simultrick.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.vlt": [
+     "e1f04b81f3105583436d0fbfd0470df3ca72effc28951e817f3b8876ac203054",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_tricklist.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.vlt": [
+     "ca3ca16bd77d9df40bf117beb1ec2555077cb90cf3f80ab69fec2748fe66bbf3",
+     1344
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_activities_survival.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.vlt": [
+     "37a3b708d866ef1ab4d06e5a699f318ce60bf9070128775ced8bc3686f9d05a7",
+     1328
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.bin": [
+     "f3e9d0a63f11dc94a35905718f135b1feb80bb9bf6d1d7097325dafca500975b",
+     200
+    ],
+    "data/db/challenge_local_data/dlc_thps_freeskate_locations.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.vlt": [
+     "31214eca8e0fd9b29782756262411969fcbdabce087cb5d368201613df51667d",
+     368
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.bin": [
+     "a95d55537b3764edeeb3301f5bec72ec46426a861a6d75d5f282881fb9e12d62",
+     36
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_thpsberlin.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.vlt": [
+     "4b5b78af9a83488fd7cf2df57d9ec4c9778fa1dcf99d59e7729e9902cfd770a9",
+     352
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.bin": [
+     "a95d55537b3764edeeb3301f5bec72ec46426a861a6d75d5f282881fb9e12d62",
+     36
+    ],
+    "data/db/challenge_local_data/freeskate_dlc_thpsberlin_spot1.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/challengebanks/dlc_thps.vlt": [
+     "2590502d1e9ba2fb4b965bb3ca6f21b77371e47afae5c7fc3289bb1a6e3a1118",
+     7216
+    ],
+    "data/db/challengebanks/dlc_thps.bin": [
+     "8a5a99f4cc1467f3558baabc20229b271230015e7bfd5474f3eb3ea77f2c8c5d",
+     1960
+    ],
+    "data/db/challengebanks/dlc_thps.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/progressionbanks/dlc_thps.vlt": [
+     "f46a6d3b2943fff6b9c4bdb2556451a5e07bc8972f5e5556e7a51241755a0188",
+     2256
+    ],
+    "data/db/progressionbanks/dlc_thps.bin": [
+     "4c1625201f8651d433f8126bba0a1f79c5f9050315e6b2ac509f4b93c373a4dc",
+     320
+    ],
+    "data/db/progressionbanks/dlc_thps.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thps_local_data_framework.vlt": [
+     "9675fb45b31173c02d02af50c03bd4aa079ce60cab9e5913144c8504cfc624a5",
+     1872
+    ],
+    "data/db/dlc_thps_local_data_framework.bin": [
+     "fd8917030a637a91129c6613ddd1ba8f690489e97c1f24053ac5fa0bfef4a839",
+     112
+    ],
+    "data/db/dlc_thps_local_data_framework.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thpsberlin_minimal.vlt": [
+     "5e4bb195e4c19a6c8dd4719a98b0e1be1b9fcbfae095667d8f722c942200e773",
+     4976
+    ],
+    "data/db/dlc_thpsberlin_minimal.bin": [
+     "d5166082d641d6b575b6c0cbe02d9f79ba3e01155b79689846e6ab47061b267c",
+     2272
+    ],
+    "data/db/dlc_thpsberlin_minimal.opt": [
+     "5a60cce3b5637cde173fd2341b8f610e91500daf46d37496761bdc99587f237a",
+     16
+    ],
+    "data/db/dlc_thpsberlin_minimal.vaultlist.xml": [
+     "532a6121c8f51260edff85ed4ba614f6d8c375ea204feab8747e44c9c2d0b966",
+     290
+    ]
+   },
+   "big": [
+    "0f79fa88255f1fa7bcc60fec9c7421728d322f2a83d11cf7d25675debb3adcb8",
+    119072
+   ]
+  }
+ ]
+}

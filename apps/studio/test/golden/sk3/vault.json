@@ -1,0 +1,81 @@
+[
+ {
+  "name": "mymap1",
+  "slug": "mymap",
+  "keys": [
+   "mymap"
+  ],
+  "dist": "DIST_MyMap",
+  "milestone": null,
+  "version": "693cdcc3f57adb28"
+ },
+ {
+  "name": "mymap3",
+  "slug": "mymap",
+  "keys": [
+   "mymap",
+   "spot1",
+   "spot2"
+  ],
+  "dist": "DIST_MyMap",
+  "milestone": null,
+  "version": "693cdcc3f57adb28"
+ },
+ {
+  "name": "mymap12",
+  "slug": "mymap",
+  "keys": [
+   "mymap",
+   "spot1",
+   "spot2",
+   "spot3",
+   "spot4",
+   "spot5",
+   "spot6",
+   "spot7",
+   "spot8",
+   "spot9",
+   "spot10",
+   "spot11"
+  ],
+  "dist": "DIST_MyMap",
+  "milestone": null,
+  "version": "693cdcc3f57adb28"
+ },
+ {
+  "name": "summercamp",
+  "slug": "summercamp",
+  "keys": [
+   "summercamp",
+   "spot1",
+   "spot2",
+   "spot3",
+   "spot4",
+   "spot5",
+   "spot6",
+   "spot7",
+   "spot8"
+  ],
+  "dist": "DIST_SummerCamp",
+  "milestone": null,
+  "version": "693cdcc3f57adb28"
+ },
+ {
+  "name": "isleofgrom_ms",
+  "slug": "isleofgrom",
+  "keys": [
+   "isleofgrom",
+   "spot1",
+   "spot2",
+   "spot3",
+   "spot4",
+   "spot5",
+   "spot6",
+   "spot7",
+   "rail8"
+  ],
+  "dist": "DIST_IsleOfGrom",
+  "milestone": "dlc_{s4}_milestone_xyz",
+  "version": "b2157ad88ef77187"
+ }
+]
