@@ -1,0 +1,273 @@
+{
+"inputs": {
+"meshes": [
+{
+"label": "box_vertices",
+"V": {
+"$a": "f8",
+"o": 0,
+"n": 24,
+"shape": [
+8,
+3
+]
+},
+"T": {
+"$a": "i4",
+"o": 192,
+"n": 36,
+"shape": [
+12,
+3
+]
+},
+"S": {
+"$a": "i4",
+"o": 336,
+"n": 12,
+"shape": [
+12
+]
+},
+"kw": {
+"enable_vertices": true
+},
+"report": {
+"triangles": 12,
+"dropped": 0,
+"clusters": 1,
+"branch_nodes": 1,
+"leaves": 2,
+"mode2": 0
+}
+},
+{
+"label": "stairs_ramp",
+"V": {
+"$a": "f8",
+"o": 384,
+"n": 162,
+"shape": [
+54,
+3
+]
+},
+"T": {
+"$a": "i4",
+"o": 1680,
+"n": 234,
+"shape": [
+78,
+3
+]
+},
+"S": {
+"$a": "i4",
+"o": 2616,
+"n": 78,
+"shape": [
+78
+]
+},
+"kw": {
+"enable_vertices": true
+},
+"report": {
+"triangles": 78,
+"dropped": 0,
+"clusters": 1,
+"branch_nodes": 15,
+"leaves": 16,
+"mode2": 0
+}
+},
+{
+"label": "grid150",
+"V": {
+"$a": "f8",
+"o": 2928,
+"n": 14700,
+"shape": [
+4900,
+3
+]
+},
+"T": {
+"$a": "i4",
+"o": 120528,
+"n": 28572,
+"shape": [
+9524,
+3
+]
+},
+"S": null,
+"kw": {},
+"report": {
+"triangles": 9523,
+"dropped": 1,
+"clusters": 25,
+"branch_nodes": 2047,
+"leaves": 2048,
+"mode2": 0
+}
+},
+{
+"label": "soup",
+"V": {
+"$a": "f8",
+"o": 234816,
+"n": 1800,
+"shape": [
+600,
+3
+]
+},
+"T": {
+"$a": "i4",
+"o": 249216,
+"n": 2700,
+"shape": [
+900,
+3
+]
+},
+"S": {
+"$a": "i4",
+"o": 260016,
+"n": 900,
+"shape": [
+900
+]
+},
+"kw": {
+"leaf_max": 5,
+"max_cluster_verts": 64,
+"granularity": 0.004
+},
+"report": {
+"triangles": 896,
+"dropped": 4,
+"clusters": 41,
+"branch_nodes": 255,
+"leaves": 256,
+"mode2": 0
+}
+},
+{
+"label": "soup_edges",
+"V": {
+"$a": "f8",
+"o": 265416,
+"n": 600,
+"shape": [
+200,
+3
+]
+},
+"T": {
+"$a": "i4",
+"o": 270216,
+"n": 450,
+"shape": [
+150,
+3
+]
+},
+"S": null,
+"kw": {
+"edges": {
+"$a": "i4",
+"o": 263616,
+"n": 450,
+"shape": [
+150,
+3
+]
+}
+},
+"report": {
+"triangles": 148,
+"dropped": 2,
+"clusters": 1,
+"branch_nodes": 31,
+"leaves": 32,
+"mode2": 0
+}
+}
+],
+"tile_points": [
+[
+-1.0,
+1.0,
+-1.0
+],
+[
+0.0,
+1.0,
+-1.0
+],
+[
+1.0,
+1.0,
+-1.0
+],
+[
+1.0,
+1.0,
+1.0
+]
+],
+"spline_ids": [
+{
+"$u64": "3264274f2d335a99"
+},
+{
+"$u64": "20c7a26fa2decb66"
+}
+]
+},
+"expect": [
+{
+"label": "box_vertices",
+"size": 384,
+"sha256": "0eb1795cf671168eecdb753cb6714e0bbf32c7b317b6f5c350e606d52030fcb7",
+"raw": "collision_synth.0.expect"
+},
+{
+"label": "stairs_ramp",
+"size": 1664,
+"sha256": "f587df24b864877e07d49ebdc7f264c8d043015d0e6705b72c2c15cd8f8809e6",
+"raw": "collision_synth.1.expect"
+},
+{
+"label": "grid150",
+"size": 169808,
+"sha256": "7176a18e3a4afbab5342fb508befb6704c40430542644d8789600039d1d15adc"
+},
+{
+"label": "soup",
+"size": 32720,
+"sha256": "056f5428e1a8619bf4868d9ec8f414faef524585fe25980d8b96578d0b0c3ba4",
+"raw": "collision_synth.3.expect"
+},
+{
+"label": "soup_edges",
+"size": 3296,
+"sha256": "d75ba2e6a179ac322b736673c3572eba27d7a38130748c3224e1fae0f606ea52",
+"raw": "collision_synth.4.expect"
+},
+{
+"label": "tile_arena",
+"size": 2492,
+"sha256": "60467ffedd026262167428f40e8a35c91e08bb480aef9ccf3e0a2db14efc440a",
+"raw": "collision_synth.5.expect"
+},
+{
+"label": "tile_arena_plain",
+"size": 1700,
+"sha256": "8c8c818eb1a2e102e249a44d8639e65acf174ba7b10efd0862b04a3f34a14dfc",
+"raw": "collision_synth.6.expect"
+}
+]
+}

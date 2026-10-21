@@ -1,0 +1,37 @@
+{
+"inputs": {
+"curves": {
+"$a": "f8",
+"o": 0,
+"n": 480,
+"shape": [
+40,
+4,
+3
+]
+},
+"points": {
+"$a": "f8",
+"o": 3840,
+"n": 36,
+"shape": [
+12,
+3
+]
+}
+},
+"expect": [
+{
+"label": "curved",
+"size": 5936,
+"sha256": "a6d471bf42b3970c3057de45fbb187641661e9a78152855a2cd001a46933b96e",
+"raw": "splines.0.expect"
+},
+{
+"label": "straight",
+"size": 1632,
+"sha256": "2751d774cf5e586775537929e4bde002b5d1ae28eca54a6d4adf567bf1647e49",
+"raw": "splines.1.expect"
+}
+]
+}

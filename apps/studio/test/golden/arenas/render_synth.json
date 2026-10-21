@@ -1,0 +1,549 @@
+{
+"inputs": {
+"parts": [
+{
+"material": {
+"name": "cube",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+}
+},
+"positions": {
+"$a": "f8",
+"o": 0,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"normals": {
+"$a": "f8",
+"o": 576,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 1152,
+"n": 48,
+"shape": [
+24,
+2
+]
+},
+"uv1": {
+"$a": "f8",
+"o": 1536,
+"n": 48,
+"shape": [
+24,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 1920,
+"n": 36,
+"shape": [
+12,
+3
+]
+}
+},
+{
+"material": {
+"name": "flat",
+"shader": "environment.default",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+}
+},
+"positions": {
+"$a": "f8",
+"o": 2064,
+"n": 105,
+"shape": [
+35,
+3
+]
+},
+"normals": {
+"$a": "f8",
+"o": 2904,
+"n": 105,
+"shape": [
+35,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 3744,
+"n": 70,
+"shape": [
+35,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 4304,
+"n": 144,
+"shape": [
+48,
+3
+]
+}
+},
+{
+"material": {
+"name": "decal",
+"shader": "environment.decal",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+}
+},
+"positions": {
+"$a": "f8",
+"o": 4880,
+"n": 120,
+"shape": [
+40,
+3
+]
+},
+"normals": {
+"$a": "f8",
+"o": 5840,
+"n": 120,
+"shape": [
+40,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 6800,
+"n": 80,
+"shape": [
+40,
+2
+]
+},
+"uv1": {
+"$a": "f8",
+"o": 7440,
+"n": 80,
+"shape": [
+40,
+2
+]
+},
+"uv2": {
+"$a": "f8",
+"o": 8080,
+"n": 80,
+"shape": [
+40,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 8720,
+"n": 90,
+"shape": [
+30,
+3
+]
+}
+},
+{
+"material": {
+"shader": "environmentsimple.diffuse",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+}
+},
+"positions": {
+"$a": "f8",
+"o": 9080,
+"n": 120,
+"shape": [
+40,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 10040,
+"n": 80,
+"shape": [
+40,
+2
+]
+},
+"uv1": {
+"$a": "f8",
+"o": 10680,
+"n": 80,
+"shape": [
+40,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 11320,
+"n": 30,
+"shape": [
+10,
+3
+]
+}
+},
+{
+"material": {
+"name": "glass",
+"shader": "environment.transparent",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+},
+"texture_names": {
+"diffuse": "glass_d",
+"transparent": "glass_t"
+},
+"guid": {
+"$u64": "1234567890abcdef"
+}
+},
+"positions": {
+"$a": "f8",
+"o": 11440,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"normals": {
+"$a": "f8",
+"o": 12016,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 12592,
+"n": 48,
+"shape": [
+24,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 12976,
+"n": 36,
+"shape": [
+12,
+3
+]
+}
+},
+{
+"material": {
+"name": "sign",
+"shader": "incandescent.backlituvscroll",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+},
+"floats": {
+"uAnimationSpeed": 0.125,
+"vAnimationSpeed": -1.7
+}
+},
+"positions": {
+"$a": "f8",
+"o": 13120,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 13696,
+"n": 48,
+"shape": [
+24,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 14080,
+"n": 36,
+"shape": [
+12,
+3
+]
+}
+},
+{
+"material": {
+"name": "custom",
+"shader": "environment.default",
+"textures": {
+"lightmap": {
+"$u64": "2c70170a00000000"
+},
+"specular": {
+"$u64": "2c70170a00000001"
+},
+"diffuse": {
+"$u64": "2c70170a00000002"
+},
+"normal": {
+"$u64": "2c70170a00000003"
+},
+"detail": {
+"$u64": "2c70170a00000004"
+},
+"macrooverlay": {
+"$u64": "2c70170a00000005"
+},
+"transparent": {
+"$u64": "2c70170a00000006"
+},
+"environment": {
+"$u64": "2c70170a00000007"
+},
+"decal": {
+"$u64": "2c70170a00000008"
+}
+},
+"params": [
+"diffuse",
+"exposure",
+"normal"
+]
+},
+"positions": {
+"$a": "f8",
+"o": 14224,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"normals": {
+"$a": "f8",
+"o": 14800,
+"n": 72,
+"shape": [
+24,
+3
+]
+},
+"uv0": {
+"$a": "f8",
+"o": 15376,
+"n": 48,
+"shape": [
+24,
+2
+]
+},
+"indices": {
+"$a": "i4",
+"o": 15760,
+"n": 36,
+"shape": [
+12,
+3
+]
+}
+}
+]
+},
+"expect": [
+{
+"label": "arena",
+"size": 14704,
+"sha256": "b4d3ad1747ef0a3bd3224f4a37bb29258bede6003b2dc027c884e4e35b3a67be",
+"raw": "render_synth.0.expect"
+},
+{
+"label": "arena_one_part",
+"size": 3340,
+"sha256": "e205160faaaedad867df443f732b3885a71c2c7b7829893c25f755403a09a45c",
+"raw": "render_synth.1.expect"
+}
+]
+}

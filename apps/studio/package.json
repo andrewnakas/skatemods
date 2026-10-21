@@ -8,7 +8,11 @@
     "build": "node scripts/assets.mjs && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "assets": "node scripts/assets.mjs"
+    "assets": "node scripts/assets.mjs",
+    "convert": "tsx cli/skate3-convert.ts",
+    "build:cli": "esbuild cli/skate3-convert.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist-cli/skate3-convert.mjs",
+    "test:standalone": "npm run build:cli && tsx test/standalone_guard.ts",
+    "census": "tsx cli/skate3-census.ts"
   },
   "dependencies": {
     "fflate": "^0.8.3",
@@ -18,8 +22,13 @@
   "devDependencies": {
     "@types/node": "^26.6.4",
     "@types/three": "^0.186.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"
+  },
+  "bin": {
+    "skate3-convert": "dist-cli/skate3-convert.mjs"
   }
 }

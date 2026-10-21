@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map Converter</title>
+  <meta name="description" content="Convert a ReSkate (skate.) map mod into a Skate 3 DLC map in your browser. No game files needed; nothing is uploaded.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23141413'/%3E%3Cpath d='M6 22h20M9 22l3-9h8l3 9' stroke='%23d63a1f' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- fonts load without blocking: a pending render-blocking stylesheet holds back every script, so a slow or
+       blocked fonts host would leave the converter dead -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+</head>
+<body>
+  <header class="cv-bar">
+    <a class="brand" href="https://skatemods.com/">skatemods</a>
+    <span class="slash">/</span>
+    <h1>Map Converter</h1>
+  </header>
+  <main class="cv">
+    <p class="lede">ReSkate map mod in, Skate 3 map out. The conversion runs on your computer, in this tab: no skate. install, no game files, and nothing is uploaded.</p>
+
+    <section class="card" id="pick">
+      <h2>1. Pick the mod</h2>
+      <div id="drop" class="drop" tabindex="0">
+        <p><strong>Drop a mod .zip or its folder here</strong></p>
+        <p class="faint">Thunderstore downloads work as they are.</p>
+        <div class="row">
+          <label class="btn">Choose .zip<input id="zip-input" type="file" accept=".zip,application/zip" hidden></label>
+          <label class="btn ghost">Choose folder<input id="dir-input" type="file" webkitdirectory hidden></label>
+        </div>
+      </div>
+      <form id="ts-form" class="row ts">
+        <label for="ts-url" class="faint">or a Thunderstore package link</label>
+        <input id="ts-url" type="url" placeholder="https://thunderstore.io/c/reskate/p/Owner/Map_Name/" spellcheck="false">
+        <button class="btn ghost" type="submit">Fetch</button>
+      </form>
+    </section>
+
+    <section class="card" id="run" hidden>
+      <h2>2. Converting <span id="mod-name"></span></h2>
+      <div class="meter"><div id="bar"></div></div>
+      <p id="what" class="faint mono">starting</p>
+      <details><summary>Log</summary><pre id="log"></pre></details>
+    </section>
+
+    <section class="card" id="done" hidden>
+      <h2>3. Done</h2>
+      <p id="summary"></p>
+      <a id="download" class="btn" download>Download pack</a>
+      <p class="faint">Unzip it into the Skate 3 recomp's <code>dlc/</code> folder. The <code>CONTENTID</code> folder inside is the map.</p>
+    </section>
+
+    <p id="error" class="error" role="alert" hidden></p>
+  </main>
+  <script type="module" src="/src/convert_page.ts"></script>
+</body>
+</html>

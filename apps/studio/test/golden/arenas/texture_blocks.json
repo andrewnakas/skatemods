@@ -1,0 +1,37 @@
+{
+"inputs": {
+"bc1_px": {
+"$a": "u1",
+"o": 0,
+"n": 340800,
+"shape": [
+7100,
+16,
+3
+]
+},
+"bc3_alpha": {
+"$a": "u1",
+"o": 340800,
+"n": 45120,
+"shape": [
+2820,
+16
+]
+}
+},
+"expect": [
+{
+"label": "bc1",
+"size": 56800,
+"sha256": "aaa3d8e4ad49abde2c511d89ea0d5ec29aa5a11fa78033ba13a8c8c7ad68f8dd",
+"raw": "texture_blocks.0.expect"
+},
+{
+"label": "bc3_alpha",
+"size": 22560,
+"sha256": "309963a62bbfe45085ead9c5a9a45a343deb50b14f1282ac440d23764688d4fa",
+"raw": "texture_blocks.1.expect"
+}
+]
+}
