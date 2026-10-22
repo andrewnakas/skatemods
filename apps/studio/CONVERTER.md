@@ -46,10 +46,23 @@ collision and grind lines.
 - **Not yet:** an in-game boot of these packs on the recomp is still to do. A large map takes about 3–4 minutes and a
   few GB of RAM in the browser.
 
+## Thunderstore links
+
+`skatemods.com/ts-dl/<owner>/<name>[/<version>]` is a Cloudflare Pages Function (`apps/web/functions/ts-dl`). It
+streams the package zip with CORS, because Thunderstore itself sends none. It resolves the latest version and only
+serves packages listed in the ReSkate community, from thunderstore.io hosts. Nothing is stored.
+
+## Big maps
+
+- **brassy/bedroom** (4.9M triangles, a 726 MB pack) converts in the browser in about 12 minutes, and in about 5 with
+  the CLI.
+- Peak memory is about 2.7 GB.
+- The page writes the result zip into the browser's private storage (OPFS), not a second in-memory copy.
+- If the browser kills the worker for memory, the page reports it after 8 minutes without progress, instead of
+  hanging.
+
 ## Known limits
 
-- **Thunderstore links in the page** need the API route `/api/thunderstore/...` (in `apps/api`) to be deployed. Until
-  then the page hides that field; dropping the downloaded zip works.
 - **Lightmaps** are flat white.
 - **Prefab and effect references** inside maps are not converted. They are counted in the report.
 - **Base props placed inside an own blueprint** are positioned at the blueprint transform; the entity's own offset is

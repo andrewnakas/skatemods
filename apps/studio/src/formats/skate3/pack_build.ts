@@ -5,7 +5,7 @@
 // tools/pack.py (names, manifests, vaults, BIG).
 
 import { buildRenderArena, type RenderPart } from './render_write.ts';
-import { buildTexture, fromImage, lowresStandin, mipChain, type Rgba } from './texture_write.ts';
+import { buildTexture, fromImage, lowresStandin, mipChainCached, type Rgba } from './texture_write.ts';
 import { buildMesh, buildTileArena } from './collision_write.ts';
 import { straightSegment, type SplineSet } from './splines.ts';
 import { buildFiles, namesFor, writePack, type PackOutput, type Spot, type TileArenas } from './dlc.ts';
@@ -178,7 +178,9 @@ function collisionMeshes(V: number[], T: Uint32Array, S: number[], sel: number[]
   }
 }
 
-export interface PackOptions { size: number; shiftY?: number; texBudgetBytes: number; display?: string; log: (s: string) => void; progress: (f: number, what: string) => void }
+export interface PackOptions { size: number; shiftY?: number; texBudgetBytes: number; display?: string; log: (s: string) => void; progress: (f: number, what: string) => void;
+  /** free the export's geometry once it is tiled (the caller no longer needs it) */
+  releaseInput?: boolean }
 
 export interface BuiltPack extends PackOutput { report: Record<string, unknown> }
 
@@ -264,6 +266,8 @@ export function buildPack(ex: MapExport, o: Partial<PackOptions> = {}): BuiltPac
     }
   });
 
+  // the export's own arrays are now split into tiles; let them go (big maps: hundreds of MB in a browser tab)
+  if (o.releaseInput) for (const pr of ex.prims) { pr.positions = pr.normals = pr.uv0 = new Float32Array(0); pr.uv1 = null; pr.indices = new Uint32Array(0); pr.collision = undefined; }
   const spl = new Map<string, Vec3[][]>();
   for (const l of ex.splines) {
     const pts = l.map((p) => [p[0] + shift[0], p[1] + shift[1], p[2] + shift[2]] as Vec3);
@@ -332,12 +336,14 @@ export function buildPack(ex: MapExport, o: Partial<PackOptions> = {}): BuiltPac
         const m = tex.meta.get(t)!;
         let im = m.rgba, lv = 0;
         while (Math.max(im.width, im.height) >> lv > cap.get(t)! && Math.min(im.width, im.height) >> lv > 4) lv++;
-        if (lv) im = mipChain(im, lv + 1)[lv];
+        if (lv) im = mipChainCached(im, lv + 1)[lv];
         const id = tileTextureId(t, x, z);
         put(`cTex_${x}_${z}_high`, kk, buildTexture(fromImage(im, id, h32('tex', id, `(${im.height}, ${im.width})`), { alpha: m.alpha })));
       });
       texPerTile.push(total());
     }
+    // this tile's input geometry is written: drop it so memory holds the output, not input and output together
+    render.delete(key); coll.delete(key); spl.delete(key);
   }
   report.splines = splineCount;
   report.textures = tex.meta.size;
@@ -353,7 +359,7 @@ export function buildPack(ex: MapExport, o: Partial<PackOptions> = {}): BuiltPac
     if (kind) tiles[kind]!.push([name, streams.get(name)!]);
   }
   const names = namesFor(display, spots);
-  const files = buildFiles(display, tiles, spots, names, { cell: size });
+  const files = buildFiles(display, tiles, spots, names, { cell: size, releaseArenas: true });
   const out = writePack(files, names.slug, display);
   log(`pack ${out.contentId}/${out.bigName}: ${(out.bigSize / 1e6).toFixed(1)} MB, ${files.size} files, ${keys.length} tiles, ${splineCount} spline runs`);
   return { ...out, report };

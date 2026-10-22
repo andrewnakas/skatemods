@@ -135,7 +135,12 @@ export interface AtocRecord {
   pad?: Uint8Array;       // 8 bytes, default zero
 }
 
-export function atocRecordOfArena(assetId: bigint, arena: Uint8Array): AtocRecord {
+/** What the ATOC needs of an arena: its size and the 10 header words at 0x44 (lets a caller free the bytes). */
+export interface ArenaSummary { size: number; head: Uint8Array }
+export function arenaSummary(arena: Uint8Array): ArenaSummary { return { size: arena.length, head: arena.slice(0x44, 0x44 + 40) }; }
+
+export function atocRecordOfArena(assetId: bigint, arena: Uint8Array | ArenaSummary): AtocRecord {
+  if (!(arena instanceof Uint8Array)) return { assetId, size: arena.size, words: Array.from({ length: 10 }, (_, i) => u32be(arena.head, 4 * i)) };
   return { assetId, size: arena.length, words: Array.from({ length: 10 }, (_, i) => u32be(arena, 0x44 + 4 * i)) };
 }
 
@@ -220,7 +225,7 @@ const TILE_RX = /^c(?:Pres|Sim|Tex)_(-?\d+)_(-?\d+)(?:_\w+)?$/;
 /** One stream file of a group: name, chunk list [(asset id, arena)], stream length, bounds. */
 export interface Tile {
   name: string;
-  arenas: [bigint, Uint8Array][];
+  arenas: [bigint, Uint8Array | ArenaSummary][];
   streamSize: number;
   content?: Box | null;
   yrange?: [number, number] | null;
