@@ -1,6 +1,6 @@
 // ReSkate map mod -> Skate 3 pack, entirely in this worker. Nothing leaves the browser.
 import { convertMod } from '../formats/convert/convert.ts';
-import { filesSource, zipSource, storedZip, type Unpacked } from '../formats/convert/browser_sources.ts';
+import { filesSource, zipSource, storedZipFile, type Unpacked } from '../formats/convert/browser_sources.ts';
 import { urlPack } from '../formats/convert/base_pack.ts';
 
 export type ConvertRequest =
@@ -34,10 +34,11 @@ self.onmessage = async (ev: MessageEvent<ConvertRequest>) => {
     });
     post({ type: 'progress', f: 0.97, what: 'zipping the pack' });
     const pk = r.pack;
-    const zip = storedZip([
+    const zip = await storedZipFile([
       { name: `${pk.contentId}/${pk.bigName}`, parts: pk.bigParts },
       { name: `${pk.contentId}/${pk.headerName}`, parts: [pk.header] },
-    ]);
+    ], `${pk.contentId}.zip`);
+    pk.bigParts.length = 0;                       // the zip is on disk now; let the in-memory pack go
     post({ type: 'done', zip, fileName: `${pk.contentId}.zip`, contentId: pk.contentId, summary: { ...r.report, spawn: r.spawn, bigBytes: pk.bigSize } });
   } catch (e) {
     post({ type: 'error', message: e instanceof Error ? e.message : String(e) });

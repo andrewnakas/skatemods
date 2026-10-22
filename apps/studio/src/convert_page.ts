@@ -14,8 +14,20 @@ function start(req: ConvertRequest, name: string) {
   busy = true; err.hidden = true; done.hidden = true; run.hidden = false; pick.hidden = true;
   modName.textContent = name; log.textContent = ''; bar.style.width = '0%';
   const worker = new Worker(new URL('./workers/convert.worker.ts', import.meta.url), { type: 'module' });
+  // A browser that runs out of memory kills the worker without any error event; a watchdog turns that silence
+  // into a message instead of a page stuck forever. One step of a dense map can legitimately run for minutes.
+  let lastMsg = Date.now();
+  const STALL_MS = 8 * 60e3;
+  const dog = setInterval(() => {
+    if (Date.now() - lastMsg < STALL_MS) return;
+    clearInterval(dog); worker.terminate();
+    fail('The conversion stopped responding: this map is probably too big for the memory a browser tab gets. '
+      + 'Try a desktop browser with more free memory, or the command-line converter (skate3-convert), which has no such limit.');
+  }, 15e3);
   worker.onmessage = (ev: MessageEvent<ConvertMessage>) => {
+    lastMsg = Date.now();
     const m = ev.data;
+    if (m.type === 'error' || m.type === 'done') clearInterval(dog);
     if (m.type === 'progress') { bar.style.width = `${Math.round(m.f * 100)}%`; what.textContent = m.what; }
     else if (m.type === 'log') log.textContent += m.line + '\n';
     else if (m.type === 'error') { worker.terminate(); fail(`Conversion failed: ${m.message}`); }
@@ -30,7 +42,7 @@ function start(req: ConvertRequest, name: string) {
         + `${((m.summary.bigBytes as number) / 1e6).toFixed(0)} MB.`;
     }
   };
-  worker.onerror = (e) => { worker.terminate(); fail(`Conversion failed: ${e.message}`); };
+  worker.onerror = (e) => { clearInterval(dog); worker.terminate(); fail(`Conversion failed: ${e.message}`); };
   worker.postMessage(req);
 }
 

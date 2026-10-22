@@ -462,6 +462,9 @@ export interface BuildOptions {
   vaultVersion?: bigint;
   preloadLimit?: number;                           // sk3 env SK3_PRELOAD_LIMIT, default 63
   manifestOptions?: Pick<mf.GenerateOptions, 'legacyMissingGlobalGroup' | 'uniqueTileIds'>;
+  /** drop each tile's arena bytes once its stream file is built (the manifests need only a summary); empties the
+   *  caller's arena lists, so only for a caller that is done with them */
+  releaseArenas?: boolean;
 }
 
 function isTemplate(n: PackNames | Template): n is Template {
@@ -489,7 +492,11 @@ export function buildFiles(display: string, tiles: Partial<Record<mf.Kind, TileA
         : sfil.eaStream(g, assets);
       out.set(`${root}/${name}.xsf`, x);
       const k = content[name] ?? (name.endsWith('_Global') ? null : tileBoundsDefault(name, cell));
-      mt.push({ name, arenas, streamSize: x.length, content: k });
+      if (opt.releaseArenas) {
+        const summary = arenas.map(([id, a]) => [id, mf.arenaSummary(a)] as [bigint, mf.ArenaSummary]);
+        arenas.length = 0;
+        mt.push({ name, arenas: summary, streamSize: x.length, content: k });
+      } else mt.push({ name, arenas, streamSize: x.length, content: k });
     }
     const gen = mf.generate(D, kind, mt, {
       cell, platform: streamForm === 'raw' && mt.length ? 0 : 2, alignment: streamForm === 'raw' ? 0x100 : 0x80,

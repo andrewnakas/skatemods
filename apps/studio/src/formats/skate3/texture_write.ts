@@ -90,6 +90,26 @@ export function namesObject(nameId: bigint, tableId: bigint, nameHash: number, p
 }
 
 /** build(TexSpec) -> texture arena bytes */
+// The same image is written once per tile it appears in (only ids differ), so its mip chain, its encoded levels
+// and its tiled surface are computed once per image and reused: pure caches, byte-identical output.
+const tiledCache = new WeakMap<Map<string, Uint8Array>, Map<string, Uint8Array>>();
+function tiledMemo(fc: FetchConstant, words: number[], levels: Map<string, Uint8Array>): Uint8Array {
+  let m = tiledCache.get(levels);
+  if (!m) { m = new Map(); tiledCache.set(levels, m); }
+  const k = words.join(',');
+  let t = m.get(k);
+  if (!t) { t = tile(fc, levels); m.set(k, t); }
+  return t;
+}
+const mipCache = new WeakMap<Rgba, Rgba[]>();
+/** mipChain, memoised per source image (a longer chain extends the cached one: each level derives from the last) */
+export function mipChainCached(img: Rgba, levels: number): Rgba[] {
+  let c = mipCache.get(img);
+  if (!c || c.length < levels) { c = mipChain(img, levels); mipCache.set(img, c); }
+  return c.slice(0, levels);
+}
+const encodedCache = new WeakMap<Rgba, Map<string, Map<string, Uint8Array>>>();
+
 export function buildTexture(s: TexSpec): Uint8Array {
   const words = specFcWords(s);
   const fc = new FetchConstant(words);
@@ -98,7 +118,7 @@ export function buildTexture(s: TexSpec): Uint8Array {
   [...(s.header ?? T.HDR_WORDS), ...words].forEach((v, i) => dv.setUint32(4 * i, v >>> 0));
   const nt = namesObject(s.name_id, s.table_id ?? s.name_id, s.name_hash ?? NAME_HASH, s.pad ?? 0);
   return buildArena({ arenaId: s.arena_id, objects: [
-    { typeId: T.T_BASE, align: 0x1000, data: tile(fc, s.levels) },
+    { typeId: T.T_BASE, align: 0x1000, data: tiledMemo(fc, words, s.levels) },
     { typeId: T.T_TEXTURE, align: 4, data: tex },
     { typeId: T.T_NAMES, align: 0x10, data: nt },
     { typeId: T.T_EB0008, align: 0x10, data: EB0008 }] });
@@ -404,8 +424,14 @@ export function fromImage(rgba: Rgba, nameId: bigint, arenaId: number, o: FromIm
   const fmt = o.fmt ?? (lowres ? (alpha ? 6 : 4) : (alpha ? 20 : 18));
   const levels = o.levels || Math.floor(Math.log2(Math.max(w, h))) + 1;
   const fc = new FetchConstant(fetchWords(fmt, w, h, levels));
-  const lv = new Map<string, Uint8Array>();
-  mipChain(rgba, levels).forEach((im, k) => lv.set(levelKey(k, 0), T.endianFix(encodeLevel(im, fmt), fc.endian)));
+  let byKey = encodedCache.get(rgba);
+  if (!byKey) { byKey = new Map(); encodedCache.set(rgba, byKey); }
+  let lv = byKey.get(`${fmt}/${levels}`);
+  if (!lv) {
+    lv = new Map<string, Uint8Array>();
+    for (const [k, im] of mipChainCached(rgba, levels).entries()) lv.set(levelKey(k, 0), T.endianFix(encodeLevel(im, fmt), fc.endian));
+    byKey.set(`${fmt}/${levels}`, lv);
+  }
   return { arena_id: arenaId, name_id: nameId, fmt, width: w, height: h, nlevels: levels, cube: false, levels: lv,
     table_id: lowres ? (nameId | T.LOWRES_FLAG) : null };
 }
@@ -415,6 +441,6 @@ export function lowresStandin(rgba: Rgba, nameId: bigint, arenaId: number, size 
   const { width: w, height: h } = rgba;
   let k = 0;
   while ((Math.max(w, h) >> k) > size) k++;
-  const small = mipChain(rgba, k + 1)[k];
+  const small = mipChainCached(rgba, k + 1)[k];
   return fromImage(small, nameId, arenaId, { lowres: true });
 }

@@ -72,7 +72,31 @@ function crc32(parts: Uint8Array[]): number {
 }
 
 export function storedZip(files: { name: string; parts: Uint8Array[] }[]): Blob {
-  const enc = new TextEncoder(), out: BlobPart[] = [], central: Uint8Array[] = [];
+  return new Blob(storedZipParts(files) as BlobPart[], { type: 'application/zip' });
+}
+
+/** The stored zip written straight into OPFS (worker only): a disk-backed File, not a second in-memory copy of a
+ *  pack that can be most of a GB. Falls back to an in-memory Blob without OPFS sync handles. */
+export async function storedZipFile(files: { name: string; parts: Uint8Array[] }[], fileName: string): Promise<Blob> {
+  const parts = storedZipParts(files);
+  const opfs = typeof navigator !== 'undefined' && typeof navigator.storage?.getDirectory === 'function' && typeof (globalThis as any).FileSystemSyncAccessHandle !== 'undefined';
+  if (!opfs) return new Blob(parts as BlobPart[], { type: 'application/zip' });
+  const root = await navigator.storage.getDirectory();
+  const dir = await root.getDirectoryHandle('skate3-convert-out', { create: true });
+  for await (const [n] of (dir as any).entries()) await dir.removeEntry(n).catch(() => {});   // earlier results
+  const fh = await dir.getFileHandle(fileName, { create: true });
+  const h = await (fh as any).createSyncAccessHandle();
+  try {
+    h.truncate(0);
+    let at = 0;
+    for (const p of parts) { h.write(p, { at }); at += p.length; }
+    h.flush();
+  } finally { h.close(); }
+  return fh.getFile();
+}
+
+function storedZipParts(files: { name: string; parts: Uint8Array[] }[]): Uint8Array[] {
+  const enc = new TextEncoder(), out: Uint8Array[] = [], central: Uint8Array[] = [];
   let off = 0;
   for (const f of files) {
     const name = enc.encode(f.name), size = f.parts.reduce((s, p) => s + p.length, 0), crc = crc32(f.parts);
@@ -85,12 +109,12 @@ export function storedZip(files: { name: string; parts: Uint8Array[] }[]): Blob 
     c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
     c.setUint32(16, crc, true); c.setUint32(20, size, true); c.setUint32(24, size, true); c.setUint16(28, name.length, true);
     c.setUint32(42, off, true); ch.set(name, 46);
-    out.push(lh, ...(f.parts as BlobPart[])); central.push(ch);
+    out.push(lh, ...f.parts); central.push(ch);
     off += lh.length + size;
   }
   const cdSize = central.reduce((s, p) => s + p.length, 0);
   const end = new Uint8Array(22), e = new DataView(end.buffer);
   e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true);
   e.setUint32(12, cdSize, true); e.setUint32(16, off, true);
-  return new Blob([...out, ...(central as BlobPart[]), end], { type: 'application/zip' });
+  return [...out, ...central, end];
 }

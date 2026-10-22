@@ -24,7 +24,7 @@ export interface ConvertResult {
 export async function convertMod(src: ModSource, o: Partial<ConvertOptions> = {}): Promise<ConvertResult> {
   const log = o.log ?? (() => {}), progress = o.progress ?? (() => {});
   const ex = await exportMod(src, { log, basePack: o.basePack, extraBaseRefs: o.extraBaseRefs, progress: (f, w) => progress(f * 0.6, w) });
-  const pack = buildPack(ex, { shiftY: o.shiftY, log, progress: (f, w) => progress(0.6 + f * 0.4, w) });
+  const pack = buildPack(ex, { shiftY: o.shiftY, releaseInput: true, log, progress: (f, w) => progress(0.6 + f * 0.4, w) });
   return { pack, spawn: ex.spawns[0], report: { export: ex.report, pack: pack.report } };
 }
 
