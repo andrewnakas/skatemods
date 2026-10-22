@@ -7,15 +7,16 @@ import { openInput, folderPack } from './node_source.ts';
 import { convertMod } from '../src/formats/convert/convert.ts';
 import { urlPack } from '../src/formats/convert/base_pack.ts';
 
-const USAGE = 'usage: skate3-convert <mod.zip | mod folder> [-o out_dir] [--shift-y N] [--base-pack dir|url] [-v]';
+const USAGE = 'usage: skate3-convert <mod.zip | mod folder> [-o out_dir] [--shift-y N] [--base-pack dir|url] [--tex-budget MB] [-v]';
 const args = process.argv.slice(2);
-let input = '', out = '.', shiftY: number | undefined, verbose = false, packDir = '';
+let input = '', out = '.', shiftY: number | undefined, texMb: number | undefined, verbose = false, packDir = '';
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
   if (a === '-o' || a === '--out') out = args[++i];
   else if (a === '--shift-y') shiftY = +args[++i];
   else if (a === '-v' || a === '--verbose') verbose = true;
   else if (a === '--base-pack') packDir = args[++i];
+  else if (a === '--tex-budget') texMb = +args[++i];
   else if (a === '-h' || a === '--help') { console.log(USAGE); process.exit(0); }
   else if (!input) input = a;
   else { console.error(USAGE); process.exit(2); }
@@ -34,7 +35,7 @@ let dispose = () => {};
 try {
   const opened = await openInput(input, log);
   dispose = opened.dispose;
-  const r = await convertMod(opened.src, { shiftY, log, progress, basePack: !packDir ? undefined : /^https?:/.test(packDir) ? await urlPack(packDir) : folderPack(packDir) });
+  const r = await convertMod(opened.src, { shiftY, texBudgetBytes: texMb === undefined ? undefined : texMb * 1e6, log, progress, basePack: !packDir ? undefined : /^https?:/.test(packDir) ? await urlPack(packDir) : folderPack(packDir) });
   const pk = r.pack;
   const dir = join(out, pk.contentId); mkdirSync(dir, { recursive: true });
   const ws = createWriteStream(join(dir, pk.bigName)); for (const p of pk.bigParts) ws.write(p); ws.end();
