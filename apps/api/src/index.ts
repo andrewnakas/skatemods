@@ -8,6 +8,7 @@ import { runner } from './runner';
 import { face, purgeFaceScans } from './face';
 import { thunderstore } from './thunderstore';
 import { LICENSES } from './policy';
+import { mirrorIfStale, reskate } from './reskate';
 import { PART_SIZE } from './storage';
 
 const app = new Hono<AppEnv>().basePath('/api');
@@ -36,6 +37,7 @@ app.route('/admin', admin);
 app.route('/runner', runner);
 app.route('/face', face);
 app.route('/thunderstore', thunderstore);
+app.route('/reskate', reskate);
 
 app.notFound((c) => c.json({ error: 'Not found' }, 404));
 app.onError((err, c) => {
@@ -48,5 +50,6 @@ export default {
   fetch: app.fetch,
   async scheduled(_event: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
     ctx.waitUntil(purgeFaceScans(env));
+    ctx.waitUntil(mirrorIfStale(env).catch((e) => console.error('reskate mirror', e)));
   },
 } satisfies ExportedHandler<AppEnv['Bindings']>;
