@@ -11,7 +11,7 @@ export const TILE_TRI_BUDGET = 50_000;
 /** Allowed surface error, tried in order until a tile fits: 2 cm keeps ledges and coping true. */
 const ERROR_STEPS_M = [0.02, 0.05, 0.1, 0.25];
 
-export interface BudgetReport { tilesOver: number; trianglesBefore: number; trianglesAfter: number; maxTileBefore: number; stacked: number }
+export interface BudgetReport { tilesOver: number; trianglesBefore: number; trianglesAfter: number; maxTileBefore: number; stacked: number; strays: number }
 
 function tileTris(P: Float32Array, I: Uint32Array, cell: number, out: Map<string, number>, w = 1) {
   for (let t = 0; t < I.length; t += 3) {
@@ -62,6 +62,45 @@ export function dedupeTriangles(P: Float32Array, I: Uint32Array): Uint32Array {
   return out.length === I.length ? I : Uint32Array.from(out);
 }
 
+/**
+ * Drop stray triangles far outside the map. Some meshes decode with a few triangles kilometres
+ * away (SkateBIRD Bedroom 1: 32 copies of a 10-triangle mesh spanning 3.3 x 8.4 km around a 130 m
+ * room), which turns 4 tiles into 1,011 and leaves the spawn tile streaming in for ever. The map's
+ * extent is taken from where its triangles' centres actually are (0.5-99.5% in x and z) plus a
+ * margin; only triangles centred outside it go. A real ground plane is centred on the map and stays.
+ */
+export const STRAY_MARGIN_M = 150;
+export function cropStrays(prims: ExportPrim[], margin = STRAY_MARGIN_M): number {
+  const xs: number[] = [], zs: number[] = [];
+  for (const p of prims) {
+    const P = p.positions, I = p.indices;
+    for (let t = 0; t < I.length; t += 3) {
+      xs.push((P[3 * I[t]] + P[3 * I[t + 1]] + P[3 * I[t + 2]]) / 3);
+      zs.push((P[3 * I[t] + 2] + P[3 * I[t + 1] + 2] + P[3 * I[t + 2] + 2]) / 3);
+    }
+  }
+  if (xs.length < 1000) return 0;
+  const q = (a: number[], f: number) => a[Math.min(a.length - 1, Math.max(0, Math.floor(f * (a.length - 1))))];
+  xs.sort((a, b) => a - b); zs.sort((a, b) => a - b);
+  const x0 = q(xs, 0.005) - margin, x1 = q(xs, 0.995) + margin, z0 = q(zs, 0.005) - margin, z1 = q(zs, 0.995) + margin;
+  let dropped = 0;
+  const crop = (P: Float32Array, I: Uint32Array) => {
+    const out: number[] = [];
+    for (let t = 0; t < I.length; t += 3) {
+      const x = (P[3 * I[t]] + P[3 * I[t + 1]] + P[3 * I[t + 2]]) / 3, z = (P[3 * I[t] + 2] + P[3 * I[t + 1] + 2] + P[3 * I[t + 2] + 2]) / 3;
+      if (x >= x0 && x <= x1 && z >= z0 && z <= z1) out.push(I[t], I[t + 1], I[t + 2]);
+    }
+    return out.length === I.length ? I : Uint32Array.from(out);
+  };
+  for (const p of prims) {
+    const n = p.indices.length;
+    p.indices = crop(p.positions, p.indices);
+    dropped += (n - p.indices.length) / 3;
+    if (p.collision) p.collision = { positions: p.collision.positions, indices: crop(p.collision.positions, p.collision.indices) };
+  }
+  return dropped;
+}
+
 /** Simplify prims in place so no tile holds more than `budget` triangles (render and collision copies alike). */
 export async function budgetPrims(prims: ExportPrim[], cell = 100, budget = TILE_TRI_BUDGET, log: (s: string) => void = () => {}): Promise<BudgetReport> {
   await MeshoptSimplifier.ready;
@@ -73,12 +112,14 @@ export async function budgetPrims(prims: ExportPrim[], cell = 100, budget = TILE
     if (p.collision) p.collision = { positions: p.collision.positions, indices: dedupeTriangles(p.collision.positions, p.collision.indices) };
   }
   if (stacked) log(`budget: dropped ${stacked} repeated or degenerate triangles`);
+  const strays = cropStrays(prims);
+  if (strays) log(`budget: dropped ${strays} stray triangles far outside the map`);
   const perTile = new Map<string, number>();
   for (const p of prims) tileTris(p.positions, p.indices, cell, perTile);
   const before = [...perTile.values()].reduce((a, b) => a + b, 0);
   const maxTile = Math.max(0, ...perTile.values());
   const over = [...perTile.values()].filter((n) => n > budget).length;
-  if (!over) return { tilesOver: 0, trianglesBefore: before, trianglesAfter: before, maxTileBefore: maxTile, stacked };
+  if (!over) return { tilesOver: 0, trianglesBefore: before, trianglesAfter: before, maxTileBefore: maxTile, stacked, strays };
   const ratio = (key: string) => Math.min(1, budget / (perTile.get(key) ?? 1));
   let after = 0;
   for (const p of prims) {
@@ -95,5 +136,5 @@ export async function budgetPrims(prims: ExportPrim[], cell = 100, budget = TILE
     after += p.indices.length / 3;
   }
   log(`budget: ${over} tile(s) over ${budget} triangles (max ${maxTile}); ${before} -> ${after} triangles`);
-  return { tilesOver: over, trianglesBefore: before, trianglesAfter: after, maxTileBefore: maxTile, stacked };
+  return { tilesOver: over, trianglesBefore: before, trianglesAfter: after, maxTileBefore: maxTile, stacked, strays };
 }
