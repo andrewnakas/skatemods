@@ -242,3 +242,44 @@ test('face scan pairing', async () => {
   assert.equal((await game.req('GET', `/api/face/${other}/done`)).status, 200);
   assert.equal((await game.req('GET', `/api/face/${other}`)).status, 404);
 });
+
+// The game's Maps page: paging on the public list, and ReSkate maps mirrored
+// from Thunderstore (the first request fills the mirror, so this needs the
+// network; set SKIP_RESKATE=1 offline).
+test('map list pages for the game', async () => {
+  const anon = new Client();
+  const res = await anon.req('GET', '/api/maps?page=0&per=1');
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.page, 0);
+  assert.equal(body.per, 1);
+  assert.equal(typeof body.more, 'boolean');
+  assert.ok(body.maps.length <= 1);
+  // Without page= the site's shape is unchanged.
+  const plain = await (await anon.req('GET', '/api/maps')).json();
+  assert.equal(plain.page, undefined);
+  assert.ok(Array.isArray(plain.maps));
+});
+
+test('ReSkate maps: search and paging', { skip: process.env.SKIP_RESKATE === '1' }, async () => {
+  const anon = new Client();
+  const first = await (await anon.req('GET', '/api/reskate/maps?per=5')).json();
+  assert.ok(first.total > 5, `total ${first.total}`);
+  assert.equal(first.maps.length, 5);
+  assert.equal(first.more, true);
+  for (const m of first.maps) {
+    assert.match(m.id, /^[^-]+-.+/);
+    assert.ok(m.title && m.author && m.downloadUrl.startsWith('https://'));
+    assert.equal(m.recomp, null);
+  }
+  const second = await (await anon.req('GET', '/api/reskate/maps?per=5&page=1')).json();
+  assert.equal(second.page, 1);
+  const ids = new Set(first.maps.map(m => m.id));
+  assert.ok(second.maps.every(m => !ids.has(m.id)), 'pages overlap');
+  const q = first.maps[0].title.split(' ')[0];
+  const found = await (await anon.req('GET', `/api/reskate/maps?q=${encodeURIComponent(q)}`)).json();
+  assert.ok(found.maps.some(m => m.id === first.maps[0].id), `search for ${q}`);
+  const none = await (await anon.req('GET', '/api/reskate/maps?q=zzzz-no-such-map-zzzz')).json();
+  assert.equal(none.total, 0);
+  assert.equal(none.more, false);
+});

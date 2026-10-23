@@ -16,6 +16,8 @@ export interface Env {
   SIGNUPS_PER_HOUR?: string;
   /** Face scans allowed per client per hour (default 10). */
   FACE_SCANS_PER_HOUR?: string;
+  /** Thunderstore package list to mirror ReSkate maps from (tests point it at a fixture). */
+  RESKATE_LIST_URL?: string;
   /** Local development only: enables /api/auth/dev-login. Never set in production. */
   DEV_LOGIN?: string;
 }

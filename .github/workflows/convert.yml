@@ -29,6 +29,7 @@ jobs:
     timeout-minutes: 5
     outputs:
       pending: ${{ steps.pending.outputs.pending }}
+      reskate: ${{ steps.pending.outputs.reskate }}
     steps:
       - id: pending
         run: |
@@ -37,6 +38,9 @@ jobs:
           n=$(curl -sf -H "Authorization: Bearer $token" "$API/runner/pending" | jq -r .pending)
           echo "pending=${n:-0}" >> "$GITHUB_OUTPUT"
           echo "$n job(s) waiting"
+          r=$(curl -sf -H "Authorization: Bearer $token" "$API/runner/reskate/pending" | jq -r .pending || true)
+          echo "reskate=${r:-0}" >> "$GITHUB_OUTPUT"
+          echo "$r ReSkate conversion(s) waiting"
 
   convert:
     needs: check
@@ -64,3 +68,28 @@ jobs:
           # Publishing approved maps to Releases on andrewnakas/skatemods-maps.
           GH_TOKEN: ${{ secrets.MAPS_TOKEN }}
         run: python3 converter/run_jobs.py --max 10
+
+  # ReSkate (skate.) maps -> Skate 3 recomp packs, requested from the game or the site
+  # (POST /api/reskate/maps/<pkg>/convert). The converter reads only the mod and the CC0 base pack.
+  reskate:
+    needs: check
+    if: needs.check.outputs.reskate != '0' && needs.check.outputs.reskate != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/studio/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Converter
+        working-directory: apps/studio
+        run: npm ci && npm run build:cli
+      - name: Convert queued ReSkate maps
+        env:
+          SKATEMODS_API: ${{ env.API }}
+        run: python3 converter/run_reskate.py --max 10

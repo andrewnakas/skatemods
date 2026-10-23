@@ -2,6 +2,7 @@
 // ReSkate map mod -> MapExport: the in-memory form of what skate4to3's exporter writes as GLBs
 // (per-material world geometry + images, material routing, grind splines, spawns), ready for assemble.
 
+import { budgetPrims, TILE_TRI_BUDGET } from './budget.ts';
 import type { ModSource } from '../reskate-mod/frostbite.ts';
 import { bindMaterials, displayNameOf, indexMod, levelOf, placeGeometry, readDepots, readLevel, readTexture, spawnTransforms, type BaseRef, type MaterialBinding, type Placement } from '../reskate-mod/mod.ts';
 import { decodePng, packId, readPackGlb, resolveId, type BasePack, type PackAsset } from '../convert/base_pack.ts';
@@ -241,7 +242,16 @@ export async function exportMod(src: ModSource, opts: Partial<ExportOptions> = {
     report.basePack = b.report;
   }
   progress(0.8, 'placing spawns');
-  const keep = splines.filter((l) => polylineLength(l) >= 1.0);
+  // Stacked geometry stacks its grind lines too (OG Berrics: 7,249 runs, mostly exact repeats).
+  const lineKey = (l: Vec3[]) => l.map((v) => v.map((c) => Math.round(c * 100)).join(',')).join(';');
+  const seenLines = new Set<string>();
+  const keep = splines.filter((l) => {
+    if (polylineLength(l) < 1.0) return false;
+    const k = lineKey(l), r = lineKey([...l].reverse());
+    if (seenLines.has(k) || seenLines.has(r)) return false;
+    seenLines.add(k);
+    return true;
+  });
   // the map's own spawn: the first authored transform inside the geometry with ground under it
   let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
   for (const p of prims) for (let i = 0; i < p.positions.length; i += 3) for (let k = 0; k < 3; k++) { lo[k] = Math.min(lo[k], p.positions[i + k]); hi[k] = Math.max(hi[k], p.positions[i + k]); }
@@ -249,6 +259,8 @@ export async function exportMod(src: ModSource, opts: Partial<ExportOptions> = {
   if (authored) log(`spawn: the map's own at ${authored.pos.map((v) => v.toFixed(2))} yaw ${authored.yaw}`);
   report.authoredSpawn = authored;
   const spawns = findSpawns(ground, solid, keep, features, display, 8, authored);
+  progress(0.85, 'fitting dense geometry to the tile budget');
+  report.budget = await budgetPrims(prims, 100, TILE_TRI_BUDGET, log);
   report.textures = opts.basePack ? { own, standins, fromPack } : { own, standins };
   report.reprojected = reprojected;
   report.splines = keep.length;

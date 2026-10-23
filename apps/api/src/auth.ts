@@ -39,7 +39,10 @@ export function requireAdmin(c: { get(k: 'user'): User | null }): User {
  * blocks cross-site POSTs carrying the cookie; this also rejects other origins.
  */
 export const sameOrigin: MiddlewareHandler<AppEnv> = async (c, next) => {
-  if (!['GET', 'HEAD', 'OPTIONS'].includes(c.req.method) && !c.req.path.startsWith('/api/runner/')) {
+  // The ReSkate convert request is anonymous and cookie-free (the game sends it with no Origin), so a
+  // cross-site request can do nothing a direct one could not; it has its own per-client limit.
+  const anonymous = /^\/api\/reskate\/maps\/[^/]+\/convert$/.test(c.req.path);
+  if (!['GET', 'HEAD', 'OPTIONS'].includes(c.req.method) && !c.req.path.startsWith('/api/runner/') && !anonymous) {
     const origin = c.req.header('Origin') ?? '';
     const allowed = new URL(c.env.SITE).origin;
     // wrangler dev rewrites Origin to the route's host over http; locally, compare hosts only.

@@ -28,8 +28,25 @@ function flat(rgba: [number, number, number, number], size = 16): Rgba {
   for (let i = 0; i < size * size; i++) data.set(rgba, 4 * i);
   return { width: size, height: size, data };
 }
+// The lightmap slot is what environment shaders composite the diffuse against. White lights every
+// surface as if fully lit (the bleached, washed-out maps). It must not be uniform either: the
+// renderer's near-black test on this slot is a near-UNIFORM test, so a flat swatch is discarded
+// and served the 1x1 white fallback anyway. A 0.60 grey with a gentle gradient that clears
+// DXT1's 565 quantisation survives (skate4to3 sk4/export_glb.py LIGHTMAP_GREY / lightmap_swatch).
+export const LIGHTMAP_GREY = 0.6;
+const LIGHTMAP_DITHER = 8, LIGHTMAP_PX = 256;
+function lightmapSwatch(level = LIGHTMAP_GREY): Rgba {
+  const n = LIGHTMAP_PX, v = Math.round(Math.max(0, Math.min(1, level)) * 255);
+  const data = new Uint8Array(n * n * 4);
+  const ramp = (i: number) => -LIGHTMAP_DITHER + (2 * LIGHTMAP_DITHER * i) / (n - 1);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const g = Math.max(0, Math.min(255, Math.round(v + ramp(y) + ramp(x) * 0.5)));
+    data.set([g, g, g, 255], 4 * (y * n + x));
+  }
+  return { width: n, height: n, data };
+}
 const DEFAULTS: Record<Slot, Rgba> = {
-  normal: flat([128, 128, 255, 255]), specular: flat([10, 10, 10, 255]), lightmap: flat([255, 255, 255, 255]), diffuse: flat([128, 128, 128, 255]),
+  normal: flat([128, 128, 255, 255]), specular: flat([10, 10, 10, 255]), lightmap: lightmapSwatch(), diffuse: flat([128, 128, 128, 255]),
 };
 
 /** Resample to power-of-two sides (4..2048), bilinear. */
