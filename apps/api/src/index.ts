@@ -9,6 +9,7 @@ import { face, purgeFaceScans } from './face';
 import { thunderstore } from './thunderstore';
 import { LICENSES } from './policy';
 import { mirrorIfStale, reskate } from './reskate';
+import { reskateConvert, reskateRunner } from './reskate_convert';
 import { PART_SIZE } from './storage';
 
 const app = new Hono<AppEnv>().basePath('/api');
@@ -34,9 +35,11 @@ app.route('/auth', auth);
 app.route('/me', me);
 app.route('/maps', maps);
 app.route('/admin', admin);
+app.route('/runner/reskate', reskateRunner);
 app.route('/runner', runner);
 app.route('/face', face);
 app.route('/thunderstore', thunderstore);
+app.route('/reskate', reskateConvert);
 app.route('/reskate', reskate);
 
 app.notFound((c) => c.json({ error: 'Not found' }, 404));
