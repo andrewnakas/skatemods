@@ -10,6 +10,8 @@ export interface ConvertOptions {
   shiftY?: number;
   /** per-tile texture byte budget (cTex arena); default 7 MB */
   texBudgetBytes?: number;
+  /** pack display name (default: the mod's own); also decides the slug and package name */
+  display?: string;
   /** CC0 base-asset pack for the base-game props a map places */
   basePack?: BasePack;
   extraBaseRefs?: BaseRef[];
@@ -26,7 +28,7 @@ export interface ConvertResult {
 export async function convertMod(src: ModSource, o: Partial<ConvertOptions> = {}): Promise<ConvertResult> {
   const log = o.log ?? (() => {}), progress = o.progress ?? (() => {});
   const ex = await exportMod(src, { log, basePack: o.basePack, extraBaseRefs: o.extraBaseRefs, progress: (f, w) => progress(f * 0.6, w) });
-  const pack = buildPack(ex, { shiftY: o.shiftY, texBudgetBytes: o.texBudgetBytes, log, progress: (f, w) => progress(0.6 + f * 0.4, w) });
+  const pack = buildPack(ex, { shiftY: o.shiftY, texBudgetBytes: o.texBudgetBytes, display: o.display, log, progress: (f, w) => progress(0.6 + f * 0.4, w) });
   return { pack, spawn: ex.spawns[0], report: { export: ex.report, pack: pack.report } };
 }
 
