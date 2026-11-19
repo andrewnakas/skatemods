@@ -47,7 +47,7 @@ faq:
       multiplayer, though, so lobbies and most dedicated servers turn away banned players.
 ---
 
-ReSkate is a free, open-source mod platform for skate. (2025), the game fans call Skate 4, on PC. To get it, download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it into a new, empty folder of its own (not Steam's skate. folder), and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
+ReSkate is a free, open-source mod platform for the PC version of skate. (2025), the game fans call Skate 4. To get it, download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it into a new, empty folder of its own (not Steam's skate. folder), and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
 
 ## How to download ReSkate
 
