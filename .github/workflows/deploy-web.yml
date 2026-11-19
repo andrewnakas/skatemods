@@ -41,6 +41,10 @@ jobs:
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      # IndexNow sends only what changed, so keep the sitemap that's live before this deploy replaces it.
+      - name: Save the live sitemap
+        if: github.event_name != 'pull_request' && env.CF_TOKEN_SET == 'true'
+        run: curl -sf --max-time 60 https://skatemods.com/sitemap.xml -o "$RUNNER_TEMP/live-sitemap.xml" || echo "Live sitemap unavailable; IndexNow will skip this run."
       - name: Deploy
         if: github.event_name != 'pull_request' && env.CF_TOKEN_SET == 'true'
         env:
@@ -49,4 +53,4 @@ jobs:
         run: npx wrangler@4 pages deploy dist --project-name skatemods --branch main --commit-hash ${{ github.sha }}
       - name: Ping IndexNow (Bing and friends)
         if: github.event_name != 'pull_request' && env.CF_TOKEN_SET == 'true'
-        run: node scripts/indexnow.mjs || true
+        run: node scripts/indexnow.mjs "$RUNNER_TEMP/live-sitemap.xml" || true
