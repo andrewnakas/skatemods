@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import { getMods, getReadme, renderReadme, stripTitle, hasBody, indexable, mapLimit, day, mb, type Mod } from '../../../lib/thunderstore';
 import { inCategory, modCategories } from '../../../data/reskate-categories';
-import { modNotes } from '../../../data/mod-notes';
+import { modNotes, modMeta } from '../../../data/mod-notes';
 
 // One page per ReSkate mod, built from the Thunderstore snapshot at build time.
 export async function getStaticPaths() {
@@ -25,9 +25,10 @@ const similar = category ? all.filter((m) => m !== mod && m.owner !== mod.owner 
 const popular = all.filter((m) => m.owner !== mod.owner).sort((a, b) => b.downloads - a.downloads).slice(0, 8);
 const n = (x: number) => x.toLocaleString('en-US');
 const searchName = mod.name;
-const description = `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)}${mod.description.length > 150 ? '…' : ''} A ReSkate mod for skate. by ${mod.owner}. How to install it, what's in it, and the download.`.trim();
+const meta = modMeta[mod.fullName];
+const description = meta?.description ?? `${mod.description.trim().replace(/\s+/g, ' ').slice(0, 150)}${mod.description.length > 150 ? '…' : ''} A ReSkate mod for skate. by ${mod.owner}. How to install it, what's in it, and the download.`.trim();
 ---
-<Base title={`${mod.name}: ReSkate mod for skate. by ${mod.owner}`} description={description} noindex={!indexable(mod) && !html && !note} image={mod.icon} card="small" schema={{
+<Base title={meta?.title ?? `${mod.name}: ReSkate mod for skate. by ${mod.owner}`} description={description} noindex={!indexable(mod) && !html && !note} image={mod.icon} card="small" schema={{
   '@type': 'SoftwareApplication', name: mod.name, applicationCategory: 'GameApplication', operatingSystem: 'Windows',
   softwareVersion: mod.version, datePublished: mod.created, dateModified: mod.updated, downloadUrl: mod.downloadUrl,
   image: mod.icon, author: { '@type': 'Person', name: mod.owner }, description: mod.description, url: `https://skatemods.com${mod.path}`,

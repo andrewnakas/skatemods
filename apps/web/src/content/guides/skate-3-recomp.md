@@ -1,6 +1,6 @@
 ---
 title: "Skate 3 Recomp: install, mods, maps, Steam Deck"
-description: Everything about skate3recomp, the native PC port of Skate 3. Version 2.0's D3D12 and Vulkan renderer, DLC, custom maps, saves, Steam Deck, Android and iOS builds, and where online play stands.
+description: Skate 3 Recomp (skate3recomp) is a native port of Xbox 360 Skate 3 for Windows, Linux and macOS, from your own disc. Install, mods, maps and Steam Deck.
 game: skate-3
 level: beginner
 order: 1

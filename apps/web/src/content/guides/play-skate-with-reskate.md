@@ -1,6 +1,6 @@
 ---
-title: "ReSkate: download, install and play skate. offline"
-description: How to download and install ReSkate, the community modding platform for skate. (2025), the game fans call Skate 4. Play offline, add custom maps and cosmetics from Thunderstore, build parks and skate with friends in lobbies and on dedicated servers.
+title: "ReSkate: how to download, install and play on PC"
+description: Download ReSkate free from its official GitHub, unzip it into a folder of its own and run ReSkateLauncher.exe. Steps for Windows and Steam Deck, plus mods.
 game: skate-2025
 level: beginner
 order: 6
@@ -11,23 +11,67 @@ downloads:
   - { label: "skate. on Steam", url: "https://store.steampowered.com/app/3354750/", note: "free-to-play; add it to your library" }
   - { label: "Steam", url: "https://store.steampowered.com/about/", note: "open and signed in for multiplayer" }
   - { label: "ReSkate mods", url: "/reskate/", note: "browse every mod; install from the launcher" }
+faq:
+  - q: Is ReSkate free?
+    a: >-
+      Yes. ReSkate is free and open source under the GPL-3.0, and skate. is free-to-play on
+      [Steam](https://store.steampowered.com/app/3354750/). You only need the game in your Steam library.
+  - q: Where is ReSkate's GitHub?
+    a: >-
+      ReSkate's source code and README are at [github.com/Dingo-Shenanigans/ReSkate](https://github.com/Dingo-Shenanigans/ReSkate),
+      and the download is on its [releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest).
+      Bug reports go to its [issue tracker](https://github.com/Dingo-Shenanigans/ReSkate/issues).
+  - q: What is the ReSkate Discord?
+    a: >-
+      The ReSkate Discord invite is [discord.gg/Tkd5D2Y6EX](https://discord.gg/Tkd5D2Y6EX). Ask for help in its
+      bug-reports forum, with your ReSkate.log attached. Every official link is in
+      [ReSkate GitHub, Discord and download links](/faq/reskate-download-links/).
+  - q: Does ReSkate work on PS5, Xbox or Mac?
+    a: >-
+      Not on consoles. ReSkate is a Windows program for the Steam version of skate., and PS5 and Xbox can't run it
+      ([why](/faq/reskate-ps5-xbox/)). There's no Mac version either. A few players have tried CrossOver on Apple
+      silicon Macs, with mixed results ([details](/faq/reskate-mac/)).
+  - q: Does ReSkate work on Steam Deck?
+    a: >-
+      Mostly. The launcher runs through Proton, and since 2.0 it works with a controller and the Steam Deck trackpad.
+      Use 2.0.1 or later. Setup is in [Linux and Steam Deck](#linux-and-steam-deck), and player reports are in
+      [Does ReSkate work on Steam Deck?](/faq/reskate-steam-deck/)
+  - q: Is ReSkate safe?
+    a: >-
+      Nothing shows the official GitHub download is a virus. Windows Defender's Behavior:Win32/DefenseEvasion.A!ml
+      alert is a machine-learning guess, widely reported as a false positive, set off because ReSkate loads a DLL into
+      the game. Only download it from GitHub ([more](/faq/is-reskate-safe/)).
+  - q: Can you get banned for using ReSkate?
+    a: >-
+      ReSkate's FAQ says EA can't ban you for using it. The ReSkate team runs its own global ban list for its
+      multiplayer, though, so lobbies and most dedicated servers turn away banned players.
 ---
 
-ReSkate is a free, open-source mod platform for skate. (2025) on PC. Download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it into a new, empty folder of its own (not Steam's skate. folder), and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
+ReSkate is a free, open-source mod platform for skate. (2025), the game fans call Skate 4, on PC. To get it, download `ReSkate-<version>.zip` from [ReSkate's GitHub releases](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest), extract it into a new, empty folder of its own (not Steam's skate. folder), and run `ReSkateLauncher.exe`. You need Windows (or Linux with Proton) and skate. in your Steam library.
 
-## What is ReSkate
+## How to download ReSkate
 
-[ReSkate](/history/reskate/) runs one pinned Steam build of skate. offline, with a community runtime that adds mods, a park editor and its own multiplayer. It doesn't touch EA's live game or servers, and since 2.0 it blocks the game's own calls to EA. The box at the top of this page shows the current release, read from GitHub each time the site is built. The [changelog](/reskate/changelog/) lists what changed in every version, [what's new in 2.0](/blog/reskate-2/) covers the big update, and [ReSkate 2.0.7](/blog/reskate-2-0-7/) the releases since. The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
+Download ReSkate for free from its official GitHub releases page, [github.com/Dingo-Shenanigans/ReSkate/releases/latest](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). It's the only official download.
+
+1. Open [ReSkate's GitHub releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest).
+2. Download `ReSkate-<version>.zip`. It holds `ReSkateLauncher.exe`, the launcher, and `ReSkate.dll`, the runtime.
+3. Extract both files into a new, empty folder of their own, such as `C:\Games\ReSkate`. Not Steam's skate. folder.
+4. Run `ReSkateLauncher.exe`. The first time, it asks you to sign in to Steam and downloads the game build ReSkate supports (about 14 GB) into that folder.
+5. Press **PLAY**.
+
+The same releases page has the dedicated server for Windows and Linux. Re-uploads on other sites, in YouTube descriptions or in Discord DMs aren't from the ReSkate team. ReSkate's README links only to GitHub and [Thunderstore](https://thunderstore.io/c/reskate/), so websites named after ReSkate (this one included) are fan sites, not the team's. All the official links, the Discord included, are in [ReSkate GitHub, Discord and download links](/faq/reskate-download-links/).
+
+## What is ReSkate?
+
+ReSkate is a free, open-source (GPL-3.0) launcher and runtime that runs one pinned Steam build of skate. offline, with community mods, a park editor and its own multiplayer. Its mods come from the [ReSkate Thunderstore](https://thunderstore.io/c/reskate/), and every one is listed on [ReSkate mods](/reskate/). [Its history](/history/reskate/) covers the team and the launch.
+
+ReSkate doesn't touch EA's live game or servers, and since 2.0 it blocks the game's own calls to EA. The box at the top of this page shows the current release, read from GitHub each time the site is built. The [changelog](/reskate/changelog/) lists what changed in every version, [what's new in 2.0](/blog/reskate-2/) covers the big update, and [ReSkate 2.0.7](/blog/reskate-2-0-7/) the releases since. The project's [README](https://github.com/Dingo-Shenanigans/ReSkate#readme) is the source of truth if anything here drifts.
 
 ## What you need
 
 - **Windows 10 or 11**, 64-bit. On **Linux** (Steam Deck included) the launcher runs under Proton, and since 1.0.4 it detects Steam there. It isn't officially documented, so see [Linux and Steam Deck](#linux-and-steam-deck) below.
 - **Your own copy of [skate. on Steam](https://store.steampowered.com/app/3354750/).** The game is free-to-play, so adding it to your library is enough.
 - About **14 GB** free if the launcher has to download the game build for you.
-
-## How to download ReSkate
-
-The only official download is [ReSkate's GitHub releases page](https://github.com/Dingo-Shenanigans/ReSkate/releases/latest). Get `ReSkate-<version>.zip`, which holds the launcher and the runtime. The same page has the dedicated server for Windows and Linux. Re-uploads on other sites, in YouTube descriptions or in Discord DMs aren't from the ReSkate team. ReSkate's README links only to GitHub and [Thunderstore](https://thunderstore.io/c/reskate/), so websites named after ReSkate (this one included) are fan sites, not the team's. All the official links are in [Where do I download ReSkate?](/faq/reskate-download-links/)
 
 ## How to install ReSkate
 
@@ -46,7 +90,11 @@ ReSkate supports **one game build at a time** (Steam build `25414733`, unchanged
 
 </div> ReSkate keeps its own settings and saves in `%LOCALAPPDATA%\ReSkate\`, apart from the normal game's.
 
-## Controls
+## How to play ReSkate
+
+Start ReSkate with **PLAY** in `ReSkateLauncher.exe`, not from Steam, which starts your normal copy of skate. without ReSkate. Open Steam and sign in first if you want multiplayer. In game, press **Insert** for the ReSkate menu.
+
+### Controls
 
 | Key | Opens |
 |---|---|

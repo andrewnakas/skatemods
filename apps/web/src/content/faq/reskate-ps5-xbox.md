@@ -1,6 +1,7 @@
 ---
-question: Does ReSkate work on PS5 or Xbox?
+question: Can you play ReSkate on PS5 or Xbox?
 answer: No. ReSkate is a Windows program that loads into the Steam version of skate. on PC. Consoles can't run it, and there's no way to install skate. mods on PS5, PS4, Xbox Series X|S or Xbox One.
+description: No. ReSkate only runs with the Steam version of skate. on a Windows PC, or on Steam Deck and Linux through Proton. Consoles can't load it. Here's why.
 category: other-games
 games: [skate-2025]
 related: [faq/reskate-mac, faq/reskate-steam-deck, guides/play-skate-with-reskate]

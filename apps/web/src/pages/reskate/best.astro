@@ -19,7 +19,7 @@ const perDay = (m: Mod) => m.downloads / Math.max(1, (built.getTime() - new Date
 const rising = mods.filter((m) => built.getTime() - new Date(m.created).getTime() < week).sort((a, b) => perDay(b) - perDay(a)).slice(0, 10);
 const n = (x: number) => x.toLocaleString('en-US');
 const plain = (html: string) => html.replace(/<[^>]+>/g, '');
-const title = `Best ReSkate mods (${month}): top skate. maps`;
+const title = `Best ReSkate maps and mods (${month})`;
 const description = `The most downloaded ReSkate mods for skate. (Skate 4) right now: maps, boards, cosmetics, music and modpacks ranked by Thunderstore downloads, plus the fastest-rising new mods. Updated ${day(built.toISOString())}.`;
 ---
 <Base title={title} description={description} image="/og/reskate.png" schema={{
@@ -57,7 +57,7 @@ const description = `The most downloaded ReSkate mods for skate. (Skate 4) right
 
     {sections.map((s) => (
       <section id={s.cat.slug}>
-        <h2>Best {s.cat.title.replace('ReSkate ', '')}</h2>
+        <h2>{s.cat.slug === 'maps' ? 'Best ReSkate maps' : `Best ${s.cat.title.replace('ReSkate ', '')}`}</h2>
         <ol class="rank compact">
           {s.mods.map((m) => <li><a class="name" href={m.path}>{m.name}</a> <span class="by">by {m.owner}</span><span class="dl">{n(m.downloads)}</span></li>)}
         </ol>

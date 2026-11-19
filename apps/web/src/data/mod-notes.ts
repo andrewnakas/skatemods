@@ -37,4 +37,24 @@ export const modNotes: Record<string, string> = {
     '48 Spitfire Formula Four wheels, each design with the print outside and flipped inside, on a custom 58 mm conical wheel model. forestmouse also made The SLS Hangar map.',
   'NxRoot-Hoverboard':
     'Equip it as your trucks and the trucks and wheels disappear, so the deck floats. It passed 25,000 downloads within a week of its October 7 release.',
+  'Fourth_Studio-Reskate_Animator_Studio_Test':
+    'A test pack of three custom ollies (high, mid and low pop) made in the ReSkate Animator Studio by Fourth Studio. You need the <a href="https://github.com/FourthStudio/ReSkate-Animator-Studio" rel="nofollow noopener">ReSkate Animator Studio</a>, a modified ReSkate runtime for editing skate.\'s trick animations in game. As of November 2026 its README says it comes as a <code>ReSkate.dll</code> that replaces ReSkate\'s own, with the launcher\'s ReSkate updates turned off. Then press F8 in game to open the studio, install this pack from MARKET (or with the ReSkate launcher) and switch it on in PACKS.',
+  'MySukaTeam-Animation':
+    'Twelve custom tricks made in the ReSkate Animator Studio: kickflips, heelflips, a 360 flip, a laser flip, a pop shove-it, ollies and a 50-50 grind loop. You need the <a href="https://github.com/FourthStudio/ReSkate-Animator-Studio" rel="nofollow noopener">ReSkate Animator Studio</a>, a modified ReSkate runtime for editing skate.\'s trick animations in game. As of November 2026 its README says it comes as a <code>ReSkate.dll</code> that replaces ReSkate\'s own, with the launcher\'s ReSkate updates turned off. Then press F8 in game to open the studio, install this pack from MARKET (or with the ReSkate launcher) and switch it on in PACKS.',
+};
+
+/**
+ * Search-result title and description for mod pages that get a lot of search traffic, where the
+ * generated ones (from the Thunderstore name and description) don't say what the mod is. Same keys.
+ * Titles stay under 48 characters (the site adds " · skatemods"), descriptions under 155.
+ */
+export const modMeta: Record<string, { title: string; description: string }> = {
+  'Fourth_Studio-Reskate_Animator_Studio_Test': {
+    title: 'ReSkate Animator Studio test pack: custom ollies',
+    description: 'Three custom ollies for the ReSkate Animator Studio, the in-game trick animation editor you open with F8. How to get the studio and install the pack.',
+  },
+  'MySukaTeam-Animation': {
+    title: 'ReSkate Animator Studio pack: 12 custom tricks',
+    description: '12 custom tricks for the ReSkate Animator Studio: kickflips, heelflips, a 360 flip, a laser flip, ollies and a 50-50 loop. How to install the pack.',
+  },
 };

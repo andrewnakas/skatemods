@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import LatestReskate from '../../components/LatestReskate.astro';
 import { latestRelease } from '../../lib/reskate-releases';
+import { Marked } from 'marked';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -15,17 +16,25 @@ const { Content, headings } = await render(guide);
 const game = (await getCollection('games')).find((g) => g.id === guide.data.game);
 const others = (await getCollection('guides')).filter((g) => g.data.game === guide.data.game && g.id !== guide.id).sort((a, b) => a.data.order - b.data.order);
 const faqs = (await getCollection('faq')).filter((f) => f.data.games.includes(guide.data.game)).sort((a, b) => a.data.order - b.data.order).slice(0, 8);
-const toc = headings.filter((h) => h.depth === 2);
+const toc = [...headings.filter((h) => h.depth === 2), ...(guide.data.faq.length ? [{ depth: 2, slug: 'qa-h', text: 'Quick answers' }] : [])];
 // A guide that tracks ReSkate counts as updated whenever ReSkate ships a release.
 const latest = guide.data.latestReskate ? await latestRelease() : undefined;
 const updated = latest && new Date(latest.date) > guide.data.updated ? new Date(latest.date) : guide.data.updated;
 const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/content/guides/${guide.id}.md`;
----
-<Base title={guide.data.title} description={guide.data.description} type="article" image={`/og/guide-${guide.id}.png`} schema={{
+// Short Q&As from the frontmatter: rendered at the end, and sent to search engines as FAQPage data (plain text).
+const md = new Marked();
+const qa = guide.data.faq.map((f) => ({ q: f.q, html: md.parseInline(f.a) as string }));
+const plain = (html: string) => html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+const article = {
   '@type': 'Article', headline: guide.data.title, description: guide.data.description, dateModified: updated.toISOString(),
   author: { '@type': 'Organization', name: 'skatemods', url: 'https://skatemods.com/' }, image: `https://skatemods.com/og/guide-${guide.id}.png`,
   mainEntityOfPage: `https://skatemods.com/guides/${guide.id}/`,
-}}>
+};
+const schema = qa.length
+  ? { '@graph': [article, { '@type': 'FAQPage', mainEntity: qa.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: plain(f.html) } })) }] }
+  : article;
+---
+<Base title={guide.data.title} description={guide.data.description} type="article" image={`/og/guide-${guide.id}.png`} schema={schema}>
   <PageHead parent={{ href: '/guides/', label: 'Guides' }} eyebrow={game?.data.title} title={guide.data.title} lede={guide.data.description} />
   <div class="wrap layout">
     <article class="prose">
@@ -41,6 +50,12 @@ const edit = `https://github.com/andrewnakas/skatemods/edit/main/apps/web/src/co
         </section>
       )}
       <Content />
+      {qa.length > 0 && (
+        <section class="qa" aria-labelledby="qa-h">
+          <h2 id="qa-h">Quick answers</h2>
+          {qa.map((f) => <><h3>{f.q}</h3><p set:html={f.html} /></>)}
+        </section>
+      )}
       {(others.length > 0 || faqs.length > 0) && (
         <section class="related" aria-labelledby="rel-h">
           <h2 id="rel-h">Related</h2>

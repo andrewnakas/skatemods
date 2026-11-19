@@ -19,7 +19,7 @@ interface Props {
 
 const { title, description = 'The open-source hub for modding every skate game: guides, history, community Skate 3 maps and automatic PS3 / recomp / .skate conversion.', image = '/og/default.png', type = 'website', schema, card = 'large', noAnalytics = false, noindex = false } = Astro.props;
 const imageUrl = new URL(image, 'https://skatemods.com');
-const fullTitle = title === 'skatemods' ? 'skatemods: skate mods, ReSkate and Skate 3 online' : `${title} · skatemods`;
+const fullTitle = title === 'skatemods' ? 'skatemods: ReSkate mods, Skate 3 on PC and custom maps' : `${title} · skatemods`;
 const path = Astro.url.pathname;
 
 const nav = [

@@ -6,8 +6,8 @@ import PageHead from '../../components/PageHead.astro';
 const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
 const games = new Map((await getCollection('games')).map((g) => [g.id, g.data.title]));
 ---
-<Base title="Guides" description="Step-by-step guides for modding Skate 3, skate. (2025) with ReSkate, the classic Tony Hawk's games, Skater XL and Session.">
-  <PageHead title="Guides" lede="Step by step, from your first native Skate 3 launch to converting maps between platforms and modding the new skate. with ReSkate." />
+<Base title="Skate mod guides: ReSkate, Skate 3 on PC, maps" description="Step-by-step guides: install ReSkate for skate. (Skate 4), play Skate 3 on PC, add custom maps, and mod THUG Pro, the THPS remakes, Skater XL and Session.">
+  <PageHead title="Skate mod guides" lede="Step-by-step guides to modding skate games: how to download and install ReSkate for the new skate., play Skate 3 on PC with the recomp or RPCS3, convert and install custom maps, and mod the Tony Hawk's games, Skater XL and Session." />
   <div class="wrap">
     <ol class="guides">
       {guides.map((g, i) => (

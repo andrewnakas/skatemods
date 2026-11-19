@@ -14,13 +14,13 @@ const built = mods.map((m) => m.fullName);
 const SSR = 150;
 const total = `${Math.floor(mods.length / 100) * 100}+`;
 ---
-<Base title={mods.length ? `ReSkate mods: ${total} skate. mods, maps and boards` : 'ReSkate mods for skate. (Skate 4)'} image="/og/reskate.png" description={`Browse ${mods.length ? total + ' ' : ''}ReSkate mods for skate. (Skate 4): custom maps, boards, clothing, soundtracks and scripts from Thunderstore, each with install steps and download counts.`} schema={{
+<Base title={mods.length ? `ReSkate mods: ${total} skate. mods, maps and boards` : 'ReSkate mods for skate. (Skate 4)'} image="/og/reskate.png" description={`ReSkate is the free, open-source mod platform for skate. (Skate 4) on PC. Browse ${mods.length ? total + ' ' : ''}ReSkate mods: maps, boards, clothes and music, with install steps.`} schema={{
   '@type': 'CollectionPage', name: 'ReSkate mods for skate.', url: 'https://skatemods.com/reskate/',
   mainEntity: { '@type': 'ItemList', numberOfItems: mods.length, itemListElement: [...mods].sort((a, b) => b.downloads - a.downloads).slice(0, 30).map((m, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://skatemods.com${m.path}`, name: m.name })) },
 }}>
-  <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="ReSkate mods" lede="Every mod on the ReSkate Thunderstore: custom maps, boards, cosmetics and scripts for EA's skate. The list refreshes from Thunderstore on every visit. Install mods from the ReSkate launcher's MODS page.">
+  <PageHead parent={{ href: '/games/skate-2025/', label: 'skate. (2025)' }} title="ReSkate mods" lede="ReSkate is a free, open-source mod platform for EA's skate. (2025) on PC. It runs the game offline with custom maps, mods, a park editor and its own multiplayer. Here is every mod on the ReSkate Thunderstore, refreshed on every visit; install them from the ReSkate launcher's MODS page.">
     <p class="meta head-links">Browse: {modCategories.map((c, i) => <>{i > 0 && ' · '}<a href={`/reskate/${c.slug}/`}>{c.short}</a></>)} · <a href="/reskate/best/">Best mods</a> · <a href="/reskate/changelog/">ReSkate changelog</a></p>
-    <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">ReSkate download and install</a> · <a href="/faq/reskate-not-working/">Fix problems</a> · <a href="/faq/is-reskate-safe/">Is it safe?</a> · <a href="/face/">Face scan</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
+    <p class="meta head-links"><a href="/guides/play-skate-with-reskate/">How to download and install ReSkate</a> · <a href="/faq/reskate-not-working/">Fix problems</a> · <a href="/faq/is-reskate-safe/">Is it safe?</a> · <a href="/face/">Face scan</a> · <a href="/blog/reskate-launch/">The launch</a> · <a href="https://thunderstore.io/c/reskate/">Thunderstore</a> · <a href="https://discord.gg/Tkd5D2Y6EX">Discord</a></p>
   </PageHead>
   <div class="wrap">
     <div class="controls">
@@ -43,6 +43,17 @@ const total = `${Math.floor(mods.length / 100) * 100}+`;
     <div class="callout note">
       <p><strong>Install:</strong> open <code>ReSkateLauncher.exe</code> → <strong>MODS</strong> and search for the mod, or drop its <code>.zip</code> on the launcher window. Players on a server need the same map mods as the server. <strong>Only install mods you trust:</strong> scripts can run code. skatemods doesn't host or review these mods. They come straight from <a href="https://thunderstore.io/c/reskate/">Thunderstore</a>.</p>
     </div>
+
+    <section class="prose about" aria-labelledby="what-h">
+      <h2 id="what-h">What is ReSkate?</h2>
+      <p>ReSkate is a free, open-source (GPL-3.0) launcher and runtime that runs one pinned Steam build of skate. offline, with community mods, a park editor and its own multiplayer. It's a fan project from the Dingo Shenanigans team, not affiliated with EA or Full Circle, and it runs on Windows, or on Linux and Steam Deck through Proton. ReSkate mods are published on the <a href="https://thunderstore.io/c/reskate/">ReSkate Thunderstore</a> and installed from the launcher.</p>
+      <ul>
+        <li><strong>Get it:</strong> the only official download is <a href="https://github.com/Dingo-Shenanigans/ReSkate/releases/latest">ReSkate's GitHub releases page</a>. Step by step: <a href="/guides/play-skate-with-reskate/">how to download, install and play ReSkate</a>.</li>
+        <li><strong>Consoles and Mac:</strong> it doesn't run on <a href="/faq/reskate-ps5-xbox/">PS5 or Xbox</a>, and there's no <a href="/faq/reskate-mac/">Mac version</a>.</li>
+        <li><strong>Safety:</strong> <a href="/faq/is-reskate-safe/">why Windows Defender flags it</a>.</li>
+        <li><strong>Background:</strong> <a href="/blog/reskate-launch/">how it works and how it launched</a>, and <a href="/history/reskate/">its history</a>.</li>
+      </ul>
+    </section>
   </div>
 </Base>
 
@@ -116,4 +127,5 @@ const total = `${Math.floor(mods.length / 100) * 100}+`;
   .count { margin: 0 0 0.5rem; }
   .empty { color: var(--ink-soft); }
   .note { max-width: 70ch; }
+  .about { margin-top: 2.5rem; }
 </style>
