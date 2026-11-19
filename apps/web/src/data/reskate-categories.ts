@@ -22,7 +22,7 @@ export const modCategories: ModCategory[] = [
       !/teleport|minimap|hud|overview|marker|radio|playlist|deck/i.test(`${m.name} ${m.description}`),
     title: 'ReSkate custom maps',
     short: 'Maps',
-    description: 'Every custom map for skate. (Skate 4) on ReSkate: the full Skate 3 city, skate 2’s New San Vanelona, Skater XL ports and original parks, with install steps.',
+    description: 'The best ReSkate maps for skate. (Skate 4), most downloaded first: the Skate 3 city, skate 2’s New San Vanelona, Skater XL ports and parks.',
     lede: 'Custom maps for skate. through ReSkate, most downloaded first: ports of Port Carverton and New San Vanelona, Skater XL spots and original parks. Install them from the launcher’s MODS page, then pick the map from the level list in the ReSkate menu (Insert).',
   },
   {

@@ -1,6 +1,7 @@
 ---
-question: ReSkate isn't working. How do I fix it?
-answer: Most problems are one of six things. Your antivirus is blocking the files, Steam wasn't running, a mod is outdated, the game build changed, your launcher drew on the wrong GPU, or a big map needs a newer version. Update to the latest release first, then work down the list below.
+question: ReSkate not working? Fixes for common errors
+answer: Update ReSkate first. The launcher updates itself when it starts. Most other problems are one of six things. Your antivirus is blocking the files, Steam wasn't running, a mod is outdated, the game build changed, your launcher drew on the wrong GPU, or a big map needs a newer version. Find what you see in the table below.
+description: Update ReSkate first; the launcher updates itself when it starts. Then match your error, from Trojan alerts and crashes to Unknown Player, to its fix.
 category: other-games
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, faq/is-reskate-safe, faq/reskate-steam-deck]

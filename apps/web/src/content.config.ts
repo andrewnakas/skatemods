@@ -36,6 +36,8 @@ const guides = defineCollection({
     downloads: z.array(z.object({ label: z.string(), url: z.string(), note: z.string().optional() })).default([]),
     /** Show the current ReSkate release (from GitHub at build time) at the top. */
     latestReskate: z.boolean().default(false),
+    /** Short questions and answers, shown at the end of the guide and emitted as FAQPage data. Answers may hold Markdown links. */
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
   }),
 });
 
@@ -47,6 +49,8 @@ const faq = defineCollection({
     question: z.string(),
     /** One or two sentences; shown on the index and as the page lede. */
     answer: z.string(),
+    /** Search-result snippet (meta description), when the answer is too long for one. Keep it under 155 characters. */
+    description: z.string().optional(),
     category: z.enum(['basics', 'skate-3', 'legal', 'other-games']),
     games: z.array(z.string()).default([]),
     /** Ids of guides or other FAQ entries, e.g. 'guides/convert-ps3-maps' or 'faq/map-formats'. */

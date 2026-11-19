@@ -1,6 +1,6 @@
 ---
-title: "What is ReSkate? The skate. mod platform's 1.0 launch"
-description: ReSkate is the open-source launcher, runtime and dedicated server that lets you play EA's skate. offline with mods. It launched on October 2, 2026, and within a day there were custom maps from Skate 3, skate 2 and Skater XL, community servers, two hotfixes and nearly 2,900 people in its Discord.
+title: "What is ReSkate? How it works and what shipped"
+description: ReSkate is a free, open-source launcher, runtime and server that runs EA's skate. offline with mods. How it works, and its October 2, 2026 launch.
 date: 2026-10-03
 updated: 2026-10-13
 author: skatemods
@@ -8,7 +8,9 @@ games: [skate-2025, skate-3, skate-2, skater-xl]
 related: [guides/play-skate-with-reskate, guides/host-a-reskate-server, history/reskate, faq/skate-2025]
 ---
 
-*To download and install ReSkate, follow [ReSkate: download, install and play](/guides/play-skate-with-reskate/), which always shows the current version. What changed since launch: [ReSkate 2.0](/blog/reskate-2/), [2.0.7](/blog/reskate-2-0-7/) and the [changelog](/reskate/changelog/).*
+It works by freezing the game: ReSkate runs one pinned Steam build of skate. offline and loads its own runtime into it, and every mod targets that same build. Within a day of launch there were maps from Skate 3, skate 2 and Skater XL, two hotfixes and nearly 2,900 people in its Discord.
+
+*To download and install ReSkate, follow [how to download, install and play ReSkate](/guides/play-skate-with-reskate/), which always shows the current version. What changed since launch: [ReSkate 2.0](/blog/reskate-2/), [2.0.7](/blog/reskate-2-0-7/) and the [changelog](/reskate/changelog/).*
 
 For a year, the answer to "can you mod the new skate.?" was no. EA's free-to-play revival is online-only, sits behind Javelin kernel anti-cheat, and changes with every live-service patch. Its user agreement calls mods unauthorized third-party programs. While the 2010 game got a native PC port and a fully writable world format, the newest game in the series stayed closed.
 

@@ -1,11 +1,17 @@
 ---
-title: "Skate 3 in a web browser: the browser port explained"
-description: A Skate 3 browser game at skate.aaddpp.lol went viral on October 8, 2026. What it runs, where its game data comes from, and the browser options that need no game files at all.
+title: "Skate 3 in a browser: skate.aaddpp.lol explained"
+description: skate.aaddpp.lol is an unofficial Skate 3 browser game, a WebGPU build of the fan-made Rust engine, not EA's code. What it runs and its data source.
 date: 2026-10-10
 author: skatemods
 games: [skate-3]
 related: [guides/play-skate-3-anywhere, faq/skate-3-online, faq/dumping-your-own-games, guides/skate-maps-rust-engine]
 ---
+
+## Can you play Skate 3 in a browser?
+
+Yes, in a way. skate.aaddpp.lol is an unofficial Skate 3 browser game: a web build of the open-source, fan-made [Skate 3 Rust engine](https://github.com/SK8-ENGINE/skate-3-rust-engine), not EA's game and not an emulator. It needs a browser with WebGPU. As of October 10, 2026, its public site streamed converted Skate 3 game data from another domain rather than your own copy ([details below](#where-the-game-data-comes-from)). It's aaddpp's project, separate from [ReSkate](/guides/play-skate-with-reskate/), the mod platform for skate. (2025). For the full original game on your own hardware, [Skate 3 Recomp](/guides/skate-3-recomp/) runs your Xbox 360 copy natively on Windows, Linux and macOS.
+
+## How it went viral
 
 On October 8, 2026, [Operation Sports](https://www.operationsports.com/an-18-year-old-student-figured-out-how-to-make-skate-3-playable-in-a-web-browser/) and [TweakTown](https://www.tweaktown.com/news/113993/you-can-now-play-skate-3-black-ops-and-20-plus-classic-games-in-your-web-browser/index.html) covered a Skate 3 browser game at **skate.aaddpp.lol**. Its maker, aaddpp (GitHub [vmpprotect](https://github.com/vmpprotect)), told Operation Sports they built it over a few days and were "averaging 360fps LOCKED". Searches for "skate 3 browser game" have been climbing since.
 

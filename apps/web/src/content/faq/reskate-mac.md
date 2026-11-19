@@ -4,6 +4,7 @@ answer: Not officially. skate. has no macOS version and ReSkate is a Windows pro
 category: other-games
 games: [skate-2025]
 related: [faq/reskate-steam-deck, faq/reskate-ps5-xbox, guides/play-skate-with-reskate]
+description: Not officially. ReSkate is a Windows program and skate. has no macOS version. Some players have tried CrossOver on Apple silicon Macs, with mixed results.
 order: 37.4
 updated: 2026-10-10
 ---

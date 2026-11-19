@@ -1,9 +1,10 @@
 ---
-question: "ReSkate download: GitHub, Discord and Thunderstore"
+question: "ReSkate GitHub, Discord and download links"
 answer: The only official download is ReSkate's GitHub releases page, github.com/Dingo-Shenanigans/ReSkate/releases/latest. Get ReSkate-<version>.zip. The Discord is discord.gg/Tkd5D2Y6EX, and mods are on thunderstore.io/c/reskate. The box below shows the current version.
 category: other-games
 games: [skate-2025]
 related: [guides/play-skate-with-reskate, faq/is-reskate-safe, guides/host-a-reskate-server]
+description: "ReSkate's only official download is its GitHub releases page, github.com/Dingo-Shenanigans/ReSkate. The ReSkate Discord is discord.gg/Tkd5D2Y6EX."
 order: 37.1
 updated: 2026-10-13
 latestReskate: true

@@ -1,9 +1,10 @@
 ---
-question: "Is ReSkate safe, or a virus? Why the Trojan alert?"
+question: "Is ReSkate safe? Why Defender calls it a Trojan"
 answer: Nothing shows the official ReSkate download from GitHub is a virus. It's open source, and the Trojan warning is a machine-learning guess, widely reported as a false positive. Windows Defender started flagging it as Behavior:Win32/DefenseEvasion.A!ml around version 1.0.8. The "!ml" means a machine-learning guess, set off because ReSkate loads a DLL into the game. Download only from GitHub Releases and add the ReSkate folder to your antivirus exclusions.
 category: other-games
 games: [skate-2025]
 related: [faq/reskate-download-links, guides/play-skate-with-reskate, faq/reskate-not-working, faq/is-reskate-ai]
+description: Nothing shows the official GitHub download is a virus. Defender's DefenseEvasion.A!ml alert is a machine-learning guess, widely called a false positive.
 order: 34
 updated: 2026-10-10
 ---
